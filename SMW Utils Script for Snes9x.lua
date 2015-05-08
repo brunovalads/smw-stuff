@@ -7,6 +7,7 @@
  Contributers: gocha, Mr.
  
  Edited by BrunoValads and checked in snes9x-rr 1.51 v7
+ github.com/brunovalads/smw-stuff
 
  === Cheat Keys ===
 
