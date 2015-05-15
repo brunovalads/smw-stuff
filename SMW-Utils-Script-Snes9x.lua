@@ -7,15 +7,14 @@
  Contributers: gocha, Mr.
  
  Edited by BrunoValads and checked in snes9x-rr 1.51 v7
- github.com/brunovalads/smw-stuff
 
  === Cheat Keys ===
 
  Level:
- up+select         Increment powerup (0 - 255)
- down+select       Decrement powerup (0 - 255)
- up+select(hold)   Increment powerup quickly
- down+select(hold) Decrement powerup quickly
+ up+select         Increment powerup (0 - 255) \
+ down+select       Decrement powerup            | hold to
+ up+L              Increment item box (0 - 255) | change quickly
+ down+L            Decrement item box          /
  L+A               Change move method (normal.P-meter,free)
  pause+select      Exit the current level, with activating the next level
  pause+(A+select)  Exit the current level, with activating the next level (secret goal)
@@ -38,6 +37,9 @@ local smwRegularDebugFuncOn = true
 local smwCutPowerupAnimationOn = false
 local smwCutPowerdownAnimationOn = false
 local smwDragAndDropOn = true
+local smwPowerChangeOn = true
+local smwItemBoxChangeOn = true
+
 
 -- Move speed definitions for free move mode.
 -- I guess you usually won't need to modify these.
@@ -185,6 +187,7 @@ local RAM_lockSpritesTimer = 0x7e009d
 local RAM_marioFrameCount = 0x7e1496
 local RAM_RNG = 0x7e148d
 local RAM_blockedStatus = 0x7e0077
+local RAM_itemBox = 0x7e0dc2
 
 local RAM_bluePOW = 0x7e14ad
 local RAM_grayPOW = 0x7e14ae
@@ -236,11 +239,21 @@ function smwDoPowerUp()
     local powerup = memory.readbyte(RAM_powerup)
     memory.writebyte(RAM_powerup, powerup + 1)
 end
-
 -- decrement powerup
 function smwDoPowerDown()
 	local powerup = memory.readbyte(RAM_powerup)
 	memory.writebyte(RAM_powerup, powerup - 1)
+end
+
+-- increment item box
+function smwIncItemBox()
+	local itemBox = memory.readbyte(RAM_itemBox)
+	memory.writebyte(RAM_itemBox, itemBox + 1)
+end
+-- decrement item box
+function smwDecItemBox()
+	local itemBox = memory.readbyte(RAM_itemBox)
+	memory.writebyte(RAM_itemBox, itemBox - 1)
 end
 
 -- set move method
@@ -462,18 +475,33 @@ local preventItemPopup = false
 function smwApplyLevelCheats()
     if smwRegularDebugFuncOn then
         -- power-ups
-        if not smwPause and pad_press[smwPlayer].up and pad_down[smwPlayer].select then -- increment
-            smwDoPowerUp()
-            preventItemPopup = true
-		elseif not smwPause and pad_press[smwPlayer].up and pad_press[smwPlayer].select and pad_presstime[smwPlayer].select >= 50 then -- increment quickly
-			smwDoPowerUp()
-        end
-		if not smwPause and pad_press[smwPlayer].down and pad_down[smwPlayer].select then -- decrement
-            smwDoPowerDown()
-            preventItemPopup = true
-		elseif not smwPause and pad_press[smwPlayer].down and pad_press[smwPlayer].select and pad_presstime[smwPlayer].select >= 50 then -- decrement quickly
-			smwDoPowerDown()
-        end		
+		if smwPowerChangeOn then
+			if not smwPause and pad_press[smwPlayer].up and pad_down[smwPlayer].select then -- increment
+				smwDoPowerUp()
+				preventItemPopup = true
+			elseif not smwPause and pad_press[smwPlayer].up and pad_press[smwPlayer].select and pad_presstime[smwPlayer].select >= 50 then -- increment quickly
+				smwDoPowerUp()
+			end
+			if not smwPause and pad_press[smwPlayer].down and pad_down[smwPlayer].select then -- decrement
+				smwDoPowerDown()
+				preventItemPopup = true
+			elseif not smwPause and pad_press[smwPlayer].down and pad_press[smwPlayer].select and pad_presstime[smwPlayer].select >= 50 then -- decrement quickly
+				smwDoPowerDown()
+			end
+		end	
+		-- item box
+		if smwItemBoxChangeOn then
+			if not smwPause and pad_press[smwPlayer].up and pad_down[smwPlayer].L then -- increment
+				smwIncItemBox()
+			elseif not smwPause and pad_press[smwPlayer].up and pad_press[smwPlayer].L and pad_presstime[smwPlayer].L >= 50 then -- increment quickly
+				smwIncItemBox()
+			end
+			if not smwPause and pad_press[smwPlayer].down and pad_down[smwPlayer].L then -- decrement
+				smwDecItemBox()
+			elseif not smwPause and pad_press[smwPlayer].down and pad_press[smwPlayer].L and pad_presstime[smwPlayer].L >= 50 then -- decrement quickly
+				smwDecItemBox()
+			end
+		end
         -- moving method
         if not smwPause and pad_press[smwPlayer].L and pad_down[smwPlayer].A then
             smwSetMoveMethod(smwMoveMethod + 1)
@@ -735,7 +763,16 @@ function smwDrawMainInfo()
     local ropeClimbingFlag = memory.readbyte(RAM_ropeClimbingFlag)
 	local RNG = memory.readbyte(RAM_RNG)
 	local blockedStatus = memory.readbyte(RAM_blockedStatus)
-
+	local itemBox = memory.readbyte(RAM_itemBox)
+	
+	local itemBoxSprite = itemBox + 115
+	
+	if itemBox >= 141 then
+		itemBoxSprite = itemBox - 141
+	else
+		itemBoxSprite = itemBox + 115
+	end
+	
     local timerPosition = 148
     local timerCount = 1
     function timerCountPlus()
@@ -845,7 +882,15 @@ function smwDrawMainInfo()
     gui.text(1, 44, string.format("Spd (%d(%.0f.%02x), %d)", xSpeed, xSpeedInt, math.abs(xSpeedFrac * 0x100), ySpeed))
 	gui.text(1, 68, string.format("Power: %02d", powerup))
 	
-	gui.text(160, 2, string.format("RNG(%04x)", RNG))
+	gui.text(166, 2, string.format("RNG(%04x)", RNG))
+	
+	if smwItemBoxChangeOn then
+		gui.text(102, 2, string.format("Item Box: %03d", itemBox))
+		if itemBox ~= 0 then
+			itemBoxSprite = string.upper(string.format("%02x", itemBoxSprite))
+			gui.text(125, 37 , itemBoxSprite)
+		end
+	end
 end
 
 -- draw yoshi info on screen
@@ -873,9 +918,9 @@ function smwDrawYoshiInfo()
     local factor2 = spriteIdYoshiEat == 255 and "OFF" or string.upper(string.format("%x",spriteTypeYoshiEat))
 
     if yoshiStat ~= 0 then
-        gui.text(1, 156, string.format("Yoshi (%s, %s, %d, %d)", factor1, factor2, yoshiTongueLength, yoshiTongueStopTimer, ppp), yoshiColor)
+        gui.text(1, 156, string.format("Yoshi\n(%s, %s, %d, %d)", factor1, factor2, yoshiTongueLength, yoshiTongueStopTimer, ppp), yoshiColor)
 		if yoshiSwallowTimer ~= 0 then
-		gui.text(1, 164, string.format("Swallow: %d", yoshiSwallowTimer), yoshiColor)
+		gui.text(1, 172, string.format("Swallow: %d", yoshiSwallowTimer), yoshiColor)
 		end
 	end
 end
