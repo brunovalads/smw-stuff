@@ -1,12 +1,13 @@
 --[[
 
- Super Mario World (U) Utility Script
- Operation check done by using snes9x-rr 1.43 v17 svn
- http://code.google.com/p/snes9x-rr/
-
- Contributers: gocha, Mr.
+ Super Mario World (U) Utility Script for Snes9x
+ https://code.google.com/p/snes9x-rr/
  
- Edited by BrunoValads and checked in snes9x-rr 1.51 v7
+ Edited by BrunoValads, checked in snes9x-rr 1.51 v7
+ http://github.com/brunovalads/smw-stuff
+ 
+ Original script by gocha (with Mr.'s contribution),
+ checked using snes9x-rr 1.43 v17 svn
 
  === Cheat Keys ===
 
@@ -40,7 +41,6 @@ local smwDragAndDropOn = true
 local smwPowerChangeOn = true
 local smwItemBoxChangeOn = true
 
-
 -- Move speed definitions for free move mode.
 -- I guess you usually won't need to modify these.
 local smwFreeMoveSpeed = 2.0 -- px/f
@@ -52,6 +52,8 @@ local showPMeter = false
 local showSpriteInfo = true
 local showMainInfo = true
 local showYoshiInfo = true
+local showBounceSpriteInfo = false
+local showExtSpriteInfo = false
 local showSpeedVector = false
 
 -- << options end here
@@ -160,24 +162,28 @@ local moveMethod_max = 3
 local smwMoveMethod = moveMethod_normal
 local smwFreeMovePMeter = 0
 
+-- game
 local RAM_frameCount = 0x7e0013
 local RAM_frameCountAlt = 0x7e0014
 local RAM_gameMode = 0x7e0100
+local RAM_cameraX = 0x7e001a
+local RAM_cameraY = 0x7e001c
+local RAM_RNG = 0x7e148d
+
+-- player
+local RAM_xPos = 0x7e0094
+local RAM_yPos = 0x7e0096
+local RAM_xSubPos = 0x7e13da
+local RAM_ySubPos = 0x7e13dc
+local RAM_xSpeed = 0x7e007b
+local RAM_ySpeed = 0x7e007d
+local RAM_xSubSpeed = 0x7e007a
 local RAM_player = 0x7e0db3
 local RAM_powerup = 0x7e0019
 local RAM_pMeter = 0x7e13e4
 local RAM_takeOffMeter = 0x7e149f
 local RAM_starInvCount = 0x7e1490
 local RAM_hurtInvCount = 0x7e1497
-local RAM_cameraX = 0x7e001a
-local RAM_cameraY = 0x7e001c
-local RAM_xSpeed = 0x7e007b
-local RAM_ySpeed = 0x7e007d
-local RAM_xSubSpeed = 0x7e007a
-local RAM_xPos = 0x7e0094
-local RAM_yPos = 0x7e0096
-local RAM_xSubPos = 0x7e13da
-local RAM_ySubPos = 0x7e13dc
 local RAM_facingDirection = 0x7e0076
 local RAM_flightAnimation = 0x7e1407
 local RAM_capeSlowFallCount = 0x7e14a5
@@ -185,10 +191,38 @@ local RAM_capeSpinTimer = 0x7e14a6
 local RAM_movement = 0x7e0071
 local RAM_lockSpritesTimer = 0x7e009d
 local RAM_marioFrameCount = 0x7e1496
-local RAM_RNG = 0x7e148d
 local RAM_blockedStatus = 0x7e0077
 local RAM_itemBox = 0x7e0dc2
+local RAM_ropeClimbingFlag = 0x7e18be
 
+-- sprites
+
+-- bounce sprites
+local RAM_bouncesprite_Number = 0x7e1699
+local RAM_bouncesprite_xPosHigh = 0x7e16ad
+local RAM_bouncesprite_xPosLow = 0x7e16a5
+local RAM_bouncesprite_yPosHigh = 0x7e16a9
+local RAM_bouncesprite_yPosLow = 0x7e16a1
+local RAM_bouncesprite_timer = 0x7e16c5
+local RAM_bouncesprite_lastId = 0x7e18cd
+local RAM_turnBlockSpinning = 0x7e18ce
+
+-- extended sprites
+local RAM_extsprite_number = 0x7e170b
+local RAM_extsprite_xPosHigh = 0x7e1733
+local RAM_extsprite_xPosLow = 0x7e171f
+local RAM_extsprite_yPosHigh = 0x7e1729
+local RAM_extsprite_yPosLow = 0x7e1715
+local RAM_extsprite_xSpeed = 0x7e1747
+local RAM_extsprite_ySpeed = 0x7e173d
+local RAM_extsprite_xSub = 0x7e175b
+local RAM_extsprite_ySub = 0x7e1751
+local RAM_extsprite_table = 0x7e1765
+local RAM_extsprite_table2 = 0x7e176f
+
+-- yoshi
+
+-- timers
 local RAM_bluePOW = 0x7e14ad
 local RAM_grayPOW = 0x7e14ae
 local RAM_multipleCoinBlockTimer = 0x7e186b
@@ -196,8 +230,7 @@ local RAM_directionalCoinTimer = 0x7e190c
 local RAM_pBalloonTimer = 0x7e1891
 local RAM_pBalloonTimerAlt = 0x7e13f3
 
-local RAM_ropeClimbingFlag = 0x7e18be
-
+-- cheats
 local RAM_frozen = 0x7e13fb
 local RAM_paused = 0x7e13d4
 local RAM_levelIndex = 0x7e13bf
@@ -213,6 +246,8 @@ local gameMode_ow  = 14
 local gameMode_level = 20
 
 local smwSpriteMaxCount = 12
+local smwBounceSpriteMaxCount = 4
+local smwExtSpriteMaxCount = 10
 
 local smwPlayerPrev, smwPlayer, smwPlayerChanged
 local smwGameModePrev, smwGameMode, smwGameModeChanged
@@ -682,7 +717,7 @@ function smwDrawSpriteInfo()
     local cameraX = memory.readwordsigned(RAM_cameraX)
     local cameraY = memory.readwordsigned(RAM_cameraY)
     local spriteCount = 0
-	local yoshiColor = "#40ff40" -- green
+	local yoshiTextColor = "#40ff40" -- green
     local colorTable = {
         "#80ffff", -- cyan
         "#a0a0ff", -- blue
@@ -710,7 +745,7 @@ function smwDrawSpriteInfo()
             local dispString = string.format("<%02d> %02x (%d.%02x, %d.%02x)", id, number, x, xsub, y, ysub)
 			local dispString = string.upper(dispString) -- to make sprite hex number easier to read
             if number == 53 then -- when Yoshi
-				local colorString = yoshiColor
+				local colorString = yoshiTextColor
 				if not vOffscreenAlt and not hOffscreenAlt then
 					gui.text(math.min(242, math.max(2, 2 + x - cameraX)), math.min(216, math.max(2, -8 + y - cameraY)), string.format("<%02d>", id), colorString)
 				end
@@ -726,7 +761,85 @@ function smwDrawSpriteInfo()
 			end
         end
     end
-    gui.text(238-24, 2, string.format("Sprites:%02d", spriteCount))
+    gui.text(214, 2, string.format("Sprites:%02d", spriteCount))
+end
+
+-- draw bounce sprite info on screen
+function smwDrawBounceSpriteInfo()
+    if not (smwGameMode == gameMode_level) then return end
+
+    gui.opacity(guiOpacity)
+    local cameraX = memory.readwordsigned(RAM_cameraX)
+    local cameraY = memory.readwordsigned(RAM_cameraY)
+    local bounceSpriteCount = 0
+    local colorTable = {
+		"#ff8400", -- yellow to orange gradient 3 (orange)
+		"#ffad00", -- yellow to orange gradient 2
+		"#ffd600", -- yellow to orange gradient 1
+        "#ffff00", -- yellow to orange gradient 0 (yellow)
+    }
+    for id = 0, smwBounceSpriteMaxCount - 1 do
+        local number = memory.readbyte(RAM_bouncesprite_Number + id)
+        local x = memory.readbytesigned(RAM_bouncesprite_xPosHigh + id) * 0x100 + memory.readbyte(RAM_bouncesprite_xPosLow + id)
+        local y = memory.readbytesigned(RAM_bouncesprite_yPosHigh + id) * 0x100 + memory.readbyte(RAM_bouncesprite_yPosLow + id)
+		
+        local hOffscreenAlt = (math.abs(cameraX - x + 112) > 176)
+        local vOffscreenAlt = (math.abs(cameraY - y + 88) > 208)
+
+        if number ~= 0 then -- not hOffscreen and not vOffscreen then
+            local dispString = string.format("|%02d| %02d (%d, %d)", id, number, x, y)
+           	local colorString = colorTable[1 + id % #colorTable]
+			
+			if not vOffscreenAlt and not hOffscreenAlt and number == 7 then -- when turn block
+				spinningTimer = memory.readbyte(RAM_turnBlockSpinning + id)
+				gui.text(math.min(242, math.max(2, 2 + x - cameraX)), math.min(216, math.max(2, -8 + y - cameraY)), string.format("|%02d|\n%d", id, spinningTimer), colorString)
+			elseif not vOffscreenAlt and not hOffscreenAlt then
+				gui.text(math.min(242, math.max(2, 2 + x - cameraX)), math.min(216, math.max(2, -8 + y - cameraY)), string.format("|%02d|", id), colorString)
+			end
+			
+			gui.text(180, 148 + bounceSpriteCount * 8, dispString, colorString)
+			bounceSpriteCount = bounceSpriteCount + 1
+		end
+    end
+    gui.text(186, 140, string.format("Bounce sprites:%02d", bounceSpriteCount))
+end
+
+-- draw extended sprite info on screen
+function smwDrawExtSpriteInfo()
+    if not (smwGameMode == gameMode_level) then return end
+
+    gui.opacity(guiOpacity)
+    local cameraX = memory.readwordsigned(RAM_cameraX)
+    local cameraY = memory.readwordsigned(RAM_cameraY)
+    local extSpriteCount = 0
+    local colorTable = {
+		"#ff0000", -- orange to red gradient 9 (red)
+		"#ff1200", -- orange to red gradient 8
+		"#ff2400", -- orange to red gradient 7
+        "#ff3700", -- orange to red gradient 6
+		"#ff4900", -- orange to red gradient 5
+		"#ff5b00", -- orange to red gradient 4
+		"#ff6e00", -- orange to red gradient 3
+		"#ff8000", -- orange to red gradient 2
+		"#ff9200", -- orange to red gradient 1
+		"#ffa500", -- orange to red gradient 0 (orange)
+    }
+    for id = 0, smwExtSpriteMaxCount - 1 do
+        local number = memory.readbyte(RAM_extsprite_number + id)
+        local x = memory.readbytesigned(RAM_extsprite_xPosHigh + id) * 0x100 + memory.readbyte(RAM_extsprite_xPosLow + id)
+        local y = memory.readbytesigned(RAM_extsprite_yPosHigh + id) * 0x100 + memory.readbyte(RAM_extsprite_yPosLow + id)
+
+        if number ~= 0 then -- not hOffscreen and not vOffscreen then
+            local dispString = string.format("!%02d! %02x (%d, %d)", id, number, x, y)
+			local dispString = string.upper(dispString) -- to make extended sprite hex number easier to read
+           	local colorString = colorTable[1 + id % #colorTable]
+			
+			gui.text(math.min(242, math.max(2, 2 + x - cameraX)), math.min(216, math.max(2, -8 + y - cameraY)), string.format("!%02d!", id), colorString)	
+			gui.text(180, 143 + extSpriteCount * 8, dispString, colorString)
+			extSpriteCount = extSpriteCount + 1
+		end
+    end
+    gui.text(178, 135, string.format("Extended sprites:%02d", extSpriteCount))
 end
 
 -- draw main info on screen
@@ -890,7 +1003,7 @@ function smwDrawMainInfo()
 			itemBoxSprite = string.upper(string.format("%02x", itemBoxSprite))
 			gui.text(125, 37 , itemBoxSprite)
 		end
-	end
+	end	
 end
 
 -- draw yoshi info on screen
@@ -899,7 +1012,7 @@ function smwDrawYoshiInfo()
 
     gui.opacity(guiOpacity)
     local yoshiId = 0
-	local yoshiColor = "#40ff40" -- green
+	local yoshiTextColor = "#40ff40" -- green
 
     -- search for yoshi's ID
     while memory.readbyte(0x7e009e + yoshiId) ~= 53 do
@@ -918,9 +1031,9 @@ function smwDrawYoshiInfo()
     local factor2 = spriteIdYoshiEat == 255 and "OFF" or string.upper(string.format("%x",spriteTypeYoshiEat))
 
     if yoshiStat ~= 0 then
-        gui.text(1, 156, string.format("Yoshi\n(%s, %s, %d, %d)", factor1, factor2, yoshiTongueLength, yoshiTongueStopTimer, ppp), yoshiColor)
+        gui.text(1, 156, string.format("Yoshi\n(%s, %s, %d, %d)", factor1, factor2, yoshiTongueLength, yoshiTongueStopTimer, ppp), yoshiTextColor)
 		if yoshiSwallowTimer ~= 0 then
-		gui.text(1, 172, string.format("Swallow: %d", yoshiSwallowTimer), yoshiColor)
+		gui.text(1, 172, string.format("Swallow: %d", yoshiSwallowTimer), yoshiTextColor)
 		end
 	end
 end
@@ -936,6 +1049,12 @@ function smwDisplayInfo()
     if showSpriteInfo then
         smwDrawSpriteInfo()
     end
+	if showBounceSpriteInfo then
+		smwDrawBounceSpriteInfo()
+	end
+	if showExtSpriteInfo then
+		smwDrawExtSpriteInfo()
+	end
     if showMainInfo then
         smwDrawMainInfo()
     end
