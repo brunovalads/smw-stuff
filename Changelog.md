@@ -1,5 +1,15 @@
 ## Changelog ##
 
+**v0.3.0**
+
+ - Added Bounce Sprites info:
+  - Table containing the current bounce sprites, with their id, type (number) and position;
+  - Indication on the game, as normal sprites;
+  - Turn blocks have a spinning timer indicated;
+  - Disabled by default, you can enable it by changing the script in the Options section. NOTE: bounce and extended sprites info are not programmed to be shown simultaneously, due to Snes9x limited screen (or maybe I'm dumb) , so make sure to use one at time.
+ - Added Extended Sprites info:
+  - [the same as bounce sprite info]
+
 **v0.2.0**
  
 - Added Item Box cheat:
