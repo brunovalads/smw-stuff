@@ -37,9 +37,10 @@
 local smwRegularDebugFuncOn = true
 local smwCutPowerupAnimationOn = false
 local smwCutPowerdownAnimationOn = false
-local smwDragAndDropOn = true
+local smwDragAndDropOn = false
 local smwPowerChangeOn = true
 local smwItemBoxChangeOn = true
+local smwMoveMethodChangeOn = false
 
 -- Move speed definitions for free move mode.
 -- I guess you usually won't need to modify these.
@@ -196,6 +197,7 @@ local RAM_itemBox = 0x7e0dc2
 local RAM_ropeClimbingFlag = 0x7e18be
 
 -- sprites
+local RAM_sprite_stunTimer = 0x7e1540
 
 -- bounce sprites
 local RAM_bouncesprite_Number = 0x7e1699
@@ -538,12 +540,15 @@ function smwApplyLevelCheats()
 			end
 		end
         -- moving method
+		if smwMoveMethodChangeOn then
         if not smwPause and pad_press[smwPlayer].L and pad_down[smwPlayer].A then
             smwSetMoveMethod(smwMoveMethod + 1)
         end
         if not smwPause then
             smwMoveMethodProc[smwMoveMethod+1]()
-        end
+        end                                                       
+		end
+        
     end
 
     -- prevent item popup
@@ -738,25 +743,26 @@ function smwDrawSpriteInfo()
         local ysub = memory.readbyte(0x7e14ec+id)
         local xspeed = memory.readbyte(0x7e00b6+id)
         local yspeed = memory.readbyte(0x7e00aa+id)
+        local stunTimer = memory.readbyte(RAM_sprite_stunTimer + id)
         local hOffscreenAlt = (math.abs(cameraX - x + 112) > 176)
         local vOffscreenAlt = (math.abs(cameraY - y + 88) > 208)
 
         if stat ~= 0 then -- not hOffscreen and not vOffscreen then
-            local dispString = string.format("<%02d> %02x (%d.%02x, %d.%02x)", id, number, x, xsub, y, ysub)
-			local dispString = string.upper(dispString) -- to make sprite hex number easier to read
+            local dispString = string.format("<%02d> %02x (%d.%02x, %d.%02x) %d", id, number, x, xsub, y, ysub, stunTimer)
+            local dispString = string.upper(dispString) -- to make sprite hex number easier to read
             if number == 53 then -- when Yoshi
 				local colorString = yoshiTextColor
 				if not vOffscreenAlt and not hOffscreenAlt then
 					gui.text(math.min(242, math.max(2, 2 + x - cameraX)), math.min(216, math.max(2, -8 + y - cameraY)), string.format("<%02d>", id), colorString)
 				end
-				gui.text(160, 36 + spriteCount * 8, dispString, colorString)
+				gui.text(143, 36 + spriteCount * 8, dispString, colorString)
 				spriteCount = spriteCount + 1
 			else
 				local colorString = colorTable[1 + id % #colorTable]
 				if not vOffscreenAlt and not hOffscreenAlt then
 					gui.text(math.min(242, math.max(2, 2 + x - cameraX)), math.min(216, math.max(2, -8 + y - cameraY)), string.format("<%02d>", id), colorString)
 				end
-				gui.text(160, 36 + spriteCount * 8, dispString, colorString)
+				gui.text(143, 36 + spriteCount * 8, dispString, colorString)
 				spriteCount = spriteCount + 1
 			end
         end
