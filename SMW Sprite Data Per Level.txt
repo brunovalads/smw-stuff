@@ -1,0 +1,4314 @@
+### Level $000 ###
+00: $82 - Bonus game sprite (0x0050, 0x0070)
+
+### Level $001 ###
+00: $09 - Green Koopa Troopa bouncing (0x0100, 0x0170)
+01: $09 - Green Koopa Troopa bouncing (0x0110, 0x0160)
+02: $09 - Green Koopa Troopa bouncing (0x01F0, 0x0170)
+03: $09 - Green Koopa Troopa bouncing (0x0240, 0x0160)
+04: $09 - Green Koopa Troopa bouncing (0x0280, 0x0150)
+05: $09 - Green Koopa Troopa bouncing (0x0320, 0x0150)
+06: $09 - Green Koopa Troopa bouncing (0x0350, 0x0150)
+07: $09 - Green Koopa Troopa bouncing (0x0380, 0x0150)
+08: $09 - Green Koopa Troopa bouncing (0x0410, 0x0140)
+09: $09 - Green Koopa Troopa bouncing (0x0450, 0x0160)
+10: $09 - Green Koopa Troopa bouncing (0x0490, 0x0160)
+11: $09 - Green Koopa Troopa bouncing (0x0510, 0x0160)
+12: $09 - Green Koopa Troopa bouncing (0x0530, 0x0150)
+13: $09 - Green Koopa Troopa bouncing (0x05A0, 0x0150)
+14: $09 - Green Koopa Troopa bouncing (0x05C0, 0x0140)
+15: $09 - Green Koopa Troopa bouncing (0x05F0, 0x0150)
+16: $09 - Green Koopa Troopa bouncing (0x0610, 0x0160)
+17: $09 - Green Koopa Troopa bouncing (0x0640, 0x0130)
+18: $09 - Green Koopa Troopa bouncing (0x0670, 0x0140)
+19: $09 - Green Koopa Troopa bouncing (0x06B0, 0x0170)
+20: $09 - Green Koopa Troopa bouncing (0x06D0, 0x0160)
+21: $09 - Green Koopa Troopa bouncing (0x0710, 0x0140)
+22: $09 - Green Koopa Troopa bouncing (0x0730, 0x0130)
+23: $09 - Green Koopa Troopa bouncing (0x0780, 0x0170)
+24: $09 - Green Koopa Troopa bouncing (0x07A0, 0x0160)
+25: $4F - Jumping Piranha Plant (0x0830, 0x0160)
+26: $D9 - Turn Off Generators (0x0880, 0x0000)
+27: $4F - Jumping Piranha Plant (0x08B0, 0x0160)
+28: $13 - Spiny (0x0AA0, 0x00F0)
+29: $CD - Para-Bomb generator (0x0B60, 0x0000)
+30: $4B - Pipe-dwelling Lakitu (0x0B60, 0x0150)
+31: $CD - Para-Bomb generator (0x0C90, 0x0000)
+32: $13 - Spiny (0x0CF0, 0x0140)
+33: $13 - Spiny (0x0D30, 0x0160)
+34: $D9 - Turn Off Generators (0x0E10, 0x0000)
+35: $13 - Spiny (0x0E90, 0x0170)
+36: $13 - Spiny (0x0EA0, 0x0170)
+37: $13 - Spiny (0x0EB0, 0x0170)
+38: $13 - Spiny (0x0EC0, 0x0170)
+39: $13 - Spiny (0x0ED0, 0x0170)
+40: $13 - Spiny (0x0EE0, 0x0170)
+41: $13 - Spiny (0x0EF0, 0x0170)
+42: $13 - Spiny (0x0F00, 0x0170)
+43: $CD - Para-Bomb generator (0x0FB0, 0x0000)
+44: $4B - Pipe-dwelling Lakitu (0x1120, 0x0150)
+45: $92 - Splittin' Chuck (0x11B0, 0x0120)
+46: $D9 - Turn Off Generators (0x11F0, 0x0000)
+47: $0B - Red Koopa Troopa flying horizontally (0x1270, 0x0130)
+48: $0B - Red Koopa Troopa flying horizontally (0x1280, 0x0130)
+49: $0B - Red Koopa Troopa flying horizontally (0x1290, 0x0130)
+50: $0B - Red Koopa Troopa flying horizontally (0x12A0, 0x0130)
+51: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $002 ###
+00: $42 - Dolphin that swims and jumps back and forth (0x0120, 0x0180)
+01: $D9 - Turn Off Generators (0x0150, 0x0000)
+02: $42 - Dolphin that swims and jumps back and forth (0x0180, 0x0180)
+03: $42 - Dolphin that swims and jumps back and forth (0x01E0, 0x0180)
+04: $42 - Dolphin that swims and jumps back and forth (0x0240, 0x0180)
+05: $CF - Dolphin generator (left) (0x0340, 0x0000)
+06: $D9 - Turn Off Generators (0x0560, 0x0000)
+07: $42 - Dolphin that swims and jumps back and forth (0x0630, 0x0180)
+08: $41 - Dolphin that swims and jumps in one direction (0x0670, 0x0180)
+09: $43 - Dolphin that swims and jumps up and down (0x06A0, 0x0180)
+10: $C3 - Porcu-Puffer (0x06E0, 0x0180)
+11: $41 - Dolphin that swims and jumps in one direction (0x0730, 0x0180)
+12: $42 - Dolphin that swims and jumps back and forth (0x0780, 0x0180)
+13: $42 - Dolphin that swims and jumps back and forth (0x08B0, 0x0180)
+14: $43 - Dolphin that swims and jumps up and down (0x08E0, 0x0180)
+15: $42 - Dolphin that swims and jumps back and forth (0x0940, 0x0180)
+16: $42 - Dolphin that swims and jumps back and forth (0x09A0, 0x0180)
+17: $D9 - Turn Off Generators (0x09E0, 0x0000)
+18: $41 - Dolphin that swims and jumps in one direction (0x09F0, 0x0180)
+19: $43 - Dolphin that swims and jumps up and down (0x0A20, 0x0180)
+20: $43 - Dolphin that swims and jumps up and down (0x0AA0, 0x0180)
+21: $43 - Dolphin that swims and jumps up and down (0x0AE0, 0x0180)
+22: $D0 - Dolphin generator (right) (0x0B90, 0x0000)
+
+### Level $003 ###
+00: $8C - Side exit enabler (0x0070, 0x0160)
+
+### Level $004 ###
+00: $E1 - Boo Ceiling (0x0000, 0x0100)
+01: $B9 - Info Box (0x0090, 0x0150)
+
+### Level $005 ###
+00: $E0 - 3 rotating gray platforms (0x0140, 0x0150)
+01: $62 - Brown line-guided platform (0x0270, 0x0130)
+02: $E0 - 3 rotating gray platforms (0x02E0, 0x0140)
+03: $06 - Blue Koopa Troopa (0x03B0, 0x0120)
+04: $09 - Green Koopa Troopa bouncing (0x0430, 0x0120)
+05: $08 - Green Koopa Troopa flying left (0x0490, 0x0110)
+06: $08 - Green Koopa Troopa flying left (0x04C0, 0x0110)
+07: $09 - Green Koopa Troopa bouncing (0x0550, 0x0110)
+08: $E0 - 3 rotating gray platforms (0x05D0, 0x0140)
+09: $62 - Brown line-guided platform (0x0670, 0x0120)
+10: $E0 - 3 rotating gray platforms (0x0700, 0x0140)
+11: $B9 - Info Box (0x07A0, 0x0150)
+12: $05 - Red Koopa Troopa (0x0820, 0x0170)
+13: $62 - Brown line-guided platform (0x0850, 0x0160)
+14: $08 - Green Koopa Troopa flying left (0x0910, 0x0160)
+15: $68 - Fuzzy, line-guided (0x09F0, 0x00E0)
+16: $68 - Fuzzy, line-guided (0x0A10, 0x0170)
+17: $68 - Fuzzy, line-guided (0x0A10, 0x0140)
+18: $08 - Green Koopa Troopa flying left (0x0A90, 0x0100)
+19: $68 - Fuzzy, line-guided (0x0B30, 0x0150)
+20: $62 - Brown line-guided platform (0x0B30, 0x0120)
+21: $E0 - 3 rotating gray platforms (0x0BD0, 0x0140)
+22: $63 - Brown/checkered line-guided platform (0x0C50, 0x0110)
+23: $55 - Checkerboard platform, horizontal (0x0C60, 0x0180)
+24: $55 - Checkerboard platform, horizontal (0x0D00, 0x0180)
+25: $08 - Green Koopa Troopa flying left (0x0D20, 0x0100)
+26: $55 - Checkerboard platform, horizontal (0x0DA0, 0x0180)
+27: $08 - Green Koopa Troopa flying left (0x0DE0, 0x0100)
+28: $08 - Green Koopa Troopa flying left (0x0E40, 0x0100)
+29: $E0 - 3 rotating gray platforms (0x0F40, 0x0140)
+30: $E0 - 3 rotating gray platforms (0x0FF0, 0x0140)
+31: $E0 - 3 rotating gray platforms (0x1160, 0x0140)
+32: $68 - Fuzzy, line-guided (0x1170, 0x0100)
+33: $63 - Brown/checkered line-guided platform (0x11D0, 0x0130)
+34: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $006 ###
+00: $DD - Yellow Koopa shell (0x0110, 0x0170)
+01: $03 - Yellow Koopa Troopa without shell (0x0140, 0x0170)
+02: $0F - Goomba (0x0210, 0x0170)
+03: $05 - Red Koopa Troopa (0x0270, 0x0170)
+04: $4F - Jumping Piranha Plant (0x0280, 0x0150)
+05: $06 - Blue Koopa Troopa (0x0300, 0x0170)
+06: $49 - Growing/shrinking pipe (0x0310, 0x0150)
+07: $06 - Blue Koopa Troopa (0x0370, 0x0170)
+08: $4F - Jumping Piranha Plant (0x0380, 0x0150)
+09: $49 - Growing/shrinking pipe (0x03D0, 0x0160)
+10: $9C - Flying gray blocks for Hammer Brother (0x0490, 0x0110)
+11: $9B - Amazing Flying Hammer Brother (0x0490, 0x0110)
+12: $05 - Red Koopa Troopa (0x05D0, 0x0110)
+13: $0F - Goomba (0x0610, 0x0170)
+14: $0F - Goomba (0x0630, 0x0170)
+15: $06 - Blue Koopa Troopa (0x0640, 0x0120)
+16: $0F - Goomba (0x0650, 0x0170)
+17: $0F - Goomba (0x0670, 0x0170)
+18: $0F - Goomba (0x0690, 0x0170)
+19: $10 - Bouncing Goomba with wings (0x06B0, 0x0170)
+20: $4F - Jumping Piranha Plant (0x0730, 0x0150)
+21: $9C - Flying gray blocks for Hammer Brother (0x0880, 0x0110)
+22: $9B - Amazing Flying Hammer Brother (0x0880, 0x0110)
+23: $10 - Bouncing Goomba with wings (0x0B00, 0x0180)
+24: $10 - Bouncing Goomba with wings (0x0B50, 0x0180)
+25: $10 - Bouncing Goomba with wings (0x0B80, 0x0180)
+26: $10 - Bouncing Goomba with wings (0x0C00, 0x0170)
+27: $81 - Changing item (0x0C50, 0x0110)
+28: $9C - Flying gray blocks for Hammer Brother (0x0CC0, 0x0110)
+29: $9B - Amazing Flying Hammer Brother (0x0CC0, 0x0110)
+30: $3F - Para-Goomba (0x0D00, 0x00A0)
+31: $3F - Para-Goomba (0x0DB0, 0x00A0)
+32: $10 - Bouncing Goomba with wings (0x0E10, 0x0150)
+33: $CC - Para-Goomba generator (0x0E30, 0x0000)
+34: $10 - Bouncing Goomba with wings (0x0EF0, 0x0160)
+35: $10 - Bouncing Goomba with wings (0x0FC0, 0x0150)
+36: $10 - Bouncing Goomba with wings (0x1030, 0x0130)
+37: $10 - Bouncing Goomba with wings (0x10C0, 0x0170)
+38: $D9 - Turn Off Generators (0x1140, 0x0000)
+39: $10 - Bouncing Goomba with wings (0x1140, 0x0170)
+40: $3F - Para-Goomba (0x11D0, 0x00C0)
+41: $9C - Flying gray blocks for Hammer Brother (0x11F0, 0x0110)
+42: $9B - Amazing Flying Hammer Brother (0x11F0, 0x0110)
+43: $3F - Para-Goomba (0x1210, 0x00C0)
+44: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $007 ###
+00: $27 - Thwimp (0x0090, 0x00B0)
+01: $27 - Thwimp (0x0100, 0x00B0)
+02: $9E - Ball 'n' Chain (0x0160, 0x0120)
+03: $9E - Ball 'n' Chain (0x01C0, 0x00C0)
+04: $9E - Ball 'n' Chain (0x0220, 0x0060)
+
+### Level $008 ###
+00: $DB - Red Koopa shell (0x0060, 0x00F0)
+01: $02 - Blue Koopa Troopa without shell (0x0080, 0x0130)
+02: $3E - P-switch (0x00A0, 0x00F0)
+03: $05 - Red Koopa Troopa (0x00E0, 0x0170)
+04: $05 - Red Koopa Troopa (0x0120, 0x0170)
+05: $05 - Red Koopa Troopa (0x0160, 0x0170)
+06: $05 - Red Koopa Troopa (0x01A0, 0x0170)
+07: $05 - Red Koopa Troopa (0x01E0, 0x0170)
+08: $05 - Red Koopa Troopa (0x0220, 0x0170)
+09: $05 - Red Koopa Troopa (0x0260, 0x0170)
+10: $05 - Red Koopa Troopa (0x02A0, 0x0170)
+
+### Level $009 ###
+00: $E8 - Special auto-scroll command (0x0080, 0x0000)
+01: $11 - Buzzy Beetle (0x0130, 0x0140)
+02: $BE - Swooper (0x0160, 0x0100)
+03: $11 - Buzzy Beetle (0x01B0, 0x0120)
+04: $BE - Swooper (0x01E0, 0x0100)
+05: $11 - Buzzy Beetle (0x0270, 0x0120)
+06: $BE - Swooper (0x02F0, 0x00B0)
+07: $11 - Buzzy Beetle (0x0460, 0x00D0)
+08: $BE - Swooper (0x0490, 0x0060)
+09: $BE - Swooper (0x04C0, 0x0060)
+10: $BE - Swooper (0x0520, 0x0060)
+11: $BE - Swooper (0x0570, 0x0060)
+12: $BE - Swooper (0x0590, 0x0060)
+13: $BE - Swooper (0x05B0, 0x0060)
+14: $BE - Swooper (0x0610, 0x0060)
+15: $BE - Swooper (0x06C0, 0x00B0)
+16: $11 - Buzzy Beetle (0x0710, 0x0100)
+17: $BE - Swooper (0x0740, 0x00B0)
+18: $BE - Swooper (0x0760, 0x00B0)
+19: $11 - Buzzy Beetle (0x0770, 0x0100)
+20: $BE - Swooper (0x07B0, 0x00B0)
+21: $11 - Buzzy Beetle (0x0840, 0x00F0)
+22: $11 - Buzzy Beetle (0x0880, 0x00F0)
+23: $11 - Buzzy Beetle (0x08C0, 0x0100)
+24: $83 - Flying question block that flies left (0x0820, 0x00E0)
+25: $2E - Spike Top (0x0B80, 0x0110)
+26: $2E - Spike Top (0x0BA0, 0x0110)
+27: $11 - Buzzy Beetle (0x0BE0, 0x0110)
+
+### Level $00A ###
+00: $3D - Rip Van Fish (0x00C0, 0x0170)
+01: $16 - Cheep Cheep swimming vertically (0x0190, 0x0130)
+02: $C2 - Blurp (0x01D0, 0x0170)
+03: $3D - Rip Van Fish (0x0270, 0x0160)
+04: $3D - Rip Van Fish (0x02F0, 0x0120)
+05: $C2 - Blurp (0x0320, 0x0170)
+06: $15 - Cheep Cheep swimming horizontally (0x0350, 0x0170)
+07: $3D - Rip Van Fish (0x03D0, 0x0140)
+08: $C2 - Blurp (0x0440, 0x0120)
+09: $C2 - Blurp (0x0470, 0x0150)
+10: $16 - Cheep Cheep swimming vertically (0x04C0, 0x00F0)
+11: $16 - Cheep Cheep swimming vertically (0x0510, 0x0100)
+12: $3D - Rip Van Fish (0x0560, 0x0140)
+13: $16 - Cheep Cheep swimming vertically (0x05C0, 0x0160)
+14: $16 - Cheep Cheep swimming vertically (0x05E0, 0x0150)
+15: $3D - Rip Van Fish (0x0630, 0x0130)
+16: $3D - Rip Van Fish (0x06D0, 0x0180)
+17: $15 - Cheep Cheep swimming horizontally (0x0700, 0x0110)
+18: $15 - Cheep Cheep swimming horizontally (0x0720, 0x0140)
+19: $3E - P-switch (0x0740, 0x0150)
+20: $C2 - Blurp (0x07E0, 0x0140)
+21: $C2 - Blurp (0x0810, 0x0110)
+22: $C2 - Blurp (0x0880, 0x0170)
+23: $3D - Rip Van Fish (0x08B0, 0x0110)
+24: $C2 - Blurp (0x0970, 0x0120)
+25: $0E - Keyhole (0x0980, 0x0140)
+26: $15 - Cheep Cheep swimming horizontally (0x0A30, 0x0130)
+27: $15 - Cheep Cheep swimming horizontally (0x0A60, 0x0160)
+28: $16 - Cheep Cheep swimming vertically (0x0AC0, 0x0190)
+29: $15 - Cheep Cheep swimming horizontally (0x0B00, 0x0160)
+30: $3D - Rip Van Fish (0x0B70, 0x0110)
+31: $7B - Goal tape (0x0BE0, 0x0170)
+
+### Level $00B ###
+00: $9E - Ball 'n' Chain (0x0140, 0x0130)
+01: $AA - Fishbone (0x0190, 0x0150)
+02: $AA - Fishbone (0x01D0, 0x0110)
+03: $9E - Ball 'n' Chain (0x0210, 0x0110)
+04: $AA - Fishbone (0x02C0, 0x00F0)
+05: $9E - Ball 'n' Chain (0x0300, 0x00E0)
+06: $AA - Fishbone (0x0370, 0x0170)
+07: $AA - Fishbone (0x0450, 0x00F0)
+08: $AA - Fishbone (0x0540, 0x0150)
+09: $AA - Fishbone (0x05D0, 0x0120)
+10: $B2 - Falling spike (0x05D0, 0x0100)
+11: $31 - Bony Beetle (0x0600, 0x0170)
+12: $B2 - Falling spike (0x0640, 0x0100)
+13: $B2 - Falling spike (0x0650, 0x0100)
+14: $30 - Dry Bones that throws bones (0x0670, 0x0170)
+15: $AA - Fishbone (0x0680, 0x0140)
+16: $B2 - Falling spike (0x06B0, 0x0100)
+17: $B2 - Falling spike (0x06E0, 0x0100)
+18: $31 - Bony Beetle (0x06E0, 0x0170)
+19: $30 - Dry Bones that throws bones (0x0710, 0x0170)
+20: $AA - Fishbone (0x0720, 0x0140)
+21: $B2 - Falling spike (0x0730, 0x0100)
+22: $AA - Fishbone (0x0780, 0x0130)
+
+### Level $00C ###
+00: $E8 - Special auto-scroll command (0x0000, 0x0C00)
+01: $8F - Scale platforms (0x0170, 0x0160)
+02: $8F - Scale platforms (0x0210, 0x0140)
+03: $0A - Red Koopa Troopa flying vertically (0x0230, 0x0140)
+04: $C4 - Gray platform that falls (0x0290, 0x0120)
+05: $8F - Scale platforms (0x02E0, 0x0120)
+06: $C4 - Gray platform that falls (0x0310, 0x0110)
+07: $0A - Red Koopa Troopa flying vertically (0x0390, 0x0100)
+08: $8F - Scale platforms (0x0430, 0x00D0)
+09: $08 - Green Koopa Troopa flying left (0x04E0, 0x00A0)
+10: $08 - Green Koopa Troopa flying left (0x0500, 0x00A0)
+11: $08 - Green Koopa Troopa flying left (0x0520, 0x00A0)
+12: $08 - Green Koopa Troopa flying left (0x0540, 0x00A0)
+13: $08 - Green Koopa Troopa flying left (0x0560, 0x00A0)
+14: $08 - Green Koopa Troopa flying left (0x0580, 0x00A0)
+15: $08 - Green Koopa Troopa flying left (0x05A0, 0x00A0)
+16: $08 - Green Koopa Troopa flying left (0x05C0, 0x00A0)
+17: $8F - Scale platforms (0x05F0, 0x00D0)
+18: $8F - Scale platforms (0x0670, 0x0090)
+19: $8F - Scale platforms (0x06F0, 0x0050)
+20: $08 - Green Koopa Troopa flying left (0x0780, 0x00A0)
+21: $8F - Scale platforms (0x0790, 0x0130)
+22: $08 - Green Koopa Troopa flying left (0x07A0, 0x00C0)
+23: $08 - Green Koopa Troopa flying left (0x07C0, 0x00E0)
+24: $8F - Scale platforms (0x0940, 0x0070)
+25: $0A - Red Koopa Troopa flying vertically (0x0980, 0x0090)
+26: $C4 - Gray platform that falls (0x0A10, 0x0080)
+27: $0B - Red Koopa Troopa flying horizontally (0x0AC0, 0x00E0)
+28: $0B - Red Koopa Troopa flying horizontally (0x0AE0, 0x00F0)
+29: $0B - Red Koopa Troopa flying horizontally (0x0B00, 0x0100)
+30: $0B - Red Koopa Troopa flying horizontally (0x0B20, 0x0110)
+31: $0B - Red Koopa Troopa flying horizontally (0x0B40, 0x0120)
+32: $0B - Red Koopa Troopa flying horizontally (0x0B60, 0x0130)
+
+### Level $00D ###
+00: $72 - Super Koopa with yellow cape (0x0110, 0x0100)
+01: $73 - Super Koopa on the ground (0x01A0, 0x0170)
+02: $01 - Red Koopa Troopa without shell (0x0250, 0x0160)
+03: $DA - Green Koopa shell (0x02D0, 0x0170)
+04: $72 - Super Koopa with yellow cape (0x0340, 0x0100)
+05: $72 - Super Koopa with yellow cape (0x0360, 0x00E0)
+06: $72 - Super Koopa with yellow cape (0x0450, 0x0100)
+07: $72 - Super Koopa with yellow cape (0x04B0, 0x0100)
+08: $72 - Super Koopa with yellow cape (0x0510, 0x0100)
+09: $72 - Super Koopa with yellow cape (0x0530, 0x00C0)
+10: $72 - Super Koopa with yellow cape (0x0570, 0x00D0)
+11: $DB - Red Koopa shell (0x0640, 0x0110)
+12: $02 - Blue Koopa Troopa without shell (0x0650, 0x0110)
+13: $DB - Red Koopa shell (0x06D0, 0x0110)
+14: $72 - Super Koopa with yellow cape (0x06D0, 0x0100)
+15: $02 - Blue Koopa Troopa without shell (0x06F0, 0x0110)
+16: $73 - Super Koopa on the ground (0x0740, 0x0170)
+17: $72 - Super Koopa with yellow cape (0x0760, 0x00F0)
+18: $72 - Super Koopa with yellow cape (0x07A0, 0x00F0)
+19: $DC - Blue Koopa shell (0x07A0, 0x0100)
+20: $02 - Blue Koopa Troopa without shell (0x07B0, 0x0100)
+21: $72 - Super Koopa with yellow cape (0x07E0, 0x00F0)
+22: $73 - Super Koopa on the ground (0x0810, 0x0170)
+23: $72 - Super Koopa with yellow cape (0x0830, 0x0100)
+24: $DC - Blue Koopa shell (0x0830, 0x0120)
+25: $DC - Blue Koopa shell (0x0840, 0x0100)
+26: $02 - Blue Koopa Troopa without shell (0x0850, 0x0120)
+27: $02 - Blue Koopa Troopa without shell (0x0860, 0x0100)
+28: $00 - Green Koopa Troopa without shell (0x0A20, 0x0150)
+29: $D3 - Super Koopa generator (0x0A60, 0x0000)
+30: $02 - Blue Koopa Troopa without shell (0x0AE0, 0x0150)
+31: $02 - Blue Koopa Troopa without shell (0x0B80, 0x0150)
+32: $72 - Super Koopa with yellow cape (0x0C70, 0x00E0)
+33: $72 - Super Koopa with yellow cape (0x0C70, 0x00D0)
+34: $72 - Super Koopa with yellow cape (0x0C70, 0x00C0)
+35: $72 - Super Koopa with yellow cape (0x0C70, 0x00B0)
+36: $D3 - Super Koopa generator (0x0D90, 0x0000)
+37: $72 - Super Koopa with yellow cape (0x0EA0, 0x0090)
+38: $72 - Super Koopa with yellow cape (0x0EA0, 0x00E0)
+39: $72 - Super Koopa with yellow cape (0x0F00, 0x00A0)
+40: $72 - Super Koopa with yellow cape (0x0F00, 0x00D0)
+41: $72 - Super Koopa with yellow cape (0x0F60, 0x0080)
+42: $72 - Super Koopa with yellow cape (0x0F60, 0x00D0)
+43: $01 - Red Koopa Troopa without shell (0x1030, 0x0100)
+44: $72 - Super Koopa with yellow cape (0x10C0, 0x0100)
+45: $D9 - Turn Off Generators (0x1100, 0x0000)
+46: $01 - Red Koopa Troopa without shell (0x1100, 0x0140)
+47: $72 - Super Koopa with yellow cape (0x1120, 0x00F0)
+48: $72 - Super Koopa with yellow cape (0x1190, 0x00F0)
+49: $72 - Super Koopa with yellow cape (0x1210, 0x0120)
+50: $72 - Super Koopa with yellow cape (0x1270, 0x00D0)
+51: $72 - Super Koopa with yellow cape (0x1280, 0x00C0)
+52: $72 - Super Koopa with yellow cape (0x1290, 0x00B0)
+53: $72 - Super Koopa with yellow cape (0x12A0, 0x00A0)
+54: $72 - Super Koopa with yellow cape (0x12B0, 0x0090)
+55: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $00E ###
+00: $31 - Bony Beetle (0x0210, 0x0180)
+01: $9E - Ball 'n' Chain (0x0250, 0x0180)
+02: $31 - Bony Beetle (0x02F0, 0x0140)
+03: $9E - Ball 'n' Chain (0x0320, 0x0100)
+04: $9E - Ball 'n' Chain (0x0360, 0x0170)
+05: $9E - Ball 'n' Chain (0x03A0, 0x0100)
+06: $9E - Ball 'n' Chain (0x0410, 0x0160)
+07: $9E - Ball 'n' Chain (0x0420, 0x0110)
+08: $74 - Mushroom (0x0500, 0x0140)
+
+### Level $00F ###
+00: $63 - Brown/checkered line-guided platform (0x0130, 0x0180)
+01: $63 - Brown/checkered line-guided platform (0x01B0, 0x0150)
+02: $65 - Chainsaw (line-guided) (0x01D0, 0x0180)
+03: $63 - Brown/checkered line-guided platform (0x0270, 0x0120)
+04: $65 - Chainsaw (line-guided) (0x0290, 0x0150)
+05: $65 - Chainsaw (line-guided) (0x03B0, 0x0190)
+06: $65 - Chainsaw (line-guided) (0x0440, 0x0160)
+07: $65 - Chainsaw (line-guided) (0x0450, 0x0110)
+08: $65 - Chainsaw (line-guided) (0x04D0, 0x0190)
+09: $65 - Chainsaw (line-guided) (0x04E0, 0x0120)
+10: $65 - Chainsaw (line-guided) (0x0510, 0x0100)
+11: $65 - Chainsaw (line-guided) (0x0550, 0x0190)
+12: $65 - Chainsaw (line-guided) (0x0560, 0x0190)
+13: $65 - Chainsaw (line-guided) (0x0650, 0x0100)
+14: $65 - Chainsaw (line-guided) (0x06A0, 0x0160)
+15: $65 - Chainsaw (line-guided) (0x0750, 0x00F0)
+16: $65 - Chainsaw (line-guided) (0x0790, 0x00F0)
+17: $65 - Chainsaw (line-guided) (0x07C0, 0x0190)
+18: $65 - Chainsaw (line-guided) (0x07D0, 0x0100)
+19: $65 - Chainsaw (line-guided) (0x0820, 0x0130)
+20: $65 - Chainsaw (line-guided) (0x0830, 0x0190)
+21: $65 - Chainsaw (line-guided) (0x0860, 0x0180)
+22: $65 - Chainsaw (line-guided) (0x0870, 0x0130)
+23: $65 - Chainsaw (line-guided) (0x0890, 0x0100)
+24: $65 - Chainsaw (line-guided) (0x08F0, 0x0100)
+25: $64 - Line-guided rope mechanism (0x0A40, 0x0100)
+26: $64 - Line-guided rope mechanism (0x0BA0, 0x0110)
+27: $64 - Line-guided rope mechanism (0x0CD0, 0x0120)
+28: $64 - Line-guided rope mechanism (0x0D20, 0x0100)
+29: $64 - Line-guided rope mechanism (0x0D80, 0x0100)
+30: $64 - Line-guided rope mechanism (0x0F10, 0x0100)
+31: $66 - Upside-down chainsaw (line-guided) (0x0F90, 0x00D0)
+32: $65 - Chainsaw (line-guided) (0x0F90, 0x0130)
+33: $65 - Chainsaw (line-guided) (0x0FF0, 0x0160)
+34: $65 - Chainsaw (line-guided) (0x1050, 0x0130)
+35: $65 - Chainsaw (line-guided) (0x1090, 0x0190)
+36: $65 - Chainsaw (line-guided) (0x10F0, 0x0140)
+37: $65 - Chainsaw (line-guided) (0x1150, 0x0170)
+38: $65 - Chainsaw (line-guided) (0x11B0, 0x0140)
+39: $65 - Chainsaw (line-guided) (0x11B0, 0x01A0)
+40: $7B - Goal tape (0x12E0, 0x0150)
+41: $7B - Goal tape (0x14E0, 0x0570)
+
+### Level $010 ###
+00: $4D - Monty Mole, ground-dwelling (0x00C0, 0x0170)
+01: $BD - Sliding Koopa (0x0100, 0x0110)
+02: $4D - Monty Mole, ground-dwelling (0x0120, 0x0170)
+03: $9A - Sumo Brother (0x0210, 0x0120)
+04: $4D - Monty Mole, ground-dwelling (0x0270, 0x0170)
+05: $BD - Sliding Koopa (0x03B0, 0x00F0)
+06: $BD - Sliding Koopa (0x0410, 0x0110)
+07: $BD - Sliding Koopa (0x0440, 0x0120)
+08: $DB - Red Koopa shell (0x0460, 0x0170)
+09: $4E - Monty Mole, ledge-dwelling (0x04E0, 0x0110)
+10: $4E - Monty Mole, ledge-dwelling (0x04E0, 0x0150)
+11: $4E - Monty Mole, ledge-dwelling (0x0520, 0x0170)
+12: $4E - Monty Mole, ledge-dwelling (0x0520, 0x0110)
+13: $4D - Monty Mole, ground-dwelling (0x0540, 0x0170)
+14: $4D - Monty Mole, ground-dwelling (0x0540, 0x00F0)
+15: $4D - Monty Mole, ground-dwelling (0x0540, 0x0130)
+16: $4D - Monty Mole, ground-dwelling (0x0560, 0x0150)
+17: $4D - Monty Mole, ground-dwelling (0x06D0, 0x0170)
+18: $4E - Monty Mole, ledge-dwelling (0x06F0, 0x0140)
+19: $4E - Monty Mole, ledge-dwelling (0x0710, 0x0160)
+20: $4E - Monty Mole, ledge-dwelling (0x0730, 0x0160)
+21: $4E - Monty Mole, ledge-dwelling (0x0730, 0x0130)
+22: $4D - Monty Mole, ground-dwelling (0x0750, 0x0170)
+23: $4F - Jumping Piranha Plant (0x0760, 0x0150)
+24: $9A - Sumo Brother (0x0860, 0x00F0)
+25: $4E - Monty Mole, ledge-dwelling (0x08B0, 0x0190)
+26: $9A - Sumo Brother (0x08B0, 0x00F0)
+27: $4F - Jumping Piranha Plant (0x0990, 0x0160)
+28: $4E - Monty Mole, ledge-dwelling (0x0A20, 0x00F0)
+29: $4E - Monty Mole, ledge-dwelling (0x0A40, 0x0190)
+30: $4E - Monty Mole, ledge-dwelling (0x0A50, 0x0120)
+31: $4E - Monty Mole, ledge-dwelling (0x0A80, 0x00F0)
+32: $4E - Monty Mole, ledge-dwelling (0x0AB0, 0x0150)
+33: $4D - Monty Mole, ground-dwelling (0x0C10, 0x0170)
+34: $4D - Monty Mole, ground-dwelling (0x0C90, 0x0170)
+35: $4E - Monty Mole, ledge-dwelling (0x0CD0, 0x0160)
+36: $4E - Monty Mole, ledge-dwelling (0x0D30, 0x0130)
+37: $4E - Monty Mole, ledge-dwelling (0x0D40, 0x0150)
+38: $4D - Monty Mole, ground-dwelling (0x0D60, 0x0170)
+39: $4E - Monty Mole, ledge-dwelling (0x0DA0, 0x0160)
+40: $81 - Changing item (0x0F80, 0x0170)
+41: $50 - Jumping Piranha Plant that spits fireballs (0x1060, 0x0160)
+42: $9A - Sumo Brother (0x11F0, 0x0130)
+43: $9A - Sumo Brother (0x1230, 0x00F0)
+44: $93 - Bouncin' Chuck (0x1340, 0x0170)
+45: $7B - Goal tape (0x13E0, 0x0170)
+
+### Level $011 ###
+00: $CA - Torpedo Ted launcher (0x0110, 0x0130)
+01: $C2 - Blurp (0x0130, 0x0110)
+02: $C2 - Blurp (0x0160, 0x00F0)
+03: $C2 - Blurp (0x0230, 0x0170)
+04: $C2 - Blurp (0x0230, 0x0140)
+05: $CA - Torpedo Ted launcher (0x0260, 0x0100)
+06: $CA - Torpedo Ted launcher (0x0280, 0x0110)
+07: $C2 - Blurp (0x02A0, 0x0170)
+08: $C2 - Blurp (0x02C0, 0x0170)
+09: $C2 - Blurp (0x02E0, 0x0170)
+10: $CA - Torpedo Ted launcher (0x0370, 0x0160)
+11: $CA - Torpedo Ted launcher (0x0390, 0x0110)
+12: $C2 - Blurp (0x0480, 0x0150)
+13: $C2 - Blurp (0x0480, 0x0110)
+14: $C2 - Blurp (0x04A0, 0x0170)
+15: $C2 - Blurp (0x04A0, 0x0130)
+16: $CA - Torpedo Ted launcher (0x04D0, 0x00F0)
+17: $CA - Torpedo Ted launcher (0x0520, 0x0110)
+18: $CA - Torpedo Ted launcher (0x0570, 0x0140)
+19: $C2 - Blurp (0x05F0, 0x0190)
+20: $C2 - Blurp (0x0600, 0x0170)
+21: $C2 - Blurp (0x0650, 0x0100)
+22: $C2 - Blurp (0x0660, 0x0140)
+23: $C2 - Blurp (0x0690, 0x00F0)
+24: $C2 - Blurp (0x06C0, 0x0100)
+25: $CA - Torpedo Ted launcher (0x0710, 0x0150)
+26: $C2 - Blurp (0x0720, 0x0180)
+27: $CA - Torpedo Ted launcher (0x0760, 0x00F0)
+28: $CA - Torpedo Ted launcher (0x07B0, 0x0110)
+29: $CA - Torpedo Ted launcher (0x07B0, 0x0160)
+30: $C2 - Blurp (0x0870, 0x0170)
+31: $C2 - Blurp (0x0880, 0x0120)
+32: $C2 - Blurp (0x08A0, 0x0150)
+33: $CA - Torpedo Ted launcher (0x08C0, 0x0170)
+34: $C2 - Blurp (0x08E0, 0x0130)
+35: $C2 - Blurp (0x0900, 0x0120)
+36: $CA - Torpedo Ted launcher (0x0930, 0x0120)
+37: $CA - Torpedo Ted launcher (0x0990, 0x0160)
+38: $CA - Torpedo Ted launcher (0x09E0, 0x0110)
+39: $C2 - Blurp (0x0A30, 0x0180)
+40: $C2 - Blurp (0x0A30, 0x0160)
+41: $C2 - Blurp (0x0A30, 0x0140)
+42: $C2 - Blurp (0x0A30, 0x0120)
+43: $C2 - Blurp (0x0A70, 0x0190)
+44: $CA - Torpedo Ted launcher (0x0A90, 0x0120)
+45: $C2 - Blurp (0x0AA0, 0x0150)
+46: $C2 - Blurp (0x0AB0, 0x0170)
+47: $CA - Torpedo Ted launcher (0x0AD0, 0x0130)
+48: $CA - Torpedo Ted launcher (0x0B10, 0x0140)
+49: $C2 - Blurp (0x0BC0, 0x0170)
+50: $C2 - Blurp (0x0BD0, 0x0150)
+51: $C2 - Blurp (0x0BE0, 0x0100)
+
+### Level $012 ###
+
+### Level $013 ###
+00: $E3 - Boo Ring moving clockwise (0x01A0, 0x0140)
+01: $2F - Portable springboard (0x0290, 0x00F0)
+02: $38 - Eerie that moves straight (0x02A0, 0x0160)
+03: $3E - P-switch (0x02E0, 0x0170)
+04: $28 - Big Boo (0x0330, 0x0140)
+
+### Level $014 ###
+00: $3E - P-switch (0x0080, 0x0170)
+
+### Level $015 ###
+00: $73 - Super Koopa on the ground (0x01C0, 0x0170)
+01: $73 - Super Koopa on the ground (0x0230, 0x0150)
+02: $73 - Super Koopa on the ground (0x0270, 0x0130)
+03: $C7 - Invisible mushroom (0x02D0, 0x0170)
+04: $72 - Super Koopa with yellow cape (0x0330, 0x00A0)
+05: $98 - Pitchin' Chuck (0x03C0, 0x0170)
+06: $73 - Super Koopa on the ground (0x04B0, 0x0140)
+07: $73 - Super Koopa on the ground (0x0500, 0x0170)
+08: $99 - Volcano Lotus (0x0590, 0x0130)
+09: $09 - Green Koopa Troopa bouncing (0x0670, 0x0170)
+10: $73 - Super Koopa on the ground (0x0690, 0x0110)
+11: $09 - Green Koopa Troopa bouncing (0x06B0, 0x0170)
+12: $73 - Super Koopa on the ground (0x0800, 0x0170)
+13: $4F - Jumping Piranha Plant (0x0810, 0x0150)
+14: $98 - Pitchin' Chuck (0x0840, 0x0170)
+15: $72 - Super Koopa with yellow cape (0x0A30, 0x00B0)
+16: $C7 - Invisible mushroom (0x0A50, 0x0170)
+17: $73 - Super Koopa on the ground (0x0AB0, 0x0170)
+18: $73 - Super Koopa on the ground (0x0AF0, 0x0170)
+19: $73 - Super Koopa on the ground (0x0B10, 0x0140)
+20: $72 - Super Koopa with yellow cape (0x0C30, 0x00B0)
+21: $73 - Super Koopa on the ground (0x0C80, 0x0170)
+22: $99 - Volcano Lotus (0x0CB0, 0x0140)
+23: $73 - Super Koopa on the ground (0x0D70, 0x0110)
+24: $98 - Pitchin' Chuck (0x0D90, 0x0170)
+25: $98 - Pitchin' Chuck (0x0E80, 0x0170)
+26: $99 - Volcano Lotus (0x0EF0, 0x0130)
+27: $98 - Pitchin' Chuck (0x0FC0, 0x0130)
+28: $73 - Super Koopa on the ground (0x10C0, 0x0170)
+29: $73 - Super Koopa on the ground (0x10D0, 0x0110)
+30: $73 - Super Koopa on the ground (0x10D0, 0x0130)
+31: $73 - Super Koopa on the ground (0x10D0, 0x0150)
+32: $B9 - Info Box (0x1160, 0x0150)
+33: $80 - Key (0x11D0, 0x0060)
+34: $0E - Keyhole (0x1210, 0x0060)
+35: $99 - Volcano Lotus (0x1240, 0x0110)
+36: $98 - Pitchin' Chuck (0x12B0, 0x0170)
+37: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $016 ###
+00: $73 - Super Koopa on the ground (0x01C0, 0x0170)
+01: $73 - Super Koopa on the ground (0x0230, 0x0150)
+02: $73 - Super Koopa on the ground (0x0270, 0x0130)
+03: $C7 - Invisible mushroom (0x02D0, 0x0170)
+04: $72 - Super Koopa with yellow cape (0x0330, 0x00A0)
+05: $98 - Pitchin' Chuck (0x03C0, 0x0170)
+06: $73 - Super Koopa on the ground (0x04B0, 0x0140)
+07: $73 - Super Koopa on the ground (0x0500, 0x0170)
+08: $99 - Volcano Lotus (0x0590, 0x0130)
+09: $09 - Green Koopa Troopa bouncing (0x0670, 0x0170)
+10: $73 - Super Koopa on the ground (0x0690, 0x0110)
+11: $09 - Green Koopa Troopa bouncing (0x06B0, 0x0170)
+12: $73 - Super Koopa on the ground (0x0800, 0x0170)
+13: $4F - Jumping Piranha Plant (0x0810, 0x0150)
+14: $98 - Pitchin' Chuck (0x0840, 0x0170)
+15: $72 - Super Koopa with yellow cape (0x0A30, 0x00B0)
+16: $C7 - Invisible mushroom (0x0A50, 0x0170)
+17: $73 - Super Koopa on the ground (0x0AB0, 0x0170)
+18: $73 - Super Koopa on the ground (0x0AF0, 0x0170)
+19: $73 - Super Koopa on the ground (0x0B10, 0x0140)
+20: $72 - Super Koopa with yellow cape (0x0C30, 0x00B0)
+21: $73 - Super Koopa on the ground (0x0C80, 0x0170)
+22: $99 - Volcano Lotus (0x0CB0, 0x0140)
+23: $73 - Super Koopa on the ground (0x0D70, 0x0110)
+24: $98 - Pitchin' Chuck (0x0D90, 0x0170)
+25: $98 - Pitchin' Chuck (0x0E80, 0x0170)
+26: $99 - Volcano Lotus (0x0EF0, 0x0130)
+27: $98 - Pitchin' Chuck (0x0FC0, 0x0130)
+28: $73 - Super Koopa on the ground (0x10C0, 0x0170)
+29: $73 - Super Koopa on the ground (0x10D0, 0x0110)
+30: $73 - Super Koopa on the ground (0x10D0, 0x0130)
+31: $73 - Super Koopa on the ground (0x10D0, 0x0150)
+32: $B9 - Info Box (0x1160, 0x0150)
+33: $80 - Key (0x11D0, 0x0060)
+34: $0E - Keyhole (0x1210, 0x0060)
+35: $99 - Volcano Lotus (0x1240, 0x0110)
+36: $98 - Pitchin' Chuck (0x12B0, 0x0170)
+37: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $017 ###
+00: $73 - Super Koopa on the ground (0x01C0, 0x0170)
+01: $73 - Super Koopa on the ground (0x0230, 0x0150)
+02: $73 - Super Koopa on the ground (0x0270, 0x0130)
+03: $C7 - Invisible mushroom (0x02D0, 0x0170)
+04: $72 - Super Koopa with yellow cape (0x0330, 0x00A0)
+05: $98 - Pitchin' Chuck (0x03C0, 0x0170)
+06: $73 - Super Koopa on the ground (0x04B0, 0x0140)
+07: $73 - Super Koopa on the ground (0x0500, 0x0170)
+08: $99 - Volcano Lotus (0x0590, 0x0130)
+09: $09 - Green Koopa Troopa bouncing (0x0670, 0x0170)
+10: $73 - Super Koopa on the ground (0x0690, 0x0110)
+11: $09 - Green Koopa Troopa bouncing (0x06B0, 0x0170)
+12: $73 - Super Koopa on the ground (0x0800, 0x0170)
+13: $4F - Jumping Piranha Plant (0x0810, 0x0150)
+14: $98 - Pitchin' Chuck (0x0840, 0x0170)
+15: $72 - Super Koopa with yellow cape (0x0A30, 0x00B0)
+16: $C7 - Invisible mushroom (0x0A50, 0x0170)
+17: $73 - Super Koopa on the ground (0x0AB0, 0x0170)
+18: $73 - Super Koopa on the ground (0x0AF0, 0x0170)
+19: $73 - Super Koopa on the ground (0x0B10, 0x0140)
+20: $72 - Super Koopa with yellow cape (0x0C30, 0x00B0)
+21: $73 - Super Koopa on the ground (0x0C80, 0x0170)
+22: $99 - Volcano Lotus (0x0CB0, 0x0140)
+23: $73 - Super Koopa on the ground (0x0D70, 0x0110)
+24: $98 - Pitchin' Chuck (0x0D90, 0x0170)
+25: $98 - Pitchin' Chuck (0x0E80, 0x0170)
+26: $99 - Volcano Lotus (0x0EF0, 0x0130)
+27: $98 - Pitchin' Chuck (0x0FC0, 0x0130)
+28: $73 - Super Koopa on the ground (0x10C0, 0x0170)
+29: $73 - Super Koopa on the ground (0x10D0, 0x0110)
+30: $73 - Super Koopa on the ground (0x10D0, 0x0130)
+31: $73 - Super Koopa on the ground (0x10D0, 0x0150)
+32: $B9 - Info Box (0x1160, 0x0150)
+33: $80 - Key (0x11D0, 0x0060)
+34: $0E - Keyhole (0x1210, 0x0060)
+35: $99 - Volcano Lotus (0x1240, 0x0110)
+36: $98 - Pitchin' Chuck (0x12B0, 0x0170)
+37: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $018 ###
+00: $C9 - Bullet Bill shooter (0x0110, 0x00A0)
+01: $C9 - Bullet Bill shooter (0x0160, 0x00C0)
+02: $C9 - Bullet Bill shooter (0x0180, 0x0050)
+03: $C9 - Bullet Bill shooter (0x0230, 0x00E0)
+
+### Level $019 ###
+
+### Level $01A ###
+00: $E9 - Layer 2 Smash (0x0080, 0x0000)
+01: $30 - Dry Bones that throws bones (0x0110, 0x0170)
+02: $2F - Portable springboard (0x0140, 0x0180)
+03: $2F - Portable springboard (0x0150, 0x0180)
+04: $67 - Grinder, line-guided (0x02D0, 0x0160)
+05: $67 - Grinder, line-guided (0x0340, 0x0160)
+06: $67 - Grinder, line-guided (0x0390, 0x0160)
+07: $67 - Grinder, line-guided (0x0400, 0x0160)
+08: $33 - Podoboo/vertical fireball (0x0420, 0x0100)
+09: $33 - Podoboo/vertical fireball (0x0490, 0x00F0)
+10: $67 - Grinder, line-guided (0x04C0, 0x0160)
+11: $67 - Grinder, line-guided (0x0550, 0x0130)
+12: $67 - Grinder, line-guided (0x05D0, 0x0140)
+13: $67 - Grinder, line-guided (0x06B0, 0x0150)
+14: $67 - Grinder, line-guided (0x0730, 0x0140)
+15: $67 - Grinder, line-guided (0x0770, 0x0170)
+16: $67 - Grinder, line-guided (0x0810, 0x0100)
+17: $67 - Grinder, line-guided (0x0870, 0x0110)
+18: $67 - Grinder, line-guided (0x08B0, 0x0120)
+19: $E9 - Layer 2 Smash (0x0B80, 0x0000)
+
+### Level $01B ###
+00: $AD - Wooden spike pointing up (0x0130, 0x0170)
+01: $AC - Wooden spike pointing down (0x0130, 0x0100)
+02: $32 - Dry Bones that stays on ledges (0x01A0, 0x0170)
+03: $AC - Wooden spike pointing down (0x01C0, 0x00F0)
+04: $AD - Wooden spike pointing up (0x01C0, 0x0140)
+05: $AC - Wooden spike pointing down (0x0270, 0x0110)
+06: $AC - Wooden spike pointing down (0x0320, 0x00E0)
+07: $32 - Dry Bones that stays on ledges (0x03A0, 0x0170)
+08: $AC - Wooden spike pointing down (0x03D0, 0x0130)
+09: $B3 - Bowser statue fireball (0x03E0, 0x0160)
+10: $D8 - Bowser statue fire generator (0x0410, 0x0000)
+11: $AD - Wooden spike pointing up (0x0490, 0x0160)
+12: $B3 - Bowser statue fireball (0x04A0, 0x0170)
+13: $AC - Wooden spike pointing down (0x0500, 0x0100)
+14: $B3 - Bowser statue fireball (0x05E0, 0x0160)
+15: $32 - Dry Bones that stays on ledges (0x0600, 0x0170)
+16: $AD - Wooden spike pointing up (0x0630, 0x0170)
+17: $AD - Wooden spike pointing up (0x0640, 0x0140)
+18: $AC - Wooden spike pointing down (0x06C0, 0x00F0)
+19: $AD - Wooden spike pointing up (0x06C0, 0x0140)
+20: $AC - Wooden spike pointing down (0x0700, 0x00F0)
+21: $AD - Wooden spike pointing up (0x0700, 0x0140)
+22: $AD - Wooden spike pointing up (0x0730, 0x0170)
+23: $AC - Wooden spike pointing down (0x0730, 0x0100)
+24: $AD - Wooden spike pointing up (0x0770, 0x0170)
+25: $AC - Wooden spike pointing down (0x0770, 0x0100)
+26: $D9 - Turn Off Generators (0x07E0, 0x0000)
+
+### Level $01C ###
+00: $13 - Spiny (0x00B0, 0x0140)
+01: $13 - Spiny (0x0110, 0x0100)
+02: $13 - Spiny (0x0110, 0x0170)
+03: $3E - P-switch (0x0170, 0x0040)
+04: $3E - P-switch (0x01A0, 0x0170)
+05: $13 - Spiny (0x01D0, 0x0170)
+06: $13 - Spiny (0x01D0, 0x0100)
+07: $13 - Spiny (0x0290, 0x0170)
+08: $74 - Mushroom (0x02F0, 0x0140)
+09: $13 - Spiny (0x0350, 0x0100)
+10: $13 - Spiny (0x0350, 0x0170)
+11: $13 - Spiny (0x03B0, 0x0140)
+12: $81 - Changing item (0x0410, 0x0170)
+13: $13 - Spiny (0x0470, 0x0140)
+14: $13 - Spiny (0x04F0, 0x0170)
+15: $13 - Spiny (0x05C0, 0x0170)
+16: $13 - Spiny (0x05C0, 0x0100)
+17: $3F - Para-Goomba (0x0720, 0x00A0)
+18: $40 - Para-Bomb (0x0760, 0x00A0)
+19: $3F - Para-Goomba (0x07A0, 0x00A0)
+20: $40 - Para-Bomb (0x07E0, 0x00A0)
+21: $DA - Green Koopa shell (0x0930, 0x0120)
+22: $DB - Red Koopa shell (0x0960, 0x0090)
+23: $DC - Blue Koopa shell (0x0980, 0x0090)
+24: $DD - Yellow Koopa shell (0x09A0, 0x0090)
+25: $DA - Green Koopa shell (0x09C0, 0x0090)
+26: $DB - Red Koopa shell (0x09E0, 0x0090)
+27: $DC - Blue Koopa shell (0x0A00, 0x0090)
+28: $DD - Yellow Koopa shell (0x0A20, 0x0090)
+29: $DA - Green Koopa shell (0x0A40, 0x0090)
+30: $49 - Growing/shrinking pipe (0x0B40, 0x0150)
+31: $49 - Growing/shrinking pipe (0x0B80, 0x0130)
+32: $49 - Growing/shrinking pipe (0x0BC0, 0x0150)
+33: $49 - Growing/shrinking pipe (0x0C00, 0x0120)
+34: $49 - Growing/shrinking pipe (0x0C40, 0x0160)
+35: $59 - Turn block bridge, horizontal and vertical (0x0D00, 0x0130)
+36: $59 - Turn block bridge, horizontal and vertical (0x0D60, 0x0110)
+37: $59 - Turn block bridge, horizontal and vertical (0x0DC0, 0x0140)
+38: $49 - Growing/shrinking pipe (0x0E00, 0x0170)
+39: $95 - Chargin' Chuck (0x0E70, 0x0120)
+40: $95 - Chargin' Chuck (0x0F50, 0x0170)
+41: $95 - Chargin' Chuck (0x0F80, 0x0170)
+42: $95 - Chargin' Chuck (0x0FB0, 0x0170)
+43: $7B - Goal tape (0x0FE0, 0x0170)
+
+### Level $01D ###
+00: $B7 - Carrot Top Lift, upper right (0x01F0, 0x00E0)
+01: $B8 - Carrot Top Lift, upper left (0x02F0, 0x0140)
+02: $B7 - Carrot Top Lift, upper right (0x0310, 0x00A0)
+03: $B7 - Carrot Top Lift, upper right (0x0350, 0x0100)
+04: $B7 - Carrot Top Lift, upper right (0x04B0, 0x00F0)
+05: $B7 - Carrot Top Lift, upper right (0x04F0, 0x0090)
+06: $B8 - Carrot Top Lift, upper left (0x0540, 0x0180)
+07: $B7 - Carrot Top Lift, upper right (0x0550, 0x0030)
+08: $B7 - Carrot Top Lift, upper right (0x0560, 0x00B0)
+09: $B8 - Carrot Top Lift, upper left (0x0590, 0x0170)
+10: $B7 - Carrot Top Lift, upper right (0x05E0, 0x0100)
+11: $C4 - Gray platform that falls (0x0600, 0x0170)
+12: $78 - 1-Up mushroom (0x06D0, 0x0130)
+13: $78 - 1-Up mushroom (0x06E0, 0x0130)
+14: $78 - 1-Up mushroom (0x0700, 0x0130)
+15: $B7 - Carrot Top Lift, upper right (0x0720, 0x0140)
+16: $B7 - Carrot Top Lift, upper right (0x0780, 0x0120)
+17: $B7 - Carrot Top Lift, upper right (0x07E0, 0x0100)
+18: $B7 - Carrot Top Lift, upper right (0x0820, 0x0100)
+19: $BF - Mega Mole (0x0AA0, 0x0150)
+20: $BF - Mega Mole (0x0B20, 0x0050)
+21: $BF - Mega Mole (0x0BC0, 0x0150)
+22: $95 - Chargin' Chuck (0x0DA0, 0x0150)
+23: $7B - Goal tape (0x0DE0, 0x0170)
+
+### Level $01E ###
+
+### Level $01F ###
+00: $F3 - Standard auto-scroll command (0x0080, 0x0000)
+01: $E6 - Background candle flames (0x0000, 0x0000)
+02: $89 - Layer 3 Smash (0x0120, 0x0000)
+03: $67 - Grinder, line-guided (0x0190, 0x0150)
+04: $67 - Grinder, line-guided (0x0210, 0x0140)
+05: $67 - Grinder, line-guided (0x02B0, 0x0150)
+06: $67 - Grinder, line-guided (0x0330, 0x0140)
+07: $67 - Grinder, line-guided (0x0430, 0x0140)
+08: $67 - Grinder, line-guided (0x04D0, 0x0130)
+09: $67 - Grinder, line-guided (0x0510, 0x0120)
+
+### Level $020 ###
+00: $B1 - Creating/eating block (0x01B0, 0x0180)
+01: $B1 - Creating/eating block (0x0200, 0x0180)
+02: $33 - Podoboo/vertical fireball (0x0250, 0x0150)
+03: $B6 - Reflecting fireball (0x0370, 0x0140)
+04: $B6 - Reflecting fireball (0x04E0, 0x00F0)
+05: $B6 - Reflecting fireball (0x0500, 0x0150)
+06: $B6 - Reflecting fireball (0x0530, 0x00F0)
+07: $B6 - Reflecting fireball (0x0580, 0x0150)
+08: $B2 - Falling spike (0x0810, 0x00E0)
+09: $B2 - Falling spike (0x08B0, 0x00E0)
+10: $3E - P-switch (0x0A80, 0x0150)
+11: $B2 - Falling spike (0x0A80, 0x0110)
+12: $33 - Podoboo/vertical fireball (0x0B50, 0x0130)
+13: $33 - Podoboo/vertical fireball (0x0B70, 0x0120)
+14: $33 - Podoboo/vertical fireball (0x0BB0, 0x0140)
+15: $78 - 1-Up mushroom (0x0BC0, 0x00E0)
+16: $BC - Bowser statue (0x0BD0, 0x00E0)
+17: $BC - Bowser statue (0x0C50, 0x0150)
+18: $5A - Turn block bridge, horizontal (0x0CC0, 0x0160)
+19: $B6 - Reflecting fireball (0x0D20, 0x0190)
+20: $5A - Turn block bridge, horizontal (0x0D30, 0x0160)
+21: $B6 - Reflecting fireball (0x0D50, 0x0110)
+22: $BC - Bowser statue (0x0D70, 0x0150)
+23: $5A - Turn block bridge, horizontal (0x0DA0, 0x0160)
+24: $B6 - Reflecting fireball (0x0DB0, 0x0110)
+25: $BC - Bowser statue (0x0E70, 0x0150)
+
+### Level $021 ###
+00: $52 - Moving hole in ghost house ledge (0x0110, 0x0180)
+01: $38 - Eerie that moves straight (0x0180, 0x0170)
+02: $38 - Eerie that moves straight (0x0190, 0x0160)
+03: $52 - Moving hole in ghost house ledge (0x03A0, 0x0180)
+04: $DE - Group of 5 wave-moving Eeries (0x03B0, 0x0150)
+05: $39 - Eerie that moves in a wave (0x0450, 0x0150)
+06: $39 - Eerie that moves in a wave (0x0460, 0x0150)
+07: $39 - Eerie that moves in a wave (0x0470, 0x0150)
+08: $52 - Moving hole in ghost house ledge (0x0490, 0x0180)
+09: $38 - Eerie that moves straight (0x0500, 0x0120)
+10: $38 - Eerie that moves straight (0x0500, 0x0170)
+11: $52 - Moving hole in ghost house ledge (0x05A0, 0x0180)
+12: $AE - Fishin' Boo (0x05F0, 0x00C0)
+13: $39 - Eerie that moves in a wave (0x0760, 0x0160)
+14: $38 - Eerie that moves straight (0x08C0, 0x0140)
+15: $DE - Group of 5 wave-moving Eeries (0x09A0, 0x0110)
+16: $52 - Moving hole in ghost house ledge (0x0AE0, 0x0180)
+17: $39 - Eerie that moves in a wave (0x0B30, 0x0110)
+18: $39 - Eerie that moves in a wave (0x0B30, 0x0160)
+19: $38 - Eerie that moves straight (0x0BC0, 0x0160)
+20: $52 - Moving hole in ghost house ledge (0x0BD0, 0x0180)
+21: $38 - Eerie that moves straight (0x0BE0, 0x0130)
+22: $52 - Moving hole in ghost house ledge (0x0CC0, 0x0180)
+23: $39 - Eerie that moves in a wave (0x0D30, 0x0150)
+24: $52 - Moving hole in ghost house ledge (0x0DB0, 0x0180)
+
+### Level $022 ###
+00: $6E - Dino-Rhino (0x0110, 0x0170)
+01: $6F - Dino-Torch (0x01B0, 0x0100)
+02: $C7 - Invisible mushroom (0x0240, 0x0100)
+03: $6F - Dino-Torch (0x0260, 0x0100)
+04: $6E - Dino-Rhino (0x0320, 0x0160)
+05: $6F - Dino-Torch (0x03E0, 0x0160)
+06: $6F - Dino-Torch (0x0410, 0x0160)
+07: $6F - Dino-Torch (0x0440, 0x0150)
+08: $6E - Dino-Rhino (0x0480, 0x0160)
+09: $83 - Flying question block that flies left (0x0490, 0x0120)
+10: $6F - Dino-Torch (0x0520, 0x0150)
+11: $6F - Dino-Torch (0x0560, 0x0170)
+12: $4F - Jumping Piranha Plant (0x05D0, 0x0150)
+13: $6F - Dino-Torch (0x0610, 0x00F0)
+14: $6E - Dino-Rhino (0x0820, 0x0110)
+15: $2F - Portable springboard (0x0960, 0x0170)
+16: $3E - P-switch (0x0A60, 0x0160)
+17: $95 - Chargin' Chuck (0x0AC0, 0x0110)
+18: $6E - Dino-Rhino (0x0C70, 0x0150)
+19: $6F - Dino-Torch (0x0CB0, 0x0140)
+20: $83 - Flying question block that flies left (0x0CD0, 0x0100)
+21: $6F - Dino-Torch (0x0D00, 0x0110)
+22: $6F - Dino-Torch (0x0D70, 0x0100)
+23: $4F - Jumping Piranha Plant (0x0E50, 0x0150)
+24: $6F - Dino-Torch (0x0EA0, 0x0160)
+25: $4F - Jumping Piranha Plant (0x0F20, 0x0160)
+26: $6E - Dino-Rhino (0x0F50, 0x0170)
+27: $6F - Dino-Torch (0x0FD0, 0x0160)
+28: $4F - Jumping Piranha Plant (0x0FE0, 0x0130)
+29: $6F - Dino-Torch (0x1020, 0x0160)
+30: $8E - Invisible warp hole (0x10A0, 0x0140)
+31: $0A - Red Koopa Troopa flying vertically (0x11B0, 0x0140)
+32: $2F - Portable springboard (0x1230, 0x0170)
+33: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $023 ###
+00: $A3 - Rotating gray platform (0x0120, 0x0140)
+01: $05 - Red Koopa Troopa (0x0230, 0x0100)
+02: $A3 - Rotating gray platform (0x0230, 0x0110)
+03: $06 - Blue Koopa Troopa (0x0370, 0x0160)
+04: $A3 - Rotating gray platform (0x0370, 0x0170)
+05: $05 - Red Koopa Troopa (0x03F0, 0x0130)
+06: $A3 - Rotating gray platform (0x03F0, 0x0140)
+07: $A3 - Rotating gray platform (0x04A0, 0x0160)
+08: $06 - Blue Koopa Troopa (0x04A0, 0x0150)
+09: $05 - Red Koopa Troopa (0x0570, 0x0170)
+10: $06 - Blue Koopa Troopa (0x0640, 0x0150)
+11: $A3 - Rotating gray platform (0x0640, 0x0160)
+12: $A3 - Rotating gray platform (0x0700, 0x0150)
+13: $05 - Red Koopa Troopa (0x0700, 0x0140)
+14: $06 - Blue Koopa Troopa (0x0790, 0x0140)
+15: $A3 - Rotating gray platform (0x0790, 0x0150)
+16: $A3 - Rotating gray platform (0x0840, 0x0150)
+17: $06 - Blue Koopa Troopa (0x0840, 0x0140)
+18: $05 - Red Koopa Troopa (0x08E0, 0x0110)
+19: $A3 - Rotating gray platform (0x08E0, 0x0120)
+20: $A3 - Rotating gray platform (0x0980, 0x0100)
+21: $06 - Blue Koopa Troopa (0x0980, 0x00F0)
+22: $06 - Blue Koopa Troopa (0x0980, 0x0170)
+23: $06 - Blue Koopa Troopa (0x0A90, 0x0140)
+24: $A3 - Rotating gray platform (0x0A90, 0x0150)
+25: $05 - Red Koopa Troopa (0x0B30, 0x0130)
+26: $A3 - Rotating gray platform (0x0B30, 0x0140)
+27: $06 - Blue Koopa Troopa (0x0B90, 0x0170)
+28: $06 - Blue Koopa Troopa (0x0BB0, 0x0170)
+29: $A5 - Wall-following Sparky/Fuzzy (0x0CB0, 0x0140)
+30: $A3 - Rotating gray platform (0x0CB0, 0x0150)
+31: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0140)
+32: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0120)
+33: $A3 - Rotating gray platform (0x0D50, 0x0140)
+34: $A5 - Wall-following Sparky/Fuzzy (0x0E60, 0x0140)
+35: $A3 - Rotating gray platform (0x0E60, 0x0150)
+36: $A5 - Wall-following Sparky/Fuzzy (0x0EE0, 0x0130)
+37: $A3 - Rotating gray platform (0x0EE0, 0x0140)
+38: $A5 - Wall-following Sparky/Fuzzy (0x0F70, 0x0160)
+39: $A3 - Rotating gray platform (0x0F70, 0x0170)
+40: $A5 - Wall-following Sparky/Fuzzy (0x0FF0, 0x0110)
+41: $A3 - Rotating gray platform (0x0FF0, 0x0120)
+42: $A3 - Rotating gray platform (0x1080, 0x0160)
+43: $0A - Red Koopa Troopa flying vertically (0x10C0, 0x0140)
+44: $A5 - Wall-following Sparky/Fuzzy (0x1110, 0x0140)
+45: $A3 - Rotating gray platform (0x1110, 0x0150)
+46: $A3 - Rotating gray platform (0x1270, 0x0070)
+47: $06 - Blue Koopa Troopa (0x12E0, 0x0170)
+48: $7B - Goal tape (0x12E0, 0x00C0)
+49: $7B - Goal tape (0x16E0, 0x0570)
+
+### Level $024 ###
+00: $B9 - Info Box (0x0070, 0x0140)
+01: $6F - Dino-Torch (0x00C0, 0x0130)
+02: $2F - Portable springboard (0x00E0, 0x0130)
+03: $6E - Dino-Rhino (0x0110, 0x0170)
+04: $6F - Dino-Torch (0x01B0, 0x0170)
+05: $6E - Dino-Rhino (0x01C0, 0x0080)
+06: $6E - Dino-Rhino (0x01D0, 0x00F0)
+07: $6F - Dino-Torch (0x01F0, 0x0090)
+08: $6F - Dino-Torch (0x02F0, 0x0080)
+09: $6F - Dino-Torch (0x0310, 0x0140)
+10: $6F - Dino-Torch (0x0330, 0x00E0)
+11: $6E - Dino-Rhino (0x0360, 0x00A0)
+
+### Level $025 ###
+
+### Level $026 ###
+
+### Level $027 ###
+
+### Level $028 ###
+
+### Level $029 ###
+
+### Level $02A ###
+
+### Level $02B ###
+
+### Level $02C ###
+
+### Level $02D ###
+
+### Level $02E ###
+
+### Level $02F ###
+
+### Level $030 ###
+
+### Level $031 ###
+
+### Level $032 ###
+
+### Level $033 ###
+
+### Level $034 ###
+
+### Level $035 ###
+
+### Level $036 ###
+
+### Level $037 ###
+
+### Level $038 ###
+
+### Level $039 ###
+
+### Level $03A ###
+
+### Level $03B ###
+
+### Level $03C ###
+
+### Level $03D ###
+
+### Level $03E ###
+
+### Level $03F ###
+
+### Level $040 ###
+
+### Level $041 ###
+
+### Level $042 ###
+
+### Level $043 ###
+
+### Level $044 ###
+
+### Level $045 ###
+
+### Level $046 ###
+
+### Level $047 ###
+
+### Level $048 ###
+
+### Level $049 ###
+
+### Level $04A ###
+
+### Level $04B ###
+
+### Level $04C ###
+
+### Level $04D ###
+
+### Level $04E ###
+
+### Level $04F ###
+
+### Level $050 ###
+
+### Level $051 ###
+
+### Level $052 ###
+
+### Level $053 ###
+
+### Level $054 ###
+
+### Level $055 ###
+
+### Level $056 ###
+
+### Level $057 ###
+
+### Level $058 ###
+
+### Level $059 ###
+
+### Level $05A ###
+
+### Level $05B ###
+
+### Level $05C ###
+
+### Level $05D ###
+
+### Level $05E ###
+
+### Level $05F ###
+
+### Level $060 ###
+
+### Level $061 ###
+
+### Level $062 ###
+
+### Level $063 ###
+
+### Level $064 ###
+
+### Level $065 ###
+
+### Level $066 ###
+
+### Level $067 ###
+
+### Level $068 ###
+
+### Level $069 ###
+
+### Level $06A ###
+
+### Level $06B ###
+
+### Level $06C ###
+
+### Level $06D ###
+
+### Level $06E ###
+
+### Level $06F ###
+
+### Level $070 ###
+
+### Level $071 ###
+
+### Level $072 ###
+
+### Level $073 ###
+
+### Level $074 ###
+
+### Level $075 ###
+
+### Level $076 ###
+
+### Level $077 ###
+
+### Level $078 ###
+
+### Level $079 ###
+
+### Level $07A ###
+
+### Level $07B ###
+
+### Level $07C ###
+
+### Level $07D ###
+
+### Level $07E ###
+
+### Level $07F ###
+
+### Level $080 ###
+
+### Level $081 ###
+
+### Level $082 ###
+
+### Level $083 ###
+
+### Level $084 ###
+
+### Level $085 ###
+
+### Level $086 ###
+
+### Level $087 ###
+
+### Level $088 ###
+
+### Level $089 ###
+
+### Level $08A ###
+
+### Level $08B ###
+
+### Level $08C ###
+
+### Level $08D ###
+
+### Level $08E ###
+
+### Level $08F ###
+
+### Level $090 ###
+
+### Level $091 ###
+
+### Level $092 ###
+
+### Level $093 ###
+00: $B6 - Reflecting fireball (0x0010, 0x0100)
+01: $29 - Koopa Kid (0x00C0, 0x0050)
+
+### Level $094 ###
+00: $B6 - Reflecting fireball (0x0010, 0x0100)
+01: $29 - Koopa Kid (0x00C0, 0x0060)
+02: $B6 - Reflecting fireball (0x00E0, 0x0100)
+
+### Level $095 ###
+00: $A9 - Reznor (0x0010, 0x0000)
+01: $A9 - Reznor (0x0020, 0x0000)
+02: $A9 - Reznor (0x0030, 0x0000)
+03: $A9 - Reznor (0x0040, 0x0000)
+
+### Level $096 ###
+00: $33 - Podoboo/vertical fireball (0x0020, 0x0000)
+01: $33 - Podoboo/vertical fireball (0x0070, 0x0000)
+02: $33 - Podoboo/vertical fireball (0x00D0, 0x0000)
+03: $29 - Koopa Kid (0x00C0, 0x0040)
+
+### Level $097 ###
+00: $29 - Koopa Kid (0x00C0, 0x0030)
+
+### Level $098 ###
+00: $29 - Koopa Kid (0x00C0, 0x0020)
+
+### Level $099 ###
+00: $29 - Koopa Kid (0x00C0, 0x0010)
+
+### Level $09A ###
+00: $29 - Koopa Kid (0x00C0, 0x0000)
+
+### Level $09B ###
+00: $A0 - Bowser battle activator (0x0000, 0x0000)
+
+### Level $09C ###
+
+### Level $09D ###
+
+### Level $09E ###
+
+### Level $09F ###
+
+### Level $0A0 ###
+
+### Level $0A1 ###
+
+### Level $0A2 ###
+
+### Level $0A3 ###
+
+### Level $0A4 ###
+
+### Level $0A5 ###
+
+### Level $0A6 ###
+
+### Level $0A7 ###
+
+### Level $0A8 ###
+
+### Level $0A9 ###
+
+### Level $0AA ###
+
+### Level $0AB ###
+
+### Level $0AC ###
+
+### Level $0AD ###
+
+### Level $0AE ###
+
+### Level $0AF ###
+
+### Level $0B0 ###
+
+### Level $0B1 ###
+
+### Level $0B2 ###
+
+### Level $0B3 ###
+
+### Level $0B4 ###
+
+### Level $0B5 ###
+
+### Level $0B6 ###
+
+### Level $0B7 ###
+
+### Level $0B8 ###
+
+### Level $0B9 ###
+
+### Level $0BA ###
+
+### Level $0BB ###
+
+### Level $0BC ###
+
+### Level $0BD ###
+
+### Level $0BE ###
+00: $CF - Dolphin generator (left) (0x0040, 0x0000)
+01: $C3 - Porcu-Puffer (0x00E0, 0x0180)
+02: $C3 - Porcu-Puffer (0x0210, 0x0180)
+
+### Level $0BF ###
+00: $D7 - Multidirectional diagonal Bullet Bill generator (0x0080, 0x0000)
+01: $57 - Checkerboard platform, vertical (0x0150, 0x0170)
+02: $57 - Checkerboard platform, vertical (0x01C0, 0x0140)
+03: $57 - Checkerboard platform, vertical (0x0230, 0x0180)
+04: $57 - Checkerboard platform, vertical (0x02A0, 0x0150)
+05: $55 - Checkerboard platform, horizontal (0x0350, 0x0170)
+
+### Level $0C0 ###
+00: $9D - Sprite in a bubble (0x0120, 0x0120)
+01: $9D - Sprite in a bubble (0x0160, 0x0130)
+02: $9D - Sprite in a bubble (0x01B0, 0x0120)
+03: $9D - Sprite in a bubble (0x01E0, 0x0100)
+04: $9D - Sprite in a bubble (0x0220, 0x0140)
+05: $9D - Sprite in a bubble (0x0260, 0x0120)
+06: $9D - Sprite in a bubble (0x0270, 0x0100)
+07: $9D - Sprite in a bubble (0x02E0, 0x0130)
+08: $9D - Sprite in a bubble (0x02E0, 0x00F0)
+09: $9D - Sprite in a bubble (0x0330, 0x0110)
+10: $9D - Sprite in a bubble (0x0360, 0x0130)
+11: $9D - Sprite in a bubble (0x03A0, 0x0110)
+
+### Level $0C1 ###
+00: $C3 - Porcu-Puffer (0x0110, 0x0180)
+01: $C3 - Porcu-Puffer (0x0220, 0x0180)
+
+### Level $0C2 ###
+00: $0B - Red Koopa Troopa flying horizontally (0x0170, 0x00F0)
+01: $0B - Red Koopa Troopa flying horizontally (0x00E0, 0x00F0)
+02: $0B - Red Koopa Troopa flying horizontally (0x01D0, 0x01A0)
+03: $0B - Red Koopa Troopa flying horizontally (0x0130, 0x01A0)
+04: $0B - Red Koopa Troopa flying horizontally (0x00B0, 0x01A0)
+05: $0B - Red Koopa Troopa flying horizontally (0x0170, 0x0290)
+06: $0B - Red Koopa Troopa flying horizontally (0x00F0, 0x0290)
+07: $0B - Red Koopa Troopa flying horizontally (0x01A0, 0x0300)
+08: $0B - Red Koopa Troopa flying horizontally (0x00B0, 0x0390)
+09: $0B - Red Koopa Troopa flying horizontally (0x0190, 0x0410)
+
+### Level $0C3 ###
+00: $49 - Growing/shrinking pipe (0x00D0, 0x0160)
+01: $49 - Growing/shrinking pipe (0x0110, 0x0150)
+02: $49 - Growing/shrinking pipe (0x0180, 0x0160)
+03: $0A - Red Koopa Troopa flying vertically (0x01B0, 0x0150)
+04: $49 - Growing/shrinking pipe (0x01D0, 0x0150)
+05: $0A - Red Koopa Troopa flying vertically (0x0230, 0x0130)
+06: $49 - Growing/shrinking pipe (0x0250, 0x0130)
+07: $49 - Growing/shrinking pipe (0x02A0, 0x0170)
+
+### Level $0C4 ###
+00: $8D - Ghost house exit sign and door (0x0000, 0x0000)
+01: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $0C5 ###
+00: $19 - Display text from level message 1 (0x0000, 0x0000)
+
+### Level $0C6 ###
+00: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $0C7 ###
+00: $05 - Red Koopa Troopa (0x00B0, 0x0160)
+01: $BD - Sliding Koopa (0x0370, 0x0110)
+02: $04 - Green Koopa Troopa (0x0430, 0x0170)
+03: $05 - Red Koopa Troopa (0x0460, 0x0170)
+04: $06 - Blue Koopa Troopa (0x0490, 0x0170)
+05: $07 - Yellow Koopa Troopa (0x04C0, 0x0170)
+06: $70 - Pokey (0x0650, 0x0130)
+07: $4F - Jumping Piranha Plant (0x06B0, 0x0160)
+
+### Level $0C8 ###
+00: $E8 - Special auto-scroll command (0x0080, 0x0010)
+01: $A5 - Wall-following Sparky/Fuzzy (0x0170, 0x0060)
+02: $A5 - Wall-following Sparky/Fuzzy (0x0190, 0x00B0)
+03: $A5 - Wall-following Sparky/Fuzzy (0x01F0, 0x0070)
+04: $A5 - Wall-following Sparky/Fuzzy (0x0240, 0x00A0)
+05: $A5 - Wall-following Sparky/Fuzzy (0x02B0, 0x0100)
+06: $A5 - Wall-following Sparky/Fuzzy (0x02F0, 0x0100)
+07: $A5 - Wall-following Sparky/Fuzzy (0x0330, 0x00C0)
+08: $A5 - Wall-following Sparky/Fuzzy (0x0350, 0x0100)
+09: $A5 - Wall-following Sparky/Fuzzy (0x0370, 0x0050)
+10: $A5 - Wall-following Sparky/Fuzzy (0x0390, 0x0070)
+11: $A5 - Wall-following Sparky/Fuzzy (0x03D0, 0x00C0)
+12: $A5 - Wall-following Sparky/Fuzzy (0x0450, 0x0090)
+13: $A5 - Wall-following Sparky/Fuzzy (0x0470, 0x0100)
+14: $A5 - Wall-following Sparky/Fuzzy (0x04C0, 0x00C0)
+15: $A5 - Wall-following Sparky/Fuzzy (0x04D0, 0x0120)
+
+### Level $0C9 ###
+00: $6D - Invisible solid block (0x0200, 0x0140)
+
+### Level $0CA ###
+00: $6D - Invisible solid block (0x0200, 0x0140)
+
+### Level $0CB ###
+00: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $0CC ###
+00: $29 - Koopa Kid (0x00C0, 0x0010)
+
+### Level $0CD ###
+00: $3E - P-switch (0x0080, 0x0170)
+01: $7B - Goal tape (0x02E0, 0x0170)
+
+### Level $0CE ###
+00: $9D - Sprite in a bubble (0x0130, 0x0110)
+01: $9D - Sprite in a bubble (0x0170, 0x0130)
+02: $9D - Sprite in a bubble (0x01B0, 0x0100)
+03: $9D - Sprite in a bubble (0x01B0, 0x0140)
+04: $9D - Sprite in a bubble (0x0230, 0x0120)
+05: $9D - Sprite in a bubble (0x0270, 0x0110)
+06: $9D - Sprite in a bubble (0x0270, 0x0140)
+07: $9D - Sprite in a bubble (0x02B0, 0x0120)
+08: $9D - Sprite in a bubble (0x0330, 0x00F0)
+09: $9D - Sprite in a bubble (0x0330, 0x0140)
+10: $9D - Sprite in a bubble (0x0370, 0x0120)
+
+### Level $0CF ###
+00: $77 - Feather (0x0040, 0x0170)
+
+### Level $0D0 ###
+00: $6E - Dino-Rhino (0x0110, 0x0170)
+01: $6F - Dino-Torch (0x01B0, 0x0100)
+02: $C7 - Invisible mushroom (0x0240, 0x0100)
+03: $6F - Dino-Torch (0x0260, 0x0100)
+04: $6E - Dino-Rhino (0x0320, 0x0160)
+05: $6F - Dino-Torch (0x03E0, 0x0160)
+06: $6F - Dino-Torch (0x0410, 0x0160)
+07: $6F - Dino-Torch (0x0440, 0x0150)
+08: $6E - Dino-Rhino (0x0480, 0x0160)
+09: $83 - Flying question block that flies left (0x0490, 0x0120)
+10: $6F - Dino-Torch (0x0520, 0x0150)
+11: $6F - Dino-Torch (0x0560, 0x0170)
+12: $4F - Jumping Piranha Plant (0x05D0, 0x0150)
+13: $6F - Dino-Torch (0x0610, 0x00F0)
+14: $6E - Dino-Rhino (0x0820, 0x0110)
+15: $2F - Portable springboard (0x0960, 0x0170)
+16: $3E - P-switch (0x0A60, 0x0160)
+17: $95 - Chargin' Chuck (0x0AC0, 0x0110)
+18: $6E - Dino-Rhino (0x0C70, 0x0150)
+19: $6F - Dino-Torch (0x0CB0, 0x0140)
+20: $83 - Flying question block that flies left (0x0CD0, 0x0100)
+21: $6F - Dino-Torch (0x0D00, 0x0110)
+22: $6F - Dino-Torch (0x0D70, 0x0100)
+23: $4F - Jumping Piranha Plant (0x0E50, 0x0150)
+24: $6F - Dino-Torch (0x0EA0, 0x0160)
+25: $4F - Jumping Piranha Plant (0x0F20, 0x0160)
+26: $6E - Dino-Rhino (0x0F50, 0x0170)
+27: $6F - Dino-Torch (0x0FD0, 0x0160)
+28: $4F - Jumping Piranha Plant (0x0FE0, 0x0130)
+29: $6F - Dino-Torch (0x1020, 0x0160)
+30: $8E - Invisible warp hole (0x10A0, 0x0140)
+31: $0A - Red Koopa Troopa flying vertically (0x11B0, 0x0140)
+32: $2F - Portable springboard (0x1230, 0x0170)
+33: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $0D1 ###
+00: $6E - Dino-Rhino (0x0110, 0x0170)
+01: $6F - Dino-Torch (0x01B0, 0x0100)
+02: $C7 - Invisible mushroom (0x0240, 0x0100)
+03: $6F - Dino-Torch (0x0260, 0x0100)
+04: $6E - Dino-Rhino (0x0320, 0x0160)
+05: $6F - Dino-Torch (0x03E0, 0x0160)
+06: $6F - Dino-Torch (0x0410, 0x0160)
+07: $6F - Dino-Torch (0x0440, 0x0150)
+08: $6E - Dino-Rhino (0x0480, 0x0160)
+09: $83 - Flying question block that flies left (0x0490, 0x0120)
+10: $6F - Dino-Torch (0x0520, 0x0150)
+11: $6F - Dino-Torch (0x0560, 0x0170)
+12: $4F - Jumping Piranha Plant (0x05D0, 0x0150)
+13: $6F - Dino-Torch (0x0610, 0x00F0)
+14: $6E - Dino-Rhino (0x0820, 0x0110)
+15: $2F - Portable springboard (0x0960, 0x0170)
+16: $3E - P-switch (0x0A60, 0x0160)
+17: $95 - Chargin' Chuck (0x0AC0, 0x0110)
+18: $6E - Dino-Rhino (0x0C70, 0x0150)
+19: $6F - Dino-Torch (0x0CB0, 0x0140)
+20: $83 - Flying question block that flies left (0x0CD0, 0x0100)
+21: $6F - Dino-Torch (0x0D00, 0x0110)
+22: $6F - Dino-Torch (0x0D70, 0x0100)
+23: $4F - Jumping Piranha Plant (0x0E50, 0x0150)
+24: $6F - Dino-Torch (0x0EA0, 0x0160)
+25: $4F - Jumping Piranha Plant (0x0F20, 0x0160)
+26: $6E - Dino-Rhino (0x0F50, 0x0170)
+27: $6F - Dino-Torch (0x0FD0, 0x0160)
+28: $4F - Jumping Piranha Plant (0x0FE0, 0x0130)
+29: $6F - Dino-Torch (0x1020, 0x0160)
+30: $8E - Invisible warp hole (0x10A0, 0x0140)
+31: $0A - Red Koopa Troopa flying vertically (0x11B0, 0x0140)
+32: $2F - Portable springboard (0x1230, 0x0170)
+33: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $0D2 ###
+00: $0A - Red Koopa Troopa flying vertically (0x00A0, 0x0170)
+01: $0A - Red Koopa Troopa flying vertically (0x00A0, 0x0150)
+02: $0A - Red Koopa Troopa flying vertically (0x0100, 0x0170)
+03: $0A - Red Koopa Troopa flying vertically (0x0100, 0x0150)
+04: $0A - Red Koopa Troopa flying vertically (0x0150, 0x0160)
+05: $0A - Red Koopa Troopa flying vertically (0x0160, 0x0160)
+06: $0A - Red Koopa Troopa flying vertically (0x0170, 0x0160)
+07: $0A - Red Koopa Troopa flying vertically (0x0180, 0x0160)
+08: $0A - Red Koopa Troopa flying vertically (0x0190, 0x0160)
+
+### Level $0D3 ###
+00: $B6 - Reflecting fireball (0x0010, 0x0100)
+01: $29 - Koopa Kid (0x00C0, 0x0060)
+02: $B6 - Reflecting fireball (0x00E0, 0x0100)
+
+### Level $0D4 ###
+00: $EA - Layer 2 scrolling command (0x0080, 0x0000)
+01: $A5 - Wall-following Sparky/Fuzzy (0x0160, 0x0140)
+02: $A6 - Hothead (0x0260, 0x0130)
+03: $A5 - Wall-following Sparky/Fuzzy (0x03E0, 0x0130)
+04: $A6 - Hothead (0x0440, 0x0130)
+05: $BB - Moving castle block (0x0520, 0x0130)
+06: $A5 - Wall-following Sparky/Fuzzy (0x0540, 0x0110)
+07: $BB - Moving castle block (0x0590, 0x0170)
+08: $A6 - Hothead (0x05D0, 0x0130)
+09: $30 - Dry Bones that throws bones (0x0680, 0x00C0)
+10: $A5 - Wall-following Sparky/Fuzzy (0x06C0, 0x00E0)
+11: $A5 - Wall-following Sparky/Fuzzy (0x06D0, 0x0170)
+12: $A6 - Hothead (0x06D0, 0x0130)
+
+### Level $0D5 ###
+00: $A9 - Reznor (0x0010, 0x0000)
+01: $A9 - Reznor (0x0020, 0x0000)
+02: $A9 - Reznor (0x0030, 0x0000)
+03: $A9 - Reznor (0x0040, 0x0000)
+
+### Level $0D6 ###
+00: $B4 - Grinder that moves on the ground (0x0100, 0x00E0)
+01: $33 - Podoboo/vertical fireball (0x0150, 0x0130)
+02: $33 - Podoboo/vertical fireball (0x0150, 0x00F0)
+03: $B4 - Grinder that moves on the ground (0x0210, 0x0170)
+04: $B4 - Grinder that moves on the ground (0x0240, 0x0170)
+05: $33 - Podoboo/vertical fireball (0x0330, 0x00B0)
+06: $33 - Podoboo/vertical fireball (0x0360, 0x00B0)
+07: $33 - Podoboo/vertical fireball (0x0440, 0x00E0)
+08: $B4 - Grinder that moves on the ground (0x0480, 0x0160)
+09: $33 - Podoboo/vertical fireball (0x0490, 0x00D0)
+10: $33 - Podoboo/vertical fireball (0x04E0, 0x00E0)
+11: $B4 - Grinder that moves on the ground (0x04F0, 0x0160)
+12: $33 - Podoboo/vertical fireball (0x0540, 0x00E0)
+13: $B4 - Grinder that moves on the ground (0x0560, 0x0160)
+14: $33 - Podoboo/vertical fireball (0x05F0, 0x00E0)
+15: $B4 - Grinder that moves on the ground (0x0680, 0x0130)
+16: $B4 - Grinder that moves on the ground (0x06C0, 0x0170)
+17: $B4 - Grinder that moves on the ground (0x0710, 0x0130)
+18: $B4 - Grinder that moves on the ground (0x0750, 0x0170)
+19: $B4 - Grinder that moves on the ground (0x0790, 0x0130)
+20: $33 - Podoboo/vertical fireball (0x09E0, 0x0120)
+21: $33 - Podoboo/vertical fireball (0x0A30, 0x0120)
+22: $33 - Podoboo/vertical fireball (0x0AA0, 0x0110)
+23: $33 - Podoboo/vertical fireball (0x0B00, 0x0130)
+24: $33 - Podoboo/vertical fireball (0x0B70, 0x0120)
+25: $33 - Podoboo/vertical fireball (0x0BD0, 0x0110)
+26: $33 - Podoboo/vertical fireball (0x0C10, 0x0130)
+27: $33 - Podoboo/vertical fireball (0x0C30, 0x0110)
+28: $33 - Podoboo/vertical fireball (0x0C80, 0x0110)
+29: $33 - Podoboo/vertical fireball (0x0CA0, 0x0100)
+30: $33 - Podoboo/vertical fireball (0x0CD0, 0x0130)
+31: $33 - Podoboo/vertical fireball (0x0D20, 0x0120)
+32: $33 - Podoboo/vertical fireball (0x0D80, 0x0110)
+33: $33 - Podoboo/vertical fireball (0x0DD0, 0x0120)
+34: $33 - Podoboo/vertical fireball (0x0E10, 0x0130)
+35: $33 - Podoboo/vertical fireball (0x0E70, 0x0120)
+36: $33 - Podoboo/vertical fireball (0x0EA0, 0x0110)
+
+### Level $0D7 ###
+00: $55 - Checkerboard platform, horizontal (0x0070, 0x0050)
+01: $5F - Swinging brown platform (0x00D0, 0x0050)
+
+### Level $0D8 ###
+00: $3E - P-switch (0x03C0, 0x0170)
+
+### Level $0D9 ###
+00: $29 - Koopa Kid (0x00C0, 0x0020)
+
+### Level $0DA ###
+
+### Level $0DB ###
+00: $24 - Green horizontal net Koopa (0x0030, 0x00D0)
+01: $24 - Green horizontal net Koopa (0x0090, 0x0100)
+02: $24 - Green horizontal net Koopa (0x0090, 0x0130)
+03: $25 - Red horizontal net Koopa (0x0030, 0x0180)
+04: $23 - Red vertical net Koopa (0x0070, 0x01D0)
+05: $24 - Green horizontal net Koopa (0x00C0, 0x01D0)
+06: $22 - Green vertical net Koopa (0x0040, 0x01D0)
+07: $24 - Green horizontal net Koopa (0x01A0, 0x0210)
+08: $22 - Green vertical net Koopa (0x0140, 0x0210)
+09: $24 - Green horizontal net Koopa (0x00C0, 0x0210)
+10: $24 - Green horizontal net Koopa (0x0140, 0x0260)
+11: $22 - Green vertical net Koopa (0x01A0, 0x0260)
+12: $22 - Green vertical net Koopa (0x00A0, 0x0260)
+13: $23 - Red vertical net Koopa (0x0070, 0x0270)
+14: $24 - Green horizontal net Koopa (0x01A0, 0x02B0)
+15: $22 - Green vertical net Koopa (0x0140, 0x02B0)
+16: $24 - Green horizontal net Koopa (0x0060, 0x02D0)
+17: $24 - Green horizontal net Koopa (0x0030, 0x02E0)
+18: $23 - Red vertical net Koopa (0x0090, 0x0340)
+19: $22 - Green vertical net Koopa (0x0060, 0x0340)
+20: $24 - Green horizontal net Koopa (0x00B0, 0x03C0)
+
+### Level $0DC ###
+00: $33 - Podoboo/vertical fireball (0x04C0, 0x0110)
+01: $33 - Podoboo/vertical fireball (0x0520, 0x0110)
+02: $33 - Podoboo/vertical fireball (0x0580, 0x0110)
+03: $33 - Podoboo/vertical fireball (0x05E0, 0x0110)
+04: $31 - Bony Beetle (0x0630, 0x0170)
+05: $31 - Bony Beetle (0x06C0, 0x0170)
+06: $33 - Podoboo/vertical fireball (0x07B0, 0x0110)
+07: $33 - Podoboo/vertical fireball (0x0840, 0x0110)
+08: $F2 - Layer 2 on/off switch controller (0x0980, 0x0000)
+
+### Level $0DD ###
+00: $63 - Brown/checkered line-guided platform (0x0020, 0x0180)
+01: $64 - Line-guided rope mechanism (0x0060, 0x0100)
+
+### Level $0DE ###
+00: $37 - Boo (0x0060, 0x00F0)
+01: $37 - Boo (0x00B0, 0x0180)
+02: $37 - Boo (0x0170, 0x00E0)
+03: $37 - Boo (0x01C0, 0x0150)
+
+### Level $0DF ###
+00: $A9 - Reznor (0x0010, 0x0000)
+01: $A9 - Reznor (0x0020, 0x0000)
+02: $A9 - Reznor (0x0030, 0x0000)
+03: $A9 - Reznor (0x0040, 0x0000)
+
+### Level $0E0 ###
+00: $AA - Fishbone (0x0140, 0x0170)
+01: $AA - Fishbone (0x0170, 0x0150)
+02: $26 - Thwomp (0x0170, 0x00E0)
+03: $AA - Fishbone (0x01F0, 0x0150)
+04: $31 - Bony Beetle (0x0220, 0x0170)
+05: $31 - Bony Beetle (0x0240, 0x0170)
+06: $AA - Fishbone (0x0270, 0x0120)
+07: $26 - Thwomp (0x0280, 0x00E0)
+08: $AA - Fishbone (0x02A0, 0x0070)
+09: $9E - Ball 'n' Chain (0x02F0, 0x0050)
+10: $30 - Dry Bones that throws bones (0x0310, 0x0120)
+11: $9E - Ball 'n' Chain (0x0360, 0x0130)
+12: $9E - Ball 'n' Chain (0x03A0, 0x0050)
+13: $AA - Fishbone (0x03D0, 0x0070)
+14: $26 - Thwomp (0x03E0, 0x00E0)
+15: $AA - Fishbone (0x0430, 0x0100)
+16: $9E - Ball 'n' Chain (0x0450, 0x0050)
+17: $AA - Fishbone (0x0500, 0x0070)
+18: $9E - Ball 'n' Chain (0x0500, 0x0050)
+19: $30 - Dry Bones that throws bones (0x0520, 0x0170)
+20: $AA - Fishbone (0x0530, 0x0150)
+21: $AA - Fishbone (0x0530, 0x0110)
+22: $26 - Thwomp (0x0540, 0x00E0)
+23: $AA - Fishbone (0x0600, 0x0110)
+24: $9E - Ball 'n' Chain (0x0640, 0x0100)
+25: $9E - Ball 'n' Chain (0x0670, 0x0160)
+26: $30 - Dry Bones that throws bones (0x06B0, 0x0180)
+27: $AA - Fishbone (0x06D0, 0x0140)
+28: $AA - Fishbone (0x0700, 0x0110)
+29: $31 - Bony Beetle (0x0750, 0x0130)
+30: $AA - Fishbone (0x0790, 0x0100)
+31: $31 - Bony Beetle (0x07A0, 0x0130)
+
+### Level $0E1 ###
+00: $AA - Fishbone (0x0140, 0x0170)
+01: $AA - Fishbone (0x0170, 0x0150)
+02: $26 - Thwomp (0x0170, 0x00E0)
+03: $AA - Fishbone (0x01F0, 0x0150)
+04: $31 - Bony Beetle (0x0220, 0x0170)
+05: $31 - Bony Beetle (0x0240, 0x0170)
+06: $AA - Fishbone (0x0270, 0x0120)
+07: $26 - Thwomp (0x0280, 0x00E0)
+08: $AA - Fishbone (0x02A0, 0x0070)
+09: $9E - Ball 'n' Chain (0x02F0, 0x0050)
+10: $30 - Dry Bones that throws bones (0x0310, 0x0120)
+11: $9E - Ball 'n' Chain (0x0360, 0x0130)
+12: $9E - Ball 'n' Chain (0x03A0, 0x0050)
+13: $AA - Fishbone (0x03D0, 0x0070)
+14: $26 - Thwomp (0x03E0, 0x00E0)
+15: $AA - Fishbone (0x0430, 0x0100)
+16: $9E - Ball 'n' Chain (0x0450, 0x0050)
+17: $AA - Fishbone (0x0500, 0x0070)
+18: $9E - Ball 'n' Chain (0x0500, 0x0050)
+19: $30 - Dry Bones that throws bones (0x0520, 0x0170)
+20: $AA - Fishbone (0x0530, 0x0150)
+21: $AA - Fishbone (0x0530, 0x0110)
+22: $26 - Thwomp (0x0540, 0x00E0)
+23: $AA - Fishbone (0x0600, 0x0110)
+24: $9E - Ball 'n' Chain (0x0640, 0x0100)
+25: $9E - Ball 'n' Chain (0x0670, 0x0160)
+26: $30 - Dry Bones that throws bones (0x06B0, 0x0180)
+27: $AA - Fishbone (0x06D0, 0x0140)
+28: $AA - Fishbone (0x0700, 0x0110)
+29: $31 - Bony Beetle (0x0750, 0x0130)
+30: $AA - Fishbone (0x0790, 0x0100)
+31: $31 - Bony Beetle (0x07A0, 0x0130)
+
+### Level $0E2 ###
+00: $A9 - Reznor (0x0010, 0x0000)
+01: $A9 - Reznor (0x0020, 0x0000)
+02: $A9 - Reznor (0x0030, 0x0000)
+03: $A9 - Reznor (0x0040, 0x0000)
+
+### Level $0E3 ###
+00: $77 - Feather (0x0050, 0x0170)
+01: $B9 - Info Box (0x0070, 0x0140)
+
+### Level $0E4 ###
+00: $37 - Boo (0x0020, 0x00F0)
+01: $C5 - Big Boo Boss (0x00B0, 0x00D0)
+02: $37 - Boo (0x00A0, 0x00F0)
+
+### Level $0E5 ###
+00: $29 - Koopa Kid (0x00C0, 0x0000)
+
+### Level $0E6 ###
+
+### Level $0E7 ###
+00: $32 - Dry Bones that stays on ledges (0x00B0, 0x0090)
+01: $32 - Dry Bones that stays on ledges (0x00D0, 0x0280)
+02: $32 - Dry Bones that stays on ledges (0x0090, 0x0280)
+03: $32 - Dry Bones that stays on ledges (0x00D0, 0x02D0)
+04: $32 - Dry Bones that stays on ledges (0x0030, 0x0350)
+05: $32 - Dry Bones that stays on ledges (0x00A0, 0x0440)
+06: $32 - Dry Bones that stays on ledges (0x0070, 0x0550)
+07: $2F - Portable springboard (0x0040, 0x0550)
+08: $EF - Layer 2 sideways-scrolling command (0x0000, 0x0770)
+
+### Level $0E8 ###
+00: $32 - Dry Bones that stays on ledges (0x0020, 0x0050)
+01: $26 - Thwomp (0x0120, 0x0030)
+02: $33 - Podoboo/vertical fireball (0x0160, 0x0080)
+03: $26 - Thwomp (0x01C0, 0x00B0)
+04: $26 - Thwomp (0x0230, 0x00E0)
+
+### Level $0E9 ###
+00: $97 - Puntin' Chuck (0x0150, 0x0170)
+01: $0E - Keyhole (0x0250, 0x0060)
+02: $80 - Key (0x0280, 0x0060)
+03: $DC - Blue Koopa shell (0x0340, 0x0170)
+
+### Level $0EA ###
+00: $3E - P-switch (0x0060, 0x00A0)
+01: $77 - Feather (0x0110, 0x01F0)
+02: $78 - 1-Up mushroom (0x0130, 0x03F0)
+03: $76 - Star (0x0130, 0x04F0)
+04: $74 - Mushroom (0x0150, 0x05F0)
+05: $78 - 1-Up mushroom (0x01A0, 0x06F0)
+06: $78 - 1-Up mushroom (0x0190, 0x06F0)
+07: $78 - 1-Up mushroom (0x0180, 0x06F0)
+08: $78 - 1-Up mushroom (0x0170, 0x06F0)
+09: $78 - 1-Up mushroom (0x0160, 0x06F0)
+10: $77 - Feather (0x0180, 0x07F0)
+11: $75 - Flower (0x0180, 0x08F0)
+12: $78 - 1-Up mushroom (0x01C0, 0x0AF0)
+13: $78 - 1-Up mushroom (0x01B0, 0x0AF0)
+14: $78 - 1-Up mushroom (0x01A0, 0x0AF0)
+15: $2F - Portable springboard (0x0160, 0x0BC0)
+
+### Level $0EB ###
+00: $8D - Ghost house exit sign and door (0x0000, 0x0000)
+01: $7B - Goal tape (0x00E0, 0x0570)
+
+### Level $0EC ###
+00: $E3 - Boo Ring moving clockwise (0x01A0, 0x0140)
+01: $2F - Portable springboard (0x0290, 0x00F0)
+02: $38 - Eerie that moves straight (0x02A0, 0x0160)
+03: $3E - P-switch (0x02E0, 0x0170)
+04: $28 - Big Boo (0x0330, 0x0140)
+
+### Level $0ED ###
+00: $3E - P-switch (0x0060, 0x0120)
+01: $37 - Boo (0x00C0, 0x0160)
+02: $37 - Boo (0x0120, 0x0150)
+03: $B9 - Info Box (0x0140, 0x0150)
+04: $37 - Boo (0x0250, 0x0140)
+05: $E2 - Boo Ring moving counterclockwise (0x0310, 0x0140)
+06: $37 - Boo (0x03E0, 0x0120)
+
+### Level $0EE ###
+00: $E3 - Boo Ring moving clockwise (0x01A0, 0x0140)
+01: $2F - Portable springboard (0x0290, 0x00F0)
+02: $38 - Eerie that moves straight (0x02A0, 0x0160)
+03: $3E - P-switch (0x02E0, 0x0170)
+04: $28 - Big Boo (0x0330, 0x0140)
+
+### Level $0EF ###
+00: $26 - Thwomp (0x00C0, 0x00C0)
+01: $26 - Thwomp (0x0190, 0x00E0)
+02: $26 - Thwomp (0x0230, 0x00E0)
+03: $27 - Thwimp (0x0250, 0x0170)
+04: $26 - Thwomp (0x0340, 0x00F0)
+05: $26 - Thwomp (0x0390, 0x00F0)
+06: $27 - Thwimp (0x0450, 0x0170)
+07: $26 - Thwomp (0x0470, 0x00E0)
+08: $26 - Thwomp (0x0510, 0x00E0)
+09: $27 - Thwimp (0x0530, 0x0170)
+10: $26 - Thwomp (0x05B0, 0x00E0)
+11: $27 - Thwimp (0x0650, 0x0160)
+12: $27 - Thwimp (0x0670, 0x0160)
+13: $27 - Thwimp (0x06C0, 0x0160)
+14: $27 - Thwimp (0x06E0, 0x0160)
+15: $26 - Thwomp (0x07A0, 0x00E0)
+16: $26 - Thwomp (0x08A0, 0x00E0)
+17: $26 - Thwomp (0x0960, 0x00D0)
+18: $26 - Thwomp (0x0A50, 0x00D0)
+19: $27 - Thwimp (0x0A70, 0x0170)
+
+### Level $0F0 ###
+00: $8D - Ghost house exit sign and door (0x0000, 0x0000)
+01: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $0F1 ###
+00: $37 - Boo (0x0040, 0x0110)
+01: $37 - Boo (0x0080, 0x0150)
+02: $37 - Boo (0x00E0, 0x0140)
+03: $37 - Boo (0x0120, 0x0110)
+04: $37 - Boo (0x01E0, 0x0110)
+05: $38 - Eerie that moves straight (0x0230, 0x0140)
+06: $39 - Eerie that moves in a wave (0x0290, 0x0100)
+07: $39 - Eerie that moves in a wave (0x02C0, 0x0160)
+
+### Level $0F2 ###
+00: $3E - P-switch (0x0060, 0x0120)
+01: $37 - Boo (0x00C0, 0x0160)
+02: $37 - Boo (0x0120, 0x0150)
+03: $B9 - Info Box (0x0140, 0x0150)
+04: $37 - Boo (0x0250, 0x0140)
+05: $E2 - Boo Ring moving counterclockwise (0x0310, 0x0140)
+06: $37 - Boo (0x03E0, 0x0120)
+
+### Level $0F3 ###
+00: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $0F4 ###
+
+### Level $0F5 ###
+00: $6E - Dino-Rhino (0x0110, 0x0170)
+01: $6F - Dino-Torch (0x01B0, 0x0100)
+02: $C7 - Invisible mushroom (0x0240, 0x0100)
+03: $6F - Dino-Torch (0x0260, 0x0100)
+04: $6E - Dino-Rhino (0x0320, 0x0160)
+05: $6F - Dino-Torch (0x03E0, 0x0160)
+06: $6F - Dino-Torch (0x0410, 0x0160)
+07: $6F - Dino-Torch (0x0440, 0x0150)
+08: $6E - Dino-Rhino (0x0480, 0x0160)
+09: $83 - Flying question block that flies left (0x0490, 0x0120)
+10: $6F - Dino-Torch (0x0520, 0x0150)
+11: $6F - Dino-Torch (0x0560, 0x0170)
+12: $4F - Jumping Piranha Plant (0x05D0, 0x0150)
+13: $6F - Dino-Torch (0x0610, 0x00F0)
+14: $6E - Dino-Rhino (0x0820, 0x0110)
+15: $2F - Portable springboard (0x0960, 0x0170)
+16: $3E - P-switch (0x0A60, 0x0160)
+17: $95 - Chargin' Chuck (0x0AC0, 0x0110)
+18: $6E - Dino-Rhino (0x0C70, 0x0150)
+19: $6F - Dino-Torch (0x0CB0, 0x0140)
+20: $83 - Flying question block that flies left (0x0CD0, 0x0100)
+21: $6F - Dino-Torch (0x0D00, 0x0110)
+22: $6F - Dino-Torch (0x0D70, 0x0100)
+23: $4F - Jumping Piranha Plant (0x0E50, 0x0150)
+24: $6F - Dino-Torch (0x0EA0, 0x0160)
+25: $4F - Jumping Piranha Plant (0x0F20, 0x0160)
+26: $6E - Dino-Rhino (0x0F50, 0x0170)
+27: $6F - Dino-Torch (0x0FD0, 0x0160)
+28: $4F - Jumping Piranha Plant (0x0FE0, 0x0130)
+29: $6F - Dino-Torch (0x1020, 0x0160)
+30: $8E - Invisible warp hole (0x10A0, 0x0140)
+31: $0A - Red Koopa Troopa flying vertically (0x11B0, 0x0140)
+32: $2F - Portable springboard (0x1230, 0x0170)
+33: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $0F6 ###
+00: $6E - Dino-Rhino (0x0110, 0x0170)
+01: $6F - Dino-Torch (0x01B0, 0x0100)
+02: $C7 - Invisible mushroom (0x0240, 0x0100)
+03: $6F - Dino-Torch (0x0260, 0x0100)
+04: $6E - Dino-Rhino (0x0320, 0x0160)
+05: $6F - Dino-Torch (0x03E0, 0x0160)
+06: $6F - Dino-Torch (0x0410, 0x0160)
+07: $6F - Dino-Torch (0x0440, 0x0150)
+08: $6E - Dino-Rhino (0x0480, 0x0160)
+09: $83 - Flying question block that flies left (0x0490, 0x0120)
+10: $6F - Dino-Torch (0x0520, 0x0150)
+11: $6F - Dino-Torch (0x0560, 0x0170)
+12: $4F - Jumping Piranha Plant (0x05D0, 0x0150)
+13: $6F - Dino-Torch (0x0610, 0x00F0)
+14: $6E - Dino-Rhino (0x0820, 0x0110)
+15: $2F - Portable springboard (0x0960, 0x0170)
+16: $3E - P-switch (0x0A60, 0x0160)
+17: $95 - Chargin' Chuck (0x0AC0, 0x0110)
+18: $6E - Dino-Rhino (0x0C70, 0x0150)
+19: $6F - Dino-Torch (0x0CB0, 0x0140)
+20: $83 - Flying question block that flies left (0x0CD0, 0x0100)
+21: $6F - Dino-Torch (0x0D00, 0x0110)
+22: $6F - Dino-Torch (0x0D70, 0x0100)
+23: $4F - Jumping Piranha Plant (0x0E50, 0x0150)
+24: $6F - Dino-Torch (0x0EA0, 0x0160)
+25: $4F - Jumping Piranha Plant (0x0F20, 0x0160)
+26: $6E - Dino-Rhino (0x0F50, 0x0170)
+27: $6F - Dino-Torch (0x0FD0, 0x0160)
+28: $4F - Jumping Piranha Plant (0x0FE0, 0x0130)
+29: $6F - Dino-Torch (0x1020, 0x0160)
+30: $8E - Invisible warp hole (0x10A0, 0x0140)
+31: $0A - Red Koopa Troopa flying vertically (0x11B0, 0x0140)
+32: $2F - Portable springboard (0x1230, 0x0170)
+33: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $0F7 ###
+00: $76 - Star (0x0020, 0x0070)
+01: $0B - Red Koopa Troopa flying horizontally (0x00B0, 0x01A0)
+02: $0B - Red Koopa Troopa flying horizontally (0x00E0, 0x01F0)
+03: $0B - Red Koopa Troopa flying horizontally (0x0130, 0x0240)
+04: $05 - Red Koopa Troopa (0x0090, 0x0270)
+05: $0B - Red Koopa Troopa flying horizontally (0x0150, 0x02E0)
+06: $0B - Red Koopa Troopa flying horizontally (0x0130, 0x02E0)
+07: $0B - Red Koopa Troopa flying horizontally (0x0110, 0x02E0)
+08: $0B - Red Koopa Troopa flying horizontally (0x00F0, 0x02E0)
+09: $0B - Red Koopa Troopa flying horizontally (0x00D0, 0x02E0)
+10: $0B - Red Koopa Troopa flying horizontally (0x00B0, 0x02E0)
+11: $0B - Red Koopa Troopa flying horizontally (0x0090, 0x02E0)
+12: $0B - Red Koopa Troopa flying horizontally (0x0070, 0x02E0)
+13: $05 - Red Koopa Troopa (0x00A0, 0x0370)
+14: $0B - Red Koopa Troopa flying horizontally (0x01B0, 0x03C0)
+15: $0B - Red Koopa Troopa flying horizontally (0x0170, 0x0400)
+16: $0B - Red Koopa Troopa flying horizontally (0x0120, 0x0450)
+17: $04 - Green Koopa Troopa (0x0190, 0x0460)
+18: $A4 - Floating spike ball (0x0090, 0x04C0)
+19: $06 - Blue Koopa Troopa (0x00D0, 0x0540)
+20: $05 - Red Koopa Troopa (0x01C0, 0x0540)
+21: $74 - Mushroom (0x0170, 0x0540)
+22: $07 - Yellow Koopa Troopa (0x0120, 0x0540)
+23: $05 - Red Koopa Troopa (0x0030, 0x0540)
+24: $04 - Green Koopa Troopa (0x0080, 0x0540)
+25: $0B - Red Koopa Troopa flying horizontally (0x0070, 0x0640)
+26: $0B - Red Koopa Troopa flying horizontally (0x0150, 0x0640)
+27: $0B - Red Koopa Troopa flying horizontally (0x01D0, 0x0680)
+28: $0B - Red Koopa Troopa flying horizontally (0x00F0, 0x0680)
+29: $06 - Blue Koopa Troopa (0x0100, 0x0760)
+30: $05 - Red Koopa Troopa (0x0130, 0x0780)
+31: $05 - Red Koopa Troopa (0x00D0, 0x0780)
+32: $07 - Yellow Koopa Troopa (0x0160, 0x07C0)
+33: $07 - Yellow Koopa Troopa (0x00A0, 0x07C0)
+34: $04 - Green Koopa Troopa (0x01A0, 0x0800)
+35: $04 - Green Koopa Troopa (0x0060, 0x0800)
+36: $04 - Green Koopa Troopa (0x0100, 0x0800)
+37: $A4 - Floating spike ball (0x0100, 0x0A20)
+38: $0B - Red Koopa Troopa flying horizontally (0x01B0, 0x0A70)
+39: $0B - Red Koopa Troopa flying horizontally (0x00C0, 0x0A70)
+40: $0B - Red Koopa Troopa flying horizontally (0x0130, 0x0AC0)
+41: $0B - Red Koopa Troopa flying horizontally (0x0130, 0x0B50)
+42: $0B - Red Koopa Troopa flying horizontally (0x01B0, 0x0BC0)
+43: $0B - Red Koopa Troopa flying horizontally (0x00C0, 0x0BC0)
+44: $A4 - Floating spike ball (0x01C0, 0x0CA0)
+45: $A4 - Floating spike ball (0x0160, 0x0CA0)
+46: $A4 - Floating spike ball (0x00A0, 0x0CA0)
+47: $A4 - Floating spike ball (0x0030, 0x0CA0)
+48: $A4 - Floating spike ball (0x01D0, 0x1420)
+49: $A4 - Floating spike ball (0x0050, 0x1420)
+50: $A4 - Floating spike ball (0x01B0, 0x1480)
+51: $A4 - Floating spike ball (0x0070, 0x1480)
+52: $A4 - Floating spike ball (0x0160, 0x1500)
+53: $A4 - Floating spike ball (0x00C0, 0x1500)
+54: $A4 - Floating spike ball (0x0110, 0x15A0)
+55: $4A - Goal Point Question Sphere (0x0160, 0x1840)
+56: $78 - 1-Up mushroom (0x0020, 0x1900)
+57: $78 - 1-Up mushroom (0x01C0, 0x1920)
+58: $78 - 1-Up mushroom (0x01D0, 0x1920)
+
+### Level $0F8 ###
+00: $38 - Eerie that moves straight (0x00F0, 0x0170)
+01: $38 - Eerie that moves straight (0x0120, 0x0130)
+02: $38 - Eerie that moves straight (0x0190, 0x0150)
+03: $E5 - Appearing/disappearing Boos (0x0210, 0x0000)
+04: $39 - Eerie that moves in a wave (0x0570, 0x0170)
+05: $39 - Eerie that moves in a wave (0x05D0, 0x0110)
+06: $D2 - Turn Off Generator 2 (0x05F0, 0x0000)
+07: $39 - Eerie that moves in a wave (0x0600, 0x0170)
+08: $37 - Boo (0x0650, 0x0140)
+09: $37 - Boo (0x06B0, 0x00E0)
+10: $E2 - Boo Ring moving counterclockwise (0x06E0, 0x0160)
+11: $E2 - Boo Ring moving counterclockwise (0x07C0, 0x00E0)
+
+### Level $0F9 ###
+00: $37 - Boo (0x0060, 0x00F0)
+01: $37 - Boo (0x00B0, 0x0180)
+02: $37 - Boo (0x0170, 0x00E0)
+03: $37 - Boo (0x01C0, 0x0150)
+
+### Level $0FA ###
+
+### Level $0FB ###
+00: $8D - Ghost house exit sign and door (0x0000, 0x0000)
+01: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $0FC ###
+00: $AF - Boo Block (0x0100, 0x0180)
+01: $AF - Boo Block (0x0110, 0x0180)
+02: $AF - Boo Block (0x0120, 0x0180)
+03: $B0 - Reflecting stream of Boo Buddies (0x0200, 0x0140)
+04: $B0 - Reflecting stream of Boo Buddies (0x0310, 0x0120)
+05: $B0 - Reflecting stream of Boo Buddies (0x0370, 0x0110)
+06: $B0 - Reflecting stream of Boo Buddies (0x0440, 0x0140)
+07: $B0 - Reflecting stream of Boo Buddies (0x0490, 0x00D0)
+08: $AF - Boo Block (0x0510, 0x0160)
+09: $B0 - Reflecting stream of Boo Buddies (0x0580, 0x0160)
+10: $AF - Boo Block (0x0590, 0x00E0)
+11: $AF - Boo Block (0x05B0, 0x0130)
+
+### Level $0FD ###
+
+### Level $0FE ###
+00: $37 - Boo (0x0060, 0x00F0)
+01: $37 - Boo (0x00B0, 0x0180)
+02: $37 - Boo (0x0170, 0x00E0)
+03: $37 - Boo (0x01C0, 0x0150)
+
+### Level $0FF ###
+00: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $100 ###
+00: $82 - Bonus game sprite (0x0050, 0x0070)
+
+### Level $101 ###
+00: $E6 - Background candle flames (0x0000, 0x0000)
+01: $B9 - Info Box (0x0060, 0x0150)
+02: $24 - Green horizontal net Koopa (0x0110, 0x0130)
+03: $24 - Green horizontal net Koopa (0x0150, 0x0120)
+04: $25 - Red horizontal net Koopa (0x0190, 0x0100)
+05: $22 - Green vertical net Koopa (0x01E0, 0x0140)
+06: $24 - Green horizontal net Koopa (0x0250, 0x0100)
+07: $22 - Green vertical net Koopa (0x02A0, 0x0140)
+08: $3E - P-switch (0x02A0, 0x0170)
+09: $25 - Red horizontal net Koopa (0x0320, 0x0130)
+10: $22 - Green vertical net Koopa (0x0360, 0x0140)
+11: $24 - Green horizontal net Koopa (0x03B0, 0x0120)
+12: $33 - Podoboo/vertical fireball (0x0420, 0x0140)
+13: $25 - Red horizontal net Koopa (0x0440, 0x0150)
+14: $22 - Green vertical net Koopa (0x04E0, 0x0140)
+15: $54 - Revolving door for climbing net (0x0500, 0x0110)
+16: $24 - Green horizontal net Koopa (0x0510, 0x0100)
+17: $22 - Green vertical net Koopa (0x05A0, 0x0120)
+18: $22 - Green vertical net Koopa (0x05C0, 0x0150)
+19: $24 - Green horizontal net Koopa (0x05C0, 0x0100)
+20: $54 - Revolving door for climbing net (0x0600, 0x0130)
+21: $25 - Red horizontal net Koopa (0x0640, 0x0150)
+22: $22 - Green vertical net Koopa (0x0660, 0x0160)
+23: $54 - Revolving door for climbing net (0x06A0, 0x0130)
+24: $E6 - Background candle flames (0x0700, 0x0000)
+25: $B9 - Info Box (0x0730, 0x0150)
+
+### Level $102 ###
+00: $47 - Swimming/jumping fish (0x0050, 0x0190)
+01: $47 - Swimming/jumping fish (0x0090, 0x0180)
+02: $47 - Swimming/jumping fish (0x00D0, 0x0190)
+03: $5D - Small orange floating platform (0x0100, 0x0170)
+04: $5D - Small orange floating platform (0x01B0, 0x0170)
+05: $5D - Small orange floating platform (0x0280, 0x0170)
+06: $5D - Small orange floating platform (0x02E0, 0x0170)
+07: $A4 - Floating spike ball (0x0390, 0x0190)
+08: $5D - Small orange floating platform (0x03C0, 0x0170)
+09: $5D - Small orange floating platform (0x0420, 0x0170)
+10: $A4 - Floating spike ball (0x0450, 0x0170)
+11: $3E - P-switch (0x0480, 0x00D0)
+12: $DB - Red Koopa shell (0x04C0, 0x0150)
+13: $15 - Cheep Cheep swimming horizontally (0x0530, 0x0190)
+14: $05 - Red Koopa Troopa (0x0540, 0x00C0)
+15: $05 - Red Koopa Troopa (0x0580, 0x00C0)
+16: $05 - Red Koopa Troopa (0x05C0, 0x00C0)
+17: $15 - Cheep Cheep swimming horizontally (0x05D0, 0x0190)
+18: $5D - Small orange floating platform (0x06C0, 0x0170)
+19: $A4 - Floating spike ball (0x0710, 0x0190)
+20: $5D - Small orange floating platform (0x0720, 0x0170)
+21: $A4 - Floating spike ball (0x0760, 0x0170)
+22: $5D - Small orange floating platform (0x0800, 0x0170)
+23: $A4 - Floating spike ball (0x0850, 0x0190)
+24: $5D - Small orange floating platform (0x0860, 0x0170)
+25: $A4 - Floating spike ball (0x08B0, 0x0170)
+26: $5D - Small orange floating platform (0x08C0, 0x0170)
+27: $A4 - Floating spike ball (0x0910, 0x0190)
+28: $A4 - Floating spike ball (0x0990, 0x0190)
+29: $5D - Small orange floating platform (0x09A0, 0x0170)
+30: $A4 - Floating spike ball (0x09F0, 0x0190)
+31: $5D - Small orange floating platform (0x0A00, 0x0170)
+32: $18 - Cheep Cheep jumping to surface (0x0A70, 0x0190)
+
+### Level $103 ###
+00: $B9 - Info Box (0x00F0, 0x0140)
+01: $5F - Swinging brown platform (0x0160, 0x00A0)
+02: $5A - Turn block bridge, horizontal (0x02C0, 0x00D0)
+03: $5A - Turn block bridge, horizontal (0x0320, 0x00A0)
+04: $5F - Swinging brown platform (0x03E0, 0x00A0)
+05: $0B - Red Koopa Troopa flying horizontally (0x04F0, 0x0050)
+06: $55 - Checkerboard platform, horizontal (0x0550, 0x00D0)
+07: $0B - Red Koopa Troopa flying horizontally (0x0570, 0x0080)
+08: $57 - Checkerboard platform, vertical (0x05B0, 0x00D0)
+09: $05 - Red Koopa Troopa (0x06A0, 0x0080)
+10: $5F - Swinging brown platform (0x06F0, 0x0090)
+11: $5F - Swinging brown platform (0x07B0, 0x00D0)
+12: $09 - Green Koopa Troopa bouncing (0x09F0, 0x0170)
+13: $B9 - Info Box (0x0A20, 0x0140)
+14: $05 - Red Koopa Troopa (0x0AC0, 0x0130)
+15: $57 - Checkerboard platform, vertical (0x0B40, 0x0100)
+16: $5F - Swinging brown platform (0x0C10, 0x00A0)
+17: $59 - Turn block bridge, horizontal and vertical (0x0CC0, 0x00C0)
+18: $5A - Turn block bridge, horizontal (0x0D10, 0x00E0)
+19: $59 - Turn block bridge, horizontal and vertical (0x0D60, 0x00C0)
+20: $5A - Turn block bridge, horizontal (0x0DB0, 0x00A0)
+21: $59 - Turn block bridge, horizontal and vertical (0x0E00, 0x0070)
+22: $5A - Turn block bridge, horizontal (0x0E60, 0x0070)
+23: $55 - Checkerboard platform, horizontal (0x0F80, 0x00C0)
+24: $0B - Red Koopa Troopa flying horizontally (0x0FA0, 0x0030)
+25: $0B - Red Koopa Troopa flying horizontally (0x0FA0, 0x00E0)
+26: $5F - Swinging brown platform (0x0FE0, 0x00D0)
+27: $5F - Swinging brown platform (0x10F0, 0x00D0)
+28: $5F - Swinging brown platform (0x1190, 0x00E0)
+29: $7B - Goal tape (0x13E0, 0x0170)
+
+### Level $104 ###
+00: $8A - Yoshi's House bird (0x0040, 0x00E0)
+01: $8A - Yoshi's House bird (0x0050, 0x00E0)
+02: $8A - Yoshi's House bird (0x0060, 0x00E0)
+03: $8A - Yoshi's House bird (0x0070, 0x00E0)
+04: $8C - Side exit enabler (0x0080, 0x0070)
+05: $B9 - Info Box (0x0080, 0x0150)
+
+### Level $105 ###
+00: $BD - Sliding Koopa (0x00D0, 0x0110)
+01: $9F - Banzai Bill (0x01F0, 0x0130)
+02: $AB - Rex (0x0210, 0x0170)
+03: $83 - Flying question block that flies left (0x0250, 0x0140)
+04: $AB - Rex (0x02F0, 0x0170)
+05: $AB - Rex (0x0370, 0x0120)
+06: $AB - Rex (0x0480, 0x0130)
+07: $AB - Rex (0x0520, 0x0170)
+08: $AB - Rex (0x0590, 0x0170)
+09: $C7 - Invisible mushroom (0x0660, 0x0170)
+10: $AB - Rex (0x0700, 0x0170)
+11: $4F - Jumping Piranha Plant (0x0710, 0x0150)
+12: $8E - Invisible warp hole (0x0830, 0x0140)
+13: $AB - Rex (0x08A0, 0x0170)
+14: $4F - Jumping Piranha Plant (0x08B0, 0x0140)
+15: $B9 - Info Box (0x0A20, 0x0140)
+16: $AB - Rex (0x0AC0, 0x0170)
+17: $AB - Rex (0x0B60, 0x0170)
+18: $AB - Rex (0x0B80, 0x0170)
+19: $AB - Rex (0x0BA0, 0x0170)
+20: $AB - Rex (0x0BD0, 0x0150)
+21: $9F - Banzai Bill (0x0CA0, 0x0140)
+22: $B9 - Info Box (0x0CF0, 0x0150)
+23: $AB - Rex (0x0CF0, 0x0170)
+24: $DB - Red Koopa shell (0x0D10, 0x0170)
+25: $9F - Banzai Bill (0x0E20, 0x0140)
+26: $AB - Rex (0x0F20, 0x0170)
+27: $AB - Rex (0x1010, 0x0170)
+28: $AB - Rex (0x1070, 0x0170)
+29: $9F - Banzai Bill (0x1170, 0x0140)
+30: $4F - Jumping Piranha Plant (0x11C0, 0x0140)
+31: $AB - Rex (0x1220, 0x0140)
+32: $95 - Chargin' Chuck (0x12A0, 0x0170)
+33: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $106 ###
+00: $DB - Red Koopa shell (0x0110, 0x0170)
+01: $05 - Red Koopa Troopa (0x01B0, 0x0140)
+02: $05 - Red Koopa Troopa (0x01C0, 0x0140)
+03: $05 - Red Koopa Troopa (0x01D0, 0x0140)
+04: $05 - Red Koopa Troopa (0x01E0, 0x0140)
+05: $05 - Red Koopa Troopa (0x01F0, 0x0140)
+06: $05 - Red Koopa Troopa (0x0200, 0x0140)
+07: $05 - Red Koopa Troopa (0x0210, 0x0140)
+08: $05 - Red Koopa Troopa (0x0220, 0x0140)
+09: $B9 - Info Box (0x0400, 0x0150)
+10: $DB - Red Koopa shell (0x0520, 0x0170)
+11: $01 - Red Koopa Troopa without shell (0x0540, 0x0170)
+12: $DA - Green Koopa shell (0x0680, 0x0170)
+13: $00 - Green Koopa Troopa without shell (0x06A0, 0x0170)
+14: $91 - Chargin' Chuck (0x08D0, 0x0130)
+15: $B9 - Info Box (0x09D0, 0x0150)
+16: $4E - Monty Mole, ledge-dwelling (0x0C10, 0x0130)
+17: $4E - Monty Mole, ledge-dwelling (0x0C60, 0x0160)
+18: $4E - Monty Mole, ledge-dwelling (0x0D60, 0x0140)
+19: $4D - Monty Mole, ground-dwelling (0x0EB0, 0x0170)
+20: $4D - Monty Mole, ground-dwelling (0x0F70, 0x0170)
+21: $4F - Jumping Piranha Plant (0x1110, 0x0150)
+22: $3E - P-switch (0x11A0, 0x0110)
+23: $91 - Chargin' Chuck (0x1250, 0x0170)
+24: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $107 ###
+00: $38 - Eerie that moves straight (0x0120, 0x0160)
+01: $38 - Eerie that moves straight (0x0120, 0x0110)
+02: $E3 - Boo Ring moving clockwise (0x01F0, 0x0140)
+03: $37 - Boo (0x0310, 0x0160)
+04: $37 - Boo (0x03D0, 0x0170)
+05: $37 - Boo (0x0420, 0x00C0)
+06: $37 - Boo (0x0480, 0x0160)
+07: $37 - Boo (0x04F0, 0x0150)
+08: $37 - Boo (0x05A0, 0x0100)
+09: $37 - Boo (0x05E0, 0x0170)
+10: $37 - Boo (0x0630, 0x0140)
+11: $28 - Big Boo (0x0730, 0x0120)
+12: $28 - Big Boo (0x08E0, 0x0140)
+13: $38 - Eerie that moves straight (0x09C0, 0x0040)
+14: $E2 - Boo Ring moving counterclockwise (0x0A00, 0x0140)
+15: $37 - Boo (0x0A70, 0x0120)
+16: $38 - Eerie that moves straight (0x0AB0, 0x0040)
+
+### Level $108 ###
+
+### Level $109 ###
+00: $6C - Wall springboard (right wall) (0x0070, 0x0100)
+01: $6C - Wall springboard (right wall) (0x0070, 0x0180)
+02: $6B - Wall springboard (left wall) (0x0010, 0x0140)
+03: $6B - Wall springboard (left wall) (0x0010, 0x01C0)
+04: $2F - Portable springboard (0x01A0, 0x02C0)
+05: $0B - Red Koopa Troopa flying horizontally (0x0180, 0x02F0)
+06: $0B - Red Koopa Troopa flying horizontally (0x0170, 0x02F0)
+07: $0B - Red Koopa Troopa flying horizontally (0x0160, 0x02F0)
+08: $0B - Red Koopa Troopa flying horizontally (0x0130, 0x02F0)
+09: $0B - Red Koopa Troopa flying horizontally (0x0120, 0x02F0)
+10: $0B - Red Koopa Troopa flying horizontally (0x0110, 0x02F0)
+11: $2F - Portable springboard (0x0120, 0x0360)
+12: $6B - Wall springboard (left wall) (0x0010, 0x0410)
+13: $6B - Wall springboard (left wall) (0x0010, 0x0460)
+14: $6B - Wall springboard (left wall) (0x0010, 0x04B0)
+15: $0B - Red Koopa Troopa flying horizontally (0x01D0, 0x0490)
+16: $0B - Red Koopa Troopa flying horizontally (0x00E0, 0x05C0)
+17: $6C - Wall springboard (right wall) (0x00F0, 0x0590)
+18: $6C - Wall springboard (right wall) (0x00F0, 0x05E0)
+19: $05 - Red Koopa Troopa (0x01E0, 0x0550)
+20: $05 - Red Koopa Troopa (0x0170, 0x0660)
+21: $09 - Green Koopa Troopa bouncing (0x0120, 0x0680)
+
+### Level $10A ###
+00: $61 - Floating skulls (0x00A0, 0x0180)
+01: $A8 - Blargg (0x0160, 0x0190)
+02: $83 - Flying question block that flies left (0x0200, 0x0160)
+03: $83 - Flying question block that flies left (0x0230, 0x0120)
+04: $A8 - Blargg (0x0240, 0x0190)
+05: $4F - Jumping Piranha Plant (0x02E0, 0x0160)
+06: $4F - Jumping Piranha Plant (0x0320, 0x0120)
+07: $11 - Buzzy Beetle (0x0350, 0x00F0)
+08: $61 - Floating skulls (0x03F0, 0x0180)
+09: $83 - Flying question block that flies left (0x0480, 0x0150)
+10: $A8 - Blargg (0x05F0, 0x0130)
+11: $A8 - Blargg (0x0630, 0x0130)
+12: $A8 - Blargg (0x06A0, 0x0130)
+13: $61 - Floating skulls (0x0910, 0x0180)
+14: $A8 - Blargg (0x09A0, 0x0190)
+15: $11 - Buzzy Beetle (0x0B00, 0x0130)
+16: $11 - Buzzy Beetle (0x0BA0, 0x0040)
+17: $11 - Buzzy Beetle (0x0BC0, 0x0040)
+18: $2A - Upside-down Piranha Plant (0x0BB0, 0x0140)
+19: $2A - Upside-down Piranha Plant (0x0BE0, 0x0150)
+20: $2A - Upside-down Piranha Plant (0x0C40, 0x0150)
+21: $61 - Floating skulls (0x0CC0, 0x0180)
+22: $11 - Buzzy Beetle (0x0DB0, 0x0150)
+23: $2A - Upside-down Piranha Plant (0x0DC0, 0x0130)
+24: $DB - Red Koopa shell (0x10B0, 0x0170)
+25: $02 - Blue Koopa Troopa without shell (0x10C0, 0x0170)
+26: $61 - Floating skulls (0x11E0, 0x0180)
+27: $A8 - Blargg (0x1330, 0x0190)
+28: $A8 - Blargg (0x1460, 0x0190)
+29: $A8 - Blargg (0x15C0, 0x0190)
+30: $A8 - Blargg (0x1660, 0x0190)
+31: $2E - Spike Top (0x1780, 0x00F0)
+32: $2E - Spike Top (0x17A0, 0x0170)
+33: $2E - Spike Top (0x17D0, 0x00F0)
+34: $2E - Spike Top (0x1800, 0x0170)
+35: $2E - Spike Top (0x1830, 0x00F0)
+36: $2E - Spike Top (0x1860, 0x0170)
+37: $11 - Buzzy Beetle (0x18F0, 0x0170)
+38: $11 - Buzzy Beetle (0x1970, 0x0150)
+39: $11 - Buzzy Beetle (0x1A80, 0x0170)
+40: $11 - Buzzy Beetle (0x1B10, 0x0170)
+41: $11 - Buzzy Beetle (0x1B60, 0x0170)
+42: $61 - Floating skulls (0x1BF0, 0x0180)
+43: $2A - Upside-down Piranha Plant (0x1C70, 0x0130)
+44: $2A - Upside-down Piranha Plant (0x1CB0, 0x0130)
+45: $2A - Upside-down Piranha Plant (0x1CE0, 0x0130)
+46: $2A - Upside-down Piranha Plant (0x1D20, 0x0130)
+47: $3E - P-switch (0x1E20, 0x0060)
+48: $7B - Goal tape (0x1EE0, 0x0170)
+
+### Level $10B ###
+00: $04 - Green Koopa Troopa (0x0130, 0x0110)
+01: $2F - Portable springboard (0x0220, 0x0170)
+02: $2E - Spike Top (0x0350, 0x0170)
+03: $2E - Spike Top (0x03A0, 0x0170)
+04: $2E - Spike Top (0x0420, 0x0100)
+05: $0B - Red Koopa Troopa flying horizontally (0x0580, 0x0100)
+06: $2E - Spike Top (0x0640, 0x0170)
+07: $2E - Spike Top (0x06E0, 0x0170)
+08: $4F - Jumping Piranha Plant (0x0800, 0x0140)
+09: $4F - Jumping Piranha Plant (0x0850, 0x0150)
+10: $2E - Spike Top (0x09A0, 0x00E0)
+11: $2E - Spike Top (0x09B0, 0x0170)
+12: $2E - Spike Top (0x09F0, 0x00E0)
+13: $0A - Red Koopa Troopa flying vertically (0x0A50, 0x0140)
+14: $04 - Green Koopa Troopa (0x0B70, 0x0170)
+15: $2E - Spike Top (0x0B90, 0x0170)
+16: $2E - Spike Top (0x0BB0, 0x0170)
+17: $2E - Spike Top (0x0BD0, 0x0170)
+18: $2E - Spike Top (0x0BF0, 0x0170)
+19: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0100)
+20: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0110)
+21: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0120)
+22: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0130)
+23: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0140)
+24: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0150)
+25: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0160)
+26: $0A - Red Koopa Troopa flying vertically (0x0D00, 0x0170)
+27: $7B - Goal tape (0x0DE0, 0x0170)
+
+### Level $10C ###
+
+### Level $10D ###
+00: $E6 - Background candle flames (0x0000, 0x0000)
+
+### Level $10E ###
+00: $C6 - Spotlight/dark room sprite (0x0180, 0x0000)
+01: $C8 - Light switch for dark room (0x0210, 0x0130)
+02: $51 - Ninji (0x02B0, 0x0110)
+03: $51 - Ninji (0x03B0, 0x0170)
+04: $A2 - Mecha-Koopa (0x0400, 0x0150)
+05: $51 - Ninji (0x0460, 0x0170)
+06: $51 - Ninji (0x0490, 0x0170)
+07: $A2 - Mecha-Koopa (0x0530, 0x0170)
+08: $51 - Ninji (0x0570, 0x0170)
+09: $51 - Ninji (0x0590, 0x0170)
+10: $C6 - Spotlight/dark room sprite (0x0610, 0x0000)
+
+### Level $10F ###
+00: $48 - Diggin' Chuck's rock (0x0100, 0x00F0)
+01: $46 - Diggin' Chuck (0x0120, 0x00F0)
+02: $C0 - Sinking gray platform on lava (0x0180, 0x0180)
+03: $0B - Red Koopa Troopa flying horizontally (0x01C0, 0x0150)
+04: $48 - Diggin' Chuck's rock (0x02C0, 0x0120)
+05: $46 - Diggin' Chuck (0x02F0, 0x0120)
+06: $C0 - Sinking gray platform on lava (0x03F0, 0x0180)
+07: $0A - Red Koopa Troopa flying vertically (0x0440, 0x0180)
+08: $C0 - Sinking gray platform on lava (0x0460, 0x0180)
+09: $0B - Red Koopa Troopa flying horizontally (0x04D0, 0x0150)
+10: $C0 - Sinking gray platform on lava (0x04D0, 0x0180)
+11: $0A - Red Koopa Troopa flying vertically (0x0520, 0x0180)
+12: $C0 - Sinking gray platform on lava (0x06D0, 0x0180)
+13: $C0 - Sinking gray platform on lava (0x07B0, 0x0180)
+14: $C0 - Sinking gray platform on lava (0x07F0, 0x0180)
+15: $0A - Red Koopa Troopa flying vertically (0x0840, 0x0180)
+16: $C0 - Sinking gray platform on lava (0x0860, 0x0180)
+17: $48 - Diggin' Chuck's rock (0x08F0, 0x00F0)
+18: $46 - Diggin' Chuck (0x0920, 0x00F0)
+19: $C0 - Sinking gray platform on lava (0x09D0, 0x0180)
+20: $48 - Diggin' Chuck's rock (0x0AB0, 0x0150)
+21: $46 - Diggin' Chuck (0x0AD0, 0x0150)
+22: $C0 - Sinking gray platform on lava (0x0B10, 0x0180)
+23: $C0 - Sinking gray platform on lava (0x0B90, 0x0180)
+24: $48 - Diggin' Chuck's rock (0x0C60, 0x0100)
+25: $46 - Diggin' Chuck (0x0C80, 0x0100)
+26: $C0 - Sinking gray platform on lava (0x0D80, 0x0180)
+27: $48 - Diggin' Chuck's rock (0x0DC0, 0x00E0)
+28: $46 - Diggin' Chuck (0x0DE0, 0x00E0)
+29: $C0 - Sinking gray platform on lava (0x0F50, 0x0180)
+30: $48 - Diggin' Chuck's rock (0x0FA0, 0x0140)
+31: $46 - Diggin' Chuck (0x0FC0, 0x0140)
+32: $0B - Red Koopa Troopa flying horizontally (0x10F0, 0x0140)
+33: $C0 - Sinking gray platform on lava (0x1110, 0x0180)
+34: $C0 - Sinking gray platform on lava (0x1190, 0x0180)
+35: $48 - Diggin' Chuck's rock (0x11A0, 0x00F0)
+36: $46 - Diggin' Chuck (0x11C0, 0x00F0)
+37: $C0 - Sinking gray platform on lava (0x11E0, 0x0180)
+38: $2F - Portable springboard (0x1210, 0x0160)
+39: $48 - Diggin' Chuck's rock (0x1250, 0x0100)
+40: $46 - Diggin' Chuck (0x1290, 0x00E0)
+41: $C0 - Sinking gray platform on lava (0x12A0, 0x0180)
+42: $C0 - Sinking gray platform on lava (0x12D0, 0x0180)
+43: $80 - Key (0x1350, 0x0170)
+44: $0E - Keyhole (0x1360, 0x0140)
+45: $7B - Goal tape (0x13E0, 0x0170)
+
+### Level $110 ###
+00: $B1 - Creating/eating block (0x00B0, 0x0180)
+01: $B1 - Creating/eating block (0x0140, 0x0180)
+02: $9E - Ball 'n' Chain (0x01F0, 0x0120)
+03: $9E - Ball 'n' Chain (0x0250, 0x00B0)
+04: $9E - Ball 'n' Chain (0x02B0, 0x0120)
+05: $9E - Ball 'n' Chain (0x0310, 0x00B0)
+06: $9E - Ball 'n' Chain (0x0370, 0x0120)
+07: $9E - Ball 'n' Chain (0x03D0, 0x00B0)
+08: $9E - Ball 'n' Chain (0x0430, 0x0080)
+09: $9E - Ball 'n' Chain (0x0450, 0x00E0)
+10: $9E - Ball 'n' Chain (0x0480, 0x0150)
+11: $9E - Ball 'n' Chain (0x0540, 0x0180)
+12: $9E - Ball 'n' Chain (0x0550, 0x0070)
+13: $9E - Ball 'n' Chain (0x0620, 0x0080)
+14: $74 - Mushroom (0x0760, 0x0170)
+
+### Level $111 ###
+00: $E9 - Layer 2 Smash (0x0080, 0x0400)
+01: $B2 - Falling spike (0x0400, 0x0110)
+02: $30 - Dry Bones that throws bones (0x0450, 0x0170)
+03: $31 - Bony Beetle (0x04E0, 0x0170)
+04: $B2 - Falling spike (0x04E0, 0x0110)
+05: $30 - Dry Bones that throws bones (0x0520, 0x0170)
+06: $B2 - Falling spike (0x0520, 0x0110)
+07: $33 - Podoboo/vertical fireball (0x0900, 0x0100)
+08: $32 - Dry Bones that stays on ledges (0x0960, 0x0130)
+09: $33 - Podoboo/vertical fireball (0x0990, 0x00E0)
+10: $32 - Dry Bones that stays on ledges (0x09F0, 0x0110)
+11: $33 - Podoboo/vertical fireball (0x0A20, 0x00E0)
+12: $33 - Podoboo/vertical fireball (0x0A40, 0x00E0)
+13: $31 - Bony Beetle (0x0A90, 0x0150)
+14: $33 - Podoboo/vertical fireball (0x0AC0, 0x00F0)
+15: $33 - Podoboo/vertical fireball (0x0C00, 0x00F0)
+16: $33 - Podoboo/vertical fireball (0x0D80, 0x00F0)
+
+### Level $112 ###
+
+### Level $113 ###
+00: $09 - Green Koopa Troopa bouncing (0x00C0, 0x0160)
+01: $09 - Green Koopa Troopa bouncing (0x00D0, 0x0170)
+02: $09 - Green Koopa Troopa bouncing (0x00E0, 0x0160)
+03: $BA - Timed Lift (0x0170, 0x0130)
+04: $09 - Green Koopa Troopa bouncing (0x01C0, 0x0170)
+05: $BA - Timed Lift (0x01F0, 0x0130)
+06: $09 - Green Koopa Troopa bouncing (0x0260, 0x0170)
+07: $BA - Timed Lift (0x02B0, 0x0140)
+08: $0A - Red Koopa Troopa flying vertically (0x0310, 0x0160)
+09: $BA - Timed Lift (0x0330, 0x0170)
+10: $BA - Timed Lift (0x0360, 0x0120)
+11: $BA - Timed Lift (0x0390, 0x0160)
+12: $0A - Red Koopa Troopa flying vertically (0x03C0, 0x0170)
+13: $BA - Timed Lift (0x0410, 0x0170)
+14: $0B - Red Koopa Troopa flying horizontally (0x0460, 0x0100)
+15: $BA - Timed Lift (0x0470, 0x0110)
+16: $BA - Timed Lift (0x0490, 0x0160)
+17: $0A - Red Koopa Troopa flying vertically (0x04B0, 0x0130)
+18: $BA - Timed Lift (0x04F0, 0x0170)
+19: $BA - Timed Lift (0x0500, 0x0130)
+20: $0A - Red Koopa Troopa flying vertically (0x0540, 0x0150)
+21: $BA - Timed Lift (0x0570, 0x0170)
+22: $BA - Timed Lift (0x05D0, 0x0150)
+23: $BA - Timed Lift (0x0630, 0x00F0)
+24: $BA - Timed Lift (0x0660, 0x0170)
+25: $BA - Timed Lift (0x0690, 0x00E0)
+26: $05 - Red Koopa Troopa (0x06C0, 0x0140)
+27: $BA - Timed Lift (0x0710, 0x0140)
+28: $0A - Red Koopa Troopa flying vertically (0x0750, 0x0140)
+29: $BA - Timed Lift (0x0770, 0x0110)
+30: $BA - Timed Lift (0x07D0, 0x0160)
+31: $2F - Portable springboard (0x0860, 0x0170)
+32: $09 - Green Koopa Troopa bouncing (0x09A0, 0x0150)
+33: $09 - Green Koopa Troopa bouncing (0x09C0, 0x0170)
+34: $09 - Green Koopa Troopa bouncing (0x0A10, 0x0170)
+35: $09 - Green Koopa Troopa bouncing (0x0A30, 0x0150)
+36: $B8 - Carrot Top Lift, upper left (0x0AD0, 0x0130)
+37: $0A - Red Koopa Troopa flying vertically (0x0B00, 0x0150)
+38: $BA - Timed Lift (0x0B20, 0x0160)
+39: $BA - Timed Lift (0x0BD0, 0x0130)
+40: $BA - Timed Lift (0x0C30, 0x0120)
+41: $BA - Timed Lift (0x0CB0, 0x0110)
+42: $BA - Timed Lift (0x0CB0, 0x0160)
+43: $0A - Red Koopa Troopa flying vertically (0x0CE0, 0x0120)
+44: $BA - Timed Lift (0x0D00, 0x0100)
+45: $BA - Timed Lift (0x0D30, 0x0160)
+46: $B7 - Carrot Top Lift, upper right (0x0D60, 0x00D0)
+47: $BA - Timed Lift (0x0DA0, 0x0160)
+48: $9F - Banzai Bill (0x0DE0, 0x0140)
+49: $BA - Timed Lift (0x0E10, 0x0120)
+50: $0A - Red Koopa Troopa flying vertically (0x0EE0, 0x0140)
+51: $BA - Timed Lift (0x0E90, 0x0130)
+52: $BA - Timed Lift (0x0F10, 0x0140)
+53: $BA - Timed Lift (0x0FA0, 0x0140)
+54: $9F - Banzai Bill (0x0FB0, 0x0100)
+55: $BA - Timed Lift (0x10B0, 0x0170)
+56: $BA - Timed Lift (0x1110, 0x0120)
+57: $9F - Banzai Bill (0x1120, 0x0130)
+58: $BA - Timed Lift (0x1120, 0x0170)
+59: $78 - 1-Up mushroom (0x11C0, 0x00F0)
+60: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $114 ###
+00: $90 - Large green gas bubble (0x0150, 0x0120)
+01: $90 - Large green gas bubble (0x01D0, 0x0130)
+02: $90 - Large green gas bubble (0x0280, 0x0130)
+03: $90 - Large green gas bubble (0x0340, 0x0120)
+
+### Level $115 ###
+00: $EA - Layer 2 scrolling command (0x0080, 0x0800)
+01: $BE - Swooper (0x0130, 0x0070)
+02: $BE - Swooper (0x01B0, 0x0070)
+03: $04 - Green Koopa Troopa (0x0220, 0x00F0)
+04: $BE - Swooper (0x0240, 0x0070)
+05: $04 - Green Koopa Troopa (0x0330, 0x0160)
+06: $BE - Swooper (0x0340, 0x0070)
+07: $DD - Yellow Koopa shell (0x03A0, 0x00F0)
+08: $03 - Yellow Koopa Troopa without shell (0x03C0, 0x00F0)
+09: $BE - Swooper (0x0460, 0x0070)
+10: $04 - Green Koopa Troopa (0x0500, 0x00F0)
+11: $BE - Swooper (0x0530, 0x0070)
+12: $BE - Swooper (0x0620, 0x0070)
+13: $04 - Green Koopa Troopa (0x0620, 0x0100)
+14: $BE - Swooper (0x0660, 0x0070)
+15: $04 - Green Koopa Troopa (0x06A0, 0x0170)
+16: $BE - Swooper (0x0700, 0x0070)
+17: $EA - Layer 2 scrolling command (0x0780, 0x0800)
+
+### Level $116 ###
+00: $BF - Mega Mole (0x0110, 0x0160)
+01: $91 - Chargin' Chuck (0x01A0, 0x0100)
+02: $BF - Mega Mole (0x0350, 0x00E0)
+03: $91 - Chargin' Chuck (0x03A0, 0x0170)
+04: $BF - Mega Mole (0x0410, 0x0120)
+05: $BF - Mega Mole (0x0410, 0x0070)
+06: $BF - Mega Mole (0x0530, 0x0060)
+07: $BF - Mega Mole (0x0570, 0x00B0)
+08: $BF - Mega Mole (0x05A0, 0x0110)
+09: $91 - Chargin' Chuck (0x06A0, 0x0130)
+10: $91 - Chargin' Chuck (0x06E0, 0x0150)
+11: $91 - Chargin' Chuck (0x0730, 0x0170)
+12: $BF - Mega Mole (0x07A0, 0x0090)
+13: $BF - Mega Mole (0x0800, 0x00F0)
+14: $BF - Mega Mole (0x0860, 0x0160)
+15: $BF - Mega Mole (0x0990, 0x0030)
+16: $BF - Mega Mole (0x09B0, 0x0160)
+17: $91 - Chargin' Chuck (0x0A50, 0x0170)
+18: $BF - Mega Mole (0x0A70, 0x0040)
+19: $BF - Mega Mole (0x0A90, 0x00F0)
+20: $BF - Mega Mole (0x0B50, 0x00F0)
+21: $BF - Mega Mole (0x0D00, 0x0170)
+22: $91 - Chargin' Chuck (0x0D60, 0x0050)
+23: $BF - Mega Mole (0x0DB0, 0x00A0)
+24: $91 - Chargin' Chuck (0x0E90, 0x00D0)
+25: $91 - Chargin' Chuck (0x0EE0, 0x00F0)
+26: $BF - Mega Mole (0x0FD0, 0x0150)
+27: $BF - Mega Mole (0x1010, 0x00A0)
+28: $91 - Chargin' Chuck (0x1050, 0x0160)
+29: $91 - Chargin' Chuck (0x1100, 0x0090)
+30: $91 - Chargin' Chuck (0x1140, 0x00B0)
+31: $BF - Mega Mole (0x1150, 0x00E0)
+
+### Level $117 ###
+00: $A8 - Blargg (0x0080, 0x0190)
+01: $2F - Portable springboard (0x0080, 0x0170)
+02: $11 - Buzzy Beetle (0x01C0, 0x0140)
+03: $11 - Buzzy Beetle (0x0250, 0x0120)
+04: $97 - Puntin' Chuck (0x0330, 0x0110)
+05: $11 - Buzzy Beetle (0x0350, 0x0170)
+06: $11 - Buzzy Beetle (0x0380, 0x0170)
+07: $97 - Puntin' Chuck (0x03C0, 0x00F0)
+08: $97 - Puntin' Chuck (0x0530, 0x0100)
+09: $97 - Puntin' Chuck (0x0650, 0x0150)
+10: $97 - Puntin' Chuck (0x0710, 0x0140)
+
+### Level $118 ###
+00: $15 - Cheep Cheep swimming horizontally (0x0180, 0x0140)
+01: $11 - Buzzy Beetle (0x0220, 0x00F0)
+02: $16 - Cheep Cheep swimming vertically (0x02C0, 0x0170)
+03: $15 - Cheep Cheep swimming horizontally (0x03C0, 0x0140)
+04: $16 - Cheep Cheep swimming vertically (0x0440, 0x0180)
+05: $11 - Buzzy Beetle (0x0490, 0x0080)
+06: $80 - Key (0x04A0, 0x0100)
+07: $15 - Cheep Cheep swimming horizontally (0x04F0, 0x0180)
+08: $11 - Buzzy Beetle (0x0520, 0x0030)
+09: $15 - Cheep Cheep swimming horizontally (0x0520, 0x0160)
+10: $0E - Keyhole (0x0550, 0x0180)
+11: $15 - Cheep Cheep swimming horizontally (0x0550, 0x0140)
+12: $11 - Buzzy Beetle (0x0560, 0x0090)
+13: $16 - Cheep Cheep swimming vertically (0x05E0, 0x0180)
+14: $15 - Cheep Cheep swimming horizontally (0x06C0, 0x0130)
+15: $15 - Cheep Cheep swimming horizontally (0x06D0, 0x0170)
+16: $16 - Cheep Cheep swimming vertically (0x0750, 0x0150)
+17: $3E - P-switch (0x0780, 0x0060)
+18: $16 - Cheep Cheep swimming vertically (0x0790, 0x0150)
+19: $11 - Buzzy Beetle (0x07D0, 0x0060)
+20: $11 - Buzzy Beetle (0x0850, 0x0070)
+21: $15 - Cheep Cheep swimming horizontally (0x0850, 0x0130)
+22: $15 - Cheep Cheep swimming horizontally (0x0890, 0x0150)
+23: $15 - Cheep Cheep swimming horizontally (0x0920, 0x0170)
+24: $15 - Cheep Cheep swimming horizontally (0x0990, 0x0150)
+25: $91 - Chargin' Chuck (0x09B0, 0x0040)
+26: $11 - Buzzy Beetle (0x0A10, 0x0060)
+27: $91 - Chargin' Chuck (0x0A80, 0x00F0)
+28: $91 - Chargin' Chuck (0x0AF0, 0x0050)
+29: $81 - Changing item (0x0B30, 0x0040)
+30: $11 - Buzzy Beetle (0x0BB0, 0x0060)
+31: $11 - Buzzy Beetle (0x0C10, 0x0160)
+32: $11 - Buzzy Beetle (0x0C70, 0x0160)
+33: $3E - P-switch (0x0C80, 0x00D0)
+34: $11 - Buzzy Beetle (0x0DA0, 0x0170)
+35: $91 - Chargin' Chuck (0x0D30, 0x0120)
+36: $11 - Buzzy Beetle (0x0E10, 0x0170)
+37: $11 - Buzzy Beetle (0x0E70, 0x0110)
+38: $BE - Swooper (0x0F50, 0x00E0)
+39: $BE - Swooper (0x0FA0, 0x00E0)
+40: $11 - Buzzy Beetle (0x0FB0, 0x0170)
+41: $91 - Chargin' Chuck (0x0F70, 0x0130)
+42: $BE - Swooper (0x0FC0, 0x00E0)
+43: $BE - Swooper (0x1030, 0x00E0)
+44: $BE - Swooper (0x1070, 0x00E0)
+45: $BE - Swooper (0x10A0, 0x00E0)
+46: $BE - Swooper (0x10E0, 0x00E0)
+47: $BE - Swooper (0x1130, 0x00E0)
+48: $92 - Splittin' Chuck (0x11B0, 0x0130)
+49: $2E - Spike Top (0x1210, 0x0140)
+50: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $119 ###
+00: $D5 - Bullet Bill generator (0x0110, 0x0000)
+01: $6C - Wall springboard (right wall) (0x0150, 0x0140)
+02: $05 - Red Koopa Troopa (0x01F0, 0x0110)
+03: $6B - Wall springboard (left wall) (0x0240, 0x0170)
+04: $0A - Red Koopa Troopa flying vertically (0x0250, 0x0160)
+05: $6C - Wall springboard (right wall) (0x0290, 0x0130)
+06: $74 - Mushroom (0x0280, 0x0180)
+07: $6B - Wall springboard (left wall) (0x04C0, 0x0180)
+08: $6C - Wall springboard (right wall) (0x0510, 0x0180)
+09: $6B - Wall springboard (left wall) (0x0530, 0x0180)
+10: $08 - Green Koopa Troopa flying left (0x0540, 0x0150)
+11: $6C - Wall springboard (right wall) (0x0590, 0x0180)
+12: $6B - Wall springboard (left wall) (0x05B0, 0x0180)
+13: $6C - Wall springboard (right wall) (0x0610, 0x0180)
+14: $05 - Red Koopa Troopa (0x0740, 0x0170)
+15: $6C - Wall springboard (right wall) (0x0780, 0x0140)
+16: $0B - Red Koopa Troopa flying horizontally (0x08B0, 0x0100)
+17: $6C - Wall springboard (right wall) (0x08C0, 0x0130)
+18: $0B - Red Koopa Troopa flying horizontally (0x08B0, 0x0150)
+19: $6C - Wall springboard (right wall) (0x08C0, 0x0170)
+20: $D9 - Turn Off Generators (0x0940, 0x0000)
+21: $0A - Red Koopa Troopa flying vertically (0x0990, 0x0120)
+22: $D6 - Multidirectional Bullet Bill generator (0x0A40, 0x0000)
+23: $4F - Jumping Piranha Plant (0x0A80, 0x0190)
+24: $6C - Wall springboard (right wall) (0x0AC0, 0x0170)
+25: $6B - Wall springboard (left wall) (0x0AE0, 0x0170)
+26: $4F - Jumping Piranha Plant (0x0B10, 0x0180)
+27: $6C - Wall springboard (right wall) (0x0B60, 0x0170)
+28: $04 - Green Koopa Troopa (0x0C20, 0x00F0)
+29: $6C - Wall springboard (right wall) (0x0C80, 0x0140)
+30: $6C - Wall springboard (right wall) (0x0D80, 0x0140)
+31: $6C - Wall springboard (right wall) (0x0D80, 0x0180)
+32: $6B - Wall springboard (left wall) (0x0DA0, 0x0190)
+33: $D9 - Turn Off Generators (0x0EA0, 0x0000)
+34: $05 - Red Koopa Troopa (0x0F10, 0x0120)
+35: $D6 - Multidirectional Bullet Bill generator (0x0F90, 0x0000)
+36: $04 - Green Koopa Troopa (0x1030, 0x0130)
+37: $6B - Wall springboard (left wall) (0x1090, 0x0150)
+38: $D9 - Turn Off Generators (0x1140, 0x0000)
+39: $6B - Wall springboard (left wall) (0x1140, 0x0180)
+40: $0A - Red Koopa Troopa flying vertically (0x1170, 0x0160)
+41: $6C - Wall springboard (right wall) (0x11B0, 0x0160)
+42: $6B - Wall springboard (left wall) (0x11D0, 0x0180)
+43: $0A - Red Koopa Troopa flying vertically (0x1210, 0x0150)
+44: $6C - Wall springboard (right wall) (0x1250, 0x0150)
+45: $6B - Wall springboard (left wall) (0x1270, 0x0140)
+46: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $11A ###
+00: $2E - Spike Top (0x0130, 0x0170)
+01: $BE - Swooper (0x0160, 0x00D0)
+02: $BE - Swooper (0x01A0, 0x00D0)
+03: $BE - Swooper (0x0230, 0x00D0)
+04: $83 - Flying question block that flies left (0x0250, 0x0110)
+05: $11 - Buzzy Beetle (0x0220, 0x0140)
+06: $BE - Swooper (0x02A0, 0x00D0)
+07: $BE - Swooper (0x02D0, 0x00D0)
+08: $DB - Red Koopa shell (0x0390, 0x00D0)
+09: $DC - Blue Koopa shell (0x0390, 0x0110)
+10: $11 - Buzzy Beetle (0x03D0, 0x0170)
+11: $11 - Buzzy Beetle (0x0450, 0x0170)
+12: $11 - Buzzy Beetle (0x04A0, 0x0110)
+13: $11 - Buzzy Beetle (0x04F0, 0x0170)
+14: $11 - Buzzy Beetle (0x0500, 0x0110)
+15: $C7 - Invisible mushroom (0x0510, 0x0170)
+16: $11 - Buzzy Beetle (0x05A0, 0x0110)
+17: $11 - Buzzy Beetle (0x06A0, 0x0170)
+18: $0A - Red Koopa Troopa flying vertically (0x0750, 0x0180)
+19: $80 - Key (0x0710, 0x0080)
+20: $0E - Keyhole (0x0740, 0x0080)
+21: $11 - Buzzy Beetle (0x1000, 0x0170)
+22: $11 - Buzzy Beetle (0x10C0, 0x0170)
+23: $11 - Buzzy Beetle (0x1150, 0x0170)
+24: $2E - Spike Top (0x1240, 0x0130)
+25: $2E - Spike Top (0x1260, 0x0130)
+26: $2E - Spike Top (0x12D0, 0x0140)
+27: $2E - Spike Top (0x12F0, 0x0140)
+28: $2E - Spike Top (0x1310, 0x0140)
+29: $11 - Buzzy Beetle (0x1330, 0x0100)
+30: $11 - Buzzy Beetle (0x1490, 0x0140)
+31: $4F - Jumping Piranha Plant (0x14D0, 0x0150)
+32: $0A - Red Koopa Troopa flying vertically (0x1510, 0x0150)
+33: $11 - Buzzy Beetle (0x15F0, 0x0170)
+34: $11 - Buzzy Beetle (0x16A0, 0x00F0)
+35: $DA - Green Koopa shell (0x1760, 0x0170)
+36: $DC - Blue Koopa shell (0x1840, 0x0110)
+37: $11 - Buzzy Beetle (0x1930, 0x0150)
+38: $97 - Puntin' Chuck (0x19A0, 0x0170)
+39: $7B - Goal tape (0x19E0, 0x0170)
+
+### Level $11B ###
+00: $3E - P-switch (0x0040, 0x0170)
+01: $DD - Yellow Koopa shell (0x0080, 0x0170)
+02: $03 - Yellow Koopa Troopa without shell (0x0090, 0x0170)
+03: $04 - Green Koopa Troopa (0x00D0, 0x0170)
+04: $05 - Red Koopa Troopa (0x0110, 0x0170)
+05: $06 - Blue Koopa Troopa (0x0150, 0x0170)
+06: $04 - Green Koopa Troopa (0x0190, 0x0170)
+07: $05 - Red Koopa Troopa (0x01D0, 0x0170)
+08: $06 - Blue Koopa Troopa (0x0210, 0x0170)
+09: $04 - Green Koopa Troopa (0x0250, 0x0170)
+10: $05 - Red Koopa Troopa (0x0290, 0x0170)
+
+### Level $11C ###
+00: $33 - Podoboo/vertical fireball (0x0140, 0x0130)
+01: $1F - Magikoopa (0x0160, 0x0150)
+02: $33 - Podoboo/vertical fireball (0x0200, 0x0130)
+03: $33 - Podoboo/vertical fireball (0x02B0, 0x0130)
+04: $5B - Floating brown platform (0x0480, 0x0180)
+05: $5B - Floating brown platform (0x04D0, 0x0180)
+06: $5B - Floating brown platform (0x0530, 0x0180)
+07: $3E - P-switch (0x0540, 0x00E0)
+08: $5B - Floating brown platform (0x0590, 0x0180)
+09: $5B - Floating brown platform (0x0600, 0x0180)
+10: $33 - Podoboo/vertical fireball (0x0760, 0x0110)
+11: $33 - Podoboo/vertical fireball (0x0840, 0x00E0)
+12: $33 - Podoboo/vertical fireball (0x08A0, 0x0120)
+13: $33 - Podoboo/vertical fireball (0x08B0, 0x00E0)
+
+### Level $11D ###
+00: $28 - Big Boo (0x0110, 0x00E0)
+01: $37 - Boo (0x0190, 0x0110)
+02: $37 - Boo (0x01C0, 0x0180)
+03: $38 - Eerie that moves straight (0x0250, 0x0140)
+04: $28 - Big Boo (0x02B0, 0x0110)
+05: $37 - Boo (0x0330, 0x0100)
+06: $37 - Boo (0x03C0, 0x0180)
+07: $37 - Boo (0x0420, 0x0120)
+08: $37 - Boo (0x04A0, 0x0150)
+09: $37 - Boo (0x04A0, 0x0140)
+10: $37 - Boo (0x04A0, 0x0130)
+11: $37 - Boo (0x04A0, 0x0120)
+12: $37 - Boo (0x04A0, 0x0110)
+13: $37 - Boo (0x0530, 0x0100)
+14: $37 - Boo (0x0570, 0x0170)
+15: $37 - Boo (0x0610, 0x0140)
+16: $DE - Group of 5 wave-moving Eeries (0x0620, 0x00D0)
+17: $39 - Eerie that moves in a wave (0x0800, 0x0140)
+18: $39 - Eerie that moves in a wave (0x0850, 0x0120)
+19: $39 - Eerie that moves in a wave (0x0850, 0x0130)
+20: $39 - Eerie that moves in a wave (0x0850, 0x0140)
+21: $39 - Eerie that moves in a wave (0x09B0, 0x0100)
+22: $39 - Eerie that moves in a wave (0x0A00, 0x0110)
+23: $39 - Eerie that moves in a wave (0x0A40, 0x0120)
+
+### Level $11E ###
+00: $86 - Wiggler (0x0100, 0x0180)
+01: $05 - Red Koopa Troopa (0x01E0, 0x0180)
+02: $05 - Red Koopa Troopa (0x0290, 0x0180)
+03: $05 - Red Koopa Troopa (0x02E0, 0x0180)
+04: $86 - Wiggler (0x03A0, 0x0160)
+05: $0F - Goomba (0x03F0, 0x0160)
+06: $0F - Goomba (0x0410, 0x0160)
+07: $10 - Bouncing Goomba with wings (0x0450, 0x0160)
+08: $86 - Wiggler (0x04F0, 0x0160)
+09: $2F - Portable springboard (0x0500, 0x0160)
+10: $86 - Wiggler (0x0610, 0x0180)
+11: $86 - Wiggler (0x0760, 0x0160)
+12: $86 - Wiggler (0x07C0, 0x0160)
+13: $86 - Wiggler (0x0820, 0x0160)
+14: $81 - Changing item (0x09F0, 0x0150)
+15: $05 - Red Koopa Troopa (0x0A20, 0x0180)
+16: $4C - Exploding block (0x0B20, 0x0120)
+17: $4C - Exploding block (0x0B50, 0x0110)
+18: $86 - Wiggler (0x0BA0, 0x0180)
+19: $4C - Exploding block (0x0BD0, 0x0120)
+20: $4C - Exploding block (0x0BF0, 0x0100)
+21: $4C - Exploding block (0x0C10, 0x0120)
+22: $86 - Wiggler (0x0C50, 0x0180)
+23: $4C - Exploding block (0x0DB0, 0x00F0)
+24: $86 - Wiggler (0x0DE0, 0x0110)
+25: $0E - Keyhole (0x0DF0, 0x0180)
+26: $4C - Exploding block (0x0E30, 0x00F0)
+27: $0A - Red Koopa Troopa flying vertically (0x0E40, 0x01A0)
+28: $86 - Wiggler (0x0E70, 0x0110)
+29: $4C - Exploding block (0x0EF0, 0x00F0)
+30: $86 - Wiggler (0x0F30, 0x0120)
+31: $4C - Exploding block (0x0F70, 0x00F0)
+32: $86 - Wiggler (0x10A0, 0x0180)
+33: $86 - Wiggler (0x10F0, 0x0180)
+34: $9C - Flying gray blocks for Hammer Brother (0x1180, 0x0100)
+35: $9B - Amazing Flying Hammer Brother (0x1180, 0x0100)
+36: $86 - Wiggler (0x11F0, 0x0180)
+37: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $11F ###
+00: $1E - Lakitu (0x0110, 0x00D0)
+01: $09 - Green Koopa Troopa bouncing (0x0120, 0x0170)
+02: $DB - Red Koopa shell (0x0210, 0x0170)
+03: $01 - Red Koopa Troopa without shell (0x0220, 0x0170)
+04: $74 - Mushroom (0x0250, 0x00F0)
+05: $4B - Pipe-dwelling Lakitu (0x0350, 0x0150)
+06: $81 - Changing item (0x0460, 0x0140)
+07: $4B - Pipe-dwelling Lakitu (0x0590, 0x0130)
+08: $4B - Pipe-dwelling Lakitu (0x0680, 0x0140)
+09: $4B - Pipe-dwelling Lakitu (0x0770, 0x0150)
+10: $49 - Growing/shrinking pipe (0x07E0, 0x0150)
+11: $4B - Pipe-dwelling Lakitu (0x08C0, 0x0140)
+12: $D2 - Turn Off Generator 2 (0x0910, 0x0000)
+13: $4B - Pipe-dwelling Lakitu (0x0A60, 0x0140)
+14: $4B - Pipe-dwelling Lakitu (0x0BA0, 0x0120)
+15: $3E - P-switch (0x0BA0, 0x0170)
+16: $09 - Green Koopa Troopa bouncing (0x0CE0, 0x0100)
+17: $1E - Lakitu (0x0DC0, 0x00D0)
+18: $DC - Blue Koopa shell (0x0EA0, 0x0170)
+19: $DB - Red Koopa shell (0x0F70, 0x0170)
+20: $01 - Red Koopa Troopa without shell (0x0F80, 0x0170)
+21: $4F - Jumping Piranha Plant (0x11B0, 0x0150)
+22: $91 - Chargin' Chuck (0x1220, 0x0170)
+23: $4F - Jumping Piranha Plant (0x1250, 0x0150)
+24: $D2 - Turn Off Generator 2 (0x1260, 0x0000)
+25: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $120 ###
+00: $C2 - Blurp (0x0100, 0x0130)
+01: $3B - Urchin that moves between walls (0x0120, 0x00E0)
+02: $C2 - Blurp (0x0150, 0x0100)
+03: $C2 - Blurp (0x0170, 0x0130)
+04: $3B - Urchin that moves between walls (0x0180, 0x0100)
+05: $3A - Urchin that moves a fixed distance (0x01F0, 0x00A0)
+06: $3A - Urchin that moves a fixed distance (0x0210, 0x0120)
+07: $C2 - Blurp (0x0230, 0x0160)
+08: $C2 - Blurp (0x0280, 0x0120)
+09: $C2 - Blurp (0x0290, 0x0130)
+10: $C2 - Blurp (0x0290, 0x0110)
+11: $C2 - Blurp (0x02A0, 0x0100)
+12: $C2 - Blurp (0x02A0, 0x0140)
+13: $3B - Urchin that moves between walls (0x02A0, 0x0040)
+14: $C2 - Blurp (0x02D0, 0x0090)
+15: $3C - Urchin that follows walls (0x0340, 0x00E0)
+16: $3C - Urchin that follows walls (0x0350, 0x0070)
+17: $C2 - Blurp (0x0450, 0x0150)
+18: $C2 - Blurp (0x0480, 0x0100)
+19: $15 - Cheep Cheep swimming horizontally (0x04A0, 0x00F0)
+20: $15 - Cheep Cheep swimming horizontally (0x04A0, 0x00B0)
+21: $15 - Cheep Cheep swimming horizontally (0x04A0, 0x0070)
+22: $C2 - Blurp (0x04D0, 0x00D0)
+23: $3D - Rip Van Fish (0x04E0, 0x0160)
+24: $3A - Urchin that moves a fixed distance (0x0530, 0x00C0)
+25: $3A - Urchin that moves a fixed distance (0x0550, 0x0150)
+26: $C2 - Blurp (0x0560, 0x0030)
+27: $C2 - Blurp (0x0590, 0x0050)
+28: $3B - Urchin that moves between walls (0x05C0, 0x0030)
+29: $3B - Urchin that moves between walls (0x05E0, 0x0070)
+30: $3D - Rip Van Fish (0x0640, 0x0050)
+31: $3D - Rip Van Fish (0x0680, 0x0110)
+32: $C2 - Blurp (0x06A0, 0x0160)
+33: $3B - Urchin that moves between walls (0x06A0, 0x0080)
+34: $3B - Urchin that moves between walls (0x06C0, 0x00C0)
+35: $3D - Rip Van Fish (0x06E0, 0x0170)
+36: $C2 - Blurp (0x0720, 0x0100)
+37: $C2 - Blurp (0x0730, 0x0080)
+38: $3C - Urchin that follows walls (0x0750, 0x0050)
+39: $3C - Urchin that follows walls (0x0760, 0x00C0)
+40: $3C - Urchin that follows walls (0x07C0, 0x0040)
+41: $0E - Keyhole (0x0830, 0x0160)
+42: $80 - Key (0x0860, 0x0180)
+43: $3B - Urchin that moves between walls (0x0880, 0x0030)
+44: $3B - Urchin that moves between walls (0x08E0, 0x0050)
+45: $3D - Rip Van Fish (0x08F0, 0x0180)
+46: $3B - Urchin that moves between walls (0x0960, 0x0030)
+47: $3B - Urchin that moves between walls (0x0990, 0x00A0)
+48: $3C - Urchin that follows walls (0x09C0, 0x00F0)
+49: $3D - Rip Van Fish (0x0A00, 0x00C0)
+50: $C2 - Blurp (0x0A40, 0x0110)
+51: $3D - Rip Van Fish (0x0A50, 0x00B0)
+52: $C2 - Blurp (0x0A80, 0x0160)
+53: $3D - Rip Van Fish (0x0AA0, 0x00D0)
+54: $3D - Rip Van Fish (0x0AF0, 0x00C0)
+55: $3D - Rip Van Fish (0x0B30, 0x00B0)
+56: $3D - Rip Van Fish (0x0B40, 0x0170)
+57: $3D - Rip Van Fish (0x0B70, 0x00C0)
+58: $94 - Whistlin' Chuck (0x0BA0, 0x0170)
+59: $3D - Rip Van Fish (0x0BB0, 0x00C0)
+60: $3D - Rip Van Fish (0x0BC0, 0x0170)
+61: $3D - Rip Van Fish (0x0C20, 0x00B0)
+62: $C2 - Blurp (0x0C40, 0x0130)
+63: $3D - Rip Van Fish (0x0C60, 0x0170)
+64: $7B - Goal tape (0x0CE0, 0x0170)
+
+### Level $121 ###
+00: $3E - P-switch (0x0060, 0x0170)
+01: $13 - Spiny (0x0070, 0x00E0)
+02: $3E - P-switch (0x00B0, 0x0170)
+03: $13 - Spiny (0x00C0, 0x00E0)
+04: $13 - Spiny (0x0110, 0x00E0)
+05: $13 - Spiny (0x0160, 0x00E0)
+06: $13 - Spiny (0x01B0, 0x00E0)
+07: $13 - Spiny (0x0200, 0x00E0)
+08: $13 - Spiny (0x0250, 0x00E0)
+09: $13 - Spiny (0x02A0, 0x00E0)
+
+### Level $122 ###
+00: $F4 - Fast background scroll (0x0080, 0x0000)
+01: $C1 - Flying gray turn blocks (0x00C0, 0x00E0)
+02: $C1 - Flying gray turn blocks (0x0110, 0x00E0)
+03: $0A - Red Koopa Troopa flying vertically (0x0180, 0x0130)
+04: $0A - Red Koopa Troopa flying vertically (0x01B0, 0x00B0)
+05: $08 - Green Koopa Troopa flying left (0x0260, 0x00D0)
+06: $08 - Green Koopa Troopa flying left (0x0270, 0x00D0)
+07: $08 - Green Koopa Troopa flying left (0x0280, 0x00D0)
+08: $08 - Green Koopa Troopa flying left (0x02F0, 0x0110)
+09: $0A - Red Koopa Troopa flying vertically (0x0370, 0x00F0)
+10: $08 - Green Koopa Troopa flying left (0x03F0, 0x0150)
+11: $0B - Red Koopa Troopa flying horizontally (0x0450, 0x00C0)
+12: $08 - Green Koopa Troopa flying left (0x04E0, 0x0130)
+13: $0A - Red Koopa Troopa flying vertically (0x0500, 0x0090)
+14: $08 - Green Koopa Troopa flying left (0x0560, 0x00C0)
+15: $08 - Green Koopa Troopa flying left (0x0570, 0x00C0)
+16: $08 - Green Koopa Troopa flying left (0x0580, 0x00C0)
+17: $08 - Green Koopa Troopa flying left (0x05E0, 0x00A0)
+18: $08 - Green Koopa Troopa flying left (0x05F0, 0x00A0)
+19: $08 - Green Koopa Troopa flying left (0x0650, 0x0100)
+20: $0A - Red Koopa Troopa flying vertically (0x0690, 0x0150)
+21: $08 - Green Koopa Troopa flying left (0x06D0, 0x0090)
+22: $08 - Green Koopa Troopa flying left (0x0720, 0x00C0)
+23: $7B - Goal tape (0x08E0, 0x0110)
+24: $78 - 1-Up mushroom (0x0930, 0x0110)
+25: $78 - 1-Up mushroom (0x0940, 0x0110)
+26: $78 - 1-Up mushroom (0x0950, 0x0110)
+
+### Level $123 ###
+00: $9D - Sprite in a bubble (0x0110, 0x0160)
+01: $9D - Sprite in a bubble (0x01C0, 0x0150)
+02: $9D - Sprite in a bubble (0x0290, 0x0170)
+03: $9D - Sprite in a bubble (0x02C0, 0x0150)
+04: $2F - Portable springboard (0x0300, 0x0180)
+05: $9D - Sprite in a bubble (0x0390, 0x0130)
+06: $9D - Sprite in a bubble (0x03D0, 0x0170)
+07: $9D - Sprite in a bubble (0x0490, 0x0150)
+08: $9D - Sprite in a bubble (0x04C0, 0x0170)
+09: $9D - Sprite in a bubble (0x0510, 0x0150)
+10: $9D - Sprite in a bubble (0x0530, 0x0100)
+11: $2F - Portable springboard (0x05F0, 0x00F0)
+12: $DB - Red Koopa shell (0x05F0, 0x0130)
+13: $9D - Sprite in a bubble (0x0700, 0x0140)
+14: $9D - Sprite in a bubble (0x0710, 0x0120)
+15: $9D - Sprite in a bubble (0x0740, 0x0150)
+16: $9D - Sprite in a bubble (0x0800, 0x0110)
+17: $9D - Sprite in a bubble (0x0840, 0x0140)
+18: $9D - Sprite in a bubble (0x0880, 0x0150)
+19: $9D - Sprite in a bubble (0x0880, 0x0120)
+20: $9D - Sprite in a bubble (0x09C0, 0x0120)
+21: $9D - Sprite in a bubble (0x0A00, 0x0150)
+22: $9D - Sprite in a bubble (0x0A30, 0x0120)
+23: $9D - Sprite in a bubble (0x0AD0, 0x0130)
+24: $9D - Sprite in a bubble (0x0B00, 0x0110)
+25: $D9 - Turn Off Generators (0x0BD0, 0x0000)
+26: $9D - Sprite in a bubble (0x0C50, 0x0120)
+27: $9D - Sprite in a bubble (0x0CC0, 0x0110)
+28: $D4 - Bubbled sprite generator (0x0CE0, 0x0000)
+29: $9D - Sprite in a bubble (0x0D10, 0x0100)
+30: $D4 - Bubbled sprite generator (0x0D90, 0x0000)
+31: $D4 - Bubbled sprite generator (0x1100, 0x0000)
+32: $9D - Sprite in a bubble (0x1140, 0x0120)
+33: $92 - Splittin' Chuck (0x1160, 0x0180)
+34: $9D - Sprite in a bubble (0x1180, 0x0130)
+35: $D4 - Bubbled sprite generator (0x11B0, 0x0000)
+36: $9D - Sprite in a bubble (0x11C0, 0x0110)
+37: $9D - Sprite in a bubble (0x1250, 0x0160)
+38: $9D - Sprite in a bubble (0x1280, 0x0110)
+39: $9D - Sprite in a bubble (0x12C0, 0x0130)
+40: $D9 - Turn Off Generators (0x12C0, 0x0000)
+41: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $124 ###
+
+### Level $125 ###
+00: $9A - Sumo Brother (0x0040, 0x0110)
+01: $50 - Jumping Piranha Plant that spits fireballs (0x0100, 0x0160)
+02: $09 - Green Koopa Troopa bouncing (0x01D0, 0x0170)
+03: $9A - Sumo Brother (0x0220, 0x00F0)
+04: $06 - Blue Koopa Troopa (0x02C0, 0x0170)
+05: $06 - Blue Koopa Troopa (0x0310, 0x0170)
+06: $05 - Red Koopa Troopa (0x0430, 0x0170)
+07: $0C - Yellow Koopa Troopa with wings (0x0470, 0x0170)
+08: $9A - Sumo Brother (0x04C0, 0x0120)
+09: $06 - Blue Koopa Troopa (0x0590, 0x0170)
+10: $06 - Blue Koopa Troopa (0x05E0, 0x0170)
+11: $9A - Sumo Brother (0x06C0, 0x00E0)
+12: $9A - Sumo Brother (0x0740, 0x0130)
+13: $98 - Pitchin' Chuck (0x0920, 0x0170)
+14: $94 - Whistlin' Chuck (0x09B0, 0x0170)
+15: $9A - Sumo Brother (0x0BB0, 0x0120)
+16: $D9 - Turn Off Generators (0x0C70, 0x0000)
+17: $06 - Blue Koopa Troopa (0x0DF0, 0x0170)
+18: $94 - Whistlin' Chuck (0x0F10, 0x0170)
+19: $05 - Red Koopa Troopa (0x0FE0, 0x0160)
+20: $05 - Red Koopa Troopa (0x1080, 0x0170)
+21: $9A - Sumo Brother (0x1130, 0x0110)
+22: $10 - Bouncing Goomba with wings (0x11B0, 0x0160)
+23: $10 - Bouncing Goomba with wings (0x11D0, 0x0160)
+24: $98 - Pitchin' Chuck (0x1330, 0x0130)
+25: $D9 - Turn Off Generators (0x13C0, 0x0000)
+26: $09 - Green Koopa Troopa bouncing (0x13E0, 0x0170)
+27: $09 - Green Koopa Troopa bouncing (0x14A0, 0x0160)
+28: $84 - Flying question block that flies back and forth (0x1570, 0x00F0)
+29: $98 - Pitchin' Chuck (0x1680, 0x0170)
+30: $98 - Pitchin' Chuck (0x1690, 0x0140)
+31: $98 - Pitchin' Chuck (0x16A0, 0x0110)
+32: $7B - Goal tape (0x1EE0, 0x0170)
+
+### Level $126 ###
+00: $86 - Wiggler (0x0120, 0x0180)
+01: $1D - Hopping flame (0x0220, 0x0180)
+02: $1D - Hopping flame (0x0280, 0x0180)
+03: $86 - Wiggler (0x02D0, 0x0180)
+04: $1D - Hopping flame (0x0300, 0x0180)
+05: $2F - Portable springboard (0x03A0, 0x0180)
+06: $C9 - Bullet Bill shooter (0x03B0, 0x0160)
+07: $C9 - Bullet Bill shooter (0x0440, 0x0140)
+08: $1D - Hopping flame (0x04C0, 0x0180)
+09: $C9 - Bullet Bill shooter (0x04D0, 0x0150)
+10: $86 - Wiggler (0x0570, 0x0180)
+11: $C9 - Bullet Bill shooter (0x0590, 0x0160)
+12: $C9 - Bullet Bill shooter (0x05B0, 0x0130)
+13: $C9 - Bullet Bill shooter (0x05E0, 0x0170)
+14: $4F - Jumping Piranha Plant (0x0640, 0x0170)
+15: $C9 - Bullet Bill shooter (0x0670, 0x0160)
+16: $1D - Hopping flame (0x06E0, 0x0180)
+17: $2F - Portable springboard (0x0700, 0x0180)
+18: $C9 - Bullet Bill shooter (0x0710, 0x0130)
+19: $C9 - Bullet Bill shooter (0x0710, 0x0180)
+20: $C9 - Bullet Bill shooter (0x0730, 0x0150)
+21: $86 - Wiggler (0x0780, 0x0180)
+22: $C9 - Bullet Bill shooter (0x07B0, 0x0160)
+23: $86 - Wiggler (0x0820, 0x0180)
+24: $C9 - Bullet Bill shooter (0x0830, 0x0140)
+25: $C9 - Bullet Bill shooter (0x0830, 0x0170)
+26: $86 - Wiggler (0x0960, 0x0180)
+27: $86 - Wiggler (0x09C0, 0x0180)
+28: $9B - Amazing Flying Hammer Brother (0x0A20, 0x0110)
+29: $9C - Flying gray blocks for Hammer Brother (0x0A20, 0x0110)
+30: $4C - Exploding block (0x0B40, 0x0120)
+31: $4C - Exploding block (0x0B80, 0x0140)
+32: $4C - Exploding block (0x0B90, 0x0110)
+33: $1D - Hopping flame (0x0BA0, 0x0180)
+34: $4C - Exploding block (0x0BD0, 0x0130)
+35: $1D - Hopping flame (0x0C10, 0x0180)
+36: $50 - Jumping Piranha Plant that spits fireballs (0x0C30, 0x0160)
+37: $86 - Wiggler (0x0CB0, 0x0180)
+38: $50 - Jumping Piranha Plant that spits fireballs (0x0CC0, 0x0160)
+39: $50 - Jumping Piranha Plant that spits fireballs (0x0D30, 0x0150)
+40: $9C - Flying gray blocks for Hammer Brother (0x0E60, 0x0110)
+41: $9B - Amazing Flying Hammer Brother (0x0E60, 0x0110)
+42: $C9 - Bullet Bill shooter (0x0F10, 0x0160)
+43: $1D - Hopping flame (0x0FC0, 0x0180)
+44: $50 - Jumping Piranha Plant that spits fireballs (0x0FE0, 0x0160)
+45: $86 - Wiggler (0x1050, 0x0180)
+46: $1D - Hopping flame (0x1060, 0x0180)
+47: $50 - Jumping Piranha Plant that spits fireballs (0x1070, 0x0150)
+48: $C9 - Bullet Bill shooter (0x1180, 0x0160)
+49: $9C - Flying gray blocks for Hammer Brother (0x11C0, 0x0110)
+50: $9B - Amazing Flying Hammer Brother (0x11C0, 0x0110)
+51: $86 - Wiggler (0x1210, 0x0180)
+52: $C9 - Bullet Bill shooter (0x1240, 0x0180)
+53: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $127 ###
+00: $16 - Cheep Cheep swimming vertically (0x0130, 0x0170)
+01: $9C - Flying gray blocks for Hammer Brother (0x0180, 0x0100)
+02: $9B - Amazing Flying Hammer Brother (0x0180, 0x0100)
+03: $16 - Cheep Cheep swimming vertically (0x0190, 0x0170)
+04: $15 - Cheep Cheep swimming horizontally (0x0280, 0x0120)
+05: $4F - Jumping Piranha Plant (0x02C0, 0x0140)
+06: $15 - Cheep Cheep swimming horizontally (0x0340, 0x0130)
+07: $15 - Cheep Cheep swimming horizontally (0x03B0, 0x0120)
+08: $9C - Flying gray blocks for Hammer Brother (0x0470, 0x0100)
+09: $9B - Amazing Flying Hammer Brother (0x0470, 0x0100)
+10: $15 - Cheep Cheep swimming horizontally (0x04B0, 0x0150)
+11: $15 - Cheep Cheep swimming horizontally (0x04E0, 0x0110)
+12: $16 - Cheep Cheep swimming vertically (0x0440, 0x0160)
+13: $16 - Cheep Cheep swimming vertically (0x0510, 0x0170)
+14: $15 - Cheep Cheep swimming horizontally (0x05F0, 0x0150)
+15: $16 - Cheep Cheep swimming vertically (0x0650, 0x0160)
+16: $05 - Red Koopa Troopa (0x0710, 0x0130)
+17: $05 - Red Koopa Troopa (0x0750, 0x0170)
+18: $15 - Cheep Cheep swimming horizontally (0x0790, 0x0130)
+19: $4F - Jumping Piranha Plant (0x0820, 0x0160)
+20: $16 - Cheep Cheep swimming vertically (0x09B0, 0x0150)
+21: $16 - Cheep Cheep swimming vertically (0x0910, 0x0160)
+22: $15 - Cheep Cheep swimming horizontally (0x0A00, 0x0160)
+23: $16 - Cheep Cheep swimming vertically (0x0AA0, 0x0160)
+24: $16 - Cheep Cheep swimming vertically (0x0AE0, 0x0140)
+25: $05 - Red Koopa Troopa (0x0BD0, 0x0150)
+26: $05 - Red Koopa Troopa (0x0BF0, 0x0150)
+27: $15 - Cheep Cheep swimming horizontally (0x0C90, 0x0140)
+28: $15 - Cheep Cheep swimming horizontally (0x0CF0, 0x0120)
+29: $15 - Cheep Cheep swimming horizontally (0x0DB0, 0x0120)
+30: $15 - Cheep Cheep swimming horizontally (0x0DC0, 0x0160)
+31: $15 - Cheep Cheep swimming horizontally (0x0E10, 0x0120)
+32: $15 - Cheep Cheep swimming horizontally (0x0E20, 0x0160)
+33: $15 - Cheep Cheep swimming horizontally (0x0E70, 0x0120)
+34: $15 - Cheep Cheep swimming horizontally (0x0E80, 0x0160)
+35: $9C - Flying gray blocks for Hammer Brother (0x0EF0, 0x00F0)
+36: $9B - Amazing Flying Hammer Brother (0x0EF0, 0x00F0)
+
+### Level $128 ###
+00: $05 - Red Koopa Troopa (0x00B0, 0x0160)
+01: $BD - Sliding Koopa (0x0370, 0x0110)
+02: $04 - Green Koopa Troopa (0x0430, 0x0170)
+03: $05 - Red Koopa Troopa (0x0460, 0x0170)
+04: $06 - Blue Koopa Troopa (0x0490, 0x0170)
+05: $07 - Yellow Koopa Troopa (0x04C0, 0x0170)
+06: $70 - Pokey (0x0650, 0x0130)
+07: $4F - Jumping Piranha Plant (0x06B0, 0x0170)
+08: $99 - Volcano Lotus (0x0780, 0x00E0)
+09: $81 - Changing item (0x0830, 0x0110)
+10: $4F - Jumping Piranha Plant (0x0860, 0x0140)
+11: $70 - Pokey (0x0980, 0x0130)
+12: $70 - Pokey (0x0A50, 0x0130)
+13: $70 - Pokey (0x0AD0, 0x0120)
+14: $99 - Volcano Lotus (0x0B20, 0x00E0)
+15: $70 - Pokey (0x0B40, 0x0130)
+16: $70 - Pokey (0x0BB0, 0x0120)
+17: $70 - Pokey (0x0C20, 0x0130)
+18: $99 - Volcano Lotus (0x0C40, 0x00E0)
+19: $99 - Volcano Lotus (0x0C40, 0x0160)
+20: $70 - Pokey (0x0CB0, 0x0130)
+21: $70 - Pokey (0x0D20, 0x0120)
+22: $50 - Jumping Piranha Plant that spits fireballs (0x0DC0, 0x0180)
+23: $70 - Pokey (0x0F40, 0x00A0)
+24: $70 - Pokey (0x0F40, 0x00D0)
+25: $70 - Pokey (0x0F40, 0x0100)
+26: $70 - Pokey (0x0F40, 0x0130)
+27: $4F - Jumping Piranha Plant (0x0FC0, 0x0100)
+28: $98 - Pitchin' Chuck (0x10D0, 0x0110)
+29: $70 - Pokey (0x1170, 0x0130)
+30: $99 - Volcano Lotus (0x11A0, 0x0170)
+31: $70 - Pokey (0x11F0, 0x0130)
+32: $98 - Pitchin' Chuck (0x1230, 0x0140)
+33: $98 - Pitchin' Chuck (0x1270, 0x0120)
+34: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $129 ###
+
+### Level $12A ###
+00: $78 - 1-Up mushroom (0x0020, 0x0030)
+01: $6C - Wall springboard (right wall) (0x0080, 0x0080)
+02: $0A - Red Koopa Troopa flying vertically (0x0190, 0x00A0)
+03: $0B - Red Koopa Troopa flying horizontally (0x00A0, 0x01E0)
+04: $6C - Wall springboard (right wall) (0x00E0, 0x0230)
+05: $6B - Wall springboard (left wall) (0x0070, 0x0230)
+06: $6C - Wall springboard (right wall) (0x0120, 0x02F0)
+07: $64 - Line-guided rope mechanism (0x00D0, 0x03D0)
+08: $6B - Wall springboard (left wall) (0x0090, 0x0440)
+09: $B9 - Info Box (0x00B0, 0x0480)
+10: $6C - Wall springboard (right wall) (0x0060, 0x0480)
+11: $06 - Blue Koopa Troopa (0x01B0, 0x04C0)
+
+### Level $12B ###
+00: $95 - Chargin' Chuck (0x0100, 0x0140)
+01: $4F - Jumping Piranha Plant (0x0180, 0x0170)
+02: $95 - Chargin' Chuck (0x0210, 0x0150)
+03: $3E - P-switch (0x02E0, 0x0110)
+04: $2F - Portable springboard (0x02E0, 0x0180)
+05: $98 - Pitchin' Chuck (0x03F0, 0x0160)
+06: $98 - Pitchin' Chuck (0x0450, 0x0130)
+07: $0A - Red Koopa Troopa flying vertically (0x0540, 0x0180)
+08: $0A - Red Koopa Troopa flying vertically (0x0540, 0x0130)
+09: $0A - Red Koopa Troopa flying vertically (0x0540, 0x00E0)
+10: $99 - Volcano Lotus (0x05C0, 0x0140)
+11: $99 - Volcano Lotus (0x05C0, 0x00E0)
+12: $0B - Red Koopa Troopa flying horizontally (0x0660, 0x0170)
+13: $0B - Red Koopa Troopa flying horizontally (0x0680, 0x0150)
+14: $4F - Jumping Piranha Plant (0x06C0, 0x0140)
+15: $97 - Puntin' Chuck (0x0760, 0x0130)
+16: $97 - Puntin' Chuck (0x07E0, 0x00D0)
+17: $99 - Volcano Lotus (0x0850, 0x00F0)
+18: $99 - Volcano Lotus (0x0920, 0x0130)
+19: $7B - Goal tape (0x09E0, 0x0170)
+
+### Level $12C ###
+00: $63 - Brown/checkered line-guided platform (0x0120, 0x0160)
+01: $68 - Fuzzy, line-guided (0x01D0, 0x0150)
+02: $68 - Fuzzy, line-guided (0x0210, 0x00F0)
+03: $68 - Fuzzy, line-guided (0x0230, 0x0070)
+04: $68 - Fuzzy, line-guided (0x0270, 0x0100)
+05: $65 - Chainsaw (line-guided) (0x02B0, 0x0190)
+06: $68 - Fuzzy, line-guided (0x03B0, 0x00B0)
+07: $68 - Fuzzy, line-guided (0x03B0, 0x0130)
+08: $68 - Fuzzy, line-guided (0x03B0, 0x0100)
+09: $68 - Fuzzy, line-guided (0x05F0, 0x00B0)
+10: $68 - Fuzzy, line-guided (0x0610, 0x0150)
+11: $68 - Fuzzy, line-guided (0x0610, 0x00E0)
+12: $65 - Chainsaw (line-guided) (0x06F0, 0x0100)
+13: $68 - Fuzzy, line-guided (0x0790, 0x00C0)
+14: $68 - Fuzzy, line-guided (0x07B0, 0x0150)
+15: $68 - Fuzzy, line-guided (0x07D0, 0x0140)
+16: $68 - Fuzzy, line-guided (0x07F0, 0x00A0)
+17: $C4 - Gray platform that falls (0x0A80, 0x0160)
+18: $C4 - Gray platform that falls (0x0AC0, 0x0140)
+19: $64 - Line-guided rope mechanism (0x0B80, 0x00F0)
+20: $68 - Fuzzy, line-guided (0x0BB0, 0x0120)
+21: $64 - Line-guided rope mechanism (0x0C00, 0x0110)
+22: $68 - Fuzzy, line-guided (0x0C50, 0x0120)
+23: $68 - Fuzzy, line-guided (0x0CB0, 0x0110)
+24: $62 - Brown line-guided platform (0x0CD0, 0x0130)
+25: $64 - Line-guided rope mechanism (0x0D00, 0x0110)
+26: $68 - Fuzzy, line-guided (0x0D30, 0x0150)
+27: $68 - Fuzzy, line-guided (0x0D70, 0x0120)
+28: $68 - Fuzzy, line-guided (0x0DD0, 0x0150)
+29: $68 - Fuzzy, line-guided (0x0E50, 0x0120)
+30: $62 - Brown line-guided platform (0x0E70, 0x0130)
+31: $68 - Fuzzy, line-guided (0x0F30, 0x0140)
+32: $68 - Fuzzy, line-guided (0x0F50, 0x0150)
+33: $64 - Line-guided rope mechanism (0x0F60, 0x00F0)
+34: $68 - Fuzzy, line-guided (0x0FD0, 0x0120)
+35: $68 - Fuzzy, line-guided (0x1030, 0x0110)
+36: $68 - Fuzzy, line-guided (0x1070, 0x0140)
+37: $68 - Fuzzy, line-guided (0x10B0, 0x0110)
+38: $68 - Fuzzy, line-guided (0x1150, 0x0140)
+39: $68 - Fuzzy, line-guided (0x1150, 0x0100)
+40: $68 - Fuzzy, line-guided (0x11B0, 0x0110)
+41: $68 - Fuzzy, line-guided (0x11F0, 0x0110)
+42: $68 - Fuzzy, line-guided (0x1230, 0x0110)
+43: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $12D ###
+00: $DD - Yellow Koopa shell (0x00D0, 0x0140)
+01: $03 - Yellow Koopa Troopa without shell (0x00F0, 0x0140)
+02: $59 - Turn block bridge, horizontal and vertical (0x0160, 0x0120)
+03: $AB - Rex (0x0230, 0x0160)
+04: $DB - Red Koopa shell (0x02C0, 0x0110)
+05: $02 - Blue Koopa Troopa without shell (0x02D0, 0x0110)
+06: $AB - Rex (0x0340, 0x0160)
+07: $AB - Rex (0x0370, 0x0160)
+08: $DC - Blue Koopa shell (0x03F0, 0x0110)
+09: $02 - Blue Koopa Troopa without shell (0x0400, 0x0110)
+10: $DD - Yellow Koopa shell (0x0510, 0x0110)
+11: $03 - Yellow Koopa Troopa without shell (0x0520, 0x0110)
+12: $AB - Rex (0x0590, 0x0150)
+13: $DA - Green Koopa shell (0x0670, 0x0110)
+14: $02 - Blue Koopa Troopa without shell (0x0680, 0x0110)
+15: $3E - P-switch (0x06E0, 0x0150)
+16: $15 - Cheep Cheep swimming horizontally (0x0740, 0x0180)
+17: $DB - Red Koopa shell (0x07E0, 0x0100)
+18: $02 - Blue Koopa Troopa without shell (0x07F0, 0x0100)
+19: $AB - Rex (0x0820, 0x0120)
+20: $AB - Rex (0x0840, 0x0130)
+21: $AB - Rex (0x0860, 0x0140)
+22: $DA - Green Koopa shell (0x08D0, 0x0140)
+23: $02 - Blue Koopa Troopa without shell (0x08E0, 0x0140)
+24: $0C - Yellow Koopa Troopa with wings (0x0920, 0x0140)
+25: $09 - Green Koopa Troopa bouncing (0x0950, 0x0140)
+26: $AB - Rex (0x09A0, 0x0140)
+27: $AB - Rex (0x09C0, 0x0140)
+28: $AB - Rex (0x09E0, 0x0140)
+29: $DD - Yellow Koopa shell (0x0A40, 0x0150)
+30: $02 - Blue Koopa Troopa without shell (0x0A50, 0x0150)
+31: $D1 - Flying fish generator (0x0B80, 0x0000)
+32: $75 - Flower (0x0B90, 0x0160)
+33: $AB - Rex (0x0BC0, 0x0160)
+34: $9F - Banzai Bill (0x0C50, 0x0110)
+35: $AB - Rex (0x0CF0, 0x0160)
+36: $9F - Banzai Bill (0x0E00, 0x0110)
+37: $AB - Rex (0x0E80, 0x0160)
+38: $9F - Banzai Bill (0x0F10, 0x0130)
+39: $9F - Banzai Bill (0x1070, 0x0130)
+40: $0A - Red Koopa Troopa flying vertically (0x10E0, 0x0170)
+41: $D9 - Turn Off Generators (0x1140, 0x0000)
+42: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $12E ###
+
+### Level $12F ###
+
+### Level $130 ###
+00: $76 - Star (0x0040, 0x00A0)
+01: $2C - Yoshi egg (0x0090, 0x0170)
+02: $C2 - Blurp (0x00F0, 0x0140)
+03: $C2 - Blurp (0x0120, 0x0170)
+04: $C2 - Blurp (0x0120, 0x0110)
+05: $3D - Rip Van Fish (0x01A0, 0x0140)
+06: $3D - Rip Van Fish (0x01A0, 0x0100)
+07: $3D - Rip Van Fish (0x01F0, 0x0170)
+08: $3D - Rip Van Fish (0x01F0, 0x0120)
+09: $3D - Rip Van Fish (0x0250, 0x00E0)
+10: $3D - Rip Van Fish (0x0250, 0x0130)
+11: $C2 - Blurp (0x0310, 0x0140)
+12: $C2 - Blurp (0x0330, 0x0160)
+13: $C2 - Blurp (0x0330, 0x0120)
+14: $C2 - Blurp (0x0350, 0x0100)
+15: $C2 - Blurp (0x0350, 0x0180)
+16: $C2 - Blurp (0x0390, 0x0150)
+17: $C2 - Blurp (0x0390, 0x0130)
+18: $3D - Rip Van Fish (0x04C0, 0x00D0)
+19: $3D - Rip Van Fish (0x04C0, 0x0130)
+20: $3D - Rip Van Fish (0x04E0, 0x00D0)
+21: $3D - Rip Van Fish (0x04E0, 0x0130)
+22: $3D - Rip Van Fish (0x0510, 0x0110)
+23: $3D - Rip Van Fish (0x0510, 0x00F0)
+24: $C2 - Blurp (0x0600, 0x0100)
+25: $C2 - Blurp (0x0620, 0x0110)
+26: $C2 - Blurp (0x0640, 0x0120)
+27: $C2 - Blurp (0x0690, 0x0160)
+28: $C2 - Blurp (0x06B0, 0x0140)
+29: $C2 - Blurp (0x06D0, 0x0120)
+30: $C2 - Blurp (0x07B0, 0x0170)
+31: $C2 - Blurp (0x07B0, 0x0100)
+32: $C2 - Blurp (0x07D0, 0x0120)
+33: $C2 - Blurp (0x07D0, 0x0150)
+34: $3D - Rip Van Fish (0x0830, 0x00F0)
+35: $3D - Rip Van Fish (0x0850, 0x00D0)
+36: $3D - Rip Van Fish (0x0870, 0x00F0)
+37: $3D - Rip Van Fish (0x0890, 0x00D0)
+38: $3D - Rip Van Fish (0x08B0, 0x00F0)
+39: $0E - Keyhole (0x0B90, 0x0170)
+40: $80 - Key (0x0BD0, 0x0170)
+
+### Level $131 ###
+
+### Level $132 ###
+00: $2C - Yoshi egg (0x0060, 0x0170)
+01: $3E - P-switch (0x0070, 0x0170)
+02: $1E - Lakitu (0x00A0, 0x00E0)
+03: $0E - Keyhole (0x0170, 0x0050)
+04: $7B - Goal tape (0x01E0, 0x0170)
+
+### Level $133 ###
+
+### Level $134 ###
+00: $74 - Mushroom (0x00D0, 0x0040)
+01: $0E - Keyhole (0x01B0, 0x02D0)
+02: $80 - Key (0x01D0, 0x02D0)
+03: $77 - Feather (0x0030, 0x02F0)
+04: $75 - Flower (0x0150, 0x0320)
+05: $78 - 1-Up mushroom (0x0190, 0x04B0)
+06: $76 - Star (0x0170, 0x0590)
+07: $76 - Star (0x0060, 0x0590)
+08: $04 - Green Koopa Troopa (0x0180, 0x05D0)
+09: $05 - Red Koopa Troopa (0x0140, 0x05D0)
+10: $05 - Red Koopa Troopa (0x0090, 0x05D0)
+11: $07 - Yellow Koopa Troopa (0x0040, 0x05D0)
+12: $06 - Blue Koopa Troopa (0x0190, 0x0610)
+13: $06 - Blue Koopa Troopa (0x0110, 0x0610)
+14: $06 - Blue Koopa Troopa (0x0060, 0x0610)
+15: $0A - Red Koopa Troopa flying vertically (0x0130, 0x0700)
+16: $0A - Red Koopa Troopa flying vertically (0x0130, 0x0710)
+17: $0A - Red Koopa Troopa flying vertically (0x0130, 0x0720)
+18: $0A - Red Koopa Troopa flying vertically (0x0130, 0x0730)
+19: $0A - Red Koopa Troopa flying vertically (0x0130, 0x0740)
+20: $09 - Green Koopa Troopa bouncing (0x0120, 0x0860)
+21: $76 - Star (0x0050, 0x0860)
+22: $09 - Green Koopa Troopa bouncing (0x01B0, 0x08C0)
+23: $2C - Yoshi egg (0x00C0, 0x08C0)
+24: $09 - Green Koopa Troopa bouncing (0x00A0, 0x08C0)
+25: $09 - Green Koopa Troopa bouncing (0x0170, 0x0910)
+26: $09 - Green Koopa Troopa bouncing (0x01B0, 0x0960)
+27: $09 - Green Koopa Troopa bouncing (0x00A0, 0x0960)
+28: $07 - Yellow Koopa Troopa (0x0140, 0x0990)
+29: $07 - Yellow Koopa Troopa (0x01C0, 0x09C0)
+
+### Level $135 ###
+00: $2C - Yoshi egg (0x0100, 0x0130)
+01: $E0 - 3 rotating gray platforms (0x0170, 0x00F0)
+02: $05 - Red Koopa Troopa (0x0230, 0x00A0)
+03: $05 - Red Koopa Troopa (0x0290, 0x00D0)
+04: $E0 - 3 rotating gray platforms (0x0300, 0x00C0)
+05: $06 - Blue Koopa Troopa (0x0390, 0x00B0)
+06: $06 - Blue Koopa Troopa (0x03C0, 0x00B0)
+07: $05 - Red Koopa Troopa (0x0490, 0x00A0)
+08: $06 - Blue Koopa Troopa (0x0490, 0x0120)
+09: $06 - Blue Koopa Troopa (0x0490, 0x00E0)
+10: $0A - Red Koopa Troopa flying vertically (0x04E0, 0x0040)
+11: $0A - Red Koopa Troopa flying vertically (0x04E0, 0x0060)
+12: $0A - Red Koopa Troopa flying vertically (0x04E0, 0x0080)
+13: $0A - Red Koopa Troopa flying vertically (0x04E0, 0x00A0)
+14: $0A - Red Koopa Troopa flying vertically (0x04E0, 0x00C0)
+15: $0A - Red Koopa Troopa flying vertically (0x04E0, 0x00E0)
+16: $0A - Red Koopa Troopa flying vertically (0x04E0, 0x0100)
+17: $05 - Red Koopa Troopa (0x0630, 0x00A0)
+18: $0B - Red Koopa Troopa flying horizontally (0x0690, 0x00A0)
+19: $E0 - 3 rotating gray platforms (0x06B0, 0x00B0)
+20: $0A - Red Koopa Troopa flying vertically (0x06E0, 0x00B0)
+21: $06 - Blue Koopa Troopa (0x07D0, 0x0110)
+22: $E0 - 3 rotating gray platforms (0x0840, 0x0140)
+23: $05 - Red Koopa Troopa (0x0990, 0x0140)
+24: $0A - Red Koopa Troopa flying vertically (0x09D0, 0x00F0)
+25: $0A - Red Koopa Troopa flying vertically (0x09D0, 0x0110)
+26: $0A - Red Koopa Troopa flying vertically (0x09D0, 0x0130)
+27: $0A - Red Koopa Troopa flying vertically (0x09D0, 0x0150)
+28: $0A - Red Koopa Troopa flying vertically (0x09D0, 0x0170)
+29: $E0 - 3 rotating gray platforms (0x0BF0, 0x00B0)
+30: $DB - Red Koopa shell (0x0C70, 0x00F0)
+31: $DA - Green Koopa shell (0x0CC0, 0x00F0)
+32: $02 - Blue Koopa Troopa without shell (0x0CD0, 0x00F0)
+33: $0E - Keyhole (0x0D80, 0x0160)
+34: $09 - Green Koopa Troopa bouncing (0x0D80, 0x00F0)
+35: $09 - Green Koopa Troopa bouncing (0x0DA0, 0x00F0)
+36: $05 - Red Koopa Troopa (0x0EB0, 0x00C0)
+37: $0B - Red Koopa Troopa flying horizontally (0x0F10, 0x0090)
+38: $E0 - 3 rotating gray platforms (0x0F30, 0x00A0)
+39: $06 - Blue Koopa Troopa (0x0FC0, 0x0090)
+40: $A3 - Rotating gray platform (0x10E0, 0x00F0)
+41: $E0 - 3 rotating gray platforms (0x1190, 0x00D0)
+42: $A3 - Rotating gray platform (0x1240, 0x00F0)
+43: $7B - Goal tape (0x12E0, 0x0170)
+
+### Level $136 ###
+00: $C4 - Gray platform that falls (0x0080, 0x0180)
+01: $C4 - Gray platform that falls (0x00D0, 0x0180)
+02: $08 - Green Koopa Troopa flying left (0x0100, 0x0140)
+03: $C4 - Gray platform that falls (0x0120, 0x0180)
+04: $C4 - Gray platform that falls (0x0170, 0x0150)
+05: $C4 - Gray platform that falls (0x01C0, 0x0150)
+06: $08 - Green Koopa Troopa flying left (0x01E0, 0x0110)
+07: $C4 - Gray platform that falls (0x0210, 0x0150)
+08: $C4 - Gray platform that falls (0x0260, 0x0150)
+09: $08 - Green Koopa Troopa flying left (0x02C0, 0x0110)
+10: $0A - Red Koopa Troopa flying vertically (0x02D0, 0x0150)
+11: $C4 - Gray platform that falls (0x0300, 0x0180)
+12: $C4 - Gray platform that falls (0x0350, 0x0180)
+13: $0B - Red Koopa Troopa flying horizontally (0x0370, 0x0160)
+14: $C4 - Gray platform that falls (0x03A0, 0x0180)
+15: $C4 - Gray platform that falls (0x03F0, 0x0180)
+16: $0B - Red Koopa Troopa flying horizontally (0x03F0, 0x0130)
+17: $C4 - Gray platform that falls (0x0440, 0x0180)
+18: $0B - Red Koopa Troopa flying horizontally (0x0460, 0x0150)
+19: $3E - P-switch (0x04C0, 0x0130)
+20: $08 - Green Koopa Troopa flying left (0x0610, 0x0110)
+21: $08 - Green Koopa Troopa flying left (0x06A0, 0x0170)
+22: $08 - Green Koopa Troopa flying left (0x0720, 0x0110)
+23: $0A - Red Koopa Troopa flying vertically (0x0730, 0x0170)
+24: $0A - Red Koopa Troopa flying vertically (0x0750, 0x0170)
+25: $0A - Red Koopa Troopa flying vertically (0x0770, 0x0170)
+26: $08 - Green Koopa Troopa flying left (0x07A0, 0x0120)
+27: $08 - Green Koopa Troopa flying left (0x0850, 0x0160)
+28: $C4 - Gray platform that falls (0x0870, 0x0180)
+29: $08 - Green Koopa Troopa flying left (0x08B0, 0x0120)
+30: $C4 - Gray platform that falls (0x08F0, 0x0180)
+31: $0A - Red Koopa Troopa flying vertically (0x0910, 0x0150)
+32: $0A - Red Koopa Troopa flying vertically (0x0950, 0x0170)
+33: $C4 - Gray platform that falls (0x0970, 0x0180)
+34: $0A - Red Koopa Troopa flying vertically (0x0990, 0x0150)
+35: $2C - Yoshi egg (0x09E0, 0x0170)
+36: $13 - Spiny (0x0A50, 0x0170)
+37: $4F - Jumping Piranha Plant (0x0A70, 0x0150)
+38: $13 - Spiny (0x0AC0, 0x0170)
+39: $4F - Jumping Piranha Plant (0x0AE0, 0x0140)
+40: $13 - Spiny (0x0B30, 0x0170)
+41: $C4 - Gray platform that falls (0x0BD0, 0x0170)
+42: $C4 - Gray platform that falls (0x0C50, 0x0150)
+43: $C4 - Gray platform that falls (0x0CD0, 0x0130)
+44: $C4 - Gray platform that falls (0x0D50, 0x0110)
+45: $80 - Key (0x0DD0, 0x0040)
+46: $05 - Red Koopa Troopa (0x0E30, 0x0170)
+47: $0E - Keyhole (0x0E30, 0x0040)
+48: $13 - Spiny (0x0E60, 0x0170)
+49: $13 - Spiny (0x0E80, 0x0170)
+50: $05 - Red Koopa Troopa (0x0EC0, 0x0110)
+51: $13 - Spiny (0x0F00, 0x0130)
+52: $13 - Spiny (0x0F20, 0x0130)
+53: $13 - Spiny (0x0F40, 0x0130)
+54: $7B - Goal tape (0x0FE0, 0x0170)
+
+### Level $137 ###
+
+### Level $138 ###
+
+### Level $139 ###
+
+### Level $13A ###
+
+### Level $13B ###
+
+### Level $13C ###
+
+### Level $13D ###
+
+### Level $13E ###
+
+### Level $13F ###
+
+### Level $140 ###
+
+### Level $141 ###
+
+### Level $142 ###
+
+### Level $143 ###
+
+### Level $144 ###
+
+### Level $145 ###
+
+### Level $146 ###
+
+### Level $147 ###
+
+### Level $148 ###
+
+### Level $149 ###
+
+### Level $14A ###
+
+### Level $14B ###
+
+### Level $14C ###
+
+### Level $14D ###
+
+### Level $14E ###
+
+### Level $14F ###
+
+### Level $150 ###
+
+### Level $151 ###
+
+### Level $152 ###
+
+### Level $153 ###
+
+### Level $154 ###
+
+### Level $155 ###
+
+### Level $156 ###
+
+### Level $157 ###
+
+### Level $158 ###
+
+### Level $159 ###
+
+### Level $15A ###
+
+### Level $15B ###
+
+### Level $15C ###
+
+### Level $15D ###
+
+### Level $15E ###
+
+### Level $15F ###
+
+### Level $160 ###
+
+### Level $161 ###
+
+### Level $162 ###
+
+### Level $163 ###
+
+### Level $164 ###
+
+### Level $165 ###
+
+### Level $166 ###
+
+### Level $167 ###
+
+### Level $168 ###
+
+### Level $169 ###
+
+### Level $16A ###
+
+### Level $16B ###
+
+### Level $16C ###
+
+### Level $16D ###
+
+### Level $16E ###
+
+### Level $16F ###
+
+### Level $170 ###
+
+### Level $171 ###
+
+### Level $172 ###
+
+### Level $173 ###
+
+### Level $174 ###
+
+### Level $175 ###
+
+### Level $176 ###
+
+### Level $177 ###
+
+### Level $178 ###
+
+### Level $179 ###
+
+### Level $17A ###
+
+### Level $17B ###
+
+### Level $17C ###
+
+### Level $17D ###
+
+### Level $17E ###
+
+### Level $17F ###
+
+### Level $180 ###
+
+### Level $181 ###
+
+### Level $182 ###
+
+### Level $183 ###
+
+### Level $184 ###
+
+### Level $185 ###
+
+### Level $186 ###
+
+### Level $187 ###
+
+### Level $188 ###
+
+### Level $189 ###
+
+### Level $18A ###
+
+### Level $18B ###
+
+### Level $18C ###
+
+### Level $18D ###
+
+### Level $18E ###
+
+### Level $18F ###
+
+### Level $190 ###
+
+### Level $191 ###
+
+### Level $192 ###
+
+### Level $193 ###
+00: $B6 - Reflecting fireball (0x0010, 0x0100)
+01: $29 - Koopa Kid (0x00C0, 0x0060)
+02: $B6 - Reflecting fireball (0x00E0, 0x0100)
+
+### Level $194 ###
+00: $B6 - Reflecting fireball (0x0010, 0x0100)
+01: $29 - Koopa Kid (0x00C0, 0x0050)
+
+### Level $195 ###
+00: $A9 - Reznor (0x0010, 0x0000)
+01: $A9 - Reznor (0x0020, 0x0000)
+02: $A9 - Reznor (0x0030, 0x0000)
+03: $A9 - Reznor (0x0040, 0x0000)
+
+### Level $196 ###
+00: $33 - Podoboo/vertical fireball (0x0020, 0x0000)
+01: $33 - Podoboo/vertical fireball (0x0070, 0x0000)
+02: $33 - Podoboo/vertical fireball (0x00D0, 0x0000)
+03: $29 - Koopa Kid (0x00C0, 0x0040)
+
+### Level $197 ###
+00: $29 - Koopa Kid (0x00C0, 0x0030)
+
+### Level $198 ###
+00: $29 - Koopa Kid (0x00C0, 0x0020)
+
+### Level $199 ###
+00: $29 - Koopa Kid (0x00C0, 0x0010)
+
+### Level $19A ###
+00: $29 - Koopa Kid (0x00C0, 0x0000)
+
+### Level $19B ###
+00: $A0 - Bowser battle activator (0x0000, 0x0000)
+
+### Level $19C ###
+
+### Level $19D ###
+
+### Level $19E ###
+
+### Level $19F ###
+
+### Level $1A0 ###
+
+### Level $1A1 ###
+
+### Level $1A2 ###
+
+### Level $1A3 ###
+
+### Level $1A4 ###
+
+### Level $1A5 ###
+
+### Level $1A6 ###
+
+### Level $1A7 ###
+
+### Level $1A8 ###
+
+### Level $1A9 ###
+
+### Level $1AA ###
+
+### Level $1AB ###
+
+### Level $1AC ###
+
+### Level $1AD ###
+
+### Level $1AE ###
+
+### Level $1AF ###
+
+### Level $1B0 ###
+
+### Level $1B1 ###
+
+### Level $1B2 ###
+
+### Level $1B3 ###
+
+### Level $1B4 ###
+
+### Level $1B5 ###
+
+### Level $1B6 ###
+
+### Level $1B7 ###
+
+### Level $1B8 ###
+
+### Level $1B9 ###
+
+### Level $1BA ###
+
+### Level $1BB ###
+
+### Level $1BC ###
+
+### Level $1BD ###
+00: $C6 - Spotlight/dark room sprite (0x0180, 0x0000)
+01: $C8 - Light switch for dark room (0x0210, 0x0130)
+02: $51 - Ninji (0x02B0, 0x0110)
+03: $51 - Ninji (0x03B0, 0x0170)
+04: $A2 - Mecha-Koopa (0x0400, 0x0150)
+05: $51 - Ninji (0x0460, 0x0170)
+06: $51 - Ninji (0x0490, 0x0170)
+07: $A2 - Mecha-Koopa (0x0530, 0x0170)
+08: $51 - Ninji (0x0570, 0x0170)
+09: $51 - Ninji (0x0590, 0x0170)
+10: $C6 - Spotlight/dark room sprite (0x0610, 0x0000)
+
+### Level $1BE ###
+00: $70 - Pokey (0x0130, 0x0120)
+01: $B9 - Info Box (0x01D0, 0x0150)
+02: $70 - Pokey (0x0220, 0x0130)
+03: $70 - Pokey (0x0320, 0x0100)
+
+### Level $1BF ###
+00: $2E - Spike Top (0x0100, 0x0120)
+01: $15 - Cheep Cheep swimming horizontally (0x0120, 0x0190)
+02: $2E - Spike Top (0x0160, 0x0140)
+03: $15 - Cheep Cheep swimming horizontally (0x0190, 0x0190)
+04: $2E - Spike Top (0x01D0, 0x0130)
+05: $15 - Cheep Cheep swimming horizontally (0x01F0, 0x0190)
+06: $2E - Spike Top (0x0270, 0x0120)
+07: $15 - Cheep Cheep swimming horizontally (0x0280, 0x0190)
+08: $15 - Cheep Cheep swimming horizontally (0x02E0, 0x0190)
+
+### Level $1C0 ###
+00: $C4 - Gray platform that falls (0x0120, 0x0170)
+01: $C4 - Gray platform that falls (0x0170, 0x0170)
+02: $9C - Flying gray blocks for Hammer Brother (0x0170, 0x00F0)
+03: $9B - Amazing Flying Hammer Brother (0x0170, 0x00F0)
+04: $C4 - Gray platform that falls (0x01C0, 0x0170)
+05: $C4 - Gray platform that falls (0x0210, 0x0170)
+
+### Level $1C1 ###
+00: $C2 - Blurp (0x0060, 0x0160)
+01: $C2 - Blurp (0x00C0, 0x0130)
+02: $C2 - Blurp (0x0120, 0x0150)
+03: $C2 - Blurp (0x0130, 0x00F0)
+04: $C2 - Blurp (0x0170, 0x0170)
+05: $C2 - Blurp (0x01D0, 0x0110)
+06: $C2 - Blurp (0x01D0, 0x0160)
+07: $C2 - Blurp (0x0200, 0x00E0)
+08: $C2 - Blurp (0x0240, 0x0180)
+09: $C2 - Blurp (0x0250, 0x0120)
+10: $C2 - Blurp (0x0280, 0x0140)
+11: $C2 - Blurp (0x02B0, 0x0160)
+
+### Level $1C2 ###
+00: $11 - Buzzy Beetle (0x00E0, 0x0130)
+01: $11 - Buzzy Beetle (0x0110, 0x0130)
+02: $11 - Buzzy Beetle (0x01A0, 0x0160)
+03: $11 - Buzzy Beetle (0x0230, 0x0120)
+04: $15 - Cheep Cheep swimming horizontally (0x0290, 0x0190)
+05: $0A - Red Koopa Troopa flying vertically (0x0330, 0x0160)
+06: $15 - Cheep Cheep swimming horizontally (0x0350, 0x0190)
+07: $11 - Buzzy Beetle (0x03D0, 0x0160)
+
+### Level $1C3 ###
+00: $11 - Buzzy Beetle (0x00F0, 0x0150)
+01: $11 - Buzzy Beetle (0x0150, 0x0140)
+02: $15 - Cheep Cheep swimming horizontally (0x01C0, 0x0190)
+03: $11 - Buzzy Beetle (0x02D0, 0x0160)
+04: $11 - Buzzy Beetle (0x02F0, 0x0160)
+05: $2E - Spike Top (0x0340, 0x0140)
+06: $15 - Cheep Cheep swimming horizontally (0x0360, 0x0190)
+
+### Level $1C4 ###
+00: $78 - 1-Up mushroom (0x0160, 0x0170)
+01: $78 - 1-Up mushroom (0x0180, 0x0170)
+02: $3E - P-switch (0x0180, 0x0120)
+03: $78 - 1-Up mushroom (0x01A0, 0x0170)
+04: $3E - P-switch (0x01A0, 0x0120)
+05: $3E - P-switch (0x01D0, 0x0120)
+06: $9C - Flying gray blocks for Hammer Brother (0x0300, 0x00E0)
+07: $9B - Amazing Flying Hammer Brother (0x0300, 0x00E0)
+08: $1E - Lakitu (0x0460, 0x00E0)
+09: $C7 - Invisible mushroom (0x0480, 0x0150)
+10: $D2 - Turn Off Generator 2 (0x0590, 0x00E0)
+11: $7B - Goal tape (0x05E0, 0x0170)
+
+### Level $1C5 ###
+00: $78 - 1-Up mushroom (0x0160, 0x0170)
+01: $78 - 1-Up mushroom (0x0180, 0x0170)
+02: $3E - P-switch (0x0180, 0x0120)
+03: $78 - 1-Up mushroom (0x01A0, 0x0170)
+04: $3E - P-switch (0x01A0, 0x0120)
+05: $3E - P-switch (0x01D0, 0x0120)
+06: $9C - Flying gray blocks for Hammer Brother (0x0300, 0x00E0)
+07: $9B - Amazing Flying Hammer Brother (0x0300, 0x00E0)
+08: $1E - Lakitu (0x0460, 0x00E0)
+09: $C7 - Invisible mushroom (0x0480, 0x0150)
+10: $D2 - Turn Off Generator 2 (0x0590, 0x00E0)
+11: $7B - Goal tape (0x05E0, 0x0170)
+
+### Level $1C6 ###
+00: $C4 - Gray platform that falls (0x00E0, 0x0180)
+01: $C4 - Gray platform that falls (0x0130, 0x0180)
+02: $4F - Jumping Piranha Plant (0x0180, 0x0180)
+03: $C4 - Gray platform that falls (0x01B0, 0x0180)
+04: $C4 - Gray platform that falls (0x0210, 0x0180)
+05: $4F - Jumping Piranha Plant (0x0260, 0x0170)
+06: $C4 - Gray platform that falls (0x0290, 0x0180)
+07: $C4 - Gray platform that falls (0x0300, 0x0180)
+
+### Level $1C7 ###
+00: $A0 - Bowser battle activator (0x0000, 0x0000)
+
+### Level $1C8 ###
+00: $F3 - Standard auto-scroll command (0x0080, 0x0400)
+
+### Level $1C9 ###
+
+### Level $1CA ###
+00: $84 - Flying question block that flies back and forth (0x0080, 0x00F0)
+01: $84 - Flying question block that flies back and forth (0x00C0, 0x00E0)
+02: $84 - Flying question block that flies back and forth (0x0130, 0x00F0)
+03: $84 - Flying question block that flies back and forth (0x0140, 0x00D0)
+04: $84 - Flying question block that flies back and forth (0x0180, 0x0100)
+05: $84 - Flying question block that flies back and forth (0x01C0, 0x00E0)
+
+### Level $1CB ###
+
+### Level $1CC ###
+00: $93 - Bouncin' Chuck (0x00E0, 0x0170)
+01: $93 - Bouncin' Chuck (0x0150, 0x0170)
+02: $93 - Bouncin' Chuck (0x01E0, 0x0170)
+03: $93 - Bouncin' Chuck (0x0210, 0x0140)
+04: $93 - Bouncin' Chuck (0x0280, 0x0170)
+05: $93 - Bouncin' Chuck (0x02D0, 0x0170)
+06: $93 - Bouncin' Chuck (0x0330, 0x0170)
+07: $93 - Bouncin' Chuck (0x0370, 0x0170)
+
+### Level $1CD ###
+00: $E6 - Background candle flames (0x0000, 0x0000)
+01: $BC - Bowser statue (0x0080, 0x0170)
+02: $BC - Bowser statue (0x00D0, 0x0150)
+03: $BC - Bowser statue (0x0110, 0x00F0)
+04: $BC - Bowser statue (0x01A0, 0x0170)
+05: $BC - Bowser statue (0x01D0, 0x0150)
+06: $BC - Bowser statue (0x0260, 0x0170)
+07: $33 - Podoboo/vertical fireball (0x0290, 0x00F0)
+08: $BC - Bowser statue (0x02D0, 0x00F0)
+09: $BC - Bowser statue (0x0310, 0x0170)
+10: $BC - Bowser statue (0x03A0, 0x0130)
+
+### Level $1CE ###
+00: $9E - Ball 'n' Chain (0x00A0, 0x0110)
+01: $9E - Ball 'n' Chain (0x0020, 0x0150)
+02: $9E - Ball 'n' Chain (0x0070, 0x0180)
+03: $9E - Ball 'n' Chain (0x00D0, 0x01A0)
+04: $9E - Ball 'n' Chain (0x0060, 0x01E0)
+05: $9E - Ball 'n' Chain (0x0010, 0x01E0)
+06: $32 - Dry Bones that stays on ledges (0x0060, 0x0270)
+07: $AA - Fishbone (0x0160, 0x0340)
+08: $AA - Fishbone (0x01D0, 0x0350)
+09: $AA - Fishbone (0x00F0, 0x0350)
+10: $AA - Fishbone (0x0140, 0x0370)
+11: $AA - Fishbone (0x00E0, 0x0380)
+12: $AA - Fishbone (0x01B0, 0x0380)
+13: $32 - Dry Bones that stays on ledges (0x0080, 0x0410)
+14: $EF - Layer 2 sideways-scrolling command (0x0400, 0x0480)
+
+### Level $1CF ###
+00: $E9 - Layer 2 Smash (0x0080, 0x0800)
+01: $26 - Thwomp (0x0080, 0x00E0)
+02: $26 - Thwomp (0x00C0, 0x00E0)
+03: $26 - Thwomp (0x0100, 0x00E0)
+04: $26 - Thwomp (0x0140, 0x00E0)
+05: $26 - Thwomp (0x0180, 0x00E0)
+06: $26 - Thwomp (0x01C0, 0x00E0)
+07: $26 - Thwomp (0x0200, 0x00E0)
+08: $26 - Thwomp (0x0240, 0x00E0)
+
+### Level $1D0 ###
+00: $E6 - Background candle flames (0x0000, 0x0000)
+
+### Level $1D1 ###
+00: $EA - Layer 2 scrolling command (0x0080, 0x0010)
+01: $A5 - Wall-following Sparky/Fuzzy (0x0020, 0x0170)
+02: $A5 - Wall-following Sparky/Fuzzy (0x0070, 0x0170)
+03: $A5 - Wall-following Sparky/Fuzzy (0x00C0, 0x0120)
+04: $BB - Moving castle block (0x00F0, 0x0170)
+05: $78 - 1-Up mushroom (0x0140, 0x00D0)
+06: $BB - Moving castle block (0x0180, 0x0120)
+07: $BB - Moving castle block (0x0190, 0x0170)
+08: $A5 - Wall-following Sparky/Fuzzy (0x01E0, 0x0150)
+09: $A5 - Wall-following Sparky/Fuzzy (0x0240, 0x0130)
+10: $A6 - Hothead (0x0280, 0x0140)
+11: $A5 - Wall-following Sparky/Fuzzy (0x02C0, 0x0140)
+12: $A5 - Wall-following Sparky/Fuzzy (0x0300, 0x0120)
+13: $A5 - Wall-following Sparky/Fuzzy (0x0340, 0x0120)
+
+### Level $1D2 ###
+00: $78 - 1-Up mushroom (0x0010, 0x0080)
+01: $A2 - Mecha-Koopa (0x0120, 0x0140)
+02: $A2 - Mecha-Koopa (0x0120, 0x00C0)
+03: $A2 - Mecha-Koopa (0x01F0, 0x0080)
+04: $A2 - Mecha-Koopa (0x0200, 0x0140)
+05: $A2 - Mecha-Koopa (0x02A0, 0x00C0)
+06: $A2 - Mecha-Koopa (0x0350, 0x0100)
+07: $A2 - Mecha-Koopa (0x0380, 0x0140)
+08: $A2 - Mecha-Koopa (0x0390, 0x00C0)
+09: $77 - Feather (0x03D0, 0x00C0)
+10: $A2 - Mecha-Koopa (0x0490, 0x0140)
+
+### Level $1D3 ###
+00: $54 - Revolving door for climbing net (0x00B0, 0x0110)
+01: $B6 - Reflecting fireball (0x0110, 0x0160)
+02: $B6 - Reflecting fireball (0x0110, 0x0100)
+03: $25 - Red horizontal net Koopa (0x0140, 0x0160)
+04: $25 - Red horizontal net Koopa (0x0140, 0x0120)
+05: $B6 - Reflecting fireball (0x0160, 0x0100)
+06: $54 - Revolving door for climbing net (0x0160, 0x0110)
+07: $25 - Red horizontal net Koopa (0x0180, 0x0100)
+08: $B6 - Reflecting fireball (0x01C0, 0x0120)
+09: $25 - Red horizontal net Koopa (0x01E0, 0x0130)
+10: $25 - Red horizontal net Koopa (0x01E0, 0x00F0)
+11: $54 - Revolving door for climbing net (0x0200, 0x0110)
+12: $B6 - Reflecting fireball (0x0220, 0x0100)
+13: $B6 - Reflecting fireball (0x0220, 0x0160)
+14: $25 - Red horizontal net Koopa (0x0240, 0x0150)
+15: $B6 - Reflecting fireball (0x0280, 0x0100)
+16: $25 - Red horizontal net Koopa (0x02A0, 0x00F0)
+17: $25 - Red horizontal net Koopa (0x02C0, 0x0130)
+
+### Level $1D4 ###
+00: $F3 - Standard auto-scroll command (0x0080, 0x0000)
+01: $E6 - Background candle flames (0x0000, 0x0000)
+02: $89 - Layer 3 Smash (0x0070, 0x0000)
+03: $33 - Podoboo/vertical fireball (0x0090, 0x00F0)
+04: $33 - Podoboo/vertical fireball (0x00E0, 0x00F0)
+05: $33 - Podoboo/vertical fireball (0x0150, 0x00F0)
+06: $33 - Podoboo/vertical fireball (0x01A0, 0x0130)
+07: $33 - Podoboo/vertical fireball (0x01A0, 0x00F0)
+08: $33 - Podoboo/vertical fireball (0x0220, 0x00F0)
+09: $33 - Podoboo/vertical fireball (0x0220, 0x0130)
+10: $33 - Podoboo/vertical fireball (0x0280, 0x00F0)
+11: $33 - Podoboo/vertical fireball (0x0280, 0x0130)
+
+### Level $1D5 ###
+00: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $1D6 ###
+00: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $1D7 ###
+00: $6D - Invisible solid block (0x0200, 0x0140)
+
+### Level $1D8 ###
+00: $6D - Invisible solid block (0x0200, 0x0140)
+
+### Level $1D9 ###
+00: $90 - Large green gas bubble (0x0150, 0x0120)
+01: $90 - Large green gas bubble (0x01D0, 0x0130)
+02: $90 - Large green gas bubble (0x0280, 0x0130)
+03: $90 - Large green gas bubble (0x0340, 0x0120)
+
+### Level $1DA ###
+00: $8D - Ghost house exit sign and door (0x0000, 0x0000)
+01: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $1DB ###
+00: $3E - P-switch (0x0060, 0x0170)
+01: $37 - Boo (0x02C0, 0x0140)
+02: $37 - Boo (0x0360, 0x0150)
+03: $80 - Key (0x03A0, 0x0050)
+04: $37 - Boo (0x03B0, 0x0130)
+05: $0E - Keyhole (0x03F0, 0x0050)
+
+### Level $1DC ###
+00: $3E - P-switch (0x0060, 0x0170)
+01: $37 - Boo (0x02C0, 0x0140)
+02: $37 - Boo (0x0360, 0x0150)
+03: $80 - Key (0x03A0, 0x0050)
+04: $37 - Boo (0x03B0, 0x0130)
+05: $0E - Keyhole (0x03F0, 0x0050)
+
+### Level $1DD ###
+00: $37 - Boo (0x0100, 0x0160)
+01: $B0 - Reflecting stream of Boo Buddies (0x0180, 0x0140)
+02: $B0 - Reflecting stream of Boo Buddies (0x01B0, 0x00E0)
+03: $37 - Boo (0x0220, 0x0170)
+04: $B0 - Reflecting stream of Boo Buddies (0x0270, 0x0130)
+05: $B0 - Reflecting stream of Boo Buddies (0x0280, 0x00E0)
+06: $37 - Boo (0x02C0, 0x0170)
+07: $76 - Star (0x0380, 0x0040)
+08: $3E - P-switch (0x0380, 0x00F0)
+09: $39 - Eerie that moves in a wave (0x0480, 0x0130)
+10: $37 - Boo (0x04C0, 0x0150)
+11: $39 - Eerie that moves in a wave (0x05F0, 0x0180)
+12: $39 - Eerie that moves in a wave (0x06A0, 0x0100)
+13: $78 - 1-Up mushroom (0x09E0, 0x0170)
+
+### Level $1DE ###
+00: $A9 - Reznor (0x0010, 0x0000)
+01: $A9 - Reznor (0x0020, 0x0000)
+02: $A9 - Reznor (0x0030, 0x0000)
+03: $A9 - Reznor (0x0040, 0x0000)
+
+### Level $1DF ###
+00: $80 - Key (0x0060, 0x0160)
+01: $0E - Keyhole (0x00B0, 0x0160)
+
+### Level $1E0 ###
+
+### Level $1E1 ###
+00: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $1E2 ###
+00: $80 - Key (0x0030, 0x0140)
+01: $0E - Keyhole (0x0080, 0x0140)
+02: $F5 - Layer 2 sink command (0x0180, 0x0800)
+03: $BF - Mega Mole (0x0390, 0x0140)
+04: $BF - Mega Mole (0x0470, 0x0110)
+05: $BF - Mega Mole (0x0730, 0x0100)
+06: $7B - Goal tape (0x07E0, 0x0170)
+
+### Level $1E3 ###
+00: $EA - Layer 2 scrolling command (0x0080, 0x0400)
+
+### Level $1E4 ###
+
+### Level $1E5 ###
+00: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $1E6 ###
+00: $8D - Ghost house exit sign and door (0x0000, 0x0000)
+01: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $1E7 ###
+00: $8D - Ghost house exit sign and door (0x0000, 0x0000)
+01: $7B - Goal tape (0x00E0, 0x0570)
+
+### Level $1E8 ###
+00: $28 - Big Boo (0x0110, 0x00E0)
+01: $37 - Boo (0x0190, 0x0110)
+02: $37 - Boo (0x01C0, 0x0180)
+03: $38 - Eerie that moves straight (0x0250, 0x0140)
+04: $28 - Big Boo (0x02B0, 0x0110)
+05: $37 - Boo (0x0330, 0x0100)
+06: $37 - Boo (0x03C0, 0x0180)
+07: $37 - Boo (0x0420, 0x0120)
+08: $37 - Boo (0x04A0, 0x0150)
+09: $37 - Boo (0x04A0, 0x0140)
+10: $37 - Boo (0x04A0, 0x0130)
+11: $37 - Boo (0x04A0, 0x0120)
+12: $37 - Boo (0x04A0, 0x0110)
+13: $37 - Boo (0x0530, 0x0100)
+14: $37 - Boo (0x0570, 0x0170)
+15: $37 - Boo (0x0610, 0x0140)
+16: $DE - Group of 5 wave-moving Eeries (0x0620, 0x00D0)
+17: $39 - Eerie that moves in a wave (0x0800, 0x0140)
+18: $39 - Eerie that moves in a wave (0x0850, 0x0120)
+19: $39 - Eerie that moves in a wave (0x0850, 0x0130)
+20: $39 - Eerie that moves in a wave (0x0850, 0x0140)
+21: $39 - Eerie that moves in a wave (0x09B0, 0x0100)
+22: $39 - Eerie that moves in a wave (0x0A00, 0x0110)
+23: $39 - Eerie that moves in a wave (0x0A40, 0x0120)
+
+### Level $1E9 ###
+00: $28 - Big Boo (0x0110, 0x00E0)
+01: $37 - Boo (0x0190, 0x0110)
+02: $37 - Boo (0x01C0, 0x0180)
+03: $38 - Eerie that moves straight (0x0250, 0x0140)
+04: $28 - Big Boo (0x02B0, 0x0110)
+05: $37 - Boo (0x0330, 0x0100)
+06: $37 - Boo (0x03C0, 0x0180)
+07: $37 - Boo (0x0420, 0x0120)
+08: $37 - Boo (0x04A0, 0x0150)
+09: $37 - Boo (0x04A0, 0x0140)
+10: $37 - Boo (0x04A0, 0x0130)
+11: $37 - Boo (0x04A0, 0x0120)
+12: $37 - Boo (0x04A0, 0x0110)
+13: $37 - Boo (0x0530, 0x0100)
+14: $37 - Boo (0x0570, 0x0170)
+15: $37 - Boo (0x0610, 0x0140)
+16: $DE - Group of 5 wave-moving Eeries (0x0620, 0x00D0)
+17: $39 - Eerie that moves in a wave (0x0800, 0x0140)
+18: $39 - Eerie that moves in a wave (0x0850, 0x0120)
+19: $39 - Eerie that moves in a wave (0x0850, 0x0130)
+20: $39 - Eerie that moves in a wave (0x0850, 0x0140)
+21: $39 - Eerie that moves in a wave (0x09B0, 0x0100)
+22: $39 - Eerie that moves in a wave (0x0A00, 0x0110)
+23: $39 - Eerie that moves in a wave (0x0A40, 0x0120)
+
+### Level $1EA ###
+00: $90 - Large green gas bubble (0x0140, 0x0110)
+01: $90 - Large green gas bubble (0x0220, 0x0100)
+02: $90 - Large green gas bubble (0x0320, 0x0100)
+03: $90 - Large green gas bubble (0x0460, 0x0100)
+04: $90 - Large green gas bubble (0x0520, 0x00D0)
+05: $90 - Large green gas bubble (0x0620, 0x0100)
+
+### Level $1EB ###
+00: $33 - Podoboo/vertical fireball (0x0020, 0x0000)
+01: $33 - Podoboo/vertical fireball (0x0070, 0x0000)
+02: $33 - Podoboo/vertical fireball (0x00D0, 0x0000)
+03: $29 - Koopa Kid (0x00C0, 0x0040)
+
+### Level $1EC ###
+00: $F5 - Layer 2 sink command (0x0080, 0x0000)
+01: $2E - Spike Top (0x0120, 0x0150)
+02: $2E - Spike Top (0x0150, 0x0130)
+03: $2E - Spike Top (0x0180, 0x0110)
+04: $2E - Spike Top (0x01B0, 0x00F0)
+05: $2E - Spike Top (0x02F0, 0x00F0)
+06: $2E - Spike Top (0x0360, 0x0130)
+07: $2E - Spike Top (0x0390, 0x00F0)
+08: $2E - Spike Top (0x03D0, 0x00F0)
+09: $2E - Spike Top (0x0430, 0x0130)
+10: $2E - Spike Top (0x0450, 0x00F0)
+11: $2E - Spike Top (0x04C0, 0x0130)
+12: $2E - Spike Top (0x0540, 0x00F0)
+13: $91 - Chargin' Chuck (0x0950, 0x0170)
+14: $91 - Chargin' Chuck (0x09E0, 0x0130)
+15: $91 - Chargin' Chuck (0x0A50, 0x0130)
+16: $91 - Chargin' Chuck (0x0AE0, 0x00F0)
+17: $91 - Chargin' Chuck (0x0B90, 0x0120)
+18: $91 - Chargin' Chuck (0x0C10, 0x00F0)
+
+### Level $1ED ###
+00: $11 - Buzzy Beetle (0x00A0, 0x0140)
+01: $11 - Buzzy Beetle (0x0080, 0x0150)
+02: $11 - Buzzy Beetle (0x00E0, 0x0220)
+03: $11 - Buzzy Beetle (0x0120, 0x0240)
+04: $11 - Buzzy Beetle (0x0150, 0x0250)
+05: $11 - Buzzy Beetle (0x0100, 0x0340)
+06: $11 - Buzzy Beetle (0x00E0, 0x0350)
+07: $11 - Buzzy Beetle (0x00C0, 0x0360)
+08: $11 - Buzzy Beetle (0x00A0, 0x0370)
+09: $11 - Buzzy Beetle (0x0120, 0x0700)
+10: $11 - Buzzy Beetle (0x0100, 0x0710)
+11: $11 - Buzzy Beetle (0x00E0, 0x0720)
+12: $11 - Buzzy Beetle (0x00C0, 0x08B0)
+13: $11 - Buzzy Beetle (0x00E0, 0x08F0)
+14: $11 - Buzzy Beetle (0x0100, 0x0930)
+15: $11 - Buzzy Beetle (0x0120, 0x0970)
+
+### Level $1EE ###
+00: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $1EF ###
+00: $F5 - Layer 2 sink command (0x0080, 0x0400)
+01: $A8 - Blargg (0x01D0, 0x0190)
+02: $11 - Buzzy Beetle (0x01E0, 0x00E0)
+03: $11 - Buzzy Beetle (0x0210, 0x00E0)
+04: $A8 - Blargg (0x0280, 0x0190)
+05: $11 - Buzzy Beetle (0x0290, 0x00E0)
+06: $11 - Buzzy Beetle (0x02E0, 0x00E0)
+07: $A8 - Blargg (0x0340, 0x0190)
+08: $11 - Buzzy Beetle (0x0380, 0x0100)
+09: $11 - Buzzy Beetle (0x03E0, 0x0100)
+10: $A8 - Blargg (0x03E0, 0x0190)
+11: $11 - Buzzy Beetle (0x0430, 0x0120)
+12: $09 - Green Koopa Troopa bouncing (0x04B0, 0x0120)
+
+### Level $1F0 ###
+00: $97 - Puntin' Chuck (0x0170, 0x00F0)
+01: $7B - Goal tape (0x01E0, 0x0570)
+
+### Level $1F1 ###
+00: $97 - Puntin' Chuck (0x0160, 0x0100)
+01: $7B - Goal tape (0x01E0, 0x0170)
+
+### Level $1F2 ###
+00: $B6 - Reflecting fireball (0x0010, 0x0100)
+01: $29 - Koopa Kid (0x00C0, 0x0050)
+
+### Level $1F3 ###
+00: $EA - Layer 2 scrolling command (0x0080, 0x0C00)
+01: $32 - Dry Bones that stays on ledges (0x0250, 0x0130)
+02: $33 - Podoboo/vertical fireball (0x0310, 0x00F0)
+03: $32 - Dry Bones that stays on ledges (0x0380, 0x0150)
+04: $33 - Podoboo/vertical fireball (0x04A0, 0x00F0)
+05: $32 - Dry Bones that stays on ledges (0x0510, 0x0120)
+06: $33 - Podoboo/vertical fireball (0x0610, 0x00E0)
+07: $74 - Mushroom (0x06A0, 0x0180)
+08: $33 - Podoboo/vertical fireball (0x0890, 0x00E0)
+09: $32 - Dry Bones that stays on ledges (0x08E0, 0x0150)
+10: $32 - Dry Bones that stays on ledges (0x0970, 0x00F0)
+11: $32 - Dry Bones that stays on ledges (0x09A0, 0x00F0)
+12: $32 - Dry Bones that stays on ledges (0x0A30, 0x0150)
+13: $32 - Dry Bones that stays on ledges (0x0A60, 0x0150)
+
+### Level $1F4 ###
+
+### Level $1F5 ###
+00: $61 - Floating skulls (0x00A0, 0x0180)
+
+### Level $1F6 ###
+00: $29 - Koopa Kid (0x00C0, 0x0030)
+
+### Level $1F7 ###
+
+### Level $1F8 ###
+00: $80 - Key (0x0080, 0x0170)
+01: $0E - Keyhole (0x00A0, 0x0170)
+
+### Level $1F9 ###
+00: $8D - Ghost house exit sign and door (0x0000, 0x0000)
+01: $7B - Goal tape (0x00E0, 0x0170)
+
+### Level $1FA ###
+00: $E1 - Boo Ceiling (0x0080, 0x0000)
+01: $83 - Flying question block that flies left (0x0190, 0x0150)
+02: $3E - P-switch (0x0660, 0x0120)
+
+### Level $1FB ###
+00: $38 - Eerie that moves straight (0x0120, 0x0160)
+01: $38 - Eerie that moves straight (0x0120, 0x0110)
+02: $E3 - Boo Ring moving clockwise (0x01F0, 0x0140)
+03: $37 - Boo (0x0310, 0x0160)
+04: $37 - Boo (0x03D0, 0x0170)
+05: $37 - Boo (0x0420, 0x00C0)
+06: $37 - Boo (0x0480, 0x0160)
+07: $37 - Boo (0x04F0, 0x0150)
+08: $37 - Boo (0x05A0, 0x0100)
+09: $37 - Boo (0x05E0, 0x0170)
+10: $37 - Boo (0x0630, 0x0140)
+11: $28 - Big Boo (0x0730, 0x0120)
+12: $28 - Big Boo (0x08E0, 0x0140)
+13: $38 - Eerie that moves straight (0x09C0, 0x0040)
+14: $E2 - Boo Ring moving counterclockwise (0x0A00, 0x0140)
+15: $37 - Boo (0x0A70, 0x0120)
+16: $38 - Eerie that moves straight (0x0AB0, 0x0040)
+
+### Level $1FC ###
+00: $F3 - Standard auto-scroll command (0x0080, 0x0000)
+01: $E6 - Background candle flames (0x0000, 0x0000)
+02: $89 - Layer 3 Smash (0x0120, 0x0000)
+03: $83 - Flying question block that flies left (0x0250, 0x0150)
+04: $5A - Turn block bridge, horizontal (0x0340, 0x0180)
+
+### Level $1FD ###
+00: $3E - P-switch (0x0060, 0x0170)
+
+### Level $1FE ###
+00: $32 - Dry Bones that stays on ledges (0x0100, 0x0140)
+01: $32 - Dry Bones that stays on ledges (0x01D0, 0x0170)
+02: $AC - Wooden spike pointing down (0x0200, 0x0110)
+03: $AC - Wooden spike pointing down (0x0230, 0x0110)
+04: $1F - Magikoopa (0x0270, 0x0000)
+05: $32 - Dry Bones that stays on ledges (0x02C0, 0x0170)
+06: $AD - Wooden spike pointing up (0x0360, 0x0130)
+07: $AD - Wooden spike pointing up (0x03A0, 0x0130)
+08: $32 - Dry Bones that stays on ledges (0x0420, 0x0170)
+09: $33 - Podoboo/vertical fireball (0x0440, 0x0100)
+10: $AC - Wooden spike pointing down (0x04F0, 0x00D0)
+11: $AD - Wooden spike pointing up (0x04F0, 0x0160)
+12: $AC - Wooden spike pointing down (0x0530, 0x00D0)
+13: $AD - Wooden spike pointing up (0x0530, 0x0160)
+14: $33 - Podoboo/vertical fireball (0x0590, 0x00E0)
+15: $AC - Wooden spike pointing down (0x06A0, 0x0100)
+16: $33 - Podoboo/vertical fireball (0x06E0, 0x0100)
+17: $AC - Wooden spike pointing down (0x0710, 0x0100)
+18: $33 - Podoboo/vertical fireball (0x0740, 0x0100)
+19: $AC - Wooden spike pointing down (0x0780, 0x0100)
+20: $32 - Dry Bones that stays on ledges (0x0840, 0x0130)
+21: $32 - Dry Bones that stays on ledges (0x0950, 0x0170)
+
+### Level $1FF ###
+00: $B9 - Info Box (0x0060, 0x0150)
+01: $7B - Goal tape (0x00E0, 0x0170)
+

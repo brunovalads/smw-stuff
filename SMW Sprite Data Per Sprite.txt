@@ -1,0 +1,1734 @@
+### Sprite $00 - Green Koopa Troopa without shell ###
+ in level 00D: 1 time(s)
+ in level 106: 1 time(s)
+ Total occurrences: 2
+
+### Sprite $01 - Red Koopa Troopa without shell ###
+ in level 00D: 3 time(s)
+ in level 106: 1 time(s)
+ in level 11F: 2 time(s)
+ Total occurrences: 6
+
+### Sprite $02 - Blue Koopa Troopa without shell ###
+ in level 008: 1 time(s)
+ in level 00D: 7 time(s)
+ in level 10A: 1 time(s)
+ in level 12D: 6 time(s)
+ in level 135: 1 time(s)
+ Total occurrences: 16
+
+### Sprite $03 - Yellow Koopa Troopa without shell ###
+ in level 006: 1 time(s)
+ in level 115: 1 time(s)
+ in level 11B: 1 time(s)
+ in level 12D: 2 time(s)
+ Total occurrences: 5
+
+### Sprite $04 - Green Koopa Troopa ###
+ in level 0C7: 1 time(s)
+ in level 0F7: 5 time(s)
+ in level 10B: 2 time(s)
+ in level 115: 5 time(s)
+ in level 119: 2 time(s)
+ in level 11B: 3 time(s)
+ in level 128: 1 time(s)
+ in level 134: 1 time(s)
+ Total occurrences: 20
+
+### Sprite $05 - Red Koopa Troopa ###
+ in level 005: 1 time(s)
+ in level 006: 2 time(s)
+ in level 008: 8 time(s)
+ in level 023: 6 time(s)
+ in level 0C7: 2 time(s)
+ in level 0F7: 6 time(s)
+ in level 102: 3 time(s)
+ in level 103: 2 time(s)
+ in level 106: 8 time(s)
+ in level 109: 2 time(s)
+ in level 113: 1 time(s)
+ in level 119: 3 time(s)
+ in level 11B: 3 time(s)
+ in level 11E: 4 time(s)
+ in level 125: 3 time(s)
+ in level 127: 4 time(s)
+ in level 128: 2 time(s)
+ in level 134: 2 time(s)
+ in level 135: 6 time(s)
+ in level 136: 2 time(s)
+ Total occurrences: 70
+
+### Sprite $06 - Blue Koopa Troopa ###
+ in level 005: 1 time(s)
+ in level 006: 3 time(s)
+ in level 023: 11 time(s)
+ in level 0C7: 1 time(s)
+ in level 0F7: 2 time(s)
+ in level 11B: 2 time(s)
+ in level 125: 5 time(s)
+ in level 128: 1 time(s)
+ in level 12A: 1 time(s)
+ in level 134: 3 time(s)
+ in level 135: 6 time(s)
+ Total occurrences: 36
+
+### Sprite $07 - Yellow Koopa Troopa ###
+ in level 0C7: 1 time(s)
+ in level 0F7: 3 time(s)
+ in level 128: 1 time(s)
+ in level 134: 3 time(s)
+ Total occurrences: 8
+
+### Sprite $08 - Green Koopa Troopa flying left ###
+ in level 005: 7 time(s)
+ in level 00C: 11 time(s)
+ in level 119: 1 time(s)
+ in level 122: 14 time(s)
+ in level 136: 9 time(s)
+ Total occurrences: 42
+
+### Sprite $09 - Green Koopa Troopa bouncing ###
+ in level 001: 25 time(s)
+ in level 005: 2 time(s)
+ in level 015: 2 time(s)
+ in level 016: 2 time(s)
+ in level 017: 2 time(s)
+ in level 103: 1 time(s)
+ in level 109: 1 time(s)
+ in level 113: 9 time(s)
+ in level 11F: 2 time(s)
+ in level 125: 3 time(s)
+ in level 12D: 1 time(s)
+ in level 134: 6 time(s)
+ in level 135: 2 time(s)
+ in level 1EF: 1 time(s)
+ Total occurrences: 59
+
+### Sprite $0A - Red Koopa Troopa flying vertically ###
+ in level 00C: 3 time(s)
+ in level 022: 1 time(s)
+ in level 023: 3 time(s)
+ in level 0C3: 2 time(s)
+ in level 0D0: 1 time(s)
+ in level 0D1: 1 time(s)
+ in level 0D2: 9 time(s)
+ in level 0F5: 1 time(s)
+ in level 0F6: 1 time(s)
+ in level 10B: 9 time(s)
+ in level 10F: 3 time(s)
+ in level 113: 8 time(s)
+ in level 119: 4 time(s)
+ in level 11A: 2 time(s)
+ in level 11E: 1 time(s)
+ in level 122: 5 time(s)
+ in level 12A: 1 time(s)
+ in level 12B: 3 time(s)
+ in level 12D: 1 time(s)
+ in level 134: 5 time(s)
+ in level 135: 13 time(s)
+ in level 136: 7 time(s)
+ in level 1C2: 1 time(s)
+ in CI2 Red Paratroopa level: 10 time(s)
+ Total occurrences: 95
+
+### Sprite $0B - Red Koopa Troopa flying horizontally ###
+ in level 001: 4 time(s)
+ in level 00C: 6 time(s)
+ in level 0C2: 10 time(s)
+ in level 0F7: 24 time(s)
+ in level 103: 4 time(s)
+ in level 109: 8 time(s)
+ in level 10B: 1 time(s)
+ in level 10F: 3 time(s)
+ in level 113: 1 time(s)
+ in level 119: 2 time(s)
+ in level 122: 1 time(s)
+ in level 12A: 1 time(s)
+ in level 12B: 2 time(s)
+ in level 135: 2 time(s)
+ in level 136: 3 time(s)
+ in CI2 Red Paratroopa level: 2 time(s)
+ Total occurrences: 74
+
+### Sprite $0C - Yellow Koopa Troopa with wings ###
+ in level 125: 1 time(s)
+ in level 12D: 1 time(s)
+ Total occurrences: 2
+
+### Sprite $0D - Bob-Omb ###
+ Total occurrences: 0
+
+### Sprite $0E - Keyhole ###
+ in level 00A: 1 time(s)
+ in level 015: 1 time(s)
+ in level 016: 1 time(s)
+ in level 017: 1 time(s)
+ in level 0E9: 1 time(s)
+ in level 10F: 1 time(s)
+ in level 118: 1 time(s)
+ in level 11A: 1 time(s)
+ in level 11E: 1 time(s)
+ in level 120: 1 time(s)
+ in level 130: 1 time(s)
+ in level 132: 1 time(s)
+ in level 134: 1 time(s)
+ in level 135: 1 time(s)
+ in level 136: 1 time(s)
+ in level 1DB: 1 time(s)
+ in level 1DC: 1 time(s)
+ in level 1DF: 1 time(s)
+ in level 1E2: 1 time(s)
+ in level 1F8: 1 time(s)
+ in CI2 Secret exit level: 1 time(s)
+ Total occurrences: 21
+
+### Sprite $0F - Goomba ###
+ in level 006: 6 time(s)
+ in level 11E: 2 time(s)
+ Total occurrences: 8
+
+### Sprite $10 - Bouncing Goomba with wings ###
+ in level 006: 11 time(s)
+ in level 11E: 1 time(s)
+ in level 125: 2 time(s)
+ Total occurrences: 14
+
+### Sprite $11 - Buzzy Beetle ###
+ in level 009: 10 time(s)
+ in level 10A: 10 time(s)
+ in level 117: 4 time(s)
+ in level 118: 14 time(s)
+ in level 11A: 16 time(s)
+ in level 1C2: 5 time(s)
+ in level 1C3: 4 time(s)
+ in level 1ED: 16 time(s)
+ in level 1EF: 7 time(s)
+ Total occurrences: 86
+
+### Sprite $12 - Unused ###
+ Total occurrences: 0
+
+### Sprite $13 - Spiny ###
+ in level 001: 11 time(s)
+ in level 01C: 13 time(s)
+ in level 121: 8 time(s)
+ in level 136: 8 time(s)
+ Total occurrences: 40
+
+### Sprite $14 - Spiny falling ###
+ Total occurrences: 0
+
+### Sprite $15 - Cheep Cheep swimming horizontally ###
+ in level 00A: 6 time(s)
+ in level 102: 2 time(s)
+ in level 118: 11 time(s)
+ in level 120: 3 time(s)
+ in level 127: 16 time(s)
+ in level 12D: 1 time(s)
+ in level 1BF: 5 time(s)
+ in level 1C2: 2 time(s)
+ in level 1C3: 2 time(s)
+ Total occurrences: 48
+
+### Sprite $16 - Cheep Cheep swimming vertically ###
+ in level 00A: 6 time(s)
+ in level 118: 5 time(s)
+ in level 127: 9 time(s)
+ Total occurrences: 20
+
+### Sprite $17 - Cheep Cheep flying ###
+ Total occurrences: 0
+
+### Sprite $18 - Cheep Cheep jumping to surface ###
+ in level 102: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $19 - Display text from level message 1 ###
+ in level 0C5: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $1A - Classic Piranha Plant ###
+ Total occurrences: 0
+
+### Sprite $1B - Bouncing Football in place ###
+ Total occurrences: 0
+
+### Sprite $1C - Bullet Bill ###
+ Total occurrences: 0
+
+### Sprite $1D - Hopping flame ###
+ in level 126: 9 time(s)
+ Total occurrences: 9
+
+### Sprite $1E - Lakitu ###
+ in level 11F: 2 time(s)
+ in level 132: 1 time(s)
+ in level 1C4: 1 time(s)
+ in level 1C5: 1 time(s)
+ Total occurrences: 5
+
+### Sprite $1F - Magikoopa ###
+ in level 11C: 1 time(s)
+ in level 1FE: 1 time(s)
+ Total occurrences: 2
+
+### Sprite $20 - Magikoopa's magic ###
+ Total occurrences: 0
+
+### Sprite $21 - Moving coin ###
+ Total occurrences: 0
+
+### Sprite $22 - Green vertical net Koopa ###
+ in level 0DB: 6 time(s)
+ in level 101: 7 time(s)
+ Total occurrences: 13
+
+### Sprite $23 - Red vertical net Koopa ###
+ in level 0DB: 3 time(s)
+ Total occurrences: 3
+
+### Sprite $24 - Green horizontal net Koopa ###
+ in level 0DB: 11 time(s)
+ in level 101: 6 time(s)
+ Total occurrences: 17
+
+### Sprite $25 - Red horizontal net Koopa ###
+ in level 0DB: 1 time(s)
+ in level 101: 4 time(s)
+ in level 1D3: 8 time(s)
+ Total occurrences: 13
+
+### Sprite $26 - Thwomp ###
+ in level 0E0: 4 time(s)
+ in level 0E1: 4 time(s)
+ in level 0E8: 3 time(s)
+ in level 0EF: 12 time(s)
+ in level 1CF: 8 time(s)
+ Total occurrences: 31
+
+### Sprite $27 - Thwimp ###
+ in level 007: 2 time(s)
+ in level 0EF: 8 time(s)
+ Total occurrences: 10
+
+### Sprite $28 - Big Boo ###
+ in level 013: 1 time(s)
+ in level 0EC: 1 time(s)
+ in level 0EE: 1 time(s)
+ in level 107: 2 time(s)
+ in level 11D: 2 time(s)
+ in level 1E8: 2 time(s)
+ in level 1E9: 2 time(s)
+ in level 1FB: 2 time(s)
+ Total occurrences: 13
+
+### Sprite $29 - Koopa Kid ###
+ in level 093: 1 time(s)
+ in level 094: 1 time(s)
+ in level 096: 1 time(s)
+ in level 097: 1 time(s)
+ in level 098: 1 time(s)
+ in level 099: 1 time(s)
+ in level 09A: 1 time(s)
+ in level 0CC: 1 time(s)
+ in level 0D3: 1 time(s)
+ in level 0D9: 1 time(s)
+ in level 0E5: 1 time(s)
+ in level 193: 1 time(s)
+ in level 194: 1 time(s)
+ in level 196: 1 time(s)
+ in level 197: 1 time(s)
+ in level 198: 1 time(s)
+ in level 199: 1 time(s)
+ in level 19A: 1 time(s)
+ in level 1EB: 1 time(s)
+ in level 1F2: 1 time(s)
+ in level 1F6: 1 time(s)
+ Total occurrences: 21
+
+### Sprite $2A - Upside-down Piranha Plant ###
+ in level 10A: 8 time(s)
+ Total occurrences: 8
+
+### Sprite $2B - Sumo Brother's lightning ###
+ Total occurrences: 0
+
+### Sprite $2C - Yoshi egg ###
+ in level 130: 1 time(s)
+ in level 132: 1 time(s)
+ in level 134: 1 time(s)
+ in level 135: 1 time(s)
+ in level 136: 1 time(s)
+ Total occurrences: 5
+
+### Sprite $2D - Baby Yoshi ###
+ Total occurrences: 0
+
+### Sprite $2E - Spike Top ###
+ in level 009: 2 time(s)
+ in level 10A: 6 time(s)
+ in level 10B: 12 time(s)
+ in level 118: 1 time(s)
+ in level 11A: 6 time(s)
+ in level 1BF: 4 time(s)
+ in level 1C3: 1 time(s)
+ in level 1EC: 12 time(s)
+ Total occurrences: 44
+
+### Sprite $2F - Portable springboard ###
+ in level 013: 1 time(s)
+ in level 01A: 2 time(s)
+ in level 022: 2 time(s)
+ in level 024: 1 time(s)
+ in level 0D0: 2 time(s)
+ in level 0D1: 2 time(s)
+ in level 0E7: 1 time(s)
+ in level 0EA: 1 time(s)
+ in level 0EC: 1 time(s)
+ in level 0EE: 1 time(s)
+ in level 0F5: 2 time(s)
+ in level 0F6: 2 time(s)
+ in level 109: 2 time(s)
+ in level 10B: 1 time(s)
+ in level 10F: 1 time(s)
+ in level 113: 1 time(s)
+ in level 117: 1 time(s)
+ in level 11E: 1 time(s)
+ in level 123: 2 time(s)
+ in level 126: 2 time(s)
+ in level 12B: 1 time(s)
+ in CI2 Rex level: 1 time(s)
+ in CI2 Rex stack level: 1 time(s)
+ Total occurrences: 32
+
+### Sprite $30 - Dry Bones that throws bones ###
+ in level 00B: 2 time(s)
+ in level 01A: 1 time(s)
+ in level 0D4: 1 time(s)
+ in level 0E0: 3 time(s)
+ in level 0E1: 3 time(s)
+ in level 111: 2 time(s)
+ Total occurrences: 12
+
+### Sprite $31 - Bony Beetle ###
+ in level 00B: 2 time(s)
+ in level 00E: 2 time(s)
+ in level 0DC: 2 time(s)
+ in level 0E0: 4 time(s)
+ in level 0E1: 4 time(s)
+ in level 111: 2 time(s)
+ Total occurrences: 16
+
+### Sprite $32 - Dry Bones that stays on ledges ###
+ in level 01B: 3 time(s)
+ in level 0E7: 7 time(s)
+ in level 0E8: 1 time(s)
+ in level 111: 2 time(s)
+ in level 1CE: 2 time(s)
+ in level 1F3: 8 time(s)
+ in level 1FE: 6 time(s)
+ Total occurrences: 29
+
+### Sprite $33 - Podoboo/vertical fireball ###
+ in level 01A: 2 time(s)
+ in level 020: 4 time(s)
+ in level 096: 3 time(s)
+ in level 0D6: 26 time(s)
+ in level 0DC: 6 time(s)
+ in level 0E8: 1 time(s)
+ in level 101: 1 time(s)
+ in level 111: 7 time(s)
+ in level 11C: 7 time(s)
+ in level 196: 3 time(s)
+ in level 1CD: 1 time(s)
+ in level 1D4: 9 time(s)
+ in level 1EB: 3 time(s)
+ in level 1F3: 4 time(s)
+ in level 1FE: 4 time(s)
+ Total occurrences: 81
+
+### Sprite $34 - Boss fireball ###
+ Total occurrences: 0
+
+### Sprite $35 - Yoshi ###
+ Total occurrences: 0
+
+### Sprite $36 - Unused ###
+ Total occurrences: 0
+
+### Sprite $37 - Boo ###
+ in level 0DE: 4 time(s)
+ in level 0E4: 2 time(s)
+ in level 0ED: 4 time(s)
+ in level 0F1: 5 time(s)
+ in level 0F2: 4 time(s)
+ in level 0F8: 2 time(s)
+ in level 0F9: 4 time(s)
+ in level 0FE: 4 time(s)
+ in level 107: 9 time(s)
+ in level 11D: 13 time(s)
+ in level 1DB: 3 time(s)
+ in level 1DC: 3 time(s)
+ in level 1DD: 4 time(s)
+ in level 1E8: 13 time(s)
+ in level 1E9: 13 time(s)
+ in level 1FB: 9 time(s)
+ Total occurrences: 96
+
+### Sprite $38 - Eerie that moves straight ###
+ in level 013: 1 time(s)
+ in level 021: 7 time(s)
+ in level 0EC: 1 time(s)
+ in level 0EE: 1 time(s)
+ in level 0F1: 1 time(s)
+ in level 0F8: 3 time(s)
+ in level 107: 4 time(s)
+ in level 11D: 1 time(s)
+ in level 1E8: 1 time(s)
+ in level 1E9: 1 time(s)
+ in level 1FB: 4 time(s)
+ Total occurrences: 25
+
+### Sprite $39 - Eerie that moves in a wave ###
+ in level 021: 7 time(s)
+ in level 0F1: 2 time(s)
+ in level 0F8: 3 time(s)
+ in level 11D: 7 time(s)
+ in level 1DD: 3 time(s)
+ in level 1E8: 7 time(s)
+ in level 1E9: 7 time(s)
+ Total occurrences: 36
+
+### Sprite $3A - Urchin that moves a fixed distance ###
+ in level 120: 4 time(s)
+ Total occurrences: 4
+
+### Sprite $3B - Urchin that moves between walls ###
+ in level 120: 11 time(s)
+ Total occurrences: 11
+
+### Sprite $3C - Urchin that follows walls ###
+ in level 120: 6 time(s)
+ Total occurrences: 6
+
+### Sprite $3D - Rip Van Fish ###
+ in level 00A: 9 time(s)
+ in level 120: 16 time(s)
+ in level 130: 17 time(s)
+ Total occurrences: 42
+
+### Sprite $3E - P-switch ###
+ in level 008: 1 time(s)
+ in level 00A: 1 time(s)
+ in level 013: 1 time(s)
+ in level 014: 1 time(s)
+ in level 01C: 2 time(s)
+ in level 020: 1 time(s)
+ in level 022: 1 time(s)
+ in level 0CD: 1 time(s)
+ in level 0D0: 1 time(s)
+ in level 0D1: 1 time(s)
+ in level 0D8: 1 time(s)
+ in level 0EA: 1 time(s)
+ in level 0EC: 1 time(s)
+ in level 0ED: 1 time(s)
+ in level 0EE: 1 time(s)
+ in level 0F2: 1 time(s)
+ in level 0F5: 1 time(s)
+ in level 0F6: 1 time(s)
+ in level 101: 1 time(s)
+ in level 102: 1 time(s)
+ in level 106: 1 time(s)
+ in level 10A: 1 time(s)
+ in level 118: 2 time(s)
+ in level 11B: 1 time(s)
+ in level 11C: 1 time(s)
+ in level 11F: 1 time(s)
+ in level 121: 2 time(s)
+ in level 12B: 1 time(s)
+ in level 12D: 1 time(s)
+ in level 132: 1 time(s)
+ in level 136: 1 time(s)
+ in level 1C4: 3 time(s)
+ in level 1C5: 3 time(s)
+ in level 1DB: 1 time(s)
+ in level 1DC: 1 time(s)
+ in level 1DD: 1 time(s)
+ in level 1FA: 1 time(s)
+ in level 1FD: 1 time(s)
+ Total occurrences: 45
+
+### Sprite $3F - Para-Goomba ###
+ in level 006: 4 time(s)
+ in level 01C: 2 time(s)
+ Total occurrences: 6
+
+### Sprite $40 - Para-Bomb ###
+ in level 01C: 2 time(s)
+ Total occurrences: 2
+
+### Sprite $41 - Dolphin that swims and jumps in one direction ###
+ in level 002: 3 time(s)
+ Total occurrences: 3
+
+### Sprite $42 - Dolphin that swims and jumps back and forth ###
+ in level 002: 9 time(s)
+ Total occurrences: 9
+
+### Sprite $43 - Dolphin that swims and jumps up and down ###
+ in level 002: 5 time(s)
+ Total occurrences: 5
+
+### Sprite $44 - Torpedo Ted ###
+ Total occurrences: 0
+
+### Sprite $45 - Directional coins ###
+ Total occurrences: 0
+
+### Sprite $46 - Diggin' Chuck ###
+ in level 10F: 9 time(s)
+ Total occurrences: 9
+
+### Sprite $47 - Swimming/jumping fish ###
+ in level 102: 3 time(s)
+ Total occurrences: 3
+
+### Sprite $48 - Diggin' Chuck's rock ###
+ in level 10F: 9 time(s)
+ Total occurrences: 9
+
+### Sprite $49 - Growing/shrinking pipe ###
+ in level 006: 2 time(s)
+ in level 01C: 6 time(s)
+ in level 0C3: 6 time(s)
+ in level 11F: 1 time(s)
+ Total occurrences: 15
+
+### Sprite $4A - Goal Point Question Sphere ###
+ in level 0F7: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $4B - Pipe-dwelling Lakitu ###
+ in level 001: 2 time(s)
+ in level 11F: 7 time(s)
+ Total occurrences: 9
+
+### Sprite $4C - Exploding block ###
+ in level 11E: 9 time(s)
+ in level 126: 4 time(s)
+ Total occurrences: 13
+
+### Sprite $4D - Monty Mole, ground-dwelling ###
+ in level 010: 12 time(s)
+ in level 106: 2 time(s)
+ Total occurrences: 14
+
+### Sprite $4E - Monty Mole, ledge-dwelling ###
+ in level 010: 18 time(s)
+ in level 106: 3 time(s)
+ Total occurrences: 21
+
+### Sprite $4F - Jumping Piranha Plant ###
+ in level 001: 2 time(s)
+ in level 006: 3 time(s)
+ in level 010: 2 time(s)
+ in level 015: 1 time(s)
+ in level 016: 1 time(s)
+ in level 017: 1 time(s)
+ in level 022: 4 time(s)
+ in level 0C7: 1 time(s)
+ in level 0D0: 4 time(s)
+ in level 0D1: 4 time(s)
+ in level 0F5: 4 time(s)
+ in level 0F6: 4 time(s)
+ in level 105: 3 time(s)
+ in level 106: 1 time(s)
+ in level 10A: 2 time(s)
+ in level 10B: 2 time(s)
+ in level 119: 2 time(s)
+ in level 11A: 1 time(s)
+ in level 11F: 2 time(s)
+ in level 126: 1 time(s)
+ in level 127: 2 time(s)
+ in level 128: 3 time(s)
+ in level 12B: 2 time(s)
+ in level 136: 2 time(s)
+ in level 1C6: 2 time(s)
+ in CI2 Rex level: 2 time(s)
+ Total occurrences: 58
+
+### Sprite $50 - Jumping Piranha Plant that spits fireballs ###
+ in level 010: 1 time(s)
+ in level 125: 1 time(s)
+ in level 126: 5 time(s)
+ in level 128: 1 time(s)
+ Total occurrences: 8
+
+### Sprite $51 - Ninji ###
+ in level 10E: 6 time(s)
+ in level 1BD: 6 time(s)
+ Total occurrences: 12
+
+### Sprite $52 - Moving hole in ghost house ledge ###
+ in level 021: 8 time(s)
+ Total occurrences: 8
+
+### Sprite $53 - Throw block sprite ###
+ Total occurrences: 0
+
+### Sprite $54 - Revolving door for climbing net ###
+ in level 101: 3 time(s)
+ in level 1D3: 3 time(s)
+ Total occurrences: 6
+
+### Sprite $55 - Checkerboard platform, horizontal ###
+ in level 005: 3 time(s)
+ in level 0BF: 1 time(s)
+ in level 0D7: 1 time(s)
+ in level 103: 2 time(s)
+ Total occurrences: 7
+
+### Sprite $56 - Flying rock platform, horizontal ###
+ Total occurrences: 0
+
+### Sprite $57 - Checkerboard platform, vertical ###
+ in level 0BF: 4 time(s)
+ in level 103: 2 time(s)
+ Total occurrences: 6
+
+### Sprite $58 - Flying rock platform, vertical ###
+ Total occurrences: 0
+
+### Sprite $59 - Turn block bridge, horizontal and vertical ###
+ in level 01C: 3 time(s)
+ in level 103: 3 time(s)
+ in level 12D: 1 time(s)
+ Total occurrences: 7
+
+### Sprite $5A - Turn block bridge, horizontal ###
+ in level 020: 3 time(s)
+ in level 103: 5 time(s)
+ in level 1FC: 1 time(s)
+ Total occurrences: 9
+
+### Sprite $5B - Floating brown platform ###
+ in level 11C: 5 time(s)
+ Total occurrences: 5
+
+### Sprite $5C - Floating checkerboard platform ###
+ Total occurrences: 0
+
+### Sprite $5D - Small orange floating platform ###
+ in level 102: 13 time(s)
+ Total occurrences: 13
+
+### Sprite $5E - Large orange floating platform ###
+ Total occurrences: 0
+
+### Sprite $5F - Swinging brown platform ###
+ in level 0D7: 1 time(s)
+ in level 103: 8 time(s)
+ Total occurrences: 9
+
+### Sprite $60 - Flat switch palace switch ###
+ Total occurrences: 0
+
+### Sprite $61 - Floating skulls ###
+ in level 10A: 6 time(s)
+ in level 1F5: 1 time(s)
+ Total occurrences: 7
+
+### Sprite $62 - Brown line-guided platform ###
+ in level 005: 4 time(s)
+ in level 12C: 2 time(s)
+ Total occurrences: 6
+
+### Sprite $63 - Brown/checkered line-guided platform ###
+ in level 005: 2 time(s)
+ in level 00F: 3 time(s)
+ in level 0DD: 1 time(s)
+ in level 12C: 1 time(s)
+ Total occurrences: 7
+
+### Sprite $64 - Line-guided rope mechanism ###
+ in level 00F: 6 time(s)
+ in level 0DD: 1 time(s)
+ in level 12A: 1 time(s)
+ in level 12C: 4 time(s)
+ Total occurrences: 12
+
+### Sprite $65 - Chainsaw (line-guided) ###
+ in level 00F: 30 time(s)
+ in level 12C: 2 time(s)
+ Total occurrences: 32
+
+### Sprite $66 - Upside-down chainsaw (line-guided) ###
+ in level 00F: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $67 - Grinder, line-guided ###
+ in level 01A: 13 time(s)
+ in level 01F: 7 time(s)
+ Total occurrences: 20
+
+### Sprite $68 - Fuzzy, line-guided ###
+ in level 005: 5 time(s)
+ in level 12C: 32 time(s)
+ Total occurrences: 37
+
+### Sprite $69 - Unused ###
+ Total occurrences: 0
+
+### Sprite $6A - Coin game cloud ###
+ Total occurrences: 0
+
+### Sprite $6B - Wall springboard (left wall) ###
+ in level 109: 5 time(s)
+ in level 119: 10 time(s)
+ in level 12A: 2 time(s)
+ Total occurrences: 17
+
+### Sprite $6C - Wall springboard (right wall) ###
+ in level 109: 4 time(s)
+ in level 119: 15 time(s)
+ in level 12A: 4 time(s)
+ Total occurrences: 23
+
+### Sprite $6D - Invisible solid block ###
+ in level 0C9: 1 time(s)
+ in level 0CA: 1 time(s)
+ in level 1D7: 1 time(s)
+ in level 1D8: 1 time(s)
+ Total occurrences: 4
+
+### Sprite $6E - Dino-Rhino ###
+ in level 022: 6 time(s)
+ in level 024: 4 time(s)
+ in level 0D0: 6 time(s)
+ in level 0D1: 6 time(s)
+ in level 0F5: 6 time(s)
+ in level 0F6: 6 time(s)
+ in CI2 Dino-Rhino level: 4 time(s)
+ Total occurrences: 38
+
+### Sprite $6F - Dino-Torch ###
+ in level 022: 14 time(s)
+ in level 024: 6 time(s)
+ in level 0D0: 14 time(s)
+ in level 0D1: 14 time(s)
+ in level 0F5: 14 time(s)
+ in level 0F6: 14 time(s)
+ in CI2 Dino-Rhino level: 3 time(s)
+ Total occurrences: 79
+
+### Sprite $70 - Pokey ###
+ in level 0C7: 1 time(s)
+ in level 128: 15 time(s)
+ in level 1BE: 3 time(s)
+ Total occurrences: 19
+
+### Sprite $71 - Super Koopa with red cape ###
+ Total occurrences: 0
+
+### Sprite $72 - Super Koopa with yellow cape ###
+ in level 00D: 32 time(s)
+ in level 015: 3 time(s)
+ in level 016: 3 time(s)
+ in level 017: 3 time(s)
+ Total occurrences: 41
+
+### Sprite $73 - Super Koopa on the ground ###
+ in level 00D: 3 time(s)
+ in level 015: 16 time(s)
+ in level 016: 16 time(s)
+ in level 017: 16 time(s)
+ Total occurrences: 51
+
+### Sprite $74 - Mushroom ###
+ in level 00E: 1 time(s)
+ in level 01C: 1 time(s)
+ in level 0EA: 1 time(s)
+ in level 0F7: 1 time(s)
+ in level 110: 1 time(s)
+ in level 119: 1 time(s)
+ in level 11F: 1 time(s)
+ in level 134: 1 time(s)
+ in level 1F3: 1 time(s)
+ Total occurrences: 9
+
+### Sprite $75 - Flower ###
+ in level 0EA: 1 time(s)
+ in level 12D: 1 time(s)
+ in level 134: 1 time(s)
+ Total occurrences: 3
+
+### Sprite $76 - Star ###
+ in level 0EA: 1 time(s)
+ in level 0F7: 1 time(s)
+ in level 130: 1 time(s)
+ in level 134: 3 time(s)
+ in level 1DD: 1 time(s)
+ Total occurrences: 7
+
+### Sprite $77 - Feather ###
+ in level 0CF: 1 time(s)
+ in level 0E3: 1 time(s)
+ in level 0EA: 2 time(s)
+ in level 134: 1 time(s)
+ in level 1D2: 1 time(s)
+ Total occurrences: 6
+
+### Sprite $78 - 1-Up mushroom ###
+ in level 01D: 3 time(s)
+ in level 020: 1 time(s)
+ in level 0EA: 9 time(s)
+ in level 0F7: 3 time(s)
+ in level 113: 1 time(s)
+ in level 122: 3 time(s)
+ in level 12A: 1 time(s)
+ in level 134: 1 time(s)
+ in level 1C4: 3 time(s)
+ in level 1C5: 3 time(s)
+ in level 1D1: 1 time(s)
+ in level 1D2: 1 time(s)
+ in level 1DD: 1 time(s)
+ Total occurrences: 31
+
+### Sprite $79 - Growing vine ###
+ Total occurrences: 0
+
+### Sprite $7A - Firework ###
+ Total occurrences: 0
+
+### Sprite $7B - Goal tape ###
+ in level 001: 1 time(s)
+ in level 005: 1 time(s)
+ in level 006: 1 time(s)
+ in level 00A: 1 time(s)
+ in level 00D: 1 time(s)
+ in level 00F: 2 time(s)
+ in level 010: 1 time(s)
+ in level 015: 1 time(s)
+ in level 016: 1 time(s)
+ in level 017: 1 time(s)
+ in level 01C: 1 time(s)
+ in level 01D: 1 time(s)
+ in level 022: 1 time(s)
+ in level 023: 2 time(s)
+ in level 0C4: 1 time(s)
+ in level 0C6: 1 time(s)
+ in level 0CB: 1 time(s)
+ in level 0CD: 1 time(s)
+ in level 0D0: 1 time(s)
+ in level 0D1: 1 time(s)
+ in level 0EB: 1 time(s)
+ in level 0F0: 1 time(s)
+ in level 0F3: 1 time(s)
+ in level 0F5: 1 time(s)
+ in level 0F6: 1 time(s)
+ in level 0FB: 1 time(s)
+ in level 0FF: 1 time(s)
+ in level 103: 1 time(s)
+ in level 105: 1 time(s)
+ in level 106: 1 time(s)
+ in level 10A: 1 time(s)
+ in level 10B: 1 time(s)
+ in level 10F: 1 time(s)
+ in level 113: 1 time(s)
+ in level 118: 1 time(s)
+ in level 119: 1 time(s)
+ in level 11A: 1 time(s)
+ in level 11E: 1 time(s)
+ in level 11F: 1 time(s)
+ in level 120: 1 time(s)
+ in level 122: 1 time(s)
+ in level 123: 1 time(s)
+ in level 125: 1 time(s)
+ in level 126: 1 time(s)
+ in level 128: 1 time(s)
+ in level 12B: 1 time(s)
+ in level 12C: 1 time(s)
+ in level 12D: 1 time(s)
+ in level 132: 1 time(s)
+ in level 135: 1 time(s)
+ in level 136: 1 time(s)
+ in level 1C4: 1 time(s)
+ in level 1C5: 1 time(s)
+ in level 1D5: 1 time(s)
+ in level 1D6: 1 time(s)
+ in level 1DA: 1 time(s)
+ in level 1E1: 1 time(s)
+ in level 1E2: 1 time(s)
+ in level 1E5: 1 time(s)
+ in level 1E6: 1 time(s)
+ in level 1E7: 1 time(s)
+ in level 1EE: 1 time(s)
+ in level 1F0: 1 time(s)
+ in level 1F1: 1 time(s)
+ in level 1F9: 1 time(s)
+ in level 1FF: 1 time(s)
+ in CI2 Rex stack level: 1 time(s)
+ Total occurrences: 69
+
+### Sprite $7C - Peach (after Bowser fight) ###
+ Total occurrences: 0
+
+### Sprite $7D - P-Balloon ###
+ Total occurrences: 0
+
+### Sprite $7E - Flying red coin ###
+ Total occurrences: 0
+
+### Sprite $7F - Flying golden mushroom ###
+ Total occurrences: 0
+
+### Sprite $80 - Key ###
+ in level 015: 1 time(s)
+ in level 016: 1 time(s)
+ in level 017: 1 time(s)
+ in level 0E9: 1 time(s)
+ in level 10F: 1 time(s)
+ in level 118: 1 time(s)
+ in level 11A: 1 time(s)
+ in level 120: 1 time(s)
+ in level 130: 1 time(s)
+ in level 134: 1 time(s)
+ in level 136: 1 time(s)
+ in level 1DB: 1 time(s)
+ in level 1DC: 1 time(s)
+ in level 1DF: 1 time(s)
+ in level 1E2: 1 time(s)
+ in level 1F8: 1 time(s)
+ in CI2 Secret exit level: 1 time(s)
+ Total occurrences: 17
+
+### Sprite $81 - Changing item ###
+ in level 006: 1 time(s)
+ in level 010: 1 time(s)
+ in level 01C: 1 time(s)
+ in level 118: 1 time(s)
+ in level 11E: 1 time(s)
+ in level 11F: 1 time(s)
+ in level 128: 1 time(s)
+ Total occurrences: 7
+
+### Sprite $82 - Bonus game sprite ###
+ in level 000: 1 time(s)
+ in level 100: 1 time(s)
+ Total occurrences: 2
+
+### Sprite $83 - Flying question block that flies left ###
+ in level 009: 1 time(s)
+ in level 022: 2 time(s)
+ in level 0D0: 2 time(s)
+ in level 0D1: 2 time(s)
+ in level 0F5: 2 time(s)
+ in level 0F6: 2 time(s)
+ in level 105: 1 time(s)
+ in level 10A: 3 time(s)
+ in level 11A: 1 time(s)
+ in level 1FA: 1 time(s)
+ in level 1FC: 1 time(s)
+ Total occurrences: 18
+
+### Sprite $84 - Flying question block that flies back and forth ###
+ in level 125: 1 time(s)
+ in level 1CA: 6 time(s)
+ Total occurrences: 7
+
+### Sprite $85 - Unused ###
+ Total occurrences: 0
+
+### Sprite $86 - Wiggler ###
+ in level 11E: 15 time(s)
+ in level 126: 10 time(s)
+ Total occurrences: 25
+
+### Sprite $87 - Lakitu's cloud ###
+ Total occurrences: 0
+
+### Sprite $88 - Winged cage (unused) ###
+ Total occurrences: 0
+
+### Sprite $89 - Layer 3 Smash ###
+ in level 01F: 1 time(s)
+ in level 1D4: 1 time(s)
+ in level 1FC: 1 time(s)
+ Total occurrences: 3
+
+### Sprite $8A - Yoshi's House bird ###
+ in level 104: 4 time(s)
+ Total occurrences: 4
+
+### Sprite $8B - Puff of smoke from Yoshi's House ###
+ Total occurrences: 0
+
+### Sprite $8C - Side exit enabler ###
+ in level 003: 1 time(s)
+ in level 104: 1 time(s)
+ Total occurrences: 2
+
+### Sprite $8D - Ghost house exit sign and door ###
+ in level 0C4: 1 time(s)
+ in level 0EB: 1 time(s)
+ in level 0F0: 1 time(s)
+ in level 0FB: 1 time(s)
+ in level 1DA: 1 time(s)
+ in level 1E6: 1 time(s)
+ in level 1E7: 1 time(s)
+ in level 1F9: 1 time(s)
+ Total occurrences: 8
+
+### Sprite $8E - Invisible warp hole ###
+ in level 022: 1 time(s)
+ in level 0D0: 1 time(s)
+ in level 0D1: 1 time(s)
+ in level 0F5: 1 time(s)
+ in level 0F6: 1 time(s)
+ in level 105: 1 time(s)
+ Total occurrences: 6
+
+### Sprite $8F - Scale platforms ###
+ in level 00C: 9 time(s)
+ Total occurrences: 9
+
+### Sprite $90 - Large green gas bubble ###
+ in level 114: 4 time(s)
+ in level 1D9: 4 time(s)
+ in level 1EA: 6 time(s)
+ Total occurrences: 14
+
+### Sprite $91 - Chargin' Chuck ###
+ in level 106: 2 time(s)
+ in level 116: 12 time(s)
+ in level 118: 5 time(s)
+ in level 11F: 1 time(s)
+ in level 1EC: 6 time(s)
+ Total occurrences: 26
+
+### Sprite $92 - Splittin' Chuck ###
+ in level 001: 1 time(s)
+ in level 118: 1 time(s)
+ in level 123: 1 time(s)
+ Total occurrences: 3
+
+### Sprite $93 - Bouncin' Chuck ###
+ in level 010: 1 time(s)
+ in level 1CC: 8 time(s)
+ Total occurrences: 9
+
+### Sprite $94 - Whistlin' Chuck ###
+ in level 120: 1 time(s)
+ in level 125: 2 time(s)
+ Total occurrences: 3
+
+### Sprite $95 - Chargin' Chuck ###
+ in level 01C: 4 time(s)
+ in level 01D: 1 time(s)
+ in level 022: 1 time(s)
+ in level 0D0: 1 time(s)
+ in level 0D1: 1 time(s)
+ in level 0F5: 1 time(s)
+ in level 0F6: 1 time(s)
+ in level 105: 1 time(s)
+ in level 12B: 2 time(s)
+ Total occurrences: 13
+
+### Sprite $96 - Unused ###
+ Total occurrences: 0
+
+### Sprite $97 - Puntin' Chuck ###
+ in level 0E9: 1 time(s)
+ in level 117: 5 time(s)
+ in level 11A: 1 time(s)
+ in level 12B: 2 time(s)
+ in level 1F0: 1 time(s)
+ in level 1F1: 1 time(s)
+ Total occurrences: 11
+
+### Sprite $98 - Pitchin' Chuck ###
+ in level 015: 6 time(s)
+ in level 016: 6 time(s)
+ in level 017: 6 time(s)
+ in level 125: 5 time(s)
+ in level 128: 3 time(s)
+ in level 12B: 2 time(s)
+ in CI2 Secret exit level: 3 time(s)
+ Total occurrences: 31
+
+### Sprite $99 - Volcano Lotus ###
+ in level 015: 4 time(s)
+ in level 016: 4 time(s)
+ in level 017: 4 time(s)
+ in level 128: 5 time(s)
+ in level 12B: 4 time(s)
+ Total occurrences: 21
+
+### Sprite $9A - Sumo Brother ###
+ in level 010: 5 time(s)
+ in level 125: 7 time(s)
+ Total occurrences: 12
+
+### Sprite $9B - Amazing Flying Hammer Brother ###
+ in level 006: 4 time(s)
+ in level 11E: 1 time(s)
+ in level 126: 3 time(s)
+ in level 127: 3 time(s)
+ in level 1C0: 1 time(s)
+ in level 1C4: 1 time(s)
+ in level 1C5: 1 time(s)
+ Total occurrences: 14
+
+### Sprite $9C - Flying gray blocks for Hammer Brother ###
+ in level 006: 4 time(s)
+ in level 11E: 1 time(s)
+ in level 126: 3 time(s)
+ in level 127: 3 time(s)
+ in level 1C0: 1 time(s)
+ in level 1C4: 1 time(s)
+ in level 1C5: 1 time(s)
+ Total occurrences: 14
+
+### Sprite $9D - Sprite in a bubble ###
+ in level 0C0: 12 time(s)
+ in level 0CE: 11 time(s)
+ in level 123: 31 time(s)
+ Total occurrences: 54
+
+### Sprite $9E - Ball 'n' Chain ###
+ in level 007: 3 time(s)
+ in level 00B: 3 time(s)
+ in level 00E: 6 time(s)
+ in level 0E0: 7 time(s)
+ in level 0E1: 7 time(s)
+ in level 110: 12 time(s)
+ in level 1CE: 6 time(s)
+ Total occurrences: 44
+
+### Sprite $9F - Banzai Bill ###
+ in level 105: 4 time(s)
+ in level 113: 3 time(s)
+ in level 12D: 4 time(s)
+ Total occurrences: 11
+
+### Sprite $A0 - Bowser battle activator ###
+ in level 09B: 1 time(s)
+ in level 19B: 1 time(s)
+ in level 1C7: 1 time(s)
+ Total occurrences: 3
+
+### Sprite $A1 - Bowser's bowling ball ###
+ Total occurrences: 0
+
+### Sprite $A2 - Mecha-Koopa ###
+ in level 10E: 2 time(s)
+ in level 1BD: 2 time(s)
+ in level 1D2: 9 time(s)
+ Total occurrences: 13
+
+### Sprite $A3 - Rotating gray platform ###
+ in level 023: 22 time(s)
+ in level 135: 2 time(s)
+ Total occurrences: 24
+
+### Sprite $A4 - Floating spike ball ###
+ in level 0F7: 13 time(s)
+ in level 102: 9 time(s)
+ Total occurrences: 22
+
+### Sprite $A5 - Wall-following Sparky/Fuzzy ###
+ in level 023: 6 time(s)
+ in level 0C8: 15 time(s)
+ in level 0D4: 5 time(s)
+ in level 1D1: 8 time(s)
+ Total occurrences: 34
+
+### Sprite $A6 - Hothead ###
+ in level 0D4: 4 time(s)
+ in level 1D1: 1 time(s)
+ Total occurrences: 5
+
+### Sprite $A7 - Iggy's ball projectile ###
+ Total occurrences: 0
+
+### Sprite $A8 - Blargg ###
+ in level 10A: 10 time(s)
+ in level 117: 1 time(s)
+ in level 1EF: 4 time(s)
+ Total occurrences: 15
+
+### Sprite $A9 - Reznor ###
+ in level 095: 4 time(s)
+ in level 0D5: 4 time(s)
+ in level 0DF: 4 time(s)
+ in level 0E2: 4 time(s)
+ in level 195: 4 time(s)
+ in level 1DE: 4 time(s)
+ Total occurrences: 24
+
+### Sprite $AA - Fishbone ###
+ in level 00B: 10 time(s)
+ in level 0E0: 14 time(s)
+ in level 0E1: 14 time(s)
+ in level 1CE: 6 time(s)
+ Total occurrences: 44
+
+### Sprite $AB - Rex ###
+ in level 105: 18 time(s)
+ in level 12D: 13 time(s)
+ in CI2 Rex level: 16 time(s)
+ in CI2 Rex stack level: 7 time(s)
+ Total occurrences: 54
+
+### Sprite $AC - Wooden spike pointing down ###
+ in level 01B: 10 time(s)
+ in level 1FE: 7 time(s)
+ Total occurrences: 17
+
+### Sprite $AD - Wooden spike pointing up ###
+ in level 01B: 9 time(s)
+ in level 1FE: 4 time(s)
+ Total occurrences: 13
+
+### Sprite $AE - Fishin' Boo ###
+ in level 021: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $AF - Boo Block ###
+ in level 0FC: 6 time(s)
+ Total occurrences: 6
+
+### Sprite $B0 - Reflecting stream of Boo Buddies ###
+ in level 0FC: 6 time(s)
+ in level 1DD: 4 time(s)
+ Total occurrences: 10
+
+### Sprite $B1 - Creating/eating block ###
+ in level 020: 2 time(s)
+ in level 110: 2 time(s)
+ Total occurrences: 4
+
+### Sprite $B2 - Falling spike ###
+ in level 00B: 6 time(s)
+ in level 020: 3 time(s)
+ in level 111: 3 time(s)
+ Total occurrences: 12
+
+### Sprite $B3 - Bowser statue fireball ###
+ in level 01B: 3 time(s)
+ Total occurrences: 3
+
+### Sprite $B4 - Grinder that moves on the ground ###
+ in level 0D6: 11 time(s)
+ Total occurrences: 11
+
+### Sprite $B5 - Unused ###
+ Total occurrences: 0
+
+### Sprite $B6 - Reflecting fireball ###
+ in level 020: 8 time(s)
+ in level 093: 1 time(s)
+ in level 094: 2 time(s)
+ in level 0D3: 2 time(s)
+ in level 193: 2 time(s)
+ in level 194: 1 time(s)
+ in level 1D3: 7 time(s)
+ in level 1F2: 1 time(s)
+ Total occurrences: 24
+
+### Sprite $B7 - Carrot Top Lift, upper right ###
+ in level 01D: 12 time(s)
+ in level 113: 1 time(s)
+ Total occurrences: 13
+
+### Sprite $B8 - Carrot Top Lift, upper left ###
+ in level 01D: 3 time(s)
+ in level 113: 1 time(s)
+ Total occurrences: 4
+
+### Sprite $B9 - Info Box ###
+ in level 004: 1 time(s)
+ in level 005: 1 time(s)
+ in level 015: 1 time(s)
+ in level 016: 1 time(s)
+ in level 017: 1 time(s)
+ in level 024: 1 time(s)
+ in level 0E3: 1 time(s)
+ in level 0ED: 1 time(s)
+ in level 0F2: 1 time(s)
+ in level 101: 2 time(s)
+ in level 103: 2 time(s)
+ in level 104: 1 time(s)
+ in level 105: 2 time(s)
+ in level 106: 2 time(s)
+ in level 12A: 1 time(s)
+ in level 1BE: 1 time(s)
+ in level 1FF: 1 time(s)
+ Total occurrences: 21
+
+### Sprite $BA - Timed Lift ###
+ in level 113: 34 time(s)
+ Total occurrences: 34
+
+### Sprite $BB - Moving castle block ###
+ in level 0D4: 2 time(s)
+ in level 1D1: 3 time(s)
+ Total occurrences: 5
+
+### Sprite $BC - Bowser statue ###
+ in level 020: 4 time(s)
+ in level 1CD: 9 time(s)
+ Total occurrences: 13
+
+### Sprite $BD - Sliding Koopa ###
+ in level 010: 4 time(s)
+ in level 0C7: 1 time(s)
+ in level 105: 1 time(s)
+ in level 128: 1 time(s)
+ Total occurrences: 7
+
+### Sprite $BE - Swooper ###
+ in level 009: 14 time(s)
+ in level 115: 9 time(s)
+ in level 118: 8 time(s)
+ in level 11A: 5 time(s)
+ Total occurrences: 36
+
+### Sprite $BF - Mega Mole ###
+ in level 01D: 3 time(s)
+ in level 116: 20 time(s)
+ in level 1E2: 3 time(s)
+ Total occurrences: 26
+
+### Sprite $C0 - Sinking gray platform on lava ###
+ in level 10F: 18 time(s)
+ Total occurrences: 18
+
+### Sprite $C1 - Flying gray turn blocks ###
+ in level 122: 2 time(s)
+ Total occurrences: 2
+
+### Sprite $C2 - Blurp ###
+ in level 00A: 8 time(s)
+ in level 011: 33 time(s)
+ in level 120: 21 time(s)
+ in level 130: 20 time(s)
+ in level 1C1: 12 time(s)
+ Total occurrences: 94
+
+### Sprite $C3 - Porcu-Puffer ###
+ in level 002: 1 time(s)
+ in level 0BE: 2 time(s)
+ in level 0C1: 2 time(s)
+ Total occurrences: 5
+
+### Sprite $C4 - Gray platform that falls ###
+ in level 00C: 3 time(s)
+ in level 01D: 1 time(s)
+ in level 12C: 2 time(s)
+ in level 136: 19 time(s)
+ in level 1C0: 4 time(s)
+ in level 1C6: 6 time(s)
+ Total occurrences: 35
+
+### Sprite $C5 - Big Boo Boss ###
+ in level 0E4: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $C6 - Spotlight/dark room sprite ###
+ in level 10E: 2 time(s)
+ in level 1BD: 2 time(s)
+ Total occurrences: 4
+
+### Sprite $C7 - Invisible mushroom ###
+ in level 015: 2 time(s)
+ in level 016: 2 time(s)
+ in level 017: 2 time(s)
+ in level 022: 1 time(s)
+ in level 0D0: 1 time(s)
+ in level 0D1: 1 time(s)
+ in level 0F5: 1 time(s)
+ in level 0F6: 1 time(s)
+ in level 105: 1 time(s)
+ in level 11A: 1 time(s)
+ in level 1C4: 1 time(s)
+ in level 1C5: 1 time(s)
+ in CI2 Dino-Rhino level: 1 time(s)
+ Total occurrences: 16
+
+### Sprite $C8 - Light switch for dark room ###
+ in level 10E: 1 time(s)
+ in level 1BD: 1 time(s)
+ Total occurrences: 2
+
+### Sprite $C9 - Bullet Bill shooter ###
+ in level 018: 4 time(s)
+ in level 126: 16 time(s)
+ Total occurrences: 20
+
+### Sprite $CA - Torpedo Ted launcher ###
+ in level 011: 19 time(s)
+ Total occurrences: 19
+
+### Sprite $CB - Eerie generator ###
+ Total occurrences: 0
+
+### Sprite $CC - Para-Goomba generator ###
+ in level 006: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $CD - Para-Bomb generator ###
+ in level 001: 3 time(s)
+ Total occurrences: 3
+
+### Sprite $CE - Para-Goomba and Para-Bomb generator ###
+ Total occurrences: 0
+
+### Sprite $CF - Dolphin generator (left) ###
+ in level 002: 1 time(s)
+ in level 0BE: 1 time(s)
+ Total occurrences: 2
+
+### Sprite $D0 - Dolphin generator (right) ###
+ in level 002: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $D1 - Flying fish generator ###
+ in level 12D: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $D2 - Turn Off Generator 2 ###
+ in level 0F8: 1 time(s)
+ in level 11F: 2 time(s)
+ in level 1C4: 1 time(s)
+ in level 1C5: 1 time(s)
+ Total occurrences: 5
+
+### Sprite $D3 - Super Koopa generator ###
+ in level 00D: 2 time(s)
+ Total occurrences: 2
+
+### Sprite $D4 - Bubbled sprite generator ###
+ in level 123: 4 time(s)
+ Total occurrences: 4
+
+### Sprite $D5 - Bullet Bill generator ###
+ in level 119: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $D6 - Multidirectional Bullet Bill generator ###
+ in level 119: 2 time(s)
+ Total occurrences: 2
+
+### Sprite $D7 - Multidirectional diagonal Bullet Bill generator ###
+ in level 0BF: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $D8 - Bowser statue fire generator ###
+ in level 01B: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $D9 - Turn Off Generators ###
+ in level 001: 3 time(s)
+ in level 002: 3 time(s)
+ in level 006: 1 time(s)
+ in level 00D: 1 time(s)
+ in level 01B: 1 time(s)
+ in level 119: 3 time(s)
+ in level 123: 2 time(s)
+ in level 125: 2 time(s)
+ in level 12D: 1 time(s)
+ Total occurrences: 17
+
+### Sprite $DA - Green Koopa shell ###
+ in level 00D: 1 time(s)
+ in level 01C: 3 time(s)
+ in level 106: 1 time(s)
+ in level 11A: 1 time(s)
+ in level 12D: 2 time(s)
+ in level 135: 1 time(s)
+ Total occurrences: 9
+
+### Sprite $DB - Red Koopa shell ###
+ in level 008: 1 time(s)
+ in level 00D: 2 time(s)
+ in level 010: 1 time(s)
+ in level 01C: 2 time(s)
+ in level 102: 1 time(s)
+ in level 105: 1 time(s)
+ in level 106: 2 time(s)
+ in level 10A: 1 time(s)
+ in level 11A: 1 time(s)
+ in level 11F: 2 time(s)
+ in level 123: 1 time(s)
+ in level 12D: 2 time(s)
+ in level 135: 1 time(s)
+ Total occurrences: 18
+
+### Sprite $DC - Blue Koopa shell ###
+ in level 00D: 3 time(s)
+ in level 01C: 2 time(s)
+ in level 0E9: 1 time(s)
+ in level 11A: 2 time(s)
+ in level 11F: 1 time(s)
+ in level 12D: 1 time(s)
+ Total occurrences: 10
+
+### Sprite $DD - Yellow Koopa shell ###
+ in level 006: 1 time(s)
+ in level 01C: 2 time(s)
+ in level 115: 1 time(s)
+ in level 11B: 1 time(s)
+ in level 12D: 3 time(s)
+ Total occurrences: 8
+
+### Sprite $DE - Group of 5 wave-moving Eeries ###
+ in level 021: 2 time(s)
+ in level 11D: 1 time(s)
+ in level 1E8: 1 time(s)
+ in level 1E9: 1 time(s)
+ Total occurrences: 5
+
+### Sprite $DF - Green Para-Koopa shell ###
+ Total occurrences: 0
+
+### Sprite $E0 - 3 rotating gray platforms ###
+ in level 005: 8 time(s)
+ in level 135: 7 time(s)
+ Total occurrences: 15
+
+### Sprite $E1 - Boo Ceiling ###
+ in level 004: 1 time(s)
+ in level 1FA: 1 time(s)
+ Total occurrences: 2
+
+### Sprite $E2 - Boo Ring moving counterclockwise ###
+ in level 0ED: 1 time(s)
+ in level 0F2: 1 time(s)
+ in level 0F8: 2 time(s)
+ in level 107: 1 time(s)
+ in level 1FB: 1 time(s)
+ Total occurrences: 6
+
+### Sprite $E3 - Boo Ring moving clockwise ###
+ in level 013: 1 time(s)
+ in level 0EC: 1 time(s)
+ in level 0EE: 1 time(s)
+ in level 107: 1 time(s)
+ in level 1FB: 1 time(s)
+ Total occurrences: 5
+
+### Sprite $E4 - Swooper Death Bat Ceiling ###
+ Total occurrences: 0
+
+### Sprite $E5 - Appearing/disappearing Boos ###
+ in level 0F8: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $E6 - Background candle flames ###
+ in level 01F: 1 time(s)
+ in level 101: 2 time(s)
+ in level 10D: 1 time(s)
+ in level 1CD: 1 time(s)
+ in level 1D0: 1 time(s)
+ in level 1D4: 1 time(s)
+ in level 1FC: 1 time(s)
+ Total occurrences: 8
+
+### Sprite $E7 - Unused ###
+ Total occurrences: 0
+
+### Sprite $E8 - Special auto-scroll command ###
+ in level 009: 1 time(s)
+ in level 00C: 1 time(s)
+ in level 0C8: 1 time(s)
+ Total occurrences: 3
+
+### Sprite $E9 - Layer 2 Smash ###
+ in level 01A: 2 time(s)
+ in level 111: 1 time(s)
+ in level 1CF: 1 time(s)
+ Total occurrences: 4
+
+### Sprite $EA - Layer 2 scrolling command ###
+ in level 0D4: 1 time(s)
+ in level 115: 2 time(s)
+ in level 1D1: 1 time(s)
+ in level 1E3: 1 time(s)
+ in level 1F3: 1 time(s)
+ Total occurrences: 6
+
+### Sprite $EB - Unused ###
+ Total occurrences: 0
+
+### Sprite $EC - Unused ###
+ Total occurrences: 0
+
+### Sprite $ED - Layer 2 Falls ###
+ Total occurrences: 0
+
+### Sprite $EE - Unused ###
+ Total occurrences: 0
+
+### Sprite $EF - Layer 2 sideways-scrolling command ###
+ in level 0E7: 1 time(s)
+ in level 1CE: 1 time(s)
+ Total occurrences: 2
+
+### Sprite $F0 - Unused ###
+ Total occurrences: 0
+
+### Sprite $F1 - Unused ###
+ Total occurrences: 0
+
+### Sprite $F2 - Layer 2 on/off switch controller ###
+ in level 0DC: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $F3 - Standard auto-scroll command ###
+ in level 01F: 1 time(s)
+ in level 1C8: 1 time(s)
+ in level 1D4: 1 time(s)
+ in level 1FC: 1 time(s)
+ Total occurrences: 4
+
+### Sprite $F4 - Fast background scroll ###
+ in level 122: 1 time(s)
+ Total occurrences: 1
+
+### Sprite $F5 - Layer 2 sink command ###
+ in level 1E2: 1 time(s)
+ in level 1EC: 1 time(s)
+ in level 1EF: 1 time(s)
+ Total occurrences: 3
+
+### Sprite $F6 - Unused ###
+ Total occurrences: 0
+
+### Sprite $F7 - Unused ###
+ Total occurrences: 0
+
+### Sprite $F8 - Unused ###
+ Total occurrences: 0
+
+### Sprite $F9 - Unused ###
+ Total occurrences: 0
+
+### Sprite $FA - Unused ###
+ Total occurrences: 0
+
+### Sprite $FB - Unused ###
+ Total occurrences: 0
+
+### Sprite $FC - Unused ###
+ Total occurrences: 0
+
+### Sprite $FD - Unused ###
+ Total occurrences: 0
+
+### Sprite $FE - Unused ###
+ Total occurrences: 0
+
+### Sprite $FF - Unused ###
+ Total occurrences: 0
+
