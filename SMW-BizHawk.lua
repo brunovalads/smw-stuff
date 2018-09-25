@@ -1,6 +1,6 @@
 --##################################################################################
 --##                                                                              ## 
---##   Super Mario World (U) Utility Script for BizHawk                           ## 
+--##   Super Mario World (any version) Utility Script for BizHawk                 ## 
 --##   http://tasvideos.org/Bizhawk.html                                          ## 
 --##                                                                              ## 
 --##   Authors: Bruno Valadão Cunha  (BrunoValads)  [9 april 2018 ~ today]        ##
@@ -23,21 +23,24 @@ config.DEFAULT_OPTIONS = {
   hotkey_increase_opacity = "equals",  -- to increase the opacity of the text: the '='/'+' key
   hotkey_decrease_opacity = "minus",  -- to decrease the opacity of the text: the '_'/'-' key
 
-  -- Display
+  -- Display -- TODO: ORGANIZE after all the Menu changes
   display_movie_info = true,
   display_lag_indicator = true,  -- lsnes specific
-  display_misc_info = true,
+  display_game_info = true,
   display_RNG_info = false,
   display_player_info = true,
+  display_player_main_info = true,
   display_player_hitbox = true,  -- can be changed by right-clicking on player
-  display_interaction_points = true,  -- can be changed by right-clicking on player
-  display_cape_hitbox = true,
+  display_player_block_interaction = true,  -- can be changed by right-clicking on player
+  display_cape_hitbox = true, -- TODO: sue
   display_debug_player_extra = false,
   display_sprite_info = true,
+  display_sprite_main_table = true,
   display_sprite_hitbox = true,  -- you still have to select the sprite with the mouse
   display_sprite_vs_sprite_hitbox = false,
   display_debug_sprite_tweakers = false,
   display_debug_sprite_extra = false,
+  display_other_sprites_info = true,
   display_extended_sprite_info = true,
   display_extended_sprite_hitbox = true,
   display_debug_extended_sprite = false,
@@ -51,12 +54,13 @@ config.DEFAULT_OPTIONS = {
   display_debug_bounce_sprite = false,
   display_quake_sprite_info = true,
   display_level_info = true,
-  display_level_boundary = true,
-  display_level_boundary_always = false,
+  display_level_main_info = true,
+  display_level_boundary = false,
   display_sprite_vanish_area = true,
   display_sprite_spawning_areas = true,
   display_sprite_data = true,
   display_sprite_load_status = true,
+  display_screen_info = false,
   display_yoshi_info = true,
   display_counters = true,
   display_overworld_info = true,
@@ -66,6 +70,7 @@ config.DEFAULT_OPTIONS = {
   register_player_position_changes = "simple",  -- valid options: false, "simple" and "complete"
   use_block_duplication_predictor = true,
   draw_tiles_with_click = true,
+  display_mouse_coordinates = true,
 
   -- Lag
   use_lagmeter_tool = false,
@@ -73,8 +78,7 @@ config.DEFAULT_OPTIONS = {
   use_custom_lagcount = false,
 
   -- Some extra/debug info
-  display_miscellaneous_debug_info = false,
-  display_debug_controller_data = false,
+  display_controller_data = false,
   debug_collision_routine = true,
   register_ACE_debug_callback = true,  -- helps to see when some A.C.E. addresses are executed
   display_misc_sprite_table = {
@@ -151,7 +155,10 @@ config.DEFAULT_COLOUR = {
   interaction_nohitbox = "#000000a0",
   interaction_nohitbox_bg = "#00000070",
   mario_oam_hitbox = "#00ff80ff",
+  cape = "#ffd700ff",
+  cape_bg = "#ffd70060",
 
+  -- Sprites
   sprites = {"#00ff00ff", "#0000ffff", "#ffff00ff", "#ff00ffff", "#b00040ff"},
   sprites_interaction_pts = "#ffffffff",
   sprites_bg = "#0000b050",
@@ -174,21 +181,21 @@ config.DEFAULT_COLOUR = {
   awkward_hitbox = "#204060ff",
   awkward_hitbox_bg = "#ff800060",
 
+  -- Yoshi
   yoshi = "#00ffffff",
   yoshi_bg = "#00ffff40",
   yoshi_mounted_bg = "#00000000",
   tongue_line = "#ffa000ff",
   tongue_bg = "#00000060",
 
-  cape = "#ffd700ff",
-  cape_bg = "#ffd70060",
-
+  -- Level related
   block = "#00008bff",
   blank_tile = "#ffffff70",
   block_bg = "#22cc88a0",
   layer2_line = "#ff2060ff",
   layer2_bg = "#ff206040",
   static_camera_region = "#40002040",
+  screen_borders = "#0000FF80",
 
   -- other stuff
   filter_tonality = "#000000ff",
@@ -1678,7 +1685,9 @@ local WRAM = {
   timer_frame_counter = 0x0f30,
   RNG = 0x148d,
   RNG_input = 0x148b,
-  current_level = 0x00fe,  -- plus 1
+  sprite_data_pointer = 0x00CE, -- 3 bytes
+  layer1_data_pointer = 0x0065, -- 3 bytes
+  layer2_data_pointer = 0x0068, -- 3 bytes
   sprite_memory_header = 0x1692,
   lock_animation_flag = 0x009d, -- Most codes will still run if this is set, but almost nothing will move or animate.
   level_mode_settings = 0x1925,
@@ -1698,6 +1707,7 @@ local WRAM = {
   camera_y = 0x1464,
   camera_left_limit = 0x142c,
   camera_right_limit = 0x142e,
+  screen_mode = 0x005B,
   screens_number = 0x005d,
   hscreen_number = 0x005e,
   vscreen_number = 0x005f,
@@ -1802,7 +1812,6 @@ local WRAM = {
   sprite_tongue_wait = 0x14a3,
   sprite_yoshi_squatting = 0x18af,
   sprite_buoyancy = 0x190e,
-  sprite_data_pointer = 0x00CE, -- 3 bytes
   sprite_load_status_table = 0x1938, -- 128 bytes
   bowser_attack_timers = 0x14b0, -- 9 bytes
   yoshi_slot = 0x18df,
@@ -1894,8 +1903,7 @@ local WRAM = {
   -- Cheats
   frozen = 0x13fb,
   level_paused = 0x13d4,
-  level_index = 0x13bf,
-  room_index = 0x00ce,
+  translevel_index = 0x13bf,
   level_flag_table = 0x1ea2,
   level_exit_type = 0x0dd5,
   midway_point = 0x13ce,
@@ -2212,6 +2220,7 @@ SMW.sprite_names = {
   [0x3F] = "Para-Goomba",                          [0x7F] = "Flying golden mushroom",                        [0xBF] = "Mega Mole",                                       [0xFF] = "Unused",                                         
 }
 
+-- Sprite table descriptions (from https://www.smwcentral.net/?p=nmap&m=smwram&u=0)
 SMW.sprite_table_descr = {
   [0x009E] = "Sprite number, or Acts Like setting for custom sprites.",
   [0x00AA] = "Sprite Y speed table.",
@@ -2264,6 +2273,42 @@ SMW.sprite_table_descr = {
   [0x1FE2] = "Sprite table that decrements once per frame, and is used for multiple purposes. All standard sprites have it briefly set after spawning.    Primarily, it disables water splashes from showing when the sprite enter or exits water, and disables interaction for the sprite with capespins, quake sprites, cape smashes, and net punches. Some sprites use it for miscellaneous purposes, as well. More information can be found here .",
 }
 
+-- Level sprite data pointers ($05EC00)
+SMW.sprite_data_pointers = {
+  0x07C407, 0x07CE1C, 0x07CEBF, 0x07C4C5, 0x07C7B5, 0x07C7D9, 0x07C844, 0x07C904, 0x07C49D, 0x07C751, 0x07C948, 0x07CF06, 0x07D1F5, 0x07D25A, 0x07D0D7, 0x07CFAF,
+  0x07D043, 0x07D157, 0x07E76D, 0x07C9CA, 0x07C446, 0x07C6D5, 0x07C6D5, 0x07C6D5, 0x07DC2D, 0x07E76D, 0x07DBBB, 0x07D95E, 0x07DB0F, 0x07DA93, 0x07E76D, 0x07D648,
+  0x07D4CD, 0x07D74C, 0x07D6D9, 0x07D8BE, 0x07D7BF, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07C3DB, 0x07C3E3, 0x07C367, 0x07C359, 0x07C354, 0x07C34F, 0x07C34A, 0x07C345, 0x07C340, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07C3EE, 0x07D741, 0x07D02F,
+  0x07DB95, 0x07D0CF, 0x07C9AA, 0x07C8EA, 0x07C3F5, 0x07C441, 0x07C3F0, 0x07C427, 0x07DDCF, 0x07C4C0, 0x07C44B, 0x07C3F0, 0x07D51D, 0x07D899, 0x07D84B, 0x07D7E5,
+  0x07D6D9, 0x07D6D9, 0x07C8CD, 0x07DC22, 0x07DBF9, 0x07C414, 0x07D668, 0x07D956, 0x07CEBA, 0x07D152, 0x07C3EE, 0x07D111, 0x07D0F4, 0x07D304, 0x07C7BD, 0x07C414,
+  0x07CF4D, 0x07CF4D, 0x07C414, 0x07C749, 0x07CA0C, 0x07C943, 0x07C3EE, 0x07C926, 0x07C915, 0x07C7A7, 0x07DADD, 0x07C40C, 0x07C9CA, 0x07C9DB, 0x07C9CA, 0x07D9B1,
+  0x07C3F5, 0x07C9F2, 0x07C9DB, 0x07C3F0, 0x07C3EE, 0x07D6D9, 0x07D6D9, 0x07DC61, 0x07DC3B, 0x07C7BD, 0x07C3EE, 0x07C3F5, 0x07D799, 0x07C3EE, 0x07C7CB, 0x07C3F0,
+  
+  0x07C407, 0x07C66F, 0x07C5F4, 0x07C593, 0x07E759, 0x07C4CA, 0x07C532, 0x07CBDC, 0x07E76D, 0x07CDC8, 0x07CC25, 0x07CA17, 0x07E76D, 0x07C422, 0x07E19D, 0x07DF08,
+  0x07DFB1, 0x07E032, 0x07E76D, 0x07DE4F, 0x07DE01, 0x07DD7B, 0x07DD14, 0x07D9EF, 0x07CB2A, 0x07CCD4, 0x07CA87, 0x07C450, 0x07CD68, 0x07D522, 0x07D30C, 0x07D577,
+  0x07D380, 0x07C478, 0x07D5F5, 0x07D445, 0x07E76D, 0x07E6F4, 0x07E650, 0x07E5DF, 0x07E574, 0x07E76D, 0x07E3DC, 0x07E428, 0x07E466, 0x07E4F1, 0x07E76D, 0x07E76D,
+  0x07E221, 0x07E76D, 0x07E29E, 0x07E76D, 0x07E1C5, 0x07E2AF, 0x07E335, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07C3E3, 0x07C3DB, 0x07C367, 0x07C359, 0x07C354, 0x07C34F, 0x07C34A, 0x07C345, 0x07C340, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D,
+  0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07E76D, 0x07C3EE, 0x07C3EE, 0x07E19D, 0x07C661, 0x07DF94,
+  0x07DA7F, 0x07D5CF, 0x07CCBA, 0x07CBC5, 0x07E402, 0x07E402, 0x07CA6D, 0x07E1C0, 0x07E4EC, 0x07C3EE, 0x07C57F, 0x07C3EE, 0x07E183, 0x07E160, 0x07E131, 0x07E114,
+  0x07C422, 0x07E0E8, 0x07E0C5, 0x07E08D, 0x07E067, 0x07C3F0, 0x07C3F0, 0x07C498, 0x07C473, 0x07DE01, 0x07C3F5, 0x07DE3B, 0x07DE3B, 0x07DE0F, 0x07C414, 0x07D5C7,
+  0x07C3EE, 0x07C3F0, 0x07DDB8, 0x07DDB3, 0x07C3EE, 0x07DD76, 0x07C3F5, 0x07C40C, 0x07D522, 0x07D522, 0x07CC11, 0x07E024, 0x07DA44, 0x07DA12, 0x07C3F0, 0x07CB01,
+  0x07CE14, 0x07CE0C, 0x07CDC0, 0x07CD94, 0x07C3EE, 0x07CD63, 0x07C6D0, 0x07C3EE, 0x07D4C5, 0x07C3F5, 0x07D56C, 0x07CBDC, 0x07C6BF, 0x07C5EF, 0x07DFE0, 0x07C659,
+}
 
 SMW.trigonometry = { -- TODO: see if needed
   [0x00] = 0x00,  [0x01] = 0x03, [0x02] = 0x06, [0x03] = 0x09, [0x04] = 0x0c, [0x05] = 0x0f, [0x06] = 0x12, [0x07] = 0x15, [0x08] = 0x19, [0x09] = 0x1c, [0x0a] = 0x1f, [0x0b] = 0x22, [0x0c] = 0x25, [0x0d] = 0x28, [0x0e] = 0x2b, [0x0f] = 0x2e, 
@@ -2423,32 +2468,46 @@ local function screen_coordinates(x, y, camera_x, camera_y)
 end
 
 
-local Real_frame, Previous_real_frame, Effective_frame, Game_mode
-local Level_index, Room_index, Level_flag, Current_level, Current_character
-local Is_paused, Lock_animation_flag, Player_powerup, Player_animation_trigger
-local Camera_x, Camera_y, Player_x, Player_y
+local Previous_real_frame, Real_frame, Effective_frame, Game_mode, Current_character
+local Translevel_index, LM_translevel_number, Level_index, Layer1_data_pointer, Level_flag
+local Camera_x, Camera_y, Player_x, Player_y, Player_x_screen, Player_y_screen
+local Is_paused, Lock_animation_flag, Player_powerup, Player_animation_trigger, Yoshi_riding_flag, Yoshi_id
 local function scan_smw()
+  -- General info
   Previous_real_frame = Real_frame or u8(WRAM.real_frame)
   Real_frame = u8(WRAM.real_frame)
   Effective_frame = u8(WRAM.effective_frame)
   Game_mode = u8(WRAM.game_mode)
-  Level_index = u8(WRAM.level_index)
-  Level_flag = u8(WRAM.level_flag_table + Level_index)
-  Is_paused = u8(WRAM.level_paused) == 1
-  Lock_animation_flag = u8(WRAM.lock_animation_flag)
-  Room_index = u24(WRAM.room_index)
   Current_character = u8(WRAM.current_character) == 0 and "Mario" or "Luigi"
+  
+  -- Level info
+  Translevel_index = u8(WRAM.translevel_index)
+  LM_translevel_number = Translevel_index
+  if Translevel_index > 0x24 then LM_translevel_number = Translevel_index + 0xDC end
+  Sprite_data_pointer = u24(WRAM.sprite_data_pointer)
+  for i = 1, 512 do
+    if Sprite_data_pointer == SMW.sprite_data_pointers[i] then
+      Level_index = i - 1
+      break
+    end
+  end
+  Layer1_data_pointer = u24(WRAM.layer1_data_pointer)
+  Level_flag = u8(WRAM.level_flag_table + Translevel_index)
 
-  -- In level frequently used info
-  Player_animation_trigger = u8(WRAM.player_animation_trigger)
-  Player_powerup = u8(WRAM.powerup)
+  -- Common coordinates
   Camera_x = u16(WRAM.camera_x)
   Camera_y = u16(WRAM.camera_y)
   Player_x = s16(WRAM.x)
   Player_y = s16(WRAM.y)
+  Player_x_screen, Player_y_screen = screen_coordinates(Player_x, Player_y, Camera_x, Camera_y)
+  
+  -- In level frequently used info
+  Is_paused = u8(WRAM.level_paused) == 1
+  Lock_animation_flag = u8(WRAM.lock_animation_flag)
+  Player_powerup = u8(WRAM.powerup)
+  Player_animation_trigger = u8(WRAM.player_animation_trigger)
   Yoshi_riding_flag = u8(WRAM.yoshi_riding_flag) ~= 0
   Yoshi_id = get_yoshi_id()
-  Player_x_screen, Player_y_screen = screen_coordinates(Player_x, Player_y, Camera_x, Camera_y)
   Display.is_player_near_borders = Player_x_screen <= 32 or Player_x_screen >= 0xd0 or Player_y_screen <= -100 or Player_y_screen >= 224
 end
 
@@ -2515,23 +2574,16 @@ end
 
 
 local function read_screens()
+  local screen_mode = u8(WRAM.screen_mode)
+  local level_type = bit.test(screen_mode, 0) and "Vertical" or "Horizontal"
+  
   local screens_number = u8(WRAM.screens_number)
-  local vscreen_number = u8(WRAM.vscreen_number)
-  local hscreen_number = u8(WRAM.hscreen_number) - 1
-  local vscreen_current = s8(WRAM.y + 1)
-  local hscreen_current = s8(WRAM.x + 1)
-  local level_mode_settings = u8(WRAM.level_mode_settings)
-  --local b1, b2, b3, b4, b5, b6, b7, b8 = bit.multidiv(level_mode_settings, 128, 64, 32, 16, 8, 4, 2)
-  --draw.text(draw.Buffer_middle_x, draw.Buffer_middle_y, {"%x: %x%x%x%x%x%x%x%x", level_mode_settings, b1, b2, b3, b4, b5, b6, b7, b8}, COLOUR.text, COLOUR.background)
-
-  local level_type
-  if (level_mode_settings ~= 0) and (level_mode_settings == 0x3 or level_mode_settings == 0x4 or level_mode_settings == 0x7
-    or level_mode_settings == 0x8 or level_mode_settings == 0xa or level_mode_settings == 0xd) then
-      level_type = "Vertical"
-    ;
-  else
-    level_type = "Horizontal"
-  end
+  
+  local hscreen_current = u8(WRAM.x + 1)
+  local hscreen_number = u8(WRAM.hscreen_number) - (level_type == "Horizontal" and 1 or 0)
+  
+  local vscreen_current = u8(WRAM.y + 1)
+  local vscreen_number = u8(WRAM.vscreen_number) - (level_type == "Vertical" and 1 or 0)
 
   return level_type, screens_number, hscreen_current, hscreen_number, vscreen_current, vscreen_number
 end
@@ -2715,13 +2767,13 @@ local function right_click()
 
   if tostring(id) == "Mario" then
 
-    if OPTIONS.display_player_hitbox and OPTIONS.display_interaction_points then
-      OPTIONS.display_interaction_points = false
+    if OPTIONS.display_player_hitbox and OPTIONS.display_player_block_interaction then
+      OPTIONS.display_player_block_interaction = false
       OPTIONS.display_player_hitbox = false
     elseif OPTIONS.display_player_hitbox then
-      OPTIONS.display_interaction_points = true
+      OPTIONS.display_player_block_interaction = true
       OPTIONS.display_player_hitbox = false
-    elseif OPTIONS.display_interaction_points then
+    elseif OPTIONS.display_player_block_interaction then
       OPTIONS.display_player_hitbox = true
     else
       OPTIONS.display_player_hitbox = true
@@ -2820,9 +2872,7 @@ end
 
 
 local function show_movie_info()
-  if not OPTIONS.display_movie_info then
-    return
-  end
+  if not OPTIONS.display_movie_info then return end
 
   -- Font
   draw.Text_opacity = 1.0
@@ -2835,20 +2885,20 @@ local function show_movie_info()
   local recording_bg = (Readonly or not Movie_active) and COLOUR.background or COLOUR.warning_bg
 
   -- Read-only or read-write?
-  local movie_type = (not Movie_active and "No movie ") or (Readonly and "Movie " or "REC ")
+  local movie_type = (not Movie_active and "No movie ") or (Readonly and "Movie " or "REC")
   draw.alert_text(x_text, y_text, movie_type, rec_color, recording_bg)
 
-  if Movie_active then
-    -- Frame count
-    x_text = x_text + width*string.len(movie_type)
-    local movie_info
-    if Readonly then
-      movie_info = string.format("%d/%d", Lastframe_emulated, Framecount)
-    else
-      movie_info = string.format("%d", Lastframe_emulated)
-    end
-    draw.text(x_text, y_text, movie_info)  -- Shows the latest frame emulated, not the frame being run now
+  -- Frame count
+  x_text = x_text + width*(string.len(movie_type) + 1)
+  local movie_info
+  if Readonly then
+    movie_info = string.format("%d/%d", Lastframe_emulated, Framecount)
+  else
+    movie_info = string.format("%d", Lastframe_emulated)
+  end
+  draw.text(x_text, y_text, movie_info)  -- Shows the latest frame emulated, not the frame being run now
 
+  if Movie_active then
     -- Rerecord count
     x_text = x_text + width*string.len(movie_info)
     local rr_info = string.format(" %d ", Rerecords)
@@ -2859,14 +2909,14 @@ local function show_movie_info()
     draw.text(x_text, y_text, Lagcount, COLOUR.warning)
   end
 
+  -- Time
   local str = frame_time(Lastframe_emulated)   -- Shows the latest frame emulated, not the frame being run now
-  draw.alert_text(256*draw.AR_x, 224*draw.AR_y, str, COLOUR.text, recording_bg, false, 1.0, 1.0)
-
+  draw.alert_text(draw.Buffer_width + draw.Border_right, draw.Buffer_height + draw.Border_bottom, str, COLOUR.text, recording_bg, false, 1.0, 1.0) 
 end
 
 
-local function show_misc_info()
-  if not OPTIONS.display_misc_info then return end
+local function show_game_info()
+  if not OPTIONS.display_game_info then return end
 
   -- Font
   draw.Text_opacity = 0.8
@@ -2944,9 +2994,36 @@ function display_RNG()
 end
 
 
+-- Display mouse coordinates right above it
+local function show_mouse_info()
+	if not OPTIONS.display_mouse_coordinates then return end
+	
+	-- Font
+  Text_opacity = 1.0
+  Bg_opacity = 0.5
+	local line_colour = COLOUR.weak
+  local bg_colour = change_transparency(COLOUR.background, Bg_opacity)
+  
+	local x, y = User_input.xmouse + OPTIONS.left_gap, User_input.ymouse + OPTIONS.top_gap
+	local x_game, y_game = game_coordinates(User_input.xmouse, User_input.ymouse, Camera_x, Camera_y)
+	if x_game < 0 then x_game = 0x10000 + x_game end
+	if y_game < 0 then y_game = 0x10000 + y_game end
+  
+	if User_input.mouse_inwindow then
+		-- Lines
+    draw.line(0 - OPTIONS.left_gap, y - OPTIONS.top_gap, draw.Screen_width, y - OPTIONS.top_gap, line_colour)
+    draw.line(x - OPTIONS.left_gap, 0 - OPTIONS.top_gap, x - OPTIONS.left_gap, draw.Screen_height, line_colour)
+    draw.cross(x, y, 3, COLOUR.warning)
+    -- Coordinates
+    draw.text((x - OPTIONS.left_gap)*draw.AR_x, (y - OPTIONS.top_gap - 2*9)*draw.AR_y, fmt("emu (%d, %d)", x, y), COLOUR.text, bg_colour, true, false, 0.5)
+		draw.text((x - OPTIONS.left_gap)*draw.AR_x, (y - OPTIONS.top_gap + 9)*draw.AR_y, fmt("game ($%04X, $%04X)", x_game, y_game), COLOUR.text, bg_colour, true, false, 0.5)
+	end
+end
+
+
 -- Shows the controller input as the RAM and SNES registers store it
 local function show_controller_data()
-  if not (OPTIONS.display_miscellaneous_debug_info and OPTIONS.display_debug_controller_data) then return end
+  if not OPTIONS.display_controller_data then return end
 
   -- Font
   draw.Text_opacity = 0.9
@@ -2961,44 +3038,96 @@ local function show_controller_data()
 end
 
 
-local function level_info()
-  if not OPTIONS.display_level_info then return end
-  
-  -- Font
-  local x_pos = draw.Buffer_width + draw.Border_right
-  local y_pos = - draw.Border_top + BIZHAWK_FONT_HEIGHT + 2
-  local color = COLOUR.text
-  draw.Text_opacity = 0.8
-  draw.Bg_opacity = 1.0
+-- Display the sprite level info (data and load status)
+local function sprite_level_info()
+  if not OPTIONS.display_sprite_data and not OPTIONS.display_sprite_load_status then return end
 
-  local sprite_buoyancy = floor(u8(WRAM.sprite_buoyancy)/64)
-  if sprite_buoyancy == 0 then sprite_buoyancy = "" else
-    sprite_buoyancy = fmt(" %.2x", sprite_buoyancy)
-    color = COLOUR.warning
+  draw.Text_opacity = 0.5
+
+  -- Sprite load status enviroment
+  local indexes = {}
+  for id = 0, 11 do
+    local sprite_status = u8(WRAM.sprite_status + id)
+
+    if sprite_status ~= 0 then
+      local index = u8(WRAM.sprite_index_to_level + id)
+      indexes[index] = true
+    end
+  end
+  local status_table = mainmemory.readbyterange(WRAM.sprite_load_status_table, 0x80)
+
+  local x_origin = 0
+  local y_origin = OPTIONS.top_gap + draw.Buffer_height - 4*11
+  local x, y = x_origin, y_origin
+  local w, h = 9, 11
+
+  -- Sprite data enviroment
+  local pointer = Sprite_data_pointer
+
+  -- Level scan
+  local is_vertical = read_screens() == "Vertical"
+
+  local sprite_counter = 0
+  for id = 0, 0x80 - 1 do
+    -- Sprite data
+    local byte_1 = memory.readbyte(pointer + 1 + id*3, "System Bus")
+    if byte_1==0xff then break end -- end of sprite data for this level
+    local byte_2 = memory.readbyte(pointer + 2 + id*3, "System Bus")
+    local byte_3 = memory.readbyte(pointer + 3 + id*3, "System Bus")
+
+    local sxpos, sypos
+    if is_vertical then -- vertical
+      sxpos = bit.band(byte_1, 0xf0) + 256*bit.band(byte_1, 0x0d)
+      sypos = bit.band(byte_2, 0xf0) + 256*(bit.band(byte_2, 0x0f) + 8*bit.band(byte_1, 0x02))
+    else -- horizontal
+      sxpos = bit.band(byte_2, 0xf0) + 256*(bit.band(byte_2, 0x0f) + 8*bit.band(byte_1, 0x02))
+      sypos = bit.band(byte_1, 0xf0) + 256*bit.band(byte_1, 0x0d)
+    end
+
+    local status = status_table[id]
+    local color = (status == 0 and COLOUR.disabled) or (status == 1 and COLOUR.text) or 0xffFFFF00
+    if status ~= 0 and not indexes[id] then color = COLOUR.warning end
+
+    if OPTIONS.display_sprite_data then
+      if sxpos - Camera_x + 16 > -OPTIONS.left_gap and sxpos - Camera_x - 16 < 256 + OPTIONS.right_gap and -- to avoid printing the whole level data
+         sypos - Camera_y + 16 > -OPTIONS.top_gap and sypos - Camera_y - 16 < 224 + OPTIONS.bottom_gap then
+
+        draw.text((sxpos - Camera_x + 8)*draw.AR_x, (sypos - Camera_y - 2)*draw.AR_y - BIZHAWK_FONT_HEIGHT, fmt("%02X", id), color, false, false, 0.5)
+        if color ~= COLOUR.text then -- don't display sprite ID if sprite is spawned
+          draw.text((sxpos - Camera_x + 8)*draw.AR_x, (sypos - Camera_y + 4)*draw.AR_y, fmt("%02X", byte_3), color, false, false, 0.5)
+        end
+
+        draw.rectangle(sxpos - Camera_x, sypos - Camera_y, 15, 15, color)
+        draw.cross(sxpos - Camera_x + OPTIONS.left_gap, sypos - Camera_y + OPTIONS.top_gap, 3, COLOUR.yoshi)
+      end
+    end
+
+    -- Sprite load status
+    if OPTIONS.display_sprite_load_status then
+      gui.drawRectangle(x, y, w-1, h-1, color, 0x80000000)
+      gui.pixelText(x+2, y+2, fmt("%X ", status), color, 0)
+      x = x + w
+      if id%16 == 15 then
+        x = x_origin
+        y = y + h
+      end
+    end
+
+    sprite_counter = sprite_counter + 1
   end
 
-  -- converts the level number to the Lunar Magic number; should not be used outside here
-  local lm_level_number = Level_index
-  if Level_index > 0x24 then lm_level_number = Level_index + 0xdc end
-
-  -- Number of screens within the level
-  local level_type, screens_number, hscreen_current, hscreen_number, vscreen_current, vscreen_number = read_screens()
-
-  draw.text(x_pos, y_pos, fmt("%.1sLevel(%.2x)%s", level_type, lm_level_number, sprite_buoyancy),
-          color, true, false)
-  ;
-
-  draw.text(x_pos, y_pos + BIZHAWK_FONT_HEIGHT, fmt("Screens(%02X):", screens_number), true)
-
-  draw.text(x_pos, y_pos + 2*BIZHAWK_FONT_HEIGHT, fmt("(%X/%X, %X/%X)", hscreen_current, hscreen_number,
-        vscreen_current, vscreen_number), true)
-  ;
+  draw.Text_opacity = 0.6
+  if OPTIONS.display_sprite_load_status then
+    draw.text(-draw.Border_left + 1, (y_origin-OPTIONS.top_gap-10)*draw.AR_y, "Sprite load status", COLOUR.text)
+    if sprite_counter == 0 then draw.text(-draw.Border_left - 1, (y-OPTIONS.top_gap)*draw.AR_y, fmt("(no sprites)", sprite_counter), COLOUR.text) end
+  end
 end
 
 
 -- Creates lines showing where the real pit of death for sprites and Mario is, and lines showing the sprite spawning areas
 local function draw_boundaries()
-
+  if not OPTIONS.display_level_boundary then return end
+  
   -- Font
   draw.Text_opacity = 1.0
   draw.Bg_opacity = 1.0
@@ -3006,56 +3135,92 @@ local function draw_boundaries()
   local is_vertical = read_screens() == "Vertical"
 
   -- Player borders
-  if OPTIONS.display_level_boundary_always then
-    local xmin = 8 - 1
-    local ymin = -0x80 - 1
-    local xmax = 0xe8 + 1
-    local ymax = 0xfb  -- no increment, because this line kills by touch
+  local xmin = 8 - 1
+  local ymin = -0x80 - 1
+  local xmax = 0xe8 + 1
+  local ymax = 0xfb  -- no increment, because this line kills by touch
 
-    local no_powerup = (Player_powerup == 0)
-    if no_powerup then ymax = ymax + 1 end
-    if not Yoshi_riding_flag then ymax = ymax + 5 end
+  local no_powerup = (Player_powerup == 0)
+  if no_powerup then ymax = ymax + 1 end
+  if not Yoshi_riding_flag then ymax = ymax + 5 end
 
-    draw.box(xmin, ymin, xmax, ymax, COLOUR.warning2, 2)
-    if draw.Border_bottom >= 64 then
-      local str = string.format("Death: %04X", ymax + Camera_y)
-      draw.text(xmin + 4, draw.AR_y*ymax + 2, str, COLOUR.warning2, true, false, 0.5)
-      str = string.format("%s/%s", no_powerup and "No powerup" or "Big", Yoshi_riding_flag and "Yoshi" or "No Yoshi")
-      draw.text(xmin + 4, draw.AR_y*ymax + BIZHAWK_FONT_HEIGHT + 2, str, COLOUR.warning2, true, false, 0.5)
-    end
-  end
-
-  -- Sprite pit line
-  if OPTIONS.display_sprite_vanish_area then
-    local ydeath = is_vertical and Camera_y + 320 or 432
-    local _, y_screen = screen_coordinates(0, ydeath, Camera_x, Camera_y)
-
-    if y_screen < 224 + OPTIONS.bottom_gap then
-      draw.line(-OPTIONS.left_gap, y_screen, 256 + OPTIONS.right_gap, y_screen, COLOUR.weak) -- x positions don't matter
-    end
-    local str = string.format("Sprite %s: %04X", is_vertical and "\"death\"" or "death", ydeath)
-    draw.text(draw.Buffer_middle_x*draw.AR_x, draw.AR_y*y_screen + 2, str, COLOUR.weak, true, false, 0.5)
-  end
-
-  -- Sprite spawning lines
-  if OPTIONS.display_sprite_spawning_areas and not is_vertical then
-    local left_line, right_line = 63, 32
-
-    draw.line(-left_line, -OPTIONS.top_gap, -left_line, 224 + OPTIONS.bottom_gap, COLOUR.weak)
-    draw.line(-left_line + 15, -OPTIONS.top_gap, -left_line + 15, 224 + OPTIONS.bottom_gap, COLOUR.very_weak)
-
-    draw.line(256 + right_line, -OPTIONS.top_gap, 256 + right_line, 224 + OPTIONS.bottom_gap, COLOUR.weak)
-    draw.line(256 + right_line - 15, -OPTIONS.top_gap, 256 + right_line - 15, 224 + OPTIONS.bottom_gap, COLOUR.very_weak)
-    
-    draw.text(-left_line*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 2*BIZHAWK_FONT_HEIGHT, "Spawn", COLOUR.weak, true, false, 1)
-    draw.text(-left_line*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 1*BIZHAWK_FONT_HEIGHT, fmt("%04X", bit.band(Camera_x - left_line, 0xFFFF)), COLOUR.weak, true, false, 1) -- bit.band 0xFFFF to handle negative values
-
-    draw.text((256+right_line)*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 2*BIZHAWK_FONT_HEIGHT, "Spawn", COLOUR.weak)
-    draw.text((256+right_line)*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 1*BIZHAWK_FONT_HEIGHT, fmt("%04X", Camera_x + 256 + right_line), COLOUR.weak)
+  draw.box(xmin, ymin, xmax, ymax, COLOUR.warning2, 2)
+  if draw.Border_bottom >= 64 then
+    local str = string.format("Death: %04X (%s/%s)", ymax + Camera_y, no_powerup and "No powerup" or "Big", Yoshi_riding_flag and "Yoshi" or "No Yoshi")
+    draw.text(xmin + 4, draw.AR_y*ymax + 2, str, COLOUR.warning2, true)
   end
 end
 
 
+-- Display several level infos
+local function level_info()
+  if not OPTIONS.display_level_info then return end
+  
+  -- Font
+  local x_pos = draw.Buffer_width + draw.Border_right
+  local y_pos = - draw.Border_top + BIZHAWK_FONT_HEIGHT + 2
+  draw.Text_opacity = 0.8
+  draw.Bg_opacity = 1.0
+  
+  -- Scan level size
+  local level_type, screens_number, hscreen_current, hscreen_number, vscreen_current, vscreen_number = read_screens()
+  
+  -- Level main info
+  if OPTIONS.display_level_main_info then
+    -- Level indexes and type
+    draw.text(x_pos, y_pos, fmt("Translevel(%03X) Level(%03X) %.1s", LM_translevel_number, Level_index, level_type), COLOUR.text, true)
+    y_pos = y_pos + BIZHAWK_FONT_HEIGHT
+    
+    -- Number of screens within the level
+    draw.text(x_pos, y_pos, fmt("Screens(%02X/%02X, %02X/%02X)", hscreen_current, hscreen_number, vscreen_current, vscreen_number), true)
+    y_pos = y_pos + BIZHAWK_FONT_HEIGHT
+    
+    -- Sprite buoyancy
+    local sprite_buoyancy = u8(WRAM.sprite_buoyancy)
+    if sprite_buoyancy ~= 0 then
+      -- $7E190E has format "XY-- ----", with X = Enable sprite buoyancy and Y = Enable sprite buoyancy and disable sprite interaction with layer 2
+      local layer2_disabled = bit.test(sprite_buoyancy, 6) and " (Layer 2 disabled)" or ""
+      draw.text(x_pos, y_pos, fmt("Has buoyancy%s", layer2_disabled), COLOUR.warning, true)
+      y_pos = y_pos + BIZHAWK_FONT_HEIGHT
+    end
+  end
+  
+  -- Player boundaries
+  draw_boundaries()
+
+  -- Sprite data and load status
+  sprite_level_info()
+  
+  -- Screen info
+  if OPTIONS.display_screen_info then
+    draw.Text_opacity = 0.8
+    
+    local screen_x, screen_y
+    local x_origin, y_origin = screen_coordinates(0, 0, Camera_x, Camera_y)
+    local screen_str
+    
+    for screen_region_x = 0, hscreen_number do
+      for screen_region_y = 0, vscreen_number do
+        screen_x = x_origin + 256*screen_region_x
+        screen_y = y_origin + 256*screen_region_y
+        
+        draw.rectangle(screen_x, screen_y, 255, 255, COLOUR.screen_borders, 0)
+        
+        if level_type == "Horizontal" then
+          screen_str = fmt("%02X (%s)", screen_region_x, screen_region_y == 0 and "top" or "bottom")
+        elseif level_type == "Vertical" then
+          screen_str = fmt("%02X (%s)", screen_region_y, screen_region_x == 0 and "left" or "right")
+        end
+        draw.rectangle(screen_x + 1, screen_y + 1, (string.len(screen_str)*BIZHAWK_FONT_WIDTH)/draw.AR_x, (BIZHAWK_FONT_HEIGHT + 4)/draw.AR_y, COLOUR.screen_borders, COLOUR.screen_borders)
+        draw.text((screen_x + 1)*draw.AR_x, (screen_y + 1)*draw.AR_y, screen_str, COLOUR.text, COLOUR.screen_borders)
+      end
+    end
+  end
+  
+end
+
+
+-- Draw player blocked status
 function draw_blocked_status(x_text, y_text, player_blocked_status, x_speed, y_speed)
   local block_width  = 9 -- BizHawk
   local block_height = 9 -- BizHawk
@@ -3145,7 +3310,7 @@ local function player_hitbox(x, y, is_ducking, powerup, transparency_level)
   end
 
   -- interaction points (collision with blocks)
-  if OPTIONS.display_interaction_points then
+  if OPTIONS.display_player_block_interaction then
 
     if not OPTIONS.display_player_hitbox then
       draw.box(x_screen + left_side , y_screen + head,
@@ -3362,61 +3527,67 @@ local function player()
   local is_spinning = cape_spin ~= 0 or spinjump_flag ~= 0
 
   -- Display info
-  local i = 0
-  local delta_x = BIZHAWK_FONT_WIDTH
-  local delta_y = BIZHAWK_FONT_HEIGHT
-  local table_x = - draw.Border_left
-  local table_y = draw.AR_y*20
-  local colour
-
-  draw.text(table_x, table_y + i*delta_y, fmt("Pos (%04X.%s, %04X.%s)", bit.band(x, 0xFFFF), x_sub_simple, bit.band(y, 0xFFFF), y_sub_simple)) -- bit.band 0xFFFF to handle negative position
-  i = i + 1
-
-  if math.abs(x_speed) == 49 or math.abs(x_speed) == 51 then colour = COLOUR.positive -- max running and flying speed
-  elseif (math.abs(x_speed) >= 35 and math.abs(x_speed) <= 37) or math.abs(x_speed) >= 47 then colour = "yellow" -- oscillating speeds
-  else colour = COLOUR.text end
-  draw.text(table_x, table_y + i*delta_y, fmt("Speed (   (      ), %s)", luap.signed8hex(y_speed_u, true)))
-  draw.text(table_x, table_y + i*delta_y, fmt("       %s %s.%02x", luap.signed8hex(x_speed_u, true), luap.signed8hex(x_speed_int, true), x_speed_frac), colour)
-  i = i + 1
-
-  if p_meter == 112 then colour = COLOUR.positive -- max pmeter
-  elseif p_meter >= 106 then colour = "yellow" -- range of pmeter in a 6/5
-  else colour = COLOUR.text end
-  draw.text(table_x, table_y + i*delta_y, fmt("P-meter (  )  %s", direction))
-  draw.text(table_x, table_y + i*delta_y, fmt("         %02X", p_meter), colour)
-  draw.text(table_x + 18*delta_x, table_y + i*delta_y, fmt(" %+d", spin_direction), (is_spinning and COLOUR.text) or COLOUR.weak)
-  i = i + 1
+  if OPTIONS.display_player_main_info then
   
-  draw.text(table_x, table_y + i*delta_y, fmt("Take-off timer (%d)", take_off))
-  i = i + 1
-  
-  if is_caped then
-    local cape_gliding_index = u8(WRAM.cape_gliding_index)
-    local diving_status_timer = u8(WRAM.diving_status_timer)
-    local action = SMW.flight_actions[cape_gliding_index] or "bug!"
-    
-    -- TODO: better name for this "glitched" state
-    if cape_gliding_index == 3 and y_speed > 0 then
-      action = "*up*"
-    end
+    local i = 0
+    local delta_x = BIZHAWK_FONT_WIDTH
+    local delta_y = BIZHAWK_FONT_HEIGHT
+    local table_x = - draw.Border_left
+    local table_y = draw.AR_y*20
+    local colour
 
-    draw.text(table_x, table_y + i*delta_y, fmt("Cape (%.2d, %.2d)/(%d, %d)", cape_spin, cape_fall, flight_animation, diving_status), COLOUR.cape)
+    draw.text(table_x, table_y + i*delta_y, fmt("Pos (%04X.%s, %04X.%s)", bit.band(x, 0xFFFF), x_sub_simple, bit.band(y, 0xFFFF), y_sub_simple)) -- bit.band 0xFFFF to handle negative position
     i = i + 1
-    if flight_animation ~= 0 then
-      draw.text(table_x + 10*delta_x, table_y + i*delta_y, action .. " ", COLOUR.cape)
-      draw.text(table_x + 15*delta_x, table_y + i*delta_y, diving_status_timer, diving_status_timer <= 1 and COLOUR.warning or COLOUR.cape)
+
+    if math.abs(x_speed) == 49 or math.abs(x_speed) == 51 then colour = COLOUR.positive -- max running and flying speed
+    elseif (math.abs(x_speed) >= 35 and math.abs(x_speed) <= 37) or math.abs(x_speed) >= 47 then colour = "yellow" -- oscillating speeds
+    else colour = COLOUR.text end
+    draw.text(table_x, table_y + i*delta_y, fmt("Speed (   (      ), %s)", luap.signed8hex(y_speed_u, true)))
+    draw.text(table_x, table_y + i*delta_y, fmt("       %s %s.%02x", luap.signed8hex(x_speed_u, true), luap.signed8hex(x_speed_int, true), x_speed_frac), colour)
+    i = i + 1
+
+    if p_meter == 112 then colour = COLOUR.positive -- max pmeter
+    elseif p_meter >= 106 then colour = "yellow" -- range of pmeter in a 6/5
+    else colour = COLOUR.text end
+    draw.text(table_x, table_y + i*delta_y, fmt("P-meter (  )  %s", direction))
+    draw.text(table_x, table_y + i*delta_y, fmt("         %02X", p_meter), colour)
+    draw.text(table_x + 18*delta_x, table_y + i*delta_y, fmt(" %+d", spin_direction), (is_spinning and COLOUR.text) or COLOUR.weak)
+    i = i + 1
+    
+    draw.text(table_x, table_y + i*delta_y, fmt("Take-off timer (%d)", take_off))
+    i = i + 1
+    
+    if is_caped then
+      local cape_gliding_index = u8(WRAM.cape_gliding_index)
+      local diving_status_timer = u8(WRAM.diving_status_timer)
+      local action = SMW.flight_actions[cape_gliding_index] or "bug!"
+      
+      -- TODO: better name for this "glitched" state
+      if cape_gliding_index == 3 and y_speed > 0 then
+        action = "*up*"
+      end
+
+      draw.text(table_x, table_y + i*delta_y, fmt("Cape (%.2d, %.2d)/(%d, %d)", cape_spin, cape_fall, flight_animation, diving_status), COLOUR.cape)
       i = i + 1
+      if flight_animation ~= 0 then
+        draw.text(table_x + 10*delta_x, table_y + i*delta_y, action .. " ", COLOUR.cape)
+        draw.text(table_x + 15*delta_x, table_y + i*delta_y, diving_status_timer, diving_status_timer <= 1 and COLOUR.warning or COLOUR.cape)
+        i = i + 1
+      end
     end
+
+    draw_blocked_status(table_x, table_y + i*delta_y, player_blocked_status, x_speed, y_speed)
+    i = i + 1
+
+    draw.Text_opacity = 0.6
+    
+    local item_box_sprite = item_box ~= 0 and fmt("%02X", (item_box + 0x73)%256) or "--"
+    draw.text(draw.Buffer_middle_x*draw.AR_x, 36*draw.AR_y, fmt("%02X(%s)", item_box, item_box_sprite), COLOUR.weak, false, false, 0.5) -- 226
+    
   end
-
-  draw_blocked_status(table_x, table_y + i*delta_y, player_blocked_status, x_speed, y_speed)
-  i = i + 1
-
-  draw.Text_opacity = 0.6
   
-  local item_box_sprite = item_box ~= 0 and fmt("%02X", (item_box + 0x73)%256) or "--"
-  draw.text(draw.Buffer_middle_x*draw.AR_x, 36*draw.AR_y, fmt("%02X(%s)", item_box, item_box_sprite), COLOUR.weak, false, false, 0.5) -- 226
-
+  draw.Text_opacity = 1.0
+  
   if OPTIONS.display_static_camera_region then
     Display.show_player_point_position = true
     
@@ -3445,25 +3616,20 @@ local function player()
     draw.text(draw.AR_x*(x_screen + 4), draw.AR_y*(y_screen + 60), Mario_boost_indicator, COLOUR.warning, 0x20000000)  -- unlisted color
   end
 
-  -- shows hitbox and interaction points for player
-  if not (OPTIONS.display_player_hitbox or OPTIONS.display_interaction_points) then return end
-
+  -- Shows hitbox and interaction points for player
   cape_hitbox(spin_direction)
   player_hitbox(x, y, is_ducking, powerup, 1.0)
 
   -- Shows where Mario is expected to be in the next frame, if he's not boosted or stopped (DEBUG)
-  if OPTIONS.display_miscellaneous_debug_info and OPTIONS.display_debug_player_extra then
-    player_hitbox( floor((256*x + x_sub + 16*x_speed)/256),
-      floor((256*y + y_sub + 16*y_speed)/256), is_ducking, powerup, 0.3)
+  if OPTIONS.display_debug_player_extra then
+    player_hitbox(floor((256*x + x_sub + 16*x_speed)/256), floor((256*y + y_sub + 16*y_speed)/256), is_ducking, powerup, 0.3)
   end
 
 end
 
 
 local function extended_sprites()
-  if not OPTIONS.display_extended_sprite_info then
-    return
-  end
+  if not OPTIONS.display_other_sprites_info or not OPTIONS.display_extended_sprite_info then return end
 
   -- Font
   draw.Text_opacity = 0.8
@@ -3487,7 +3653,7 @@ local function extended_sprites()
 
       -- Reduction of useless info
       local special_info = ""
-      if OPTIONS.display_miscellaneous_debug_info and OPTIONS.display_debug_extended_sprite and (extspr_table ~= 0 or extspr_table2 ~= 0) then
+      if OPTIONS.display_debug_extended_sprite and (extspr_table ~= 0 or extspr_table2 ~= 0) then
         special_info = fmt("(%x, %x) ", extspr_table, extspr_table2)
       end
 
@@ -3501,7 +3667,7 @@ local function extended_sprites()
                                   COLOUR.extended_sprites, true, false)
       end
 
-      if (OPTIONS.display_miscellaneous_debug_info and OPTIONS.display_debug_extended_sprite) or not SMW.uninteresting_extended_sprites[extspr_number]
+      if OPTIONS.display_debug_extended_sprite or not SMW.uninteresting_extended_sprites[extspr_number]
         or (extspr_number == 1 and extspr_table2 == 0xf)
       then
         local x_screen, y_screen = screen_coordinates(x, y, Camera_x, Camera_y)
@@ -3547,7 +3713,7 @@ end
 
 
 local function cluster_sprites()
-  if not OPTIONS.display_cluster_sprite_info or u8(WRAM.cluspr_flag) == 0 then return end
+  if not OPTIONS.display_other_sprites_info or not OPTIONS.display_cluster_sprite_info or u8(WRAM.cluspr_flag) == 0 then return end
 
   -- Font
   draw.Text_opacity = 0.8
@@ -3587,7 +3753,7 @@ local function cluster_sprites()
 
       -- Reduction of useless info
       local special_info = ""
-      if OPTIONS.display_miscellaneous_debug_info and OPTIONS.display_debug_cluster_sprite then
+      if OPTIONS.display_debug_cluster_sprite then
         table_1 = u8(WRAM.cluspr_table_1 + id)
         table_2 = u8(WRAM.cluspr_table_2 + id)
         table_3 = u8(WRAM.cluspr_table_3 + id)
@@ -3599,7 +3765,7 @@ local function cluster_sprites()
       special_info = ""
       
       -- Case analysis
-      if OPTIONS.display_miscellaneous_debug_info and OPTIONS.display_debug_cluster_sprite then
+      if OPTIONS.display_debug_cluster_sprite then
         if clusterspr_number == 3 or clusterspr_number == 8 then -- Boo from Boo Ceiling / Swooper Bat from Swooper Death Bat Ceiling
         
           clusterspr_timer = u8(WRAM.cluspr_timer + id)
@@ -3626,7 +3792,7 @@ local function cluster_sprites()
         end
       end
       
-      -- Hitbox and info next to the bounce sprite
+      -- Hitbox and info next to the cluster sprite
       color = invencibility_hitbox and COLOUR.weak or color
       color_bg = (invencibility_hitbox and 0) or (oscillation and color_bg) or 0
       draw.rectangle(x_screen + xoff, y_screen + yoff, xrad, yrad, color, color_bg)
@@ -3645,7 +3811,7 @@ end
 
 
 local function minor_extended_sprites()
-  if not OPTIONS.display_minor_extended_sprite_info then return end
+  if not OPTIONS.display_other_sprites_info or not OPTIONS.display_minor_extended_sprite_info then return end
 
   -- Font
   draw.Text_opacity = 0.8
@@ -3674,7 +3840,7 @@ local function minor_extended_sprites()
       
       -- Reduction of useless info
       local special_info = ""
-      if OPTIONS.display_miscellaneous_debug_info and OPTIONS.display_debug_minor_extended_sprite then
+      if OPTIONS.display_debug_minor_extended_sprite then
         special_info = fmt(" (%d)", timer)
       end
       
@@ -3699,7 +3865,7 @@ end
 
 
 local function bounce_sprite_info()
-  if not OPTIONS.display_bounce_sprite_info then return end
+  if not OPTIONS.display_other_sprites_info or not OPTIONS.display_bounce_sprite_info then return end
 
   -- Font
   draw.Text_opacity = 0.8
@@ -3720,7 +3886,7 @@ local function bounce_sprite_info()
 
       -- Reduction of useless info
       local special_info = ""
-      if OPTIONS.display_miscellaneous_debug_info and OPTIONS.display_debug_bounce_sprite then
+      if OPTIONS.display_debug_bounce_sprite then
         special_info = fmt(" (%d)", bounce_timer)
       end
       
@@ -3735,7 +3901,7 @@ local function bounce_sprite_info()
       if bounce_sprite_number == 7 then
         turn_block_timer = u8(WRAM.turn_block_timer + id)
         draw.text(x_screen, y_screen + height, turn_block_timer, color, false, false, 0.5)
-        if OPTIONS.display_miscellaneous_debug_info and OPTIONS.display_debug_bounce_sprite then
+        if OPTIONS.display_debug_bounce_sprite then
           special_info = fmt(" (%d, %d)", bounce_timer, turn_block_timer)
         end
       end
@@ -3753,7 +3919,7 @@ end
 
 
 local function quake_sprite_info()
-  if not OPTIONS.display_quake_sprite_info then return end
+  if not OPTIONS.display_other_sprites_info or not OPTIONS.display_quake_sprite_info then return end
 
   -- Font
   draw.Text_opacity = 0.8
@@ -3819,12 +3985,6 @@ local function scan_sprite_info(lua_table, slot)
   t.y = luap.signed16(y)
   t.x_screen, t.y_screen = screen_coordinates(t.x, t.y, Camera_x, Camera_y)
 
-  if OPTIONS.display_debug_sprite_extra or ((t.status < 0x8 and t.status > 0xb) or stun ~= 0) then
-    t.table_special_info = fmt("(%d %d) ", t.status, t.stun)
-  else
-    t.table_special_info = ""
-  end
-
   t.oscillation_flag = bit.test(u8(WRAM.sprite_4_tweaker + slot), 5) or SMW.oscillation_sprites[t.number]
 
   -- Sprite clipping vs mario and sprites
@@ -3865,7 +4025,6 @@ end
 
 -- draw normal sprite vs Mario hitbox
 local function draw_sprite_hitbox(slot)
-  if not OPTIONS.display_sprite_hitbox then return end
 
   local t = Sprites_info[slot]
   -- Load values
@@ -3897,6 +4056,8 @@ local function draw_sprite_hitbox(slot)
     draw.pixel(x_screen, y_screen, info_color, COLOUR.very_weak)
   end
 
+  if not OPTIONS.display_sprite_hitbox then return end
+  
   if display_clipping then -- sprite clipping background
     draw.box(x_screen + xpt_left, y_screen + ypt_down, x_screen + xpt_right, y_screen + ypt_up,
       2, COLOUR.sprites_clipping_bg, display_hitbox and -1 or COLOUR.sprites_clipping_bg)
@@ -3928,6 +4089,45 @@ local function draw_sprite_hitbox(slot)
       draw.rectangle(x_screen, y_screen + yoff2, 0x10, 0x0c, 0xffffff)
       draw.rectangle(x_screen, y_screen + yoff2, 0x10-1, 0x0c - 1, info_color, bg_color)
     end
+  end
+end
+
+
+-- Display sprite spawning and despawning areas
+local function draw_sprite_spawn_despawn()
+  if not OPTIONS.display_sprite_info then return end
+
+  -- Font
+  draw.Text_opacity = 1.0
+  draw.Bg_opacity = 1.0
+  
+  -- Sprite pit line
+  if OPTIONS.display_sprite_vanish_area then
+    local ydeath = is_vertical and Camera_y + 320 or 432
+    local _, y_screen = screen_coordinates(0, ydeath, Camera_x, Camera_y)
+
+    if y_screen < 224 + OPTIONS.bottom_gap then
+      draw.line(-OPTIONS.left_gap, y_screen, 256 + OPTIONS.right_gap, y_screen, COLOUR.weak) -- x positions don't matter
+    end
+    local str = string.format("Sprite %s: %04X", is_vertical and "\"death\"" or "death", ydeath)
+    draw.text(draw.Buffer_middle_x*draw.AR_x, draw.AR_y*y_screen + 2, str, COLOUR.weak, true, false, 0.5)
+  end
+
+  -- Sprite spawning lines
+  if OPTIONS.display_sprite_spawning_areas and not is_vertical then
+    local left_line, right_line = 63, 32
+
+    draw.line(-left_line, -OPTIONS.top_gap, -left_line, 224 + OPTIONS.bottom_gap, COLOUR.weak)
+    draw.line(-left_line + 15, -OPTIONS.top_gap, -left_line + 15, 224 + OPTIONS.bottom_gap, COLOUR.very_weak)
+
+    draw.line(256 + right_line, -OPTIONS.top_gap, 256 + right_line, 224 + OPTIONS.bottom_gap, COLOUR.weak)
+    draw.line(256 + right_line - 15, -OPTIONS.top_gap, 256 + right_line - 15, 224 + OPTIONS.bottom_gap, COLOUR.very_weak)
+    
+    draw.text(-left_line*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 2*BIZHAWK_FONT_HEIGHT, "Spawn", COLOUR.weak, true, false, 1)
+    draw.text(-left_line*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 1*BIZHAWK_FONT_HEIGHT, fmt("%04X", bit.band(Camera_x - left_line, 0xFFFF)), COLOUR.weak, true, false, 1) -- bit.band 0xFFFF to handle negative values
+
+    draw.text((256+right_line)*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 2*BIZHAWK_FONT_HEIGHT, "Spawn", COLOUR.weak)
+    draw.text((256+right_line)*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 1*BIZHAWK_FONT_HEIGHT, fmt("%04X", Camera_x + 256 + right_line), COLOUR.weak)
   end
 end
 
@@ -4194,7 +4394,7 @@ special_sprite_property[0x7b] = function(slot) -- Goal Tape
   if OPTIONS.display_sprite_hitbox then
     draw.box(x_s, y_high, x_s + 15, y_s, info_color, COLOUR.goal_tape_bg)
   end
-  draw.text(draw.AR_x*x_s, draw.AR_y*t.y_screen, fmt("Touch=%4d.0->%4d.f", x_effective, x_effective + 15), info_color, false, false)
+  draw.text(draw.AR_x*x_s, draw.AR_y*t.y_screen, fmt("Touch=%04X.0->%04X.f", x_effective, x_effective + 15), info_color, false, false)
 end
 
 special_sprite_property[0x86] = function(slot) -- Wiggler (segments)
@@ -4326,8 +4526,8 @@ local function sprite_info(id, counter, table_position)
   draw.Text_opacity = 1.0
 
   local t = Sprites_info[id]
-  local sprite_status = t.status
-  if sprite_status == 0 then return 0 end -- returns if the slot is empty
+  local status = t.status
+  if status == 0 then return 0 end -- returns if the slot is empty
 
   local x = t.x
   local y = t.y
@@ -4390,7 +4590,7 @@ local function sprite_info(id, counter, table_position)
   sprite_tweaker_editor(id)
 
   -- The sprite table:
-  if OPTIONS.display_sprite_info then
+  if OPTIONS.display_sprite_main_table then
     local x_speed_u = u8(WRAM.sprite_x_speed + id) -- used to print a proper hex value
     local y_speed_u = u8(WRAM.sprite_y_speed + id) -- used to print a proper hex value
     local x_speed_water = ""
@@ -4398,12 +4598,12 @@ local function sprite_info(id, counter, table_position)
       local correction = floor(3*floor(x_speed/2)/2)
       x_speed_water = string.format("%+.2d=%+.2d", correction - x_speed, correction)
     end
-    local sprite_str = fmt("#%02d %02X %s%04X.%1x(%s%s) %04X.%1x(%s)",
-            id, number, t.table_special_info, bit.band(x, 0xFFFF), floor(x_sub/16), luap.signed8hex(x_speed_u, true), x_speed_water, bit.band(y, 0xFFFF), floor(y_sub/16), luap.signed8hex(y_speed_u, true)) --  bit.band( , 0xFFFF) to handle negative positions
+    local sprite_str = fmt("#%02d %02X (%X %d) %04X.%1x(%s%s) %04X.%1x(%s)",
+            id, number, status, stun, bit.band(x, 0xFFFF), floor(x_sub/16), luap.signed8hex(x_speed_u, true), x_speed_water, bit.band(y, 0xFFFF), floor(y_sub/16), luap.signed8hex(y_speed_u, true)) --  bit.band( , 0xFFFF) to handle negative positions
 
     draw.text(draw.Buffer_width + draw.Border_right, table_position + counter*BIZHAWK_FONT_HEIGHT, sprite_str, info_color, true)
   end
-
+  
   -- Miscellaneous sprite table -- TODO
   if OPTIONS.display_misc_sprite_table then
     --[[
@@ -4462,91 +4662,6 @@ local function sprites()
 end
 
 
-local function sprite_level_info()
-  if not OPTIONS.display_sprite_data and not OPTIONS.display_sprite_load_status then return end
-
-  draw.Text_opacity = 0.5
-
-  -- Sprite load status enviroment
-  local indexes = {}
-  for id = 0, 11 do
-    local sprite_status = u8(WRAM.sprite_status + id)
-
-    if sprite_status ~= 0 then
-      local index = u8(WRAM.sprite_index_to_level + id)
-      indexes[index] = true
-    end
-  end
-  local status_table = mainmemory.readbyterange(WRAM.sprite_load_status_table, 0x80)
-
-  local x_origin = 0
-  local y_origin = OPTIONS.top_gap + draw.Buffer_height - 4*11
-  local x, y = x_origin, y_origin
-  local w, h = 9, 11
-
-  -- Sprite data enviroment
-  local pointer = u24(WRAM.sprite_data_pointer)
-
-  -- Level scan
-  local is_vertical = read_screens() == "Vertical"
-
-  local sprite_counter = 0
-  for id = 0, 0x80 - 1 do
-    -- Sprite data
-    local byte_1 = memory.readbyte(pointer + 1 + id*3, "System Bus")
-    if byte_1==0xff then break end -- end of sprite data for this level
-    local byte_2 = memory.readbyte(pointer + 2 + id*3, "System Bus")
-    local byte_3 = memory.readbyte(pointer + 3 + id*3, "System Bus")
-
-    local sxpos, sypos
-    if is_vertical then -- vertical
-      sxpos = bit.band(byte_1, 0xf0) + 256*bit.band(byte_1, 0x0d)
-      sypos = bit.band(byte_2, 0xf0) + 256*(bit.band(byte_2, 0x0f) + 8*bit.band(byte_1, 0x02))
-    else -- horizontal
-      sxpos = bit.band(byte_2, 0xf0) + 256*(bit.band(byte_2, 0x0f) + 8*bit.band(byte_1, 0x02))
-      sypos = bit.band(byte_1, 0xf0) + 256*bit.band(byte_1, 0x0d)
-    end
-
-    local status = status_table[id]
-    local color = (status == 0 and COLOUR.disabled) or (status == 1 and COLOUR.text) or 0xffFFFF00
-    if status ~= 0 and not indexes[id] then color = COLOUR.warning end
-
-    if OPTIONS.display_sprite_data then
-      if sxpos - Camera_x + 16 > -OPTIONS.left_gap and sxpos - Camera_x - 16 < 256 + OPTIONS.right_gap and -- to avoid printing the whole level data
-         sypos - Camera_y + 16 > -OPTIONS.top_gap and sypos - Camera_y - 16 < 224 + OPTIONS.bottom_gap then
-
-        draw.text((sxpos - Camera_x + 8)*draw.AR_x, (sypos - Camera_y - 2)*draw.AR_y - BIZHAWK_FONT_HEIGHT, fmt("%02X", id), color, false, false, 0.5)
-        if color ~= COLOUR.text then -- don't display sprite ID if sprite is spawned
-          draw.text((sxpos - Camera_x + 8)*draw.AR_x, (sypos - Camera_y + 4)*draw.AR_y, fmt("%02X", byte_3), color, false, false, 0.5)
-        end
-
-        draw.rectangle(sxpos - Camera_x, sypos - Camera_y, 15, 15, color)
-        draw.cross(sxpos - Camera_x + OPTIONS.left_gap, sypos - Camera_y + OPTIONS.top_gap, 3, COLOUR.yoshi)
-      end
-    end
-
-    -- Sprite load status
-    if OPTIONS.display_sprite_load_status then
-      gui.drawRectangle(x, y, w-1, h-1, color, 0x80000000)
-      gui.pixelText(x+2, y+2, fmt("%X ", status), color, 0)
-      x = x + w
-      if id%16 == 15 then
-        x = x_origin
-        y = y + h
-      end
-    end
-
-    sprite_counter = sprite_counter + 1
-  end
-
-  draw.Text_opacity = 0.6
-  if OPTIONS.display_sprite_load_status then
-    draw.text(-draw.Border_left + 1, (y_origin-OPTIONS.top_gap-10)*draw.AR_y, "Sprite load status", COLOUR.text)
-    if sprite_counter == 0 then draw.text(-draw.Border_left - 1, (y-OPTIONS.top_gap)*draw.AR_y, fmt("(no sprites)", sprite_counter), COLOUR.text) end
-  end
-end
-
-
 special_sprite_property.yoshi_tongue_offset = function(xoff, tongue_length)
   if (xoff % 0x100) < 0x80 then
     xoff = xoff + tongue_length
@@ -4581,6 +4696,7 @@ end
 
 
 local function yoshi()
+  if not OPTIONS.display_player_info then return end
   if not OPTIONS.display_yoshi_info then return end
 
   -- Font
@@ -4777,11 +4893,11 @@ local function level_mode()
 
     draw_layer2_tiles()
 
-    draw_boundaries()
-
-    sprite_level_info()
+    level_info()
 
     sprites()
+    
+    draw_sprite_spawn_despawn()
 
     extended_sprites()
 
@@ -4792,8 +4908,6 @@ local function level_mode()
     bounce_sprite_info()
 
     quake_sprite_info()
-
-    level_info()
 
     player()
 
@@ -4825,7 +4939,7 @@ local function overworld_mode()
 
   -- Real frame modulo 8
   local real_frame_8 = Real_frame%8
-  draw.text(draw.Buffer_width + draw.Border_right, y_text, fmt("Real Frame = %3d = %d(mod 8)", Real_frame, real_frame_8), true)
+  draw.text(draw.Buffer_width + draw.Border_right, y_text, fmt("Real Frame = %02X = %d(mod 8)", Real_frame, real_frame_8), true)
   y_text = y_text + height
   
   -- Star Road info
@@ -4902,7 +5016,7 @@ local function mouse_actions()
   draw.Text_opacity = 1.0
 
   if Cheat.allow_cheats then  -- show cheat status anyway
-    draw.alert_text(-draw.Border_left, draw.Buffer_height + draw.Border_bottom, "Cheats: allowed", COLOUR.warning, COLOUR.warning_bg,
+    draw.alert_text(-draw.Border_left, draw.Buffer_height + draw.Border_bottom, "Cheats allowed!" .. (Movie_active and " Disable it while recording movies" or ""), COLOUR.warning, COLOUR.warning_bg,
     true, false, 0.0, 1.0)
   end
 
@@ -4997,7 +5111,7 @@ end
 --      start + select + B to exit the level without activating any exits
 function Cheat.beat_level()
   if Is_paused and Joypad["Select"] and (Joypad["X"] or Joypad["A"] or Joypad["B"]) then
-    w8(WRAM.level_flag_table + Level_index, bit.bor(Level_flag, 0x80))
+    w8(WRAM.level_flag_table + Translevel_index, bit.bor(Level_flag, 0x80))
 
     local secret_exit = Joypad["A"]
     if not Joypad["B"] then
@@ -5187,63 +5301,351 @@ if biz.features.support_extra_padding then
   client.SetClientExtraPadding(0, 0, 0, 0)
 end
 
+-- Script menu forms
 function Options_form.create_window()
-  Options_form.form = forms.newform(222, 692, "SMW Options")
-  local xform, yform, delta_y = 4, 2, 20
 
-  -- Top label
-  Options_form.label_cheats = forms.label(Options_form.form, "You can close this form at any time", xform, yform, 200, 20)
+  -- Create form
+  local form_width, form_height = 512, 692
+  Options_form.form = forms.newform(form_width, form_height, "SMW Script Options")
+  
+  local xform, yform, delta_x, delta_y = 200, 4, 120, 20
+  
+  --- SHOW/HIDE ---
+  
+  forms.label(Options_form.form, "Show/hide options", xform, yform, 96, 20)
+  xform = 4
+  forms.label(Options_form.form, "------------------------------------------------------------------------------------------------------------------------------------------------------------------", xform - 2, yform, form_width, 20)
+  
+  yform = yform + 1.5*delta_y
+  local y_section = yform
+  local y_bigger = yform
+  
+  -- Player info
+  Options_form.player_info = forms.checkbox(Options_form.form, "Player", xform + 20, yform)
+  forms.setproperty(Options_form.player_info, "Checked", OPTIONS.display_player_info)
+  forms.setproperty(Options_form.player_info, "Width", 55)
+  forms.setproperty(Options_form.player_info, "TextAlign", "TopRight")
+  forms.setproperty(Options_form.player_info, "CheckAlign", "TopRight")
 
-  --- CHEATS
   yform = yform + delta_y
-  Options_form.allow_cheats = forms.checkbox(Options_form.form, "Allow cheats", xform, yform)
-  forms.setproperty(Options_form.allow_cheats, "Checked", Cheat.allow_cheats)
+  Options_form.player_main_info = forms.checkbox(Options_form.form, "Main info", xform, yform)
+  forms.setproperty(Options_form.player_main_info, "Checked", OPTIONS.display_player_main_info)
+  forms.setproperty(Options_form.player_main_info, "Enabled", OPTIONS.display_player_info)
+  
+  yform = yform + delta_y
+  Options_form.yoshi_info = forms.checkbox(Options_form.form, "Yoshi info", xform, yform)
+  forms.setproperty(Options_form.yoshi_info, "Checked", OPTIONS.display_yoshi_info)
+  forms.setproperty(Options_form.yoshi_info, "Enabled", OPTIONS.display_player_info)
 
+  yform = yform + delta_y
+  Options_form.player_interaction_label = forms.label(Options_form.form, "Interaction:", xform, yform + 4, 60, 15)
+  forms.setproperty(Options_form.player_interaction_label, "Enabled", OPTIONS.display_player_info)
+  yform = yform + delta_y
+  Options_form.player_hitbox = forms.dropdown(Options_form.form, {"1. Hitbox + Blocks", "2. Hitbox", "3. Blocks", "4. None"}, xform, yform - 1, 110, 20)
+  forms.setproperty(Options_form.player_hitbox, "Enabled", OPTIONS.display_player_info)
+
+  yform = yform + delta_y
+  Options_form.static_camera_region = forms.checkbox(Options_form.form, "Camera region", xform, yform)
+  forms.setproperty(Options_form.static_camera_region, "Checked", OPTIONS.display_static_camera_region)
+  forms.setproperty(Options_form.static_camera_region, "Enabled", OPTIONS.display_player_info)
+  
+  yform = yform  + delta_y
+  Options_form.debug_player_extra = forms.checkbox(Options_form.form, "Extra info", xform, yform)
+  forms.setproperty(Options_form.debug_player_extra, "Checked", OPTIONS.display_debug_player_extra)
+  forms.setproperty(Options_form.debug_player_extra, "Enabled", OPTIONS.display_player_info)
+  
+  forms.addclick(Options_form.player_info, function() -- to enable/disable child options on click
+    OPTIONS.display_player_info = forms.ischecked(Options_form.player_info) or false
+    
+    forms.setproperty(Options_form.player_main_info, "Enabled", OPTIONS.display_player_info)
+    forms.setproperty(Options_form.yoshi_info, "Enabled", OPTIONS.display_player_info)
+    forms.setproperty(Options_form.player_interaction_label, "Enabled", OPTIONS.display_player_info)
+    forms.setproperty(Options_form.player_hitbox, "Enabled", OPTIONS.display_player_info)
+    forms.setproperty(Options_form.static_camera_region, "Enabled", OPTIONS.display_player_info)
+    forms.setproperty(Options_form.debug_player_extra, "Enabled", OPTIONS.display_player_info)
+  end)
+  
+  if yform > y_bigger then y_bigger = yform end
+  
+  -- Level info
+  yform = yform + 2*delta_y
+  Options_form.level_info = forms.checkbox(Options_form.form, "Level", xform + 20, yform)
+  forms.setproperty(Options_form.level_info, "Checked", OPTIONS.display_level_info)
+  forms.setproperty(Options_form.level_info, "Width", 55)
+  forms.setproperty(Options_form.level_info, "TextAlign", "TopRight")
+  forms.setproperty(Options_form.level_info, "CheckAlign", "TopRight")
+
+  yform = yform + delta_y
+  Options_form.level_main_info = forms.checkbox(Options_form.form, "Main info", xform, yform)
+  forms.setproperty(Options_form.level_main_info, "Checked", OPTIONS.display_level_main_info)
+  forms.setproperty(Options_form.level_main_info, "Enabled", OPTIONS.display_level_info)
+
+  yform = yform + delta_y
+  Options_form.level_boundary = forms.checkbox(Options_form.form, "Boundaries", xform, yform)
+  forms.setproperty(Options_form.level_boundary, "Checked", OPTIONS.display_level_boundary)
+  forms.setproperty(Options_form.level_boundary, "Enabled", OPTIONS.display_level_info)
+
+  yform = yform + delta_y
+  Options_form.sprite_data = forms.checkbox(Options_form.form, "Sprite data", xform, yform)
+  forms.setproperty(Options_form.sprite_data, "Checked", OPTIONS.display_sprite_data)
+  forms.setproperty(Options_form.sprite_data, "Enabled", OPTIONS.display_level_info)
+
+  yform = yform + delta_y
+  Options_form.sprite_load_status = forms.checkbox(Options_form.form, "Sprite load status", xform, yform)
+  forms.setproperty(Options_form.sprite_load_status, "Checked", OPTIONS.display_sprite_load_status)
+  forms.setproperty(Options_form.sprite_load_status, "Width", 110)
+  forms.setproperty(Options_form.sprite_load_status, "Enabled", OPTIONS.display_level_info)
+
+  yform = yform + delta_y
+  Options_form.screen_info = forms.checkbox(Options_form.form, "Screen info", xform, yform)
+  forms.setproperty(Options_form.screen_info, "Checked", OPTIONS.display_screen_info)
+  forms.setproperty(Options_form.screen_info, "Enabled", OPTIONS.display_level_info)
+  
+  forms.addclick(Options_form.level_info, function() -- to enable/disable child options on click
+    OPTIONS.display_level_info = forms.ischecked(Options_form.level_info) or false
+    
+    forms.setproperty(Options_form.level_main_info, "Enabled", OPTIONS.display_level_info)
+    forms.setproperty(Options_form.level_boundary, "Enabled", OPTIONS.display_level_info)
+    forms.setproperty(Options_form.sprite_data, "Enabled", OPTIONS.display_level_info)
+    forms.setproperty(Options_form.sprite_load_status, "Enabled", OPTIONS.display_level_info)
+    forms.setproperty(Options_form.screen_info, "Enabled", OPTIONS.display_level_info)
+  end)
+  
+  if yform > y_bigger then y_bigger = yform end
+  
+  -- Sprite info
+  xform, yform = xform + delta_x, y_section
+  Options_form.sprite_info = forms.checkbox(Options_form.form, "Sprites", xform + 20, yform)
+  forms.setproperty(Options_form.sprite_info, "Checked", OPTIONS.display_sprite_info)
+  forms.setproperty(Options_form.sprite_info, "Width", 60)
+  forms.setproperty(Options_form.sprite_info, "TextAlign", "TopRight")
+  forms.setproperty(Options_form.sprite_info, "CheckAlign", "TopRight")
+
+  yform = yform + delta_y
+  Options_form.sprite_main_table = forms.checkbox(Options_form.form, "Main table", xform, yform)
+  forms.setproperty(Options_form.sprite_main_table, "Checked", OPTIONS.display_sprite_main_table)
+  forms.setproperty(Options_form.sprite_main_table, "Enabled", OPTIONS.display_sprite_info)
+
+  yform = yform + delta_y
+  Options_form.sprite_hitbox = forms.checkbox(Options_form.form, "Hitbox", xform, yform)
+  forms.setproperty(Options_form.sprite_hitbox, "Checked", OPTIONS.display_sprite_hitbox)
+  forms.setproperty(Options_form.sprite_hitbox, "Enabled", OPTIONS.display_sprite_info)
+
+  yform = yform + delta_y
+  Options_form.sprite_spawning_areas = forms.checkbox(Options_form.form, "Spawning areas", xform, yform)
+  forms.setproperty(Options_form.sprite_spawning_areas, "Checked", OPTIONS.display_sprite_spawning_areas)
+  forms.setproperty(Options_form.sprite_spawning_areas, "Enabled", OPTIONS.display_sprite_info)
+
+  yform = yform + delta_y
+  Options_form.sprite_vanish_area = forms.checkbox(Options_form.form, "Pit line", xform, yform)
+  forms.setproperty(Options_form.sprite_vanish_area, "Checked", OPTIONS.display_sprite_vanish_area)
+  forms.setproperty(Options_form.sprite_vanish_area, "Enabled", OPTIONS.display_sprite_info)
+
+  yform = yform + delta_y
+  Options_form.sprite_tables_button = forms.button(Options_form.form, "Sprite tables", Sprite_tables_form.create_window, xform, yform + 3)
+  forms.setproperty(Options_form.sprite_tables_button, "Enabled", OPTIONS.display_sprite_info)
+
+  yform = yform + 1.3*delta_y
+  Options_form.debug_sprite_tweakers = forms.checkbox(Options_form.form, "Tweakers", xform, yform)
+  forms.setproperty(Options_form.debug_sprite_tweakers, "Checked", OPTIONS.display_debug_sprite_tweakers)
+  forms.setproperty(Options_form.debug_sprite_tweakers, "Enabled", OPTIONS.display_sprite_info)
+
+  yform = yform + delta_y
+  Options_form.debug_sprite_extra = forms.checkbox(Options_form.form, "Extra info", xform, yform)
+  forms.setproperty(Options_form.debug_sprite_extra, "Checked", OPTIONS.display_debug_sprite_extra)
+  forms.setproperty(Options_form.debug_sprite_extra, "Enabled", OPTIONS.display_sprite_info)
+  
+  forms.addclick(Options_form.sprite_info, function() -- to enable/disable child options on click
+    OPTIONS.display_sprite_info = forms.ischecked(Options_form.sprite_info) or false
+    
+    forms.setproperty(Options_form.sprite_main_table, "Enabled", OPTIONS.display_sprite_info)
+    forms.setproperty(Options_form.sprite_hitbox, "Enabled", OPTIONS.display_sprite_info)
+    forms.setproperty(Options_form.sprite_spawning_areas, "Enabled", OPTIONS.display_sprite_info)
+    forms.setproperty(Options_form.sprite_vanish_area, "Enabled", OPTIONS.display_sprite_info)
+    forms.setproperty(Options_form.sprite_tables_button, "Enabled", OPTIONS.display_sprite_info)
+    forms.setproperty(Options_form.debug_sprite_tweakers, "Enabled", OPTIONS.display_sprite_info)
+    forms.setproperty(Options_form.debug_sprite_extra, "Enabled", OPTIONS.display_sprite_info)
+  end)
+  
+  if yform > y_bigger then y_bigger = yform end
+  
+  -- General info
+  xform, yform = xform + delta_x, y_section
+  forms.label(Options_form.form, "General", xform + 52 - 45/2, yform, 45, 20)
+
+  yform = yform + delta_y
+  Options_form.game_info = forms.checkbox(Options_form.form, "Game info", xform, yform)
+  forms.setproperty(Options_form.game_info, "Checked", OPTIONS.display_game_info)
+
+  yform = yform + delta_y
+  Options_form.movie_info = forms.checkbox(Options_form.form, "Movie info", xform, yform)
+  forms.setproperty(Options_form.movie_info, "Checked", OPTIONS.display_movie_info)
+  
+  yform = yform + delta_y
+  Options_form.counters_info = forms.checkbox(Options_form.form, "Counters/Timers", xform, yform)
+  forms.setproperty(Options_form.counters_info, "Checked", OPTIONS.display_counters)
+
+  yform = yform + delta_y
+  Options_form.overworld_info = forms.checkbox(Options_form.form, "Overworld info", xform, yform)
+  forms.setproperty(Options_form.overworld_info, "Checked", OPTIONS.display_overworld_info)
+
+  yform = yform + delta_y
+  Options_form.block_duplication_predictor = forms.checkbox(Options_form.form, "Block duplication", xform, yform)
+  forms.setproperty(Options_form.block_duplication_predictor, "Checked", OPTIONS.use_block_duplication_predictor)
+  forms.setproperty(Options_form.block_duplication_predictor, "Width", 110)
+
+  yform = yform + delta_y
+  Options_form.RNG_info = forms.checkbox(Options_form.form, "RNG predictor", xform, yform)
+  forms.setproperty(Options_form.level_boundary, "Checked", OPTIONS.display_RNG_info)
+
+  yform = yform + delta_y
+  Options_form.controller_data = forms.checkbox(Options_form.form, "Controller data", xform, yform)
+  forms.setproperty(Options_form.controller_data, "Checked", OPTIONS.display_controller_data)
+
+  if yform > y_bigger then y_bigger = yform end
+  
+  -- Other sprites info
+  xform, yform = xform + delta_x, y_section
+  Options_form.other_sprites_info = forms.checkbox(Options_form.form, "Other sprites", xform + 52 - 85/2, yform)
+  forms.setproperty(Options_form.other_sprites_info, "Checked", OPTIONS.display_other_sprites_info)
+  forms.setproperty(Options_form.other_sprites_info, "Width", 85)
+  forms.setproperty(Options_form.other_sprites_info, "TextAlign", "TopRight")
+  forms.setproperty(Options_form.other_sprites_info, "CheckAlign", "TopRight")
+  
+  yform = yform + delta_y
+  Options_form.extended_sprite_info = forms.checkbox(Options_form.form, "Extended", xform, yform)
+  forms.setproperty(Options_form.extended_sprite_info, "Checked", OPTIONS.display_extended_sprite_info)
+  forms.setproperty(Options_form.extended_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+
+  yform = yform + delta_y
+  Options_form.cluster_sprite_info = forms.checkbox(Options_form.form, "Cluster", xform, yform)
+  forms.setproperty(Options_form.cluster_sprite_info, "Checked", OPTIONS.display_cluster_sprite_info)
+  forms.setproperty(Options_form.cluster_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+
+  yform = yform + delta_y
+  Options_form.minor_extended_sprite_info = forms.checkbox(Options_form.form, "Minor extended", xform, yform)
+  forms.setproperty(Options_form.minor_extended_sprite_info, "Checked", OPTIONS.display_minor_extended_sprite_info)
+  forms.setproperty(Options_form.minor_extended_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+
+  yform = yform + delta_y
+  Options_form.bounce_sprite_info = forms.checkbox(Options_form.form, "Bounce", xform, yform)
+  forms.setproperty(Options_form.bounce_sprite_info, "Checked", OPTIONS.display_bounce_sprite_info)
+  forms.setproperty(Options_form.bounce_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+
+  yform = yform + delta_y
+  Options_form.quake_sprite_info = forms.checkbox(Options_form.form, "Quake", xform, yform)
+  forms.setproperty(Options_form.quake_sprite_info, "Checked", OPTIONS.display_quake_sprite_info)
+  forms.setproperty(Options_form.quake_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+
+  yform = yform + delta_y
+  Options_form.debug_extended_sprite = forms.checkbox(Options_form.form, "Extended extra", xform, yform)
+  forms.setproperty(Options_form.debug_extended_sprite, "Checked", OPTIONS.display_debug_extended_sprite)
+  forms.setproperty(Options_form.debug_extended_sprite, "Enabled", OPTIONS.display_other_sprites_info)
+
+  yform = yform + delta_y
+  Options_form.debug_cluster_sprite = forms.checkbox(Options_form.form, "Cluster extra", xform, yform)
+  forms.setproperty(Options_form.debug_cluster_sprite, "Checked", OPTIONS.display_debug_cluster_sprite)
+  forms.setproperty(Options_form.debug_cluster_sprite, "Enabled", OPTIONS.display_other_sprites_info)
+
+  yform = yform + delta_y
+  Options_form.debug_minor_extended_sprite = forms.checkbox(Options_form.form, "Minor ext. extra", xform, yform)
+  forms.setproperty(Options_form.debug_minor_extended_sprite, "Checked", OPTIONS.display_debug_minor_extended_sprite)
+  forms.setproperty(Options_form.debug_minor_extended_sprite, "Enabled", OPTIONS.display_other_sprites_info)
+
+  yform = yform + delta_y
+  Options_form.debug_bounce_sprite = forms.checkbox(Options_form.form, "Bounce extra", xform, yform)
+  forms.setproperty(Options_form.debug_bounce_sprite, "Checked", OPTIONS.display_debug_bounce_sprite)
+  forms.setproperty(Options_form.debug_bounce_sprite, "Enabled", OPTIONS.display_other_sprites_info)
+  
+  forms.addclick(Options_form.other_sprites_info, function() -- to enable/disable child options on click
+    OPTIONS.display_other_sprites_info = forms.ischecked(Options_form.other_sprites_info) or false
+    
+    forms.setproperty(Options_form.extended_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+    forms.setproperty(Options_form.cluster_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+    forms.setproperty(Options_form.minor_extended_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+    forms.setproperty(Options_form.bounce_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+    forms.setproperty(Options_form.quake_sprite_info, "Enabled", OPTIONS.display_other_sprites_info)
+    forms.setproperty(Options_form.debug_extended_sprite, "Enabled", OPTIONS.display_other_sprites_info)
+    forms.setproperty(Options_form.debug_cluster_sprite, "Enabled", OPTIONS.display_other_sprites_info)
+    forms.setproperty(Options_form.debug_minor_extended_sprite, "Enabled", OPTIONS.display_other_sprites_info)
+    forms.setproperty(Options_form.debug_bounce_sprite, "Enabled", OPTIONS.display_other_sprites_info)
+  end)
+  
+  if yform > y_bigger then y_bigger = yform end
+  
+  --- CHEATS ---
+  
+  y_section = y_bigger + 2*delta_y
+  xform, yform = 4, y_section
+  Options_form.allow_cheats = forms.checkbox(Options_form.form, "Cheats", xform + 214, yform)
+  forms.setproperty(Options_form.allow_cheats, "Checked", Cheat.allow_cheats)
+  forms.setproperty(Options_form.allow_cheats, "TextAlign", "TopRight")
+  forms.setproperty(Options_form.allow_cheats, "CheckAlign", "TopRight")
+  forms.setproperty(Options_form.allow_cheats, "AutoSize", true)
+  forms.label(Options_form.form, "------------------------------------------------------------------------------------------  ----------------------------------------------------------------------", xform - 2, yform, form_width, 20)
+  
   -- Powerup cheat
-  xform = xform + 103
-  forms.button(Options_form.form, "Powerup", function() Cheat.change_address(WRAM.powerup, "powerup_number", 1, false,
+  yform = yform + 1.5*delta_y
+  Options_form.cheat_powerup = forms.button(Options_form.form, "Powerup", function() Cheat.change_address(WRAM.powerup, "powerup_number", 1, false,
     nil, "Enter a valid integer (0-255).", "powerup")
   end, xform, yform, 57, 24)
+  forms.setproperty(Options_form.cheat_powerup, "Enabled", Cheat.allow_cheats)
 
   xform = xform + 59
   Options_form.powerup_number = forms.textbox(Options_form.form, "", 30, 16, "UNSIGNED", xform, yform + 2, false, false)
+  forms.setproperty(Options_form.powerup_number, "Enabled", Cheat.allow_cheats)
 
-  -- Score cheat
-  xform = 2
-  yform = yform + 28
-  forms.button(Options_form.form, "Score", Cheat.score, xform, yform, 43, 24)
+  -- Timer cheat
+  xform = xform + 60
+  Options_form.cheat_timer = forms.button(Options_form.form, "Timer", Cheat.timer, xform, yform, 43, 24)
+  forms.setproperty(Options_form.cheat_timer, "Enabled", Cheat.allow_cheats)
 
   xform = xform + 45
-  Options_form.score_number = forms.textbox(Options_form.form, fmt("0x%X", u24(WRAM.mario_score)), 48, 16, nil, xform, yform + 2, false, false)
+  Options_form.timer_number = forms.textbox(Options_form.form, "", 30, 16, "UNSIGNED", xform, yform + 2, false, false)
+  forms.setproperty(Options_form.timer_number, "Enabled", Cheat.allow_cheats)
 
   -- Coin cheat
   xform = xform + 60
-  forms.button(Options_form.form, "Coin", function() Cheat.change_address(WRAM.player_coin, "coin_number", 1, false,
+  Options_form.cheat_coin = forms.button(Options_form.form, "Coin", function() Cheat.change_address(WRAM.player_coin, "coin_number", 1, false,
     function(num) return num < 100 end, "Enter an integer between 0 and 99.", "coin")
   end, xform, yform, 43, 24)
+  forms.setproperty(Options_form.cheat_coin, "Enabled", Cheat.allow_cheats)
 
   xform = xform + 45
   Options_form.coin_number = forms.textbox(Options_form.form, "", 24, 16, "UNSIGNED", xform, yform + 2, false, false)
+  forms.setproperty(Options_form.coin_number, "Enabled", Cheat.allow_cheats)
+
+  -- Score cheat
+  xform = xform + 60
+  Options_form.cheat_score = forms.button(Options_form.form, "Score", Cheat.score, xform, yform, 43, 24)
+  forms.setproperty(Options_form.cheat_score, "Enabled", Cheat.allow_cheats)
+
+  xform = xform + 45
+  Options_form.score_number = forms.textbox(Options_form.form, fmt("0x%X", u24(WRAM.mario_score)), 48, 16, nil, xform, yform + 2, false, false)
+  forms.setproperty(Options_form.score_number, "Enabled", Cheat.allow_cheats)
 
   -- Item box cheat
-  xform = 2
+  xform = 4
   yform = yform + 28
-  forms.button(Options_form.form, "Item box", function() Cheat.change_address(WRAM.item_box, "item_box_number", 1, true,
+  Options_form.cheat_item_box = forms.button(Options_form.form, "Item box", function() Cheat.change_address(WRAM.item_box, "item_box_number", 1, true,
     nil, "Enter a valid integer (0-255).", "Item box")
   end, xform, yform, 60, 24)
+  forms.setproperty(Options_form.cheat_item_box, "Enabled", Cheat.allow_cheats)
 
   xform = xform + 62
   Options_form.item_box_number = forms.dropdown(Options_form.form, Item_box_table, xform, yform + 1, 300, 10)
+  forms.setproperty(Options_form.item_box_number, "Enabled", Cheat.allow_cheats)
 
   -- Positon cheat
-  xform = 2
+  xform = 4
   yform = yform + 28
-  forms.button(Options_form.form, "Position", function()
+  Options_form.cheat_position = forms.button(Options_form.form, "Position", function()
     Cheat.change_address(WRAM.x, "player_x", 2, false, nil, "Enter a valid x position", "x position")
     Cheat.change_address(WRAM.x_sub, "player_x_sub", 1, true, nil, "Enter a valid x subpixel", "x subpixel")
     Cheat.change_address(WRAM.y, "player_y", 2, false, nil, "Enter a valid y position", "y position")
     Cheat.change_address(WRAM.y_sub, "player_y_sub", 1, true, nil, "Enter a valid y subpixel", "y subpixel")
   end, xform, yform, 60, 24)
+  forms.setproperty(Options_form.cheat_position, "Enabled", Cheat.allow_cheats)
 
   yform = yform + 2
   xform = xform + 62
@@ -5254,192 +5656,133 @@ function Options_form.create_window()
   Options_form.player_y = forms.textbox(Options_form.form, "", 32, 16, "UNSIGNED", xform, yform, false, false)
   xform = xform + 33
   Options_form.player_y_sub = forms.textbox(Options_form.form, "", 28, 16, "HEX", xform, yform, false, false)
-
-  -- Timer cheat
-  xform = 2
-  yform = yform + 28
-  forms.button(Options_form.form, "Timer", Cheat.timer, xform, yform, 43, 24)
-
-  xform = xform + 45
-  Options_form.timer_number = forms.textbox(Options_form.form, "", 30, 16, "UNSIGNED", xform, yform + 2, false, false)
-
-  --- SHOW/HIDE
-  xform = 2
-  yform = yform + 32
-  Options_form.label1 = forms.label(Options_form.form, "Show/hide options:", xform, yform)
-
-  yform = yform + delta_y
-  local y_begin_showhide = yform  -- 1st column
-  Options_form.debug_info = forms.checkbox(Options_form.form, "Debug info", xform, yform)
-  forms.setproperty(Options_form.debug_info, "Checked", OPTIONS.display_miscellaneous_debug_info)
-
-  yform = yform + delta_y
-  Options_form.movie_info = forms.checkbox(Options_form.form, "Movie info", xform, yform)
-  forms.setproperty(Options_form.movie_info, "Checked", OPTIONS.display_movie_info)
-
-  yform = yform + delta_y
-  Options_form.misc_info = forms.checkbox(Options_form.form, "Miscellaneous", xform, yform)
-  forms.setproperty(Options_form.misc_info, "Checked", OPTIONS.display_misc_info)
-
-  yform = yform + delta_y
-  Options_form.player_info = forms.checkbox(Options_form.form, "Player info", xform, yform)
-  forms.setproperty(Options_form.player_info, "Checked", OPTIONS.display_player_info)
-
-  yform = yform + delta_y
-  Options_form.sprite_info = forms.checkbox(Options_form.form, "Sprite info", xform, yform)
-  forms.setproperty(Options_form.sprite_info, "Checked", OPTIONS.display_sprite_info)
-
-  yform = yform + delta_y
-  Options_form.sprite_hitbox = forms.checkbox(Options_form.form, "Sprite hitbox", xform, yform)
-  forms.setproperty(Options_form.sprite_hitbox, "Checked", OPTIONS.display_sprite_hitbox)
-
-  yform = yform + delta_y
-  --Options_form.sprite_tables = forms.checkbox(Options_form.form, "Sprite misc tab.", xform, yform)
-  --forms.setproperty(Options_form.sprite_tables, "Checked", OPTIONS.display_misc_sprite_table)
-  Options_form.sprite_tables_button = forms.button(Options_form.form, "Sprite tables", Sprite_tables_form.create_window, xform, yform + 3, 80, 20)
-
-  yform = yform + delta_y
-  Options_form.sprite_data = forms.checkbox(Options_form.form, "Sprite data", xform, yform)
-  forms.setproperty(Options_form.sprite_data, "Checked", OPTIONS.display_sprite_data)
-
-  yform = yform + delta_y
-  Options_form.sprite_load_status = forms.checkbox(Options_form.form, "Sprite load", xform, yform)
-  forms.setproperty(Options_form.sprite_load_status, "Checked", OPTIONS.display_sprite_load_status)
-
-  yform = yform + delta_y
-  Options_form.sprite_spawning_areas = forms.checkbox(Options_form.form, "Spawning areas", xform, yform)
-  forms.setproperty(Options_form.sprite_spawning_areas, "Checked", OPTIONS.display_sprite_spawning_areas)
-
-  yform = yform + delta_y
-  Options_form.sprite_vanish_area = forms.checkbox(Options_form.form, "Sprite pit line", xform, yform)
-  forms.setproperty(Options_form.sprite_vanish_area, "Checked", OPTIONS.display_sprite_vanish_area)
-
-  yform = yform + delta_y
-  Options_form.yoshi_info = forms.checkbox(Options_form.form, "Yoshi info", xform, yform)
-  forms.setproperty(Options_form.yoshi_info, "Checked", OPTIONS.display_yoshi_info)
-
-  xform = xform + 105  -- 2nd column
-  yform = y_begin_showhide
-  Options_form.extended_sprite_info = forms.checkbox(Options_form.form, "Extended sprites", xform, yform)
-  forms.setproperty(Options_form.extended_sprite_info, "Checked", OPTIONS.display_extended_sprite_info)
-
-  yform = yform + delta_y
-  Options_form.cluster_sprite_info = forms.checkbox(Options_form.form, "Cluster sprites", xform, yform)
-  forms.setproperty(Options_form.cluster_sprite_info, "Checked", OPTIONS.display_cluster_sprite_info)
-
-  yform = yform + delta_y
-  Options_form.minor_extended_sprite_info = forms.checkbox(Options_form.form, "Minor ext. spr.", xform, yform)
-  forms.setproperty(Options_form.minor_extended_sprite_info, "Checked", OPTIONS.display_minor_extended_sprite_info)
-
-  yform = yform + delta_y
-  Options_form.bounce_sprite_info = forms.checkbox(Options_form.form, "Bounce sprites", xform, yform)
-  forms.setproperty(Options_form.bounce_sprite_info, "Checked", OPTIONS.display_bounce_sprite_info)
-
-  yform = yform + delta_y
-  Options_form.quake_sprite_info = forms.checkbox(Options_form.form, "Quake sprites", xform, yform)
-  forms.setproperty(Options_form.quake_sprite_info, "Checked", OPTIONS.display_quake_sprite_info)
-
-  yform = yform + delta_y
-  Options_form.level_info = forms.checkbox(Options_form.form, "Level info", xform, yform)
-  forms.setproperty(Options_form.level_info, "Checked", OPTIONS.display_level_info)
-
-  yform = yform + delta_y
-  Options_form.counters_info = forms.checkbox(Options_form.form, "Counters info", xform, yform)
-  forms.setproperty(Options_form.counters_info, "Checked", OPTIONS.display_counters)
-
-  yform = yform + delta_y
-  Options_form.static_camera_region = forms.checkbox(Options_form.form, "Camera region", xform, yform)
-  forms.setproperty(Options_form.static_camera_region, "Checked", OPTIONS.display_static_camera_region)
-
-  yform = yform + delta_y
-  Options_form.block_duplication_predictor = forms.checkbox(Options_form.form, "Block duplica.", xform, yform)
-  forms.setproperty(Options_form.block_duplication_predictor, "Checked", OPTIONS.use_block_duplication_predictor)
-
-  yform = yform + delta_y
-  Options_form.level_boundary_always = forms.checkbox(Options_form.form, "Level boundary", xform, yform)
-  forms.setproperty(Options_form.level_boundary_always, "Checked", OPTIONS.display_level_boundary_always)
-
-  yform = yform + delta_y
-  Options_form.RNG_info = forms.checkbox(Options_form.form, "RNG predictor", xform, yform)
-  forms.setproperty(Options_form.level_boundary_always, "Checked", OPTIONS.display_RNG_info)
-
-  yform = yform + delta_y
-  Options_form.overworld_info = forms.checkbox(Options_form.form, "Overworld info", xform, yform)
-  forms.setproperty(Options_form.overworld_info, "Checked", OPTIONS.display_overworld_info)
-
-  --yform = yform + delta_y  -- if odd number of show/hide checkboxes
-
-  xform, yform = 2, yform + 30
-  forms.label(Options_form.form, "Player hitbox:", xform, yform + 2, 70, 25)
-  xform = xform + 70
-  Options_form.player_hitbox = forms.dropdown(Options_form.form, {"Hitbox", "Interaction points", "Both", "None"}, xform, yform)
-  xform, yform = 2, yform + 30
-
-  -- DEBUG/EXTRA
-  forms.label(Options_form.form, "Debug info:", xform, yform, 62, 22)
-  yform = yform + delta_y
-
-  local y_begin_debug = yform  -- 1st column
-  Options_form.debug_player_extra = forms.checkbox(Options_form.form, "Player extra", xform, yform)
-  forms.setproperty(Options_form.debug_player_extra, "Checked", OPTIONS.display_debug_player_extra)
-  yform = yform  + delta_y
-
-  Options_form.debug_sprite_extra = forms.checkbox(Options_form.form, "Sprite extra", xform, yform)
-  forms.setproperty(Options_form.debug_sprite_extra, "Checked", OPTIONS.display_debug_sprite_extra)
-  yform = yform + delta_y
-
-  Options_form.debug_sprite_tweakers = forms.checkbox(Options_form.form, "Sprite tweakers", xform, yform)
-  forms.setproperty(Options_form.debug_sprite_tweakers, "Checked", OPTIONS.display_debug_sprite_tweakers)
-  yform = yform + delta_y
-
-  Options_form.debug_extended_sprite = forms.checkbox(Options_form.form, "Extended sprites", xform, yform)
-  forms.setproperty(Options_form.debug_extended_sprite, "Checked", OPTIONS.display_debug_extended_sprite)
-  yform = yform + delta_y
-
-  xform, yform = xform + 105, y_begin_debug
-  Options_form.debug_cluster_sprite = forms.checkbox(Options_form.form, "Cluster sprites", xform, yform)
-  forms.setproperty(Options_form.debug_cluster_sprite, "Checked", OPTIONS.display_debug_cluster_sprite)
-  yform = yform + delta_y
-
-  Options_form.debug_minor_extended_sprite = forms.checkbox(Options_form.form, "Minor ext. spr.", xform, yform)
-  forms.setproperty(Options_form.debug_minor_extended_sprite, "Checked", OPTIONS.display_debug_minor_extended_sprite)
-  yform = yform + delta_y
-
-  Options_form.debug_bounce_sprite = forms.checkbox(Options_form.form, "Bounce sprites", xform, yform)
-  forms.setproperty(Options_form.debug_bounce_sprite, "Checked", OPTIONS.display_debug_bounce_sprite)
-  yform = yform + delta_y
-
-  Options_form.debug_controller_data = forms.checkbox(Options_form.form, "Controller data", xform, yform)
-  forms.setproperty(Options_form.debug_controller_data, "Checked", OPTIONS.display_debug_controller_data)
-  --yform = yform + delta_y
-
-  -- HELP:
-  xform, yform = 4, yform + 30
-  forms.label(Options_form.form, "Miscellaneous:", xform, yform, 78, 22)
-  xform, yform = xform + 78, yform - 2
-
-  Options_form.draw_tiles_with_click = forms.checkbox(Options_form.form, "Draw/erase tiles", xform, yform)
+  forms.setproperty(Options_form.player_x, "Enabled", Cheat.allow_cheats)
+  forms.setproperty(Options_form.player_x_sub, "Enabled", Cheat.allow_cheats)
+  forms.setproperty(Options_form.player_y, "Enabled", Cheat.allow_cheats)
+  forms.setproperty(Options_form.player_y_sub, "Enabled", Cheat.allow_cheats)
+  
+  forms.addclick(Options_form.allow_cheats, function() -- to enable/disable child options on click
+    Cheat.allow_cheats = forms.ischecked(Options_form.allow_cheats) or false
+    
+    forms.setproperty(Options_form.cheat_powerup, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.powerup_number, "Enabled", Cheat.allow_cheats)
+    
+    forms.setproperty(Options_form.cheat_timer, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.timer_number, "Enabled", Cheat.allow_cheats)
+    
+    forms.setproperty(Options_form.cheat_coin, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.coin_number, "Enabled", Cheat.allow_cheats)
+    
+    forms.setproperty(Options_form.cheat_score, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.score_number, "Enabled", Cheat.allow_cheats)
+    
+    forms.setproperty(Options_form.cheat_item_box, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.item_box_number, "Enabled", Cheat.allow_cheats)
+    
+    forms.setproperty(Options_form.cheat_position, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.player_x, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.player_x_sub, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.player_y, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.player_y_sub, "Enabled", Cheat.allow_cheats)
+  end)
+  
+  --- SCRIPT SETTINGS ---
+  
+  xform, yform = 4, yform + 2*delta_y
+  Options_form.script_settings_label = forms.label(Options_form.form, "Script settings", xform, yform)
+  forms.setproperty(Options_form.script_settings_label, "AutoSize", true)
+  forms.setlocation(Options_form.script_settings_label, (form_width-16)/2 - forms.getproperty(Options_form.script_settings_label, "Width")/2, yform)
+  forms.label(Options_form.form, "------------------------------------------------------------------------------------------------------------------------------------------------------------------", xform - 2, yform, form_width, 20)
+  
+  -- Select tiles
+  yform = yform + 1.5*delta_y
+  y_section = yform
+  Options_form.draw_tiles_with_click = forms.checkbox(Options_form.form, "Select tiles", xform, yform)
   forms.setproperty(Options_form.draw_tiles_with_click, "Checked", OPTIONS.draw_tiles_with_click)
-  xform, yform = 4, yform + 30
-
-  -- OPACITY
-  Options_form.text_opacity = forms.label(Options_form.form, ("Text opacity: (%.0f%%, %.0f%%)"):
-      format(100*draw.Text_max_opacity, 100*draw.Background_max_opacity), xform, yform, 135, 22)
+  forms.setproperty(Options_form.draw_tiles_with_click, "AutoSize", true)
+  
+  yform = yform + delta_y
+  Options_form.erase_tiles = forms.button(Options_form.form, "Erase all tiles", function() Layer1_tiles = {}; Layer2_tiles = {} end, xform, yform, 80, 25)
+  
+  -- Text opacity
+  xform, yform = xform + 100, y_section
+  Options_form.text_opacity = forms.label(Options_form.form, ("Text opacity:\n(%.0f%%, %.0f%%)"):
+    format(100*draw.Text_max_opacity, 100*draw.Background_max_opacity), xform, yform, 75, 30)
   ;
-  xform, yform = xform + 135, yform - 4
-  forms.button(Options_form.form, "-", function() draw.decrease_opacity()
+  xform = xform + 75
+  Options_form.opacity_button_minus = forms.button(Options_form.form, "-", function() draw.decrease_opacity()
     forms.settext(Options_form.text_opacity, ("Text opacity: (%.0f%%, %.0f%%)"):format(100*draw.Text_max_opacity, 100*draw.Background_max_opacity))
-  end, xform, yform, 14, 24)
-  xform = xform + 14
+  end, xform, yform, 24, 24)
+  xform = xform + 24
   forms.button(Options_form.form, "+", function() draw.increase_opacity()
     forms.settext(Options_form.text_opacity, ("Text opacity: (%.0f%%, %.0f%%)"):format(100*draw.Text_max_opacity, 100*draw.Background_max_opacity))
-  end, xform, yform, 14, 24)
-  xform, yform = 4, yform + 25
-
-  -- HELP
-  Options_form.erase_tiles = forms.button(Options_form.form, "Erase tiles", function() Layer1_tiles = {}; Layer2_tiles = {} end, xform, yform)
-  xform = xform + 105
-  Options_form.write_help_handle = forms.button(Options_form.form, "Help", Options_form.write_help, xform, yform)
+  end, xform, yform, 24, 24)
+  
+  -- Mouse coordinates
+  xform = xform + 50
+  Options_form.mouse_coordinates = forms.checkbox(Options_form.form, "Mouse\ncoordinates", xform, yform)
+  forms.setproperty(Options_form.mouse_coordinates, "Checked", OPTIONS.display_mouse_coordinates)
+  forms.setproperty(Options_form.mouse_coordinates, "AutoSize", true)
+  
+  -- Emu gaps (lateral gaps)
+  xform = xform + 140
+  -- top gap
+  forms.button(Options_form.form, "-", function()
+    if OPTIONS.top_gap - 10 >= BIZHAWK_FONT_HEIGHT then OPTIONS.top_gap = OPTIONS.top_gap - 10 end
+    client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
+  end, xform, yform, 24, 24)
+  xform = xform + 24
+  forms.button(Options_form.form, "+", function()
+    OPTIONS.top_gap = OPTIONS.top_gap + 10
+    client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
+  end, xform, yform, 24, 24)
+  -- left gap
+  xform, yform = xform - 3*24, yform + 24
+  forms.button(Options_form.form, "-", function()
+    if OPTIONS.left_gap - 10 >= BIZHAWK_FONT_HEIGHT then OPTIONS.left_gap = OPTIONS.left_gap - 10 end
+    client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
+  end, xform, yform, 24, 24)
+  xform = xform + 24
+  forms.button(Options_form.form, "+", function()
+    OPTIONS.left_gap = OPTIONS.left_gap + 10
+    client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
+  end, xform, yform, 24, 24)
+  -- right gap
+  xform = xform + 3*24
+  forms.button(Options_form.form, "-", function()
+    if OPTIONS.right_gap - 10 >= BIZHAWK_FONT_HEIGHT then OPTIONS.right_gap = OPTIONS.right_gap - 10 end
+    client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
+  end, xform, yform, 24, 24)
+  xform = xform + 24
+  forms.button(Options_form.form, "+", function()
+    OPTIONS.right_gap = OPTIONS.right_gap + 10
+    client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
+  end, xform, yform, 24, 24)
+  -- bottom gap
+  xform, yform = xform - 3*24, yform + 24
+  forms.button(Options_form.form, "-", function()
+    if OPTIONS.bottom_gap - 10 >= BIZHAWK_FONT_HEIGHT then OPTIONS.bottom_gap = OPTIONS.bottom_gap - 10 end
+    client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
+  end, xform, yform, 24, 24)
+  xform = xform + 24
+  forms.button(Options_form.form, "+", function()
+    OPTIONS.bottom_gap = OPTIONS.bottom_gap + 10
+    client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
+  end, xform, yform, 24, 24)
+  xform, yform = xform - 26, yform - 20
+  forms.label(Options_form.form, "Emu gaps", xform, yform, 70, 20)
+  
+  -- Help
+  xform, yform = (form_width-16)/2 - 73/2, form_height - 70
+  Options_form.write_help_handle = forms.button(Options_form.form, "Help", Options_form.write_help, xform, yform) -- TODO: maybe make a window instead of writing in the console
+  
+  --- ETC ---
+  --forms.label(Options_form.form, "You can close this menu at any time", form_width - 200, form_height - 60, 190, 20) -- TODO: remove maybe
+  
+  -- Background for dev tests
+  --Options_form.picture_box = forms.pictureBox(Options_form.form, 0, 0, form_width, form_height)
+  --forms.clear(Options_form.picture_box, 0xffFF0000)
+  
 end
 
 
@@ -5545,32 +5888,36 @@ function Sprite_tables_form.create_window()
 end
 
 
-function Options_form.evaluate_form()
+function Options_form.evaluate_form() -- TODO: ORGANIZE after all the menu changes
   -- Option form's buttons
   Cheat.allow_cheats = forms.ischecked(Options_form.allow_cheats) or false
-  OPTIONS.display_miscellaneous_debug_info = forms.ischecked(Options_form.debug_info) or false
   -- Show/hide
   OPTIONS.display_movie_info = forms.ischecked(Options_form.movie_info) or false
-  OPTIONS.display_misc_info = forms.ischecked(Options_form.misc_info) or false
+  OPTIONS.display_game_info = forms.ischecked(Options_form.game_info) or false
   OPTIONS.display_player_info = forms.ischecked(Options_form.player_info) or false
+  OPTIONS.display_player_main_info = forms.ischecked(Options_form.player_main_info) or false
+  OPTIONS.display_yoshi_info = forms.ischecked(Options_form.yoshi_info) or false
   OPTIONS.display_sprite_info = forms.ischecked(Options_form.sprite_info) or false
+  OPTIONS.display_sprite_main_table = forms.ischecked(Options_form.sprite_main_table) or false
   OPTIONS.display_sprite_hitbox = forms.ischecked(Options_form.sprite_hitbox) or false
   --OPTIONS.display_misc_sprite_table =  forms.ischecked(Options_form.sprite_tables) or false
   OPTIONS.display_sprite_data =  forms.ischecked(Options_form.sprite_data) or false
   OPTIONS.display_sprite_load_status =  forms.ischecked(Options_form.sprite_load_status) or false
   OPTIONS.display_sprite_spawning_areas = forms.ischecked(Options_form.sprite_spawning_areas) or false
   OPTIONS.display_sprite_vanish_area = forms.ischecked(Options_form.sprite_vanish_area) or false
+  OPTIONS.display_other_sprites_info = forms.ischecked(Options_form.other_sprites_info) or false
   OPTIONS.display_extended_sprite_info = forms.ischecked(Options_form.extended_sprite_info) or false
   OPTIONS.display_cluster_sprite_info = forms.ischecked(Options_form.cluster_sprite_info) or false
   OPTIONS.display_minor_extended_sprite_info = forms.ischecked(Options_form.minor_extended_sprite_info) or false
   OPTIONS.display_bounce_sprite_info = forms.ischecked(Options_form.bounce_sprite_info) or false
   OPTIONS.display_quake_sprite_info = forms.ischecked(Options_form.quake_sprite_info) or false
   OPTIONS.display_level_info = forms.ischecked(Options_form.level_info) or false
-  OPTIONS.display_yoshi_info = forms.ischecked(Options_form.yoshi_info) or false
+  OPTIONS.display_level_main_info = forms.ischecked(Options_form.level_main_info) or false
   OPTIONS.display_counters = forms.ischecked(Options_form.counters_info) or false
   OPTIONS.display_static_camera_region = forms.ischecked(Options_form.static_camera_region) or false
   OPTIONS.use_block_duplication_predictor = forms.ischecked(Options_form.block_duplication_predictor) or false
-  OPTIONS.display_level_boundary_always = forms.ischecked(Options_form.level_boundary_always) or false
+  OPTIONS.display_level_boundary = forms.ischecked(Options_form.level_boundary) or false
+  OPTIONS.display_screen_info = forms.ischecked(Options_form.screen_info) or false
   OPTIONS.display_RNG_info = forms.ischecked(Options_form.RNG_info) or false
   OPTIONS.display_overworld_info = forms.ischecked(Options_form.overworld_info) or false
   -- Debug/Extra
@@ -5581,12 +5928,13 @@ function Options_form.evaluate_form()
   OPTIONS.display_debug_cluster_sprite = forms.ischecked(Options_form.debug_cluster_sprite) or false
   OPTIONS.display_debug_minor_extended_sprite = forms.ischecked(Options_form.debug_minor_extended_sprite) or false
   OPTIONS.display_debug_bounce_sprite = forms.ischecked(Options_form.debug_bounce_sprite) or false
-  OPTIONS.display_debug_controller_data = forms.ischecked(Options_form.debug_controller_data) or false
+  OPTIONS.display_controller_data = forms.ischecked(Options_form.controller_data) or false
   -- Other buttons
   OPTIONS.draw_tiles_with_click = forms.ischecked(Options_form.draw_tiles_with_click) or false
+  OPTIONS.display_mouse_coordinates = forms.ischecked(Options_form.mouse_coordinates) or false
   local button_text = forms.gettext(Options_form.player_hitbox)
-  OPTIONS.display_player_hitbox = button_text == "Both" or button_text == "Hitbox"
-  OPTIONS.display_interaction_points = button_text == "Both" or button_text == "Interaction points"
+  OPTIONS.display_player_hitbox = button_text == "1. Hitbox + Blocks" or button_text == "2. Hitbox"
+  OPTIONS.display_player_block_interaction = button_text == "1. Hitbox + Blocks" or button_text == "3. Blocks"
 end
 
 
@@ -5695,9 +6043,10 @@ while true do
     if Is_lagged then
       gui.drawText(OPTIONS.left_gap + draw.Buffer_middle_x, 0, "LAG", COLOUR.warning, COLOUR.warning_bg, 12, "Courier New", "regular", "center") -- TODO: formalize function "draw.drawText"
     end
-    show_misc_info()
+    show_game_info()
     display_RNG()
     show_controller_data()
+    show_mouse_info()
 
     Cheat.is_cheat_active()
 
@@ -5741,13 +6090,15 @@ end
 --[[#############################################################################
 -- TODO
 
+- Add option for cape hitbox (using display_cape_hitbox), and with this changing the "Interaction" dropdown list to just a bunch of options
+- Add sprite to sprite hitbox (Amaraticando did for Lsnes)
 - Add the Lagmeter, without the scanline display, just the percentage with colours (BizHawk 2.3 has H and V registers but this version is very buggy)
 - Decide if will implement encoded sprite images
 - Add Generators info (me + Amaraticando https://github.com/rodamaral/smw-tas/commit/28747de755219968f39ad06455dab5701aef770a)
 - Add Yoshi cheats (Amaraticando https://github.com/rodamaral/smw-tas/commit/4854ea769a498606a395bf7fc0885318968a6e19)
 - Add cheat to stun sprites (Amaraticando https://github.com/rodamaral/smw-tas/commit/e3f3013761d0774cfe4323b472202ed94c23b7b0)
 - Add new figures to show when a sprite was licked or swallowed by Yoshi (Amaraticando https://github.com/rodamaral/smw-tas/commit/0f4e22c4088d237d7960002b25c5ce2f9d9c001e)
-- 
+- Add other sprites, like Score, Coin, etc (and change Menu options after that)
 
 
 
