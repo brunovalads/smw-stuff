@@ -11,7 +11,7 @@
 --##################################################################################
 
 --#############################################################################
--- CONFIG (YOU PROBABLY WANT TO EDIT THE bizhawk-config.ini FILE INSTEAD OF THIS)
+-- CONFIG (YOU PROBABLY WANT TO EDIT THE SMW-BizHawk-config.ini FILE INSTEAD OF THIS)
 
 local INI_CONFIG_NAME = "SMW-BizHawk-config.ini"
 
@@ -371,7 +371,7 @@ function luap.signed16(num)
   if num < maxval then return num else return num - 2*maxval end
 end
 
--- unsigned word to signed in hex string
+-- unsigned byte to signed in hex string
 function luap.signed8hex(num, signal)
   local maxval = 128
   if signal == nil then signal = true end
@@ -383,7 +383,7 @@ function luap.signed8hex(num, signal)
   end  
 end
 
--- unsigned byte to signed in hex string
+-- unsigned word to signed in hex string
 function luap.signed16hex(num, signal)
   local maxval = 32768
   if signal == nil then signal = true end
@@ -1655,7 +1655,8 @@ local u32 = mainmemory.read_u32_le
 local s32 = mainmemory.read_s32_le
 local w32 = mainmemory.write_u32_le
 
--- Check if it's Super Mario World (any version or hack)
+-- Check if it's Super Mario World (any version or hack) -- TODO: decide if will make it work for real for any hack or deprecate it forever
+--[[
 if biz.game_name() ~= "SUPER MARIOWORLD" then 
   if biz.map_mode_rom_type == 0x2334 or biz.map_mode_rom_type == 0x2335 then -- has SA-1, where the "SUPER MARIOWORLD" game name is overwritten
     print("\nROM hack with SA-1 enhancement chip, currently not supported by this script. Contact the author about it here https://github.com/brunovalads/smw-stuff")
@@ -1663,7 +1664,7 @@ if biz.game_name() ~= "SUPER MARIOWORLD" then
     error("\n\nThis script is for Super Mario World only!") -- TODO: fix for some SMW hacks that can't be handled by biz.game_name()
   end
   --print("\n\nAre you sure this is a Super Mario World rom or hack?\nPerhaps it's a hack that uses SA-1, and this is script is not ready for it yet.")
-end
+end]]
 
 print("\nSMW-BizHawk script starting at " .. os.date("%X")) -- %c for date and time
 
@@ -1685,6 +1686,7 @@ local WRAM = {
   timer_frame_counter = 0x0f30,
   RNG = 0x148d,
   RNG_input = 0x148b,
+  timer = 0x0F31, -- 3 bytes, one for each digit
   sprite_data_pointer = 0x00CE, -- 3 bytes
   layer1_data_pointer = 0x0065, -- 3 bytes
   layer2_data_pointer = 0x0068, -- 3 bytes
@@ -1696,13 +1698,16 @@ local WRAM = {
   current_character = 0x0db3, -- #00 = Mario, #01 = Luigi
   exit_counter = 0x1F2E,
   event_flags = 0x1F02, -- 15 bytes (1 bit per exit)
-  timer = 0x0F31, -- 3 bytes, one for each digit
+  current_submap = 0x1F11,
+  OW_tile_translevel = 0xD000, -- 0x800 bytes table
+  OW_action_pointer = 0x13D9,
+  OW_player_animation = 0x1F13, -- 2 bytes for Mario, 2 bytes for Luigi
 
   -- Camera
-  layer1_x_mirror = 0x1a,
-  layer1_y_mirror = 0x1c,
-  layer1_VRAM_left_up = 0x4d,
-  layer1_VRAM_right_down = 0x4f,
+  layer1_x_mirror = 0x001a,
+  layer1_y_mirror = 0x001c,
+  layer1_VRAM_left_up = 0x004d,
+  layer1_VRAM_right_down = 0x004f,
   camera_x = 0x1462,
   camera_y = 0x1464,
   camera_left_limit = 0x142c,
@@ -2491,6 +2496,7 @@ local function scan_smw()
       break
     end
   end
+  if Level_index == nil then Level_index = 0 end
   Layer1_data_pointer = u24(WRAM.layer1_data_pointer)
   Level_flag = u8(WRAM.level_flag_table + Translevel_index)
 
@@ -2544,16 +2550,16 @@ local function display_boundaries(x_game, y_game, width, height, camera_x, camer
   local is_small = is_ducking ~= 0 or powerup == 0
 
   -- Left
-  local left_text = string.format("%4d.0", width*floor(x_game/width) - 13)
+  local left_text = string.format("%04X.0", width*floor(x_game/width) - 13)
   draw.text(draw.AR_x*left, draw.AR_y*(top+bottom)/2, left_text, false, false, 1.0, 0.5)
 
   -- Right
-  local right_text = string.format("%d.f", width*floor(x_game/width) + 12)
+  local right_text = string.format("%04X.f", width*floor(x_game/width) + 12)
   draw.text(draw.AR_x*right, draw.AR_y*(top+bottom)/2, right_text, false, false, 0.0, 0.5)
 
   -- Top
   local value = (Yoshi_riding_flag and y_game - 16) or y_game
-  local top_text = fmt("%d.0", width*floor(value/width) - 32)
+  local top_text = fmt("%04X.0", width*floor(value/width) - 32)
   draw.text(draw.AR_x*(left+right)/2, draw.AR_y*top, top_text, false, false, 0.5, 1.0)
 
   -- Bottom
@@ -2566,7 +2572,7 @@ local function display_boundaries(x_game, y_game, width, height, camera_x, camer
     value = value - 1  -- the 2 remaining cases are equal
   end
 
-  local bottom_text = fmt("%d.f", value)
+  local bottom_text = fmt("%04X.f", value)
   draw.text(draw.AR_x*(left+right)/2, draw.AR_y*bottom, bottom_text, false, false, 0.5, 0.0)
 
   return left, top
@@ -3005,7 +3011,9 @@ local function show_mouse_info()
   local bg_colour = change_transparency(COLOUR.background, Bg_opacity)
   
 	local x, y = User_input.xmouse + OPTIONS.left_gap, User_input.ymouse + OPTIONS.top_gap
-	local x_game, y_game = game_coordinates(User_input.xmouse, User_input.ymouse, Camera_x, Camera_y)
+  local camera_x = Game_mode == SMW.game_mode_level and Camera_x or s16(WRAM.layer1_x_mirror)
+  local camera_y = Game_mode == SMW.game_mode_level and Camera_y or s16(WRAM.layer1_y_mirror)
+	local x_game, y_game = game_coordinates(User_input.xmouse, User_input.ymouse, camera_x, camera_y)
 	if x_game < 0 then x_game = 0x10000 + x_game end
 	if y_game < 0 then y_game = 0x10000 + y_game end
   
@@ -3232,7 +3240,6 @@ function draw_blocked_status(x_text, y_text, player_blocked_status, x_speed, y_s
 
   gui.drawRectangle(xoffset + draw.Left_gap, yoffset + draw.Top_gap, block_width - 1, block_height - 1, 0x40000000, 0x40ff0000)
 
-  local blocked_status = {}
   local was_boosted = false
 
   if bit.test(player_blocked_status, 0) then  -- Right
@@ -4937,6 +4944,10 @@ local function overworld_mode()
   local height = BIZHAWK_FONT_HEIGHT
   local y_text = BIZHAWK_FONT_HEIGHT
 
+  -- OW camera (Note: the script uses $7E1462 and $7E1464 (layer 1 position next frame) for Camera_x and Camera_y, but the OW doesn't use these addresses)
+  local OW_camera_x = s16(WRAM.layer1_x_mirror)
+  local OW_camera_y = s16(WRAM.layer1_y_mirror)
+  
   -- Real frame modulo 8
   local real_frame_8 = Real_frame%8
   draw.text(draw.Buffer_width + draw.Border_right, y_text, fmt("Real Frame = %02X = %d(mod 8)", Real_frame, real_frame_8), true)
@@ -4979,7 +4990,96 @@ local function overworld_mode()
     draw.text(-draw.Border_left, y_text + byte_off*BIZHAWK_FONT_HEIGHT*1.5, triggered_str, COLOUR.yoshi)
   end
 
+  -- Level tiles info
+  draw.Text_opacity = 0.7
+  local level_x, level_y
+  local x_origin, y_origin = screen_coordinates(0, 0, OW_camera_x, OW_camera_y)
+  local offset
+  local parity256
+  
+  local is_submap = u8(WRAM.current_submap + u8(WRAM.current_character)) > 0
+  
+  for i = 0, 0x400 - 1 do
+    local address = WRAM.OW_tile_translevel + (is_submap and 0x400 or 0)
+    local level = u8(address + i)
+    
+    if level ~= 0 then -- is a valid level
+      
+      parity256 = (floor(i/0x100))%2
+      
+      -- Level coordinates relative to the camera, due x/y_origin
+      level_x = x_origin + 16*(i%0x10 + parity256*0x10)
+      level_y = y_origin + 16*(floor(i/0x10)%0x10 + (floor(i/0x200)%0x200)*0x10)      
+      
+      -- Submap correction
+      if floor(i/0x100) >= 4 then -- is a submap
+        level_y = level_y - 0x200
+      end
+      
+      -- Draw only if inside the game screen
+      if luap.inside_rectangle(level_x, level_y, 0, 0, 256 - 16, 224 - 16) then
+        draw.rectangle(level_x, level_y, 15, 15, COLOUR.block, 0)
+        draw.text(level_x*draw.AR_x, level_y*draw.AR_y - BIZHAWK_FONT_HEIGHT, fmt("%03X", level + (is_submap and 0xDC or 0)), COLOUR.text)
+      end
+    end
+  end  
+  
+  --[[
+  
+  for i = 0, 0x800 - 1 do
+    
+    if u8(0xD000 + i) ~= 0 then -- is a level -- TODO: unlisted ram
+      
+      parity256 = (floor(i/0x100))%2
+      
+      level_x = x_origin + 16*(i%0x10 + parity256*0x10)
+      level_y = y_origin + 16*(floor(i/0x10)%0x10 + (floor(i/0x200)%0x200)*0x10)      
+      
+      if floor(i/0x100) >= 4 then -- is a submap
+        level_y = level_y - 0x200
+      end
+      
+      draw.rectangle(level_x, level_y, 15, 15, COLOUR.block, 0)
+      draw.text(level_x*draw.AR_x, level_y*draw.AR_y - 10, fmt("%03X", u8(0xD000 + i)), COLOUR.text, 0)
+    end
+  end
+  
+  ]]
+  
 end
+
+-- layer 1 tiles = 0xC800 ---------------------------------------------------------
+-- tile translevels = 0xD000
+--[[
+local tile_table = {}
+tile_table[0] = {}
+tile_table[1] = {}
+local parity
+
+for i = 0, 0x800 - 1 do
+  parity = (floor(i/0x100))%2
+  
+  table.insert(tile_table[parity], fmt("%02X ", u8(0xD000 + i)))
+end
+
+
+local str = ""
+for i = 1, 0x40 do
+
+  str = ""
+  
+  for j = 1, 0x10 do
+    
+    str = str .. tile_table[0][(i-1)*0x10 + j]
+    
+  end
+  
+  print(str)
+  
+  if i%16 == 0 then print(" ") end
+end
+]]
+--------------------------
 
 
 local function left_click()
@@ -5081,7 +5181,11 @@ function Cheat.is_cheat_active()
   if Cheat.is_cheating then
     draw.Text_opacity = 1.0
     draw.Bg_opacity = 1.0
-    draw.alert_text(draw.Buffer_middle_x - 3*BIZHAWK_FONT_WIDTH, BIZHAWK_FONT_HEIGHT, " CHEAT ", COLOUR.warning, COLOUR.warning_bg)
+    
+    local cheat_str = " CHEAT "
+    if Cheat.under_free_move then cheat_str = cheat_str .. "- Free movement" end
+    
+    draw.alert_text(draw.Buffer_middle_x*draw.AR_x, -2, cheat_str, COLOUR.warning, COLOUR.warning_bg, false, 0.5, 1.0)
     Previous.is_cheating = true
   else
     if Previous.is_cheating then
@@ -5130,41 +5234,82 @@ end
 -- While active, press directionals to fly free and Y or X to boost him up
 Cheat.under_free_move = false
 function Cheat.free_movement()
+  -- Check cheat controller command
   if (Joypad["L"] and Joypad["R"] and Joypad["Up"]) then Cheat.under_free_move = true end
   if (Joypad["L"] and Joypad["R"] and Joypad["Down"]) then Cheat.under_free_move = false end
+  
+  -- Make sure to check/uncheck the cheat option in the Menu
+  if not Options_form.is_form_closed then
+    forms.setproperty(Options_form.free_movement, "Checked", Cheat.under_free_move)
+  end
+  
   if not Cheat.under_free_move then
     if Previous.under_free_move then w8(WRAM.frozen, 0) end
     return
   end
 
-  local x_pos, y_pos = u16(WRAM.x), u16(WRAM.y)
-  local movement_mode = u8(WRAM.player_animation_trigger)
-  local pixels = (Joypad["Y"] and 7) or (Joypad["X"] and 4) or 1  -- how many pixels per frame
+  -- For levels
+  if Game_mode == SMW.game_mode_level then
+  
+    -- Get position and "speed"
+    local x_pos, y_pos = u16(WRAM.x), u16(WRAM.y)
+    local movement_mode = u8(WRAM.player_animation_trigger)
+    local pixels = (Joypad["Y"] and 7) or (Joypad["X"] and 4) or 1  -- how many pixels per frame
 
-  if Joypad["Left"] then x_pos = x_pos - pixels end
-  if Joypad["Right"] then x_pos = x_pos + pixels end
-  if Joypad["Up"] then y_pos = y_pos - pixels end
-  if Joypad["Down"] then y_pos = y_pos + pixels end
+    -- Interpret the movement
+    if Joypad["Left"] then x_pos = x_pos - pixels end
+    if Joypad["Right"] then x_pos = x_pos + pixels end
+    if Joypad["Up"] then y_pos = y_pos - pixels end
+    if Joypad["Down"] then y_pos = y_pos + pixels end
 
-  -- freeze player to avoid deaths
-  if movement_mode == 0 then
-    w8(WRAM.frozen, 1)
-    w8(WRAM.x_speed, 0)
-    w8(WRAM.y_speed, 0)
+    -- Freeze player to avoid deaths
+    if movement_mode == 0 then
+      w8(WRAM.frozen, 1)
+      w8(WRAM.x_speed, 0)
+      w8(WRAM.y_speed, 0)
 
-    -- animate sprites by incrementing the effective frame
-    w8(WRAM.effective_frame, (u8(WRAM.effective_frame) + 1) % 256)
-  else
-    w8(WRAM.frozen, 0)
+      -- animate sprites by incrementing the effective frame
+      w8(WRAM.effective_frame, (u8(WRAM.effective_frame) + 1) % 256)
+    else
+      w8(WRAM.frozen, 0)
+    end
+
+    -- Store the values
+    w16(WRAM.x, x_pos)
+    w16(WRAM.y, y_pos)
+    w8(WRAM.invisibility_timer, 127)
+    w8(WRAM.vertical_scroll_flag_header, 1)  -- free vertical scrolling
+    w8(WRAM.vertical_scroll_enabled, 1)
+  
+  -- For the overworld
+  elseif Game_mode == SMW.game_mode_overworld then
+    
+    -- Get character offset
+    local offset = 0
+    if Current_character == "Luigi" then offset = 4 end
+    
+    -- Get position and "speed"
+    local x_pos, y_pos = u16(WRAM.OW_x + offset), u16(WRAM.OW_y + offset)
+    local pixels = 16 -- how many pixels per frame
+
+    -- Interpret the movement
+    if Joypad["Left"] then x_pos = x_pos - pixels end
+    if Joypad["Right"] then x_pos = x_pos + pixels end
+    if Joypad["Up"] then y_pos = y_pos - pixels end
+    if Joypad["Down"] then y_pos = y_pos + pixels end
+    
+    -- Prevent normal level walking
+    w8(WRAM.OW_action_pointer, 3) -- #$03 = Standing still on a level tile
+    
+    -- Store the values
+    --if u16(WRAM.OW_x + offset) ~= x_pos
+    if Effective_frame % 4 == 0 then
+      w16(WRAM.OW_x + offset, x_pos)
+      w16(WRAM.OW_y + offset, y_pos)
+    end
+    
   end
-
-  -- manipulate some values
-  w16(WRAM.x, x_pos)
-  w16(WRAM.y, y_pos)
-  w8(WRAM.invisibility_timer, 127)
-  w8(WRAM.vertical_scroll_flag_header, 1)  -- free vertical scrolling
-  w8(WRAM.vertical_scroll_enabled, 1)
-
+  
   Cheat.is_cheating = true
   Previous.under_free_move = true
 end
@@ -5661,6 +5806,12 @@ function Options_form.create_window()
   forms.setproperty(Options_form.player_y, "Enabled", Cheat.allow_cheats)
   forms.setproperty(Options_form.player_y_sub, "Enabled", Cheat.allow_cheats)
   
+  -- Free movement cheat
+  xform = xform + 60
+  Options_form.free_movement = forms.checkbox(Options_form.form, "Free movement", xform, yform)
+  forms.setproperty(Options_form.free_movement, "Checked", Cheat.under_free_move)
+  forms.setproperty(Options_form.free_movement, "Enabled", Cheat.allow_cheats)
+  
   forms.addclick(Options_form.allow_cheats, function() -- to enable/disable child options on click
     Cheat.allow_cheats = forms.ischecked(Options_form.allow_cheats) or false
     
@@ -5684,6 +5835,8 @@ function Options_form.create_window()
     forms.setproperty(Options_form.player_x_sub, "Enabled", Cheat.allow_cheats)
     forms.setproperty(Options_form.player_y, "Enabled", Cheat.allow_cheats)
     forms.setproperty(Options_form.player_y_sub, "Enabled", Cheat.allow_cheats)
+    
+    forms.setproperty(Options_form.free_movement, "Enabled", Cheat.allow_cheats)
   end)
   
   --- SCRIPT SETTINGS ---
@@ -5891,6 +6044,7 @@ end
 function Options_form.evaluate_form() -- TODO: ORGANIZE after all the menu changes
   -- Option form's buttons
   Cheat.allow_cheats = forms.ischecked(Options_form.allow_cheats) or false
+  Cheat.under_free_move = forms.ischecked(Options_form.free_movement) or false
   -- Show/hide
   OPTIONS.display_movie_info = forms.ischecked(Options_form.movie_info) or false
   OPTIONS.display_game_info = forms.ischecked(Options_form.game_info) or false
@@ -6090,6 +6244,8 @@ end
 --[[#############################################################################
 -- TODO
 
+- Add "warp to level" cheat: a dropdown list in the menu to select any level (by name, in the original game) and Mario warps directly into it. You just need to set the game_mode to 0x0B, set the respective submap, and set the OW player position accordingly
+- Add level editor (in real time): select a block, choose a Map16 index to replace the selected block, and maybe force a graphical reload by writing on VRAM
 - Add option for cape hitbox (using display_cape_hitbox), and with this changing the "Interaction" dropdown list to just a bunch of options
 - Add sprite to sprite hitbox (Amaraticando did for Lsnes)
 - Add the Lagmeter, without the scanline display, just the percentage with colours (BizHawk 2.3 has H and V registers but this version is very buggy)
