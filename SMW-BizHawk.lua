@@ -25,18 +25,18 @@ config.DEFAULT_OPTIONS = {
 
   -- Display -- TODO: ORGANIZE after all the Menu changes
   display_movie_info = true,
-  display_lag_indicator = true,  -- lsnes specific
+  display_lag_indicator = true,
   display_game_info = true,
   display_RNG_info = false,
   display_player_info = true,
   display_player_main_info = true,
-  display_player_hitbox = true,  -- can be changed by right-clicking on player
-  display_player_block_interaction = true,  -- can be changed by right-clicking on player
-  display_cape_hitbox = true, -- TODO: sue
+  display_player_hitbox = true,
+  display_player_block_interaction = true,
+  display_cape_hitbox = true,
   display_debug_player_extra = false,
   display_sprite_info = true,
   display_sprite_main_table = true,
-  display_sprite_hitbox = true,  -- you still have to select the sprite with the mouse
+  display_sprite_hitbox = true,
   display_sprite_vs_sprite_hitbox = false,
   display_debug_sprite_tweakers = false,
   display_debug_sprite_extra = false,
@@ -66,16 +66,12 @@ config.DEFAULT_OPTIONS = {
   display_overworld_info = true,
   display_event_table = true,
   display_controller_input = true,
-  display_static_camera_region = false,  -- shows the region in which the camera won't scroll horizontally
+  display_static_camera_region = false,
   register_player_position_changes = "simple",  -- valid options: false, "simple" and "complete"
   use_block_duplication_predictor = true,
   draw_tiles_with_click = true,
   display_mouse_coordinates = true,
-
-  -- Lag
-  use_lagmeter_tool = false,
-  use_custom_lag_detector = false,
-  use_custom_lagcount = false,
+  display_lagmeter = true,
 
   -- Some extra/debug info
   display_controller_data = false,
@@ -159,7 +155,15 @@ config.DEFAULT_COLOUR = {
   cape_bg = "#ffd70060",
 
   -- Sprites
-  sprites = {"#00ff00ff", "#0000ffff", "#ffff00ff", "#ff00ffff", "#b00040ff"},
+  sprites = {
+    0xff80FFFF, -- cyan
+    0xffA0A0FF, -- blue
+    0xffFF6060, -- red
+    0xffFF80FF, -- magenta
+    0xffFFA100, -- orange
+    0xffFFFF80, -- yellow
+    0xff40FF40  -- green
+  },
   sprites_interaction_pts = "#ffffffff",
   sprites_bg = "#0000b050",
   sprites_clipping_bg = "#000000a0",
@@ -1335,7 +1339,7 @@ function biz.game_name()
   return game_name
 end
 
--- Check the game map mode and the rom type (http://old.smwiki.net/wiki/Internal_ROM_Header)
+-- Check the game map mode and the rom type (https://snesdev.mesen.ca/wiki/index.php?title=Internal_ROM_Header)
 biz.map_mode_rom_type = memory.read_u16_be(0x007FD5, "CARTROM")
 
 
@@ -1655,18 +1659,25 @@ local u32 = mainmemory.read_u32_le
 local s32 = mainmemory.read_s32_le
 local w32 = mainmemory.write_u32_le
 
--- Check if it's Super Mario World (any version or hack) -- TODO: decide if will make it work for real for any hack or deprecate it forever
---[[
-if biz.game_name() ~= "SUPER MARIOWORLD" then 
-  if biz.map_mode_rom_type == 0x2334 or biz.map_mode_rom_type == 0x2335 then -- has SA-1, where the "SUPER MARIOWORLD" game name is overwritten
-    print("\nROM hack with SA-1 enhancement chip, currently not supported by this script. Contact the author about it here https://github.com/brunovalads/smw-stuff")
-  else
-    error("\n\nThis script is for Super Mario World only!") -- TODO: fix for some SMW hacks that can't be handled by biz.game_name()
-  end
-  --print("\n\nAre you sure this is a Super Mario World rom or hack?\nPerhaps it's a hack that uses SA-1, and this is script is not ready for it yet.")
-end]]
+-- Check if it's Super Mario World (any SNES version)
+local IS_SMW = false
+if biz.game_name() == "SUPER MARIOWORLD" then IS_SMW = true end
 
-print("\nSMW-BizHawk script starting at " .. os.date("%X")) -- %c for date and time
+-- Check if it's a SMW hack, by checking the Lunar Magic signature
+local IS_HACK = false
+local LM_signature = ""
+for i = 0x0, 0xA do
+  LM_signature = LM_signature .. string.char(memory.read_u8(0x07F0A0 + i, "CARTROM"))
+end
+if LM_signature == "Lunar Magic" then IS_HACK = true ; IS_SMW = true end -- if it's a Lunar Magic hack, definitely it's SMW
+
+-- Failsafe to prevent script running with other games
+if not IS_SMW then error("\n\nThis script is only for Super Mario World (any SNES version or hack)!\nIf you're sure this is a SMW hack, contact the script author here https://github.com/brunovalads/smw-stuff") end
+
+-- Checks if hack has SA-1
+local HAS_SA1 = false
+if biz.map_mode_rom_type == 0x2334 or biz.map_mode_rom_type == 0x2335 then HAS_SA1 = true end -- TODO: RAM ramaps https://github.com/VitorVilela7/SA1-Pack/blob/master/docs/remap.asm
+
 
 --#############################################################################
 -- SMW ADDRESSES AND CONSTANTS
@@ -1752,6 +1763,7 @@ local WRAM = {
   on_ground = 0x13ef,
   on_ground_delay = 0x008d,
   on_air = 0x0072,
+  on_water = 0x0075,
   can_jump_from_water = 0x13fa,
   carrying_item = 0x148f,
   player_pose_turning = 0x1499,
@@ -2355,6 +2367,7 @@ local Options_form = {}
 local Sprite_tables_form = {}
 local Item_box_table = {}
 local RNG = {}
+local Lagmeter = {}
 
 -- Initialization of some tables
 for i = 0, SMW.sprite_max -1 do -- sprite_max = 12
@@ -2876,6 +2889,22 @@ function RNG.create_lists()
   end
 end
 
+-- Get the master cycles for the Lagmeter
+Lagmeter.master_cycles = 0
+function Lagmeter.get_master_cycles()
+  local v, h = emu.getregister("V"), emu.getregister("H")
+  local master_cycles = v + 262 - 225
+
+  Lagmeter.master_cycles = 1364*master_cycles + h
+  if v >= 226 or (v == 225 and h >= 12) then
+    Lagmeter.master_cycles = Lagmeter.master_cycles - 2620
+    --print("Lagmeter (V, H):", v, h)
+  end
+  if v >= 248 then
+    Lagmeter.master_cycles = Lagmeter.master_cycles - 262*1364
+  end
+end
+
 
 local function show_movie_info()
   if not OPTIONS.display_movie_info then return end
@@ -3043,6 +3072,34 @@ local function show_controller_data()
 
   x = x_pos
   draw.over_text(x, y, 256*u8(WRAM.firstctrl_1_1) + u8(WRAM.firstctrl_1_2), "BYsS^v<>AXLR0123", 0, COLOUR.warning, 0)
+end
+
+
+-- Display Lagmeter
+function Lagmeter.show_lagmeter()
+  if OPTIONS.display_lagmeter then 
+    event.unregisterbyname("Lagmeter.getmastercycles00") -- \ since this runs every frame if toggled, it will avoid having more than one registered event for this
+    event.unregisterbyname("Lagmeter.getmastercycles80") -- / 
+    event.onmemoryexecute(Lagmeter.get_master_cycles, 0x008075, "Lagmeter.getmastercycles00") -- 0x008075 is the IRQ/NMI wait for the original game
+    event.onmemoryexecute(Lagmeter.get_master_cycles, 0x808075, "Lagmeter.getmastercycles80") -- 0x808075 is the IRQ/NMI wait for some hacks (including SA-1 apparently)
+  else
+    event.unregisterbyname("Lagmeter.getmastercycles00") -- \ to eliminate the event callbacks saving FPS
+    event.unregisterbyname("Lagmeter.getmastercycles80") -- / 
+    return
+  end
+  
+  -- Font
+  draw.Text_opacity = 0.9
+  local x_pos, y_pos = draw.Buffer_middle_x*draw.AR_x + 40, -draw.Border_top
+  
+  -- Adjust display colour based on value
+  local meter, colour = Lagmeter.master_cycles/3573.68
+  if meter < 70 then colour = 0xff00FF00
+  elseif meter < 90 then colour = 0xffFFFF00
+  elseif meter <= 100 then colour = 0xffFF0000
+  else colour = 0xffFF00FF end
+
+  draw.text(x_pos, y_pos, fmt("Lagmeter: %.2f%%", meter), colour)
 end
 
 
@@ -3509,6 +3566,7 @@ local function player()
   local item_box = u8(WRAM.item_box)
   local is_ducking = u8(WRAM.is_ducking)
   local on_ground = u8(WRAM.on_ground)
+  local on_water = u8(WRAM.on_water)
   local spinjump_flag = u8(WRAM.spinjump_flag)
   local can_jump_from_water = u8(WRAM.can_jump_from_water)
   local carrying_item = u8(WRAM.carrying_item)
@@ -3552,7 +3610,34 @@ local function player()
     draw.text(table_x, table_y + i*delta_y, fmt("Speed (   (      ), %s)", luap.signed8hex(y_speed_u, true)))
     draw.text(table_x, table_y + i*delta_y, fmt("       %s %s.%02x", luap.signed8hex(x_speed_u, true), luap.signed8hex(x_speed_int, true), x_speed_frac), colour)
     i = i + 1
-
+    
+    if on_water == 0 then -- Mario is not on water, where jumping is tied to swimming (TODO: maybe implement something about this)
+      local jump_speed_table = { -- TODO: implement exactly what the game does in CODE_00D630 and CODE_00D663
+        {A = -71, B = -77},
+        {A = -73, B = -79},
+        {A = -75, B = -82},
+        {A = -77, B = -84},
+        {A = -79, B = -87},
+        {A = -82, B = -89},
+        {A = -84, B = -92},
+        {A = -87, B = -94},
+        {A =   2, B =   3}
+      }
+      local jump_speed_index = floor(math.abs(x_speed)/8) + 1
+      if jump_speed_index > 9 then jump_speed_index = 9 end -- TODO: this is just a temporary workaround, REMOVE!
+      local jump_speed_A = jump_speed_table[jump_speed_index].A
+      local jump_speed_B = jump_speed_table[jump_speed_index].B
+      if Yoshi_riding_flag then 
+        if on_ground == 1 then 
+          jump_speed_A = -64
+        else
+          jump_speed_A = -96
+        end
+      end
+      draw.text(table_x, table_y + i*delta_y, fmt("Jump speed(A:%s, B:%s)", luap.signed8hex(bit.band(jump_speed_A, 0xFF), true), luap.signed8hex(bit.band(jump_speed_B, 0xFF), true)))
+      i = i + 1
+    end
+    
     if p_meter == 112 then colour = COLOUR.positive -- max pmeter
     elseif p_meter >= 106 then colour = "yellow" -- range of pmeter in a 6/5
     else colour = COLOUR.text end
@@ -4063,34 +4148,36 @@ local function draw_sprite_hitbox(slot)
     draw.pixel(x_screen, y_screen, info_color, COLOUR.very_weak)
   end
 
-  if not OPTIONS.display_sprite_hitbox then return end
+  -- Display main sprite hitbox
+  if OPTIONS.display_sprite_hitbox then
+    
+    if display_clipping then -- sprite clipping background
+      draw.box(x_screen + xpt_left, y_screen + ypt_down, x_screen + xpt_right, y_screen + ypt_up,
+        2, COLOUR.sprites_clipping_bg, display_hitbox and -1 or COLOUR.sprites_clipping_bg)
+    end
+
+    if display_hitbox then  -- show sprite-Mario hitbox
+      draw.rectangle(x_screen + xoff, y_screen + yoff, width, height, info_color, background_color)
+    end
+
+    if display_clipping then  -- show sprite/object clipping
+      local size, color = 1, COLOUR.sprites_interaction_pts
+      draw.line(x_screen + xpt_right, y_screen + ypt_right, x_screen + xpt_right - size, y_screen + ypt_right, color) -- right
+      draw.line(x_screen + xpt_left, y_screen + ypt_left, x_screen + xpt_left + size, y_screen + ypt_left, color)  -- left
+      draw.line(x_screen + xpt_down, y_screen + ypt_down, x_screen + xpt_down, y_screen + ypt_down - size, color) -- down
+      draw.line(x_screen + xpt_up, y_screen + ypt_up, x_screen + xpt_up, y_screen + ypt_up + size, color)  -- up
+    end
   
-  if display_clipping then -- sprite clipping background
-    draw.box(x_screen + xpt_left, y_screen + ypt_down, x_screen + xpt_right, y_screen + ypt_up,
-      2, COLOUR.sprites_clipping_bg, display_hitbox and -1 or COLOUR.sprites_clipping_bg)
   end
 
-  if display_hitbox then  -- show sprite/sprite clipping
-    draw.rectangle(x_screen + xoff, y_screen + yoff, width, height, info_color, background_color)
-  end
-
-  if display_clipping then  -- show sprite/object clipping
-    local size, color = 1, COLOUR.sprites_interaction_pts
-    draw.line(x_screen + xpt_right, y_screen + ypt_right, x_screen + xpt_right - size, y_screen + ypt_right, color) -- right
-    draw.line(x_screen + xpt_left, y_screen + ypt_left, x_screen + xpt_left + size, y_screen + ypt_left, color)  -- left
-    draw.line(x_screen + xpt_down, y_screen + ypt_down, x_screen + xpt_down, y_screen + ypt_down - size, color) -- down
-    draw.line(x_screen + xpt_up, y_screen + ypt_up, x_screen + xpt_up, y_screen + ypt_up + size, color)  -- up
-  end
-
-  -- Sprite vs sprite hitbox
+  -- Display sprite vs sprite hitbox
   if OPTIONS.display_sprite_vs_sprite_hitbox then
-    if u8(WRAM.sprite_sprite_contact + slot) == 0 and u8(WRAM.sprite_being_eaten_flag + slot) == 0
-    and bit.testn(u8(WRAM.sprite_5_tweaker + slot), 3) then
+    if u8(WRAM.sprite_sprite_contact + slot) == 0 and u8(WRAM.sprite_being_eaten_flag + slot) == 0 and not bit.test(u8(WRAM.sprite_5_tweaker + slot), 3) then
 
       local boxid2 = bit.band(u8(WRAM.sprite_2_tweaker + slot), 0x0f)
       local yoff2 = boxid2 == 0 and 2 or 0xa  -- ROM data
       local bg_color = t.status >= 8 and 0x80ffffff or 0x80ff0000
-      if Real_frame%2 == 0 then bg_color = -1 end
+      if Real_frame%2 == 0 then bg_color = 0x80808080 end
 
       -- if y1 - y2 + 0xc < 0x18
       draw.rectangle(x_screen, y_screen + yoff2, 0x10, 0x0c, 0xffffff)
@@ -5115,11 +5202,6 @@ local function mouse_actions()
   -- Font
   draw.Text_opacity = 1.0
 
-  if Cheat.allow_cheats then  -- show cheat status anyway
-    draw.alert_text(-draw.Border_left, draw.Buffer_height + draw.Border_bottom, "Cheats allowed!" .. (Movie_active and " Disable it while recording movies" or ""), COLOUR.warning, COLOUR.warning_bg,
-    true, false, 0.0, 1.0)
-  end
-
   -- Drag and drop sprites with the mouse
   if Cheat.is_dragging_sprite then
     Cheat.drag_sprite(Cheat.dragging_sprite_id)
@@ -5191,6 +5273,14 @@ function Cheat.is_cheat_active()
     if Previous.is_cheating then
       gui.addmessage("Script applied cheat") -- BizHawk
       Previous.is_cheating = false
+    end
+  end
+  
+  -- Warning
+  if Cheat.allow_cheats then
+    gui.drawText(OPTIONS.left_gap + draw.Buffer_middle_x - 56, OPTIONS.top_gap + draw.Buffer_height, "Cheats allowed!", COLOUR.warning, 0xA00040FF) --draw.Border_bottom
+    if Movie_active then
+      gui.drawText(OPTIONS.left_gap + draw.Buffer_middle_x - 124, OPTIONS.top_gap + draw.Buffer_height + 20, "Disable it while recording movies", COLOUR.warning, 0xA00040FF)
     end
   end
 end
@@ -5575,8 +5665,14 @@ function Options_form.create_window()
   Options_form.sprite_hitbox = forms.checkbox(Options_form.form, "Hitbox", xform, yform)
   forms.setproperty(Options_form.sprite_hitbox, "Checked", OPTIONS.display_sprite_hitbox)
   forms.setproperty(Options_form.sprite_hitbox, "Enabled", OPTIONS.display_sprite_info)
-
-  yform = yform + delta_y
+  
+  yform = yform + 1.2*delta_y
+  Options_form.sprite_vs_sprite_hitbox = forms.checkbox(Options_form.form, "Sprite vs sprite\nhitbox", xform, yform)
+  forms.setproperty(Options_form.sprite_vs_sprite_hitbox, "Checked", OPTIONS.display_sprite_vs_sprite_hitbox)
+  forms.setproperty(Options_form.sprite_vs_sprite_hitbox, "Enabled", OPTIONS.display_sprite_info)
+  forms.setproperty(Options_form.sprite_vs_sprite_hitbox, "AutoSize", true)
+  
+  yform = yform + 1.4*delta_y
   Options_form.sprite_spawning_areas = forms.checkbox(Options_form.form, "Spawning areas", xform, yform)
   forms.setproperty(Options_form.sprite_spawning_areas, "Checked", OPTIONS.display_sprite_spawning_areas)
   forms.setproperty(Options_form.sprite_spawning_areas, "Enabled", OPTIONS.display_sprite_info)
@@ -5605,6 +5701,7 @@ function Options_form.create_window()
     
     forms.setproperty(Options_form.sprite_main_table, "Enabled", OPTIONS.display_sprite_info)
     forms.setproperty(Options_form.sprite_hitbox, "Enabled", OPTIONS.display_sprite_info)
+    forms.setproperty(Options_form.sprite_vs_sprite_hitbox, "Enabled", OPTIONS.display_sprite_info)
     forms.setproperty(Options_form.sprite_spawning_areas, "Enabled", OPTIONS.display_sprite_info)
     forms.setproperty(Options_form.sprite_vanish_area, "Enabled", OPTIONS.display_sprite_info)
     forms.setproperty(Options_form.sprite_tables_button, "Enabled", OPTIONS.display_sprite_info)
@@ -5641,11 +5738,15 @@ function Options_form.create_window()
 
   yform = yform + delta_y
   Options_form.RNG_info = forms.checkbox(Options_form.form, "RNG predictor", xform, yform)
-  forms.setproperty(Options_form.level_boundary, "Checked", OPTIONS.display_RNG_info)
+  forms.setproperty(Options_form.RNG_info, "Checked", OPTIONS.display_RNG_info)
 
   yform = yform + delta_y
   Options_form.controller_data = forms.checkbox(Options_form.form, "Controller data", xform, yform)
   forms.setproperty(Options_form.controller_data, "Checked", OPTIONS.display_controller_data)
+
+  yform = yform + delta_y
+  Options_form.lagmeter = forms.checkbox(Options_form.form, "Lagmeter", xform, yform)
+  forms.setproperty(Options_form.lagmeter, "Checked", OPTIONS.display_lagmeter)
 
   if yform > y_bigger then y_bigger = yform end
   
@@ -5942,7 +6043,7 @@ end
 function Sprite_tables_form.create_window()
   if not Sprite_tables_form.is_form_closed then return end
 
-  -- Creat sprite tables form
+  -- Create sprite tables form
   local default_width, default_height = 700, 476
   if Sprite_tables_form.width == nil and Sprite_tables_form.height == nil then
     Sprite_tables_form.width, Sprite_tables_form.height = default_width, default_height
@@ -6027,7 +6128,6 @@ function Sprite_tables_form.create_window()
     if i%7 == 0 then yform = yform + delta_y ; xform = 4 end
   end
   
-  
   -- Info box with table description
   xform, yform = xform + 7*70, yform - 8.5*delta_y
   forms.label(Sprite_tables_form.form, "Click the address buttons on the left to\nsee the respective description here", xform, yform, 200, 30)
@@ -6035,7 +6135,7 @@ function Sprite_tables_form.create_window()
   --xform, yform = 498, 302
   
   Sprite_tables_form.description = forms.textbox(Sprite_tables_form.form, "", Sprite_tables_form.width - xform - 20, Sprite_tables_form.height - yform - 44, "", xform, yform, true, false, "Vertical")
-  
+  forms.setproperty(Sprite_tables_form.description, "ReadOnly", true)
   
   Sprite_tables_form.is_form_closed = false
 end
@@ -6054,6 +6154,7 @@ function Options_form.evaluate_form() -- TODO: ORGANIZE after all the menu chang
   OPTIONS.display_sprite_info = forms.ischecked(Options_form.sprite_info) or false
   OPTIONS.display_sprite_main_table = forms.ischecked(Options_form.sprite_main_table) or false
   OPTIONS.display_sprite_hitbox = forms.ischecked(Options_form.sprite_hitbox) or false
+  OPTIONS.display_sprite_vs_sprite_hitbox = forms.ischecked(Options_form.sprite_vs_sprite_hitbox) or false
   --OPTIONS.display_misc_sprite_table =  forms.ischecked(Options_form.sprite_tables) or false
   OPTIONS.display_sprite_data =  forms.ischecked(Options_form.sprite_data) or false
   OPTIONS.display_sprite_load_status =  forms.ischecked(Options_form.sprite_load_status) or false
@@ -6083,6 +6184,7 @@ function Options_form.evaluate_form() -- TODO: ORGANIZE after all the menu chang
   OPTIONS.display_debug_minor_extended_sprite = forms.ischecked(Options_form.debug_minor_extended_sprite) or false
   OPTIONS.display_debug_bounce_sprite = forms.ischecked(Options_form.debug_bounce_sprite) or false
   OPTIONS.display_controller_data = forms.ischecked(Options_form.controller_data) or false
+  OPTIONS.display_lagmeter = forms.ischecked(Options_form.lagmeter) or false
   -- Other buttons
   OPTIONS.draw_tiles_with_click = forms.ischecked(Options_form.draw_tiles_with_click) or false
   OPTIONS.display_mouse_coordinates = forms.ischecked(Options_form.mouse_coordinates) or false
@@ -6155,13 +6257,13 @@ function Sprite_tables_form.update_options()
   
 end
 
-
+-- Initialize forms
 Options_form.create_window()
 Options_form.is_form_closed = false
 Sprite_tables_form.is_form_closed = true
 
-
-event.unregisterbyname("smw-bizhawk-onexit")
+-- Functions to run when script is stopped or reset
+event.unregisterbyname("smw-bizhawk-onexit") -- to avoid having more than one registered event for this
 event.onexit(function()
   forms.destroyall()
 
@@ -6170,10 +6272,17 @@ event.onexit(function()
 
   config.save_options()
 
-  print("\nFinishing SMW-BizHawk script")
+  print("\nFinishing Super Mario World script.\n------------------------------------")
 end, "smw-bizhawk-onexit")
 
 
+-- Script load success message
+print("\n\nSuper Mario World script loaded successfully at " .. os.date("%X") .. ".\n") -- %c for date and time
+
+-- SMW hack warning message
+if IS_HACK then print("Caution: this is a SMW hack, thus the script might not support all its modifications and features!!") end
+
+-- Main script loop
 while true do
   if emu.getsystemid() ~= "SNES" then
     gui.text(0, 0, "WRONG CORE: " .. emu.getsystemid(), "black", "red", "bottomright")
@@ -6201,7 +6310,8 @@ while true do
     display_RNG()
     show_controller_data()
     show_mouse_info()
-
+    Lagmeter.show_lagmeter()
+    
     Cheat.is_cheat_active()
 
     mouse_actions()
@@ -6230,8 +6340,8 @@ while true do
       Cheat.is_cheating = false
     end
     
-    -- Checks if has SA-1 and prints a warning
-    if biz.map_mode_rom_type == 0x2334 or biz.map_mode_rom_type == 0x2335 then -- SA-1 -- TODO: sprite table ramap http://bowser.caffie.net/stuff/remap.asm
+    -- Prints SA-1 hack warning
+    if HAS_SA1 then
       draw.alert_text(draw.Border_left + draw.Buffer_middle_x*draw.AR_x, draw.Buffer_height*draw.AR_y, "ROM hack with SA-1 enhancement chip, currently not supported\n     by this script. Contact the script author about it.", COLOUR.warning, 0, false, 0.5)
     end
   end
@@ -6244,18 +6354,21 @@ end
 --[[#############################################################################
 -- TODO
 
+- Add RAM remaps for SA-1 hacks
+- Add function to check sprite data pointer against the table for hacks (pointer low and high byte at $05EC00 (2 bytes per level), pointer bank at $0EF100 (1 byte per level))
+- Add onmemoryexecute check to know exactly the level/room, instead of using sprite data pointer comparison
+
+
 - Add "warp to level" cheat: a dropdown list in the menu to select any level (by name, in the original game) and Mario warps directly into it. You just need to set the game_mode to 0x0B, set the respective submap, and set the OW player position accordingly
 - Add level editor (in real time): select a block, choose a Map16 index to replace the selected block, and maybe force a graphical reload by writing on VRAM
 - Add option for cape hitbox (using display_cape_hitbox), and with this changing the "Interaction" dropdown list to just a bunch of options
-- Add sprite to sprite hitbox (Amaraticando did for Lsnes)
-- Add the Lagmeter, without the scanline display, just the percentage with colours (BizHawk 2.3 has H and V registers but this version is very buggy)
-- Decide if will implement encoded sprite images
+- Decide if will implement encoded sprite images ("Sprite HEX to PNG.lua")
 - Add Generators info (me + Amaraticando https://github.com/rodamaral/smw-tas/commit/28747de755219968f39ad06455dab5701aef770a)
 - Add Yoshi cheats (Amaraticando https://github.com/rodamaral/smw-tas/commit/4854ea769a498606a395bf7fc0885318968a6e19)
 - Add cheat to stun sprites (Amaraticando https://github.com/rodamaral/smw-tas/commit/e3f3013761d0774cfe4323b472202ed94c23b7b0)
 - Add new figures to show when a sprite was licked or swallowed by Yoshi (Amaraticando https://github.com/rodamaral/smw-tas/commit/0f4e22c4088d237d7960002b25c5ce2f9d9c001e)
 - Add other sprites, like Score, Coin, etc (and change Menu options after that)
-
+- Add exceptions/warnings for older BizHawk versions
 
 
 
