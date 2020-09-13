@@ -165,7 +165,7 @@ config.DEFAULT_COLOUR = {
     0xff40FF40  -- green
   },
   sprites_interaction_pts = "#ffffffff",
-  sprites_bg = "#0000b050",
+  sprites_bg = "#0000b0A0",
   sprites_clipping_bg = "#000000a0",
   sprites_faint = "#00000010",
   sprite_vision_active = "#d00000ff",
@@ -235,6 +235,9 @@ local INPUT_KEYNAMES = {  -- BizHawk
 
 --#############################################################################
 -- INITIAL STATEMENTS
+
+-- Clear console mesages
+console.clear()
 
 -- Load environment
 package.path = "bizhawk/scripts/lib/?.lua" .. ";" .. package.path
@@ -2410,9 +2413,11 @@ local Nextframe, Starting_subframe_next_frame, Starting_subframe_next_frame, Fin
 local function bizhawk_status()
   Movie_active = movie.isloaded()  -- BizHawk
   Readonly = movie.getreadonly()  -- BizHawk
-  Framecount = movie.length()  -- BizHawk
+  if Movie_active then
+    Framecount = movie.length()  -- BizHawk
+    Rerecords = movie.getrerecordcount()  -- BizHawk
+  end
   Lagcount = emu.lagcount()  -- BizHawk
-  Rerecords = movie.getrerecordcount()  -- BizHawk
   Is_lagged = emu.islagged()  -- BizHawk
   Game_region = emu.getdisplaytype()  -- BizHawk
 
@@ -2926,7 +2931,7 @@ local function show_movie_info()
   -- Frame count
   x_text = x_text + width*(string.len(movie_type) + 1)
   local movie_info
-  if Readonly then
+  if Movie_active and Readonly then
     movie_info = string.format("%d/%d", Lastframe_emulated, Framecount)
   else
     movie_info = string.format("%d", Lastframe_emulated)
@@ -6258,6 +6263,7 @@ function Sprite_tables_form.update_options()
 end
 
 -- Initialize forms
+forms.destroyall() -- to prevent more than one forms (usually happens when script has an error)
 Options_form.create_window()
 Options_form.is_form_closed = false
 Sprite_tables_form.is_form_closed = true
@@ -6297,7 +6303,7 @@ while true do
     bizhawk_status()
     draw.bizhawk_screen_info()
     read_raw_input()
-
+    
     -- Drawings are allowed now
     scan_smw()
     level_mode()
