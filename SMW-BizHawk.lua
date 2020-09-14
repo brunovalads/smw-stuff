@@ -165,7 +165,7 @@ config.DEFAULT_COLOUR = {
     0xff40FF40  -- green
   },
   sprites_interaction_pts = "#ffffffff",
-  sprites_bg = "#0000b0A0",
+  sprites_bg = "#0000b070",
   sprites_clipping_bg = "#000000a0",
   sprites_faint = "#00000010",
   sprite_vision_active = "#d00000ff",
@@ -1302,7 +1302,7 @@ local biz = {}
 
 biz.is_bizhawk = (tastudio ~= nil)
 
-biz.minimum_supported_version = "1.11.0"
+biz.minimum_supported_version = "1.11.0" -- TODO: CHANGE THIS, DOESN'T WORK
 
 biz.is_old_version = (gui.drawAxis == nil) -- 1.11.0
 
@@ -1332,6 +1332,22 @@ function biz.check_emulator()
 
   end
 end
+
+-- Check which SNES core is running -- TODO: keep checking if Snes9x core (or some other) added this
+function biz.check_snes_core()
+  local snes_core = ""
+  local snes_registers = emu.getregisters()
+
+  if snes_registers.A then
+    snes_core = "bsnes"
+  else
+    snes_core = "Snes9x or Faust"
+  end
+  
+  return snes_core
+end
+
+biz.snes_core = biz.check_snes_core()
 
 -- Check the game name in ROM
 function biz.game_name()
@@ -3039,10 +3055,9 @@ local function show_mouse_info()
 	if not OPTIONS.display_mouse_coordinates then return end
 	
 	-- Font
-  Text_opacity = 1.0
-  Bg_opacity = 0.5
+  draw.Text_opacity = 1.0
 	local line_colour = COLOUR.weak
-  local bg_colour = change_transparency(COLOUR.background, Bg_opacity)
+  local bg_colour = change_transparency(COLOUR.background, draw.Bg_opacity)
   
 	local x, y = User_input.xmouse + OPTIONS.left_gap, User_input.ymouse + OPTIONS.top_gap
   local camera_x = Game_mode == SMW.game_mode_level and Camera_x or s16(WRAM.layer1_x_mirror)
@@ -3082,7 +3097,14 @@ end
 
 -- Display Lagmeter
 function Lagmeter.show_lagmeter()
-  if OPTIONS.display_lagmeter then 
+  if OPTIONS.display_lagmeter then
+    
+    -- Failsafe to prevent event.onmemoryexecute on other SNES cores, since it's not yet implemented by the emu
+    if biz.snes_core ~= "bsnes" then
+      draw.text(draw.Buffer_middle_x*draw.AR_x, -OPTIONS.top_gap, fmt("Lagmeter feature only works on bsnes core, please change first!"), COLOUR.warning, 0, false, false, 0.5)
+      return
+    end
+  
     event.unregisterbyname("Lagmeter.getmastercycles00") -- \ since this runs every frame if toggled, it will avoid having more than one registered event for this
     event.unregisterbyname("Lagmeter.getmastercycles80") -- / 
     event.onmemoryexecute(Lagmeter.get_master_cycles, 0x008075, "Lagmeter.getmastercycles00") -- 0x008075 is the IRQ/NMI wait for the original game
@@ -3111,7 +3133,7 @@ end
 -- Display the sprite level info (data and load status)
 local function sprite_level_info()
   if not OPTIONS.display_sprite_data and not OPTIONS.display_sprite_load_status then return end
-
+  
   draw.Text_opacity = 0.5
 
   -- Sprite load status enviroment
@@ -3133,17 +3155,23 @@ local function sprite_level_info()
 
   -- Sprite data enviroment
   local pointer = Sprite_data_pointer
-
+  
+  -- Convert pointer from SNES address to PC address (to use "CARTROM" instead of "System Bus") -- TODO: maybe make a function for this, if this conversion become necessary in other instances
+  local pointer_pc, pointer_pc_bank, pointer_pc_addr
+  pointer_pc_bank = floor(pointer/0x20000)
+  pointer_pc_addr = bit.band(pointer, 0xFFFF) - 0x8000*(floor(pointer/0x10000)+1)%2
+  pointer_pc = pointer_pc_bank*0x10000 + pointer_pc_addr  
+  
   -- Level scan
   local is_vertical = read_screens() == "Vertical"
 
   local sprite_counter = 0
   for id = 0, 0x80 - 1 do
     -- Sprite data
-    local byte_1 = memory.readbyte(pointer + 1 + id*3, "System Bus")
+    local byte_1 = memory.readbyte(pointer_pc + 1 + id*3, "CARTROM")
     if byte_1==0xff then break end -- end of sprite data for this level
-    local byte_2 = memory.readbyte(pointer + 2 + id*3, "System Bus")
-    local byte_3 = memory.readbyte(pointer + 3 + id*3, "System Bus")
+    local byte_2 = memory.readbyte(pointer_pc + 2 + id*3, "CARTROM")
+    local byte_3 = memory.readbyte(pointer_pc + 3 + id*3, "CARTROM")
 
     local sxpos, sypos
     if is_vertical then -- vertical
@@ -6363,7 +6391,7 @@ end
 - Add RAM remaps for SA-1 hacks
 - Add function to check sprite data pointer against the table for hacks (pointer low and high byte at $05EC00 (2 bytes per level), pointer bank at $0EF100 (1 byte per level))
 - Add onmemoryexecute check to know exactly the level/room, instead of using sprite data pointer comparison
-
+- Script is not running with Super Demo World
 
 - Add "warp to level" cheat: a dropdown list in the menu to select any level (by name, in the original game) and Mario warps directly into it. You just need to set the game_mode to 0x0B, set the respective submap, and set the OW player position accordingly
 - Add level editor (in real time): select a block, choose a Map16 index to replace the selected block, and maybe force a graphical reload by writing on VRAM
