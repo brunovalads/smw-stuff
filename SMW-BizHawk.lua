@@ -1349,17 +1349,25 @@ end
 
 biz.snes_core = biz.check_snes_core()
 
+-- Check the name of the ROM domain (might have a difference between different cores)
+local memory_domain_list = memory.getmemorydomainlist()
+local ROM_domain
+for key, domain in ipairs(memory_domain_list) do
+  if domain:find("ROM") then ROM_domain = domain ; break end
+end
+if ROM_domain == nil then error("This core doesn't have ROM domain exposed for the script, please change the core!") end
+
 -- Check the game name in ROM
 function biz.game_name()
   local game_name = ""
-  for i = 0, 15 do
-    game_name = game_name .. string.char(memory.read_u8(0x7FC0 + i, "CARTROM"))
+  for i = 0, 20 do
+    game_name = game_name .. string.char(memory.read_u8(0x7FC0 + i, ROM_domain))
   end
   return game_name
 end
 
 -- Check the game map mode and the rom type (https://snesdev.mesen.ca/wiki/index.php?title=Internal_ROM_Header)
-biz.map_mode_rom_type = memory.read_u16_be(0x007FD5, "CARTROM")
+biz.map_mode_rom_type = memory.read_u16_be(0x007FD5, ROM_domain)
 
 
 --&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -1665,28 +1673,29 @@ biz.check_emulator()
 bit.test = bit.check -- Bizhawk
 
 -- Compatibility of the memory read/write functions
-local u8 =  mainmemory.read_u8
-local s8 =  mainmemory.read_s8
-local w8 =  mainmemory.write_u8
-local u16 = mainmemory.read_u16_le
-local s16 = mainmemory.read_s16_le
-local w16 = mainmemory.write_u16_le
-local u24 = mainmemory.read_u24_le
-local s24 = mainmemory.read_s24_le
-local w24 = mainmemory.write_u24_le
-local u32 = mainmemory.read_u32_le
-local s32 = mainmemory.read_s32_le
-local w32 = mainmemory.write_u32_le
+memory.usememorydomain("WRAM")
+local u8 =  memory.read_u8
+local s8 =  memory.read_s8
+local w8 =  memory.write_u8
+local u16 = memory.read_u16_le
+local s16 = memory.read_s16_le
+local w16 = memory.write_u16_le
+local u24 = memory.read_u24_le
+local s24 = memory.read_s24_le
+local w24 = memory.write_u24_le
+local u32 = memory.read_u32_le
+local s32 = memory.read_s32_le
+local w32 = memory.write_u32_le
 
 -- Check if it's Super Mario World (any SNES version)
 local IS_SMW = false
-if biz.game_name() == "SUPER MARIOWORLD" then IS_SMW = true end
+if biz.game_name() == "SUPER MARIOWORLD     " then IS_SMW = true end
 
 -- Check if it's a SMW hack, by checking the Lunar Magic signature
 local IS_HACK = false
 local LM_signature = ""
 for i = 0x0, 0xA do
-  LM_signature = LM_signature .. string.char(memory.read_u8(0x07F0A0 + i, "CARTROM"))
+  LM_signature = LM_signature .. string.char(memory.read_u8(0x07F0A0 + i, ROM_domain))
 end
 if LM_signature == "Lunar Magic" then IS_HACK = true ; IS_SMW = true end -- if it's a Lunar Magic hack, definitely it's SMW
 
@@ -3146,7 +3155,7 @@ local function sprite_level_info()
       indexes[index] = true
     end
   end
-  local status_table = mainmemory.readbyterange(WRAM.sprite_load_status_table, 0x80)
+  local status_table = memory.readbyterange(WRAM.sprite_load_status_table, 0x80)
 
   local x_origin = 0
   local y_origin = OPTIONS.top_gap + draw.Buffer_height - 4*11
@@ -3156,11 +3165,12 @@ local function sprite_level_info()
   -- Sprite data enviroment
   local pointer = Sprite_data_pointer
   
-  -- Convert pointer from SNES address to PC address (to use "CARTROM" instead of "System Bus") -- TODO: maybe make a function for this, if this conversion become necessary in other instances
+  -- Convert pointer from SNES address to PC address (to use ROM_domain instead of "System Bus") -- TODO: maybe make a function for this, if this conversion become necessary in other instances
   local pointer_pc, pointer_pc_bank, pointer_pc_addr
   pointer_pc_bank = floor(pointer/0x20000)
   pointer_pc_addr = bit.band(pointer, 0xFFFF) - 0x8000*(floor(pointer/0x10000)+1)%2
   pointer_pc = pointer_pc_bank*0x10000 + pointer_pc_addr  
+  -- TODO: check if there's any hack that is HiROM, because conversion there is different thus this method will not work
   
   -- Level scan
   local is_vertical = read_screens() == "Vertical"
@@ -3168,10 +3178,10 @@ local function sprite_level_info()
   local sprite_counter = 0
   for id = 0, 0x80 - 1 do
     -- Sprite data
-    local byte_1 = memory.readbyte(pointer_pc + 1 + id*3, "CARTROM")
+    local byte_1 = memory.readbyte(pointer_pc + 1 + id*3, ROM_domain)
     if byte_1==0xff then break end -- end of sprite data for this level
-    local byte_2 = memory.readbyte(pointer_pc + 2 + id*3, "CARTROM")
-    local byte_3 = memory.readbyte(pointer_pc + 3 + id*3, "CARTROM")
+    local byte_2 = memory.readbyte(pointer_pc + 2 + id*3, ROM_domain)
+    local byte_3 = memory.readbyte(pointer_pc + 3 + id*3, ROM_domain)
 
     local sxpos, sypos
     if is_vertical then -- vertical
@@ -5094,7 +5104,7 @@ local function overworld_mode()
 
   -- Beaten exits table
   for byte_off = 0, 14 do
-    local event_flags = u8(WRAM.event_flags + byte_off)
+    local event_flags = u8(WRAM.event_flags + byte_off) -- TODO check if reading just once and storing in table is faster (could re-read once it detects new exits)
 
     draw.text(-draw.Border_left, y_text + byte_off*BIZHAWK_FONT_HEIGHT*1.5, fmt("%02X %02X %02X %02X %02X %02X %02X %02X ",
       8*byte_off + 0, 8*byte_off + 1, 8*byte_off + 2, 8*byte_off + 3, 8*byte_off + 4, 8*byte_off + 5, 8*byte_off + 6, 8*byte_off + 7), COLOUR.disabled)
@@ -5121,7 +5131,7 @@ local function overworld_mode()
   
   for i = 0, 0x400 - 1 do
     local address = WRAM.OW_tile_translevel + (is_submap and 0x400 or 0)
-    local level = u8(address + i)
+    local level = u8(address + i) -- TODO: perhaps it's faster reading it just once and storing in a table
     
     if level ~= 0 then -- is a valid level
       
@@ -5946,6 +5956,21 @@ function Options_form.create_window()
   forms.setproperty(Options_form.free_movement, "Checked", Cheat.under_free_move)
   forms.setproperty(Options_form.free_movement, "Enabled", Cheat.allow_cheats)
   
+  -- Debug/documentation cheat -- TODO: maybe make official, with: textbox for the address, checkbox for sprite table, dropdown for the slot (if is sprite table)
+  xform, yform = 4, yform + 1.5*delta_y                  -- CURRENTLY WORKING ON TONGUE POINTER!!!
+  Options_form.cheat_debug = forms.button(Options_form.form, "Tongue", function()
+    if Yoshi_id then-- CURRENTLY WORKING ON TONGUE POINTER!!!
+      Cheat.change_address(WRAM.sprite_misc_1594 + Yoshi_id, "debug_value", 1, true, nil, "Enter a valid integer (00-FF).", "$1594,x")-- CURRENTLY WORKING ON TONGUE POINTER!!!
+    else
+      print("This Tongue Pointer cheat only works if there's a slot with Yoshi!")-- CURRENTLY WORKING ON TONGUE POINTER!!!
+    end
+  end, xform, yform, 57, 24)
+  forms.setproperty(Options_form.cheat_debug, "Enabled", Cheat.allow_cheats)
+
+  xform = xform + 59
+  Options_form.debug_value = forms.textbox(Options_form.form, "", 30, 16, "HEX", xform, yform + 2, false, false)
+  forms.setproperty(Options_form.debug_value, "Enabled", Cheat.allow_cheats)
+  
   forms.addclick(Options_form.allow_cheats, function() -- to enable/disable child options on click
     Cheat.allow_cheats = forms.ischecked(Options_form.allow_cheats) or false
     
@@ -5971,6 +5996,9 @@ function Options_form.create_window()
     forms.setproperty(Options_form.player_y_sub, "Enabled", Cheat.allow_cheats)
     
     forms.setproperty(Options_form.free_movement, "Enabled", Cheat.allow_cheats)
+    
+    forms.setproperty(Options_form.cheat_debug, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.debug_value, "Enabled", Cheat.allow_cheats)
   end)
   
   --- SCRIPT SETTINGS ---
@@ -6309,8 +6337,39 @@ event.onexit(function()
   print("\nFinishing Super Mario World script.\n------------------------------------")
 end, "smw-bizhawk-onexit")
 
+-- Crash debug tests
+--[[
+event.onmemoryexecute(function()
+  -- Get JMP location
+  --local location = 0x10000 * emu.getregister("DB") + emu.getregister("A")
+  local location = u24(0x0000)
+  local isACE = bit.band(location, 0xffff) < 0x8000
+  local isBRK = memory.read_u8(location, "System Bus") == 0
+  -- log
+  print(fmt("Location: $%06X%s%s", location, isACE and " (ACE)" or "", isBRK and " (BRK)" or "" ))
+end, 0x0086F7, "executePtr") -- this address is for the JMP of the executePtr routine
+]]
+--[[
+local pointers_str = ""
+for A = 0, 0xFF do
+  local ptr = memory.read_u16_le(0x01F0CB + 2*A, "System Bus")
+  local isACE = bit.band(ptr, 0xffff) < 0x8000
+  pointers_str = pointers_str .. fmt("\n$01%04X%s", ptr, isACE and " (ACE)" or "")
+end
+print(pointers_str)
+]]
+--[[
+local scopes = event.availableScopes()
+print("\nScopes:")
+print(scopes)
+local registers = emu.getregisters()
+print("\nRegisters:")
+print(registers)]]
 
--- Script load success message
+
+
+
+-- Script load success message (NOTHING AFTER HERE, ONLY HACK WARNING AND MAIN SCRIPT LOOP)
 print("\n\nSuper Mario World script loaded successfully at " .. os.date("%X") .. ".\n") -- %c for date and time
 
 -- SMW hack warning message
@@ -6388,7 +6447,7 @@ end
 --[[#############################################################################
 -- TODO
 
-- Add RAM remaps for SA-1 hacks
+- Add RAM remaps for SA-1 hacks (USE THE "SMW-BizHawk SA-1.lua" SCRIPT TO SEE HOW I DID)
 - Add function to check sprite data pointer against the table for hacks (pointer low and high byte at $05EC00 (2 bytes per level), pointer bank at $0EF100 (1 byte per level))
 - Add onmemoryexecute check to know exactly the level/room, instead of using sprite data pointer comparison
 - Script is not running with Super Demo World
