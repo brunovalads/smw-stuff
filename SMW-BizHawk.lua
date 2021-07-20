@@ -67,10 +67,7 @@ config.DEFAULT_OPTIONS = {
   display_event_table = true,
   display_controller_input = true,
   display_static_camera_region = false,
-  register_player_position_changes = "simple",  -- valid options: false, "simple" and "complete"
   use_block_duplication_predictor = true,
-  draw_tiles_with_click = true,
-  display_mouse_coordinates = true,
   display_lagmeter = true,
 
   -- Some extra/debug info
@@ -88,26 +85,15 @@ config.DEFAULT_OPTIONS = {
   },
 
   -- Script settings
-  load_comparison_ghost = false,
-  show_comparison_ghost = true,
-  ghost_filename = false,  -- use the smw-tas.ini to edit this setting
-  make_lua_drawings_on_video = false,
-  use_custom_fonts = true,
-  text_background_type = "automatic",  -- valid options: "full", "outline" and "automatic"
+  draw_tiles_with_click = true,
   max_tiles_drawn = 20,  -- the max number of tiles to be drawn/registered by the script
-
-  -- Timer and Idle callbacks frequencies
-  timer_period = math.floor(1000000/30),  -- 30 hertz
-  idle_period = math.floor(1000000/10),  -- 10 hertz
-
-  -- Lateral gaps (initial values)
+  display_mouse_coordinates = true,
   left_gap = 8*(12 + 6),
   right_gap = (36*10/2)+2,  -- (36 maximum chars of the sprite info)*(10 pixels of BizHawk font width)/(2, the scale)+(2 to make it fit better)
   top_gap = 20,
   bottom_gap = 50,
-
-  -- other stuff
-  filter_opacity = 0
+  positions_in_hex = true,
+  speeds_in_hex = true,
 }
 
 -- Colour settings
@@ -2591,18 +2577,18 @@ local function display_boundaries(x_game, y_game, width, height, camera_x, camer
   local is_ducking = u8(WRAM.is_ducking)
   local powerup = Player_powerup
   local is_small = is_ducking ~= 0 or powerup == 0
-
+  
   -- Left
-  local left_text = string.format("%04X.0", width*floor(x_game/width) - 13)
+  local left_text = OPTIONS.positions_in_hex and fmt("%04X.0", bit.band(width*floor(x_game/width) - 13, 0xFFFF)) or fmt("%d.00", width*floor(x_game/width) - 13)
   draw.text(draw.AR_x*left, draw.AR_y*(top+bottom)/2, left_text, false, false, 1.0, 0.5)
 
   -- Right
-  local right_text = string.format("%04X.f", width*floor(x_game/width) + 12)
+  local right_text = OPTIONS.positions_in_hex and fmt("%04X.f", bit.band(width*floor(x_game/width) + 12, 0xFFFF)) or fmt("%d.15", width*floor(x_game/width) + 12)
   draw.text(draw.AR_x*right, draw.AR_y*(top+bottom)/2, right_text, false, false, 0.0, 0.5)
 
   -- Top
   local value = (Yoshi_riding_flag and y_game - 16) or y_game
-  local top_text = fmt("%04X.0", width*floor(value/width) - 32)
+  local top_text = OPTIONS.positions_in_hex and fmt("%04X.0", bit.band(width*floor(value/width) - 32, 0xFFFF)) or fmt("%d.00", width*floor(value/width) - 32)
   draw.text(draw.AR_x*(left+right)/2, draw.AR_y*top, top_text, false, false, 0.5, 1.0)
 
   -- Bottom
@@ -2614,8 +2600,7 @@ local function display_boundaries(x_game, y_game, width, height, camera_x, camer
   else
     value = value - 1  -- the 2 remaining cases are equal
   end
-
-  local bottom_text = fmt("%04X.f", value)
+  local bottom_text = OPTIONS.positions_in_hex and fmt("%04X.f", bit.band(value, 0xFFFF)) or fmt("%d.15", value)
   draw.text(draw.AR_x*(left+right)/2, draw.AR_y*bottom, bottom_text, false, false, 0.5, 0.0)
 
   return left, top
@@ -2708,7 +2693,8 @@ local function draw_layer1_tiles(camera_x, camera_y)
 
         -- Draw Map16 id
         if kind and x_mouse == positions[1] and y_mouse == positions[2] then
-          draw.text(draw.AR_x*(left + 4), draw.AR_y*top - BIZHAWK_FONT_HEIGHT, fmt("Map16 (%02X, %02X), %X%s", num_x, num_y, kind, address), true, false, 0.5, 1.0)
+          local position_str = fmt(OPTIONS.positions_in_hex and "(%02X, %02X)" or "(%d, %d)", num_x, num_y)
+          draw.text(draw.AR_x*(left + 4), draw.AR_y*top - BIZHAWK_FONT_HEIGHT, fmt("Map16 %s, %X%s", position_str, kind, address), true, false, 0.5, 1.0)
         end
       end
 
@@ -2924,7 +2910,7 @@ Lagmeter.master_cycles = 0
 function Lagmeter.get_master_cycles()
   local v, h = emu.getregister("V"), emu.getregister("H")
   local master_cycles = v + 262 - 225
-
+  
   Lagmeter.master_cycles = 1364*master_cycles + h
   if v >= 226 or (v == 225 and h >= 12) then
     Lagmeter.master_cycles = Lagmeter.master_cycles - 2620
@@ -2995,7 +2981,13 @@ local function show_game_info()
   draw.text(draw.Buffer_width + draw.Border_right, -draw.Border_top, main_info, true, false)
 
   if Game_mode == SMW.game_mode_level then
-    local x_cam_txt = draw.text(draw.Buffer_middle_x*draw.AR_x, 0, fmt("Camera (%04X, %04X)", Camera_x, Camera_y), COLOUR.text, true, false, 0.5)
+    local cam_str
+    if OPTIONS.positions_in_hex then
+      cam_str = fmt("Camera (%04X, %04X)", Camera_x, Camera_y)
+    else
+      cam_str = fmt("Camera (%d, %d)", Camera_x, Camera_y)
+    end
+    local x_cam_txt = draw.text(draw.Buffer_middle_x*draw.AR_x, 0, cam_str, COLOUR.text, true, false, 0.5)
     
     local vertical_scroll_flag_header = u8(WRAM.vertical_scroll_flag_header)
     local vertical_scroll_enabled = u8(WRAM.vertical_scroll_enabled)
@@ -3061,29 +3053,31 @@ end
 
 -- Display mouse coordinates right above it
 local function show_mouse_info()
-	if not OPTIONS.display_mouse_coordinates then return end
+  if not OPTIONS.display_mouse_coordinates then return end
 	
-	-- Font
+  -- Font
   draw.Text_opacity = 1.0
-	local line_colour = COLOUR.weak
+  local line_colour = COLOUR.weak
   local bg_colour = change_transparency(COLOUR.background, draw.Bg_opacity)
   
-	local x, y = User_input.xmouse + OPTIONS.left_gap, User_input.ymouse + OPTIONS.top_gap
+  local x, y = User_input.xmouse + OPTIONS.left_gap, User_input.ymouse + OPTIONS.top_gap
   local camera_x = Game_mode == SMW.game_mode_level and Camera_x or s16(WRAM.layer1_x_mirror)
   local camera_y = Game_mode == SMW.game_mode_level and Camera_y or s16(WRAM.layer1_y_mirror)
-	local x_game, y_game = game_coordinates(User_input.xmouse, User_input.ymouse, camera_x, camera_y)
-	if x_game < 0 then x_game = 0x10000 + x_game end
-	if y_game < 0 then y_game = 0x10000 + y_game end
+  local x_game, y_game = game_coordinates(User_input.xmouse, User_input.ymouse, camera_x, camera_y)
+  --if x_game < 0 then x_game = 0x10000 + x_game end
+  --if y_game < 0 then y_game = 0x10000 + y_game end
   
-	if User_input.mouse_inwindow then
-		-- Lines
+  if User_input.mouse_inwindow then
+    -- Lines
     draw.line(0 - OPTIONS.left_gap, y - OPTIONS.top_gap, draw.Screen_width, y - OPTIONS.top_gap, line_colour)
     draw.line(x - OPTIONS.left_gap, 0 - OPTIONS.top_gap, x - OPTIONS.left_gap, draw.Screen_height, line_colour)
     draw.cross(x, y, 3, COLOUR.warning)
     -- Coordinates
-    draw.text((x - OPTIONS.left_gap)*draw.AR_x, (y - OPTIONS.top_gap - 2*9)*draw.AR_y, fmt("emu (%d, %d)", x, y), COLOUR.text, bg_colour, true, false, 0.5)
-		draw.text((x - OPTIONS.left_gap)*draw.AR_x, (y - OPTIONS.top_gap + 9)*draw.AR_y, fmt("game ($%04X, $%04X)", x_game, y_game), COLOUR.text, bg_colour, true, false, 0.5)
-	end
+    local emu_pos_str = OPTIONS.positions_in_hex and fmt("emu (%04X, %04X)", bit.band(x, 0xFFFF), bit.band(y, 0xFFFF)) or fmt("emu (%d, %d)", x, y)
+    local game_pos_str = OPTIONS.positions_in_hex and fmt("game (%04X, %04X)", bit.band(x_game, 0xFFFF), bit.band(y_game, 0xFFFF)) or fmt("game (%d, %d)", x_game, y_game)
+    draw.text((x - OPTIONS.left_gap)*draw.AR_x, (y - OPTIONS.top_gap - 2*9)*draw.AR_y, emu_pos_str, COLOUR.text, bg_colour, true, false, 0.5)
+    draw.text((x - OPTIONS.left_gap)*draw.AR_x, (y - OPTIONS.top_gap + 9)*draw.AR_y, game_pos_str, COLOUR.text, bg_colour, true, false, 0.5)
+  end
 end
 
 
@@ -3113,7 +3107,7 @@ function Lagmeter.show_lagmeter()
       draw.text(draw.Buffer_middle_x*draw.AR_x, -OPTIONS.top_gap, fmt("Lagmeter feature only works on bsnes core, please change first!"), COLOUR.warning, 0, false, false, 0.5)
       return
     end
-  
+    
     event.unregisterbyname("Lagmeter.getmastercycles00") -- \ since this runs every frame if toggled, it will avoid having more than one registered event for this
     event.unregisterbyname("Lagmeter.getmastercycles80") -- / 
     event.onmemoryexecute(Lagmeter.get_master_cycles, 0x008075, "Lagmeter.getmastercycles00") -- 0x008075 is the IRQ/NMI wait for the original game
@@ -3254,7 +3248,12 @@ local function draw_boundaries()
 
   draw.box(xmin, ymin, xmax, ymax, COLOUR.warning2, 2)
   if draw.Border_bottom >= 64 then
-    local str = string.format("Death: %04X (%s/%s)", ymax + Camera_y, no_powerup and "No powerup" or "Big", Yoshi_riding_flag and "Yoshi" or "No Yoshi")
+    local str
+    if OPTIONS.positions_in_hex then
+      str = string.format("Death: %04X (%s/%s)", ymax + Camera_y, no_powerup and "No powerup" or "Big", Yoshi_riding_flag and "Yoshi" or "No Yoshi")
+    else
+      str = string.format("Death: %d (%s/%s)", ymax + Camera_y, no_powerup and "No powerup" or "Big", Yoshi_riding_flag and "Yoshi" or "No Yoshi")
+    end
     draw.text(xmin + 4, draw.AR_y*ymax + 2, str, COLOUR.warning2, true)
   end
 end
@@ -3280,7 +3279,8 @@ local function level_info()
     y_pos = y_pos + BIZHAWK_FONT_HEIGHT
     
     -- Number of screens within the level
-    draw.text(x_pos, y_pos, fmt("Screens(%02X/%02X, %02X/%02X)", hscreen_current, hscreen_number, vscreen_current, vscreen_number), true)
+    local screens_fmt_str = OPTIONS.positions_in_hex and "Screens(%02X/%02X, %02X/%02X)" or "Screens(%d/%d, %d/%d)"
+    draw.text(x_pos, y_pos, fmt(screens_fmt_str, hscreen_current, hscreen_number, vscreen_current, vscreen_number), true)
     y_pos = y_pos + BIZHAWK_FONT_HEIGHT
     
     -- Sprite buoyancy
@@ -3315,9 +3315,9 @@ local function level_info()
         draw.rectangle(screen_x, screen_y, 255, 255, COLOUR.screen_borders, 0)
         
         if level_type == "Horizontal" then
-          screen_str = fmt("%02X (%s)", screen_region_x, screen_region_y == 0 and "top" or "bottom")
+          screen_str = fmt((OPTIONS.positions_in_hex and "%02X" or "%d").." (%s)", screen_region_x, screen_region_y == 0 and "top" or "bottom")
         elseif level_type == "Vertical" then
-          screen_str = fmt("%02X (%s)", screen_region_y, screen_region_x == 0 and "left" or "right")
+          screen_str = fmt((OPTIONS.positions_in_hex and "%02X" or "%d").." (%s)", screen_region_y, screen_region_x == 0 and "left" or "right")
         end
         draw.rectangle(screen_x + 1, screen_y + 1, (string.len(screen_str)*BIZHAWK_FONT_WIDTH)/draw.AR_x, (BIZHAWK_FONT_HEIGHT + 4)/draw.AR_y, COLOUR.screen_borders, COLOUR.screen_borders)
         draw.text((screen_x + 1)*draw.AR_x, (screen_y + 1)*draw.AR_y, screen_str, COLOUR.text, COLOUR.screen_borders)
@@ -3643,15 +3643,33 @@ local function player()
     local table_x = - draw.Border_left
     local table_y = draw.AR_y*20
     local colour
-
-    draw.text(table_x, table_y + i*delta_y, fmt("Pos (%04X.%s, %04X.%s)", bit.band(x, 0xFFFF), x_sub_simple, bit.band(y, 0xFFFF), y_sub_simple)) -- bit.band 0xFFFF to handle negative position
+    
+    -- Handle dec/hex option for position
+    local position_str
+    if OPTIONS.positions_in_hex then
+      position_str = fmt("Pos (%04X.%s, %04X.%s)", bit.band(x, 0xFFFF), x_sub_simple, bit.band(y, 0xFFFF), y_sub_simple)-- bit.band 0xFFFF to handle negative position
+    else
+      --position_str = fmt("Pos (%d.%02d, %d.%02d", x, x_sub*100/256, y, y_sub*100/256)
+      --position_str = fmt("Pos (%d.%03d, %d.%03d)", x, x_sub, y, y_sub)
+      position_str = fmt("Pos (%d.%02d, %d.%02d)", x, x_sub/16, y, y_sub/16)
+    end
+    draw.text(table_x, table_y + i*delta_y, position_str)
     i = i + 1
 
+    -- Handle dec/hex option for position
+    local x_speed_str, y_speed_str
+    if OPTIONS.speeds_in_hex then
+      x_speed_str = fmt("       %s %s.%02x", luap.signed8hex(x_speed_u, true), luap.signed8hex(x_speed_int, true), x_speed_frac)
+      y_speed_str = luap.signed8hex(y_speed_u, true)
+    else
+      x_speed_str = fmt("       %+.2d %+.2d.%.2d", x_speed, x_speed, x_speed_frac/16)
+      y_speed_str = fmt("%+d", y_speed)
+    end
     if math.abs(x_speed) == 49 or math.abs(x_speed) == 51 then colour = COLOUR.positive -- max running and flying speed
     elseif (math.abs(x_speed) >= 35 and math.abs(x_speed) <= 37) or math.abs(x_speed) >= 47 then colour = "yellow" -- oscillating speeds
     else colour = COLOUR.text end
-    draw.text(table_x, table_y + i*delta_y, fmt("Speed (   (      ), %s)", luap.signed8hex(y_speed_u, true)))
-    draw.text(table_x, table_y + i*delta_y, fmt("       %s %s.%02x", luap.signed8hex(x_speed_u, true), luap.signed8hex(x_speed_int, true), x_speed_frac), colour)
+    draw.text(table_x, table_y + i*delta_y, fmt("Speed (   (      ), %s)", y_speed_str))
+    draw.text(table_x, table_y + i*delta_y, x_speed_str, colour)
     i = i + 1
     
     if on_water == 0 then -- Mario is not on water, where jumping is tied to swimming (TODO: maybe implement something about this)
@@ -3677,15 +3695,27 @@ local function player()
           jump_speed_A = -96
         end
       end
-      draw.text(table_x, table_y + i*delta_y, fmt("Jump speed(A:%s, B:%s)", luap.signed8hex(bit.band(jump_speed_A, 0xFF), true), luap.signed8hex(bit.band(jump_speed_B, 0xFF), true)))
+      local jump_speed_str
+      if OPTIONS.speeds_in_hex then
+        jump_speed_str = fmt("Jump speed (A:%s, B:%s)", luap.signed8hex(bit.band(jump_speed_A, 0xFF), true), luap.signed8hex(bit.band(jump_speed_B, 0xFF), true))
+      else
+        jump_speed_str = fmt("Jump speed (A:%+.2d, B:%+.2d)", jump_speed_A, jump_speed_B)
+      end
+      draw.text(table_x, table_y + i*delta_y, jump_speed_str)
       i = i + 1
     end
     
     if p_meter == 112 then colour = COLOUR.positive -- max pmeter
     elseif p_meter >= 106 then colour = "yellow" -- range of pmeter in a 6/5
     else colour = COLOUR.text end
-    draw.text(table_x, table_y + i*delta_y, fmt("P-meter (  )  %s", direction))
-    draw.text(table_x, table_y + i*delta_y, fmt("         %02X", p_meter), colour)
+    local p_meter_str
+    if OPTIONS.speeds_in_hex then
+      p_meter_str = fmt("%02X", p_meter)
+    else
+      p_meter_str = fmt("%d", p_meter)
+    end
+    draw.text(table_x, table_y + i*delta_y, fmt("P-meter (%s)  %s", string.rep(" ", p_meter_str:len()), direction))
+    draw.text(table_x + 9*delta_x, table_y + i*delta_y, p_meter_str, colour)
     draw.text(table_x + 18*delta_x, table_y + i*delta_y, fmt(" %+d", spin_direction), (is_spinning and COLOUR.text) or COLOUR.weak)
     i = i + 1
     
@@ -3731,8 +3761,8 @@ local function player()
     local center_cam = floor((left_cam + right_cam)/2)
     draw.box(left_cam, 0, right_cam, 224, COLOUR.static_camera_region, COLOUR.static_camera_region)
     draw.line(center_cam, 0, center_cam, 224, "black")
-    draw.text(draw.AR_x*left_cam, draw.Buffer_height*draw.AR_y, fmt("%02X", left_cam), COLOUR.text, 0x400020, false, false, 1, 0)
-    draw.text(draw.AR_x*right_cam, draw.Buffer_height*draw.AR_y, fmt("%02X", right_cam), COLOUR.text, 0x400020)
+    draw.text(draw.AR_x*left_cam, draw.Buffer_height*draw.AR_y, fmt(OPTIONS.positions_in_hex and "%02X" or "%d", left_cam), COLOUR.text, 0x400020, false, false, 1, 0)
+    draw.text(draw.AR_x*right_cam, draw.Buffer_height*draw.AR_y, fmt(OPTIONS.positions_in_hex and "%02X" or "%d", right_cam), COLOUR.text, 0x400020)
 
     -- Vertical scroll
     if vertical_scroll_flag_header ~= 0 then
@@ -3779,10 +3809,12 @@ local function extended_sprites()
       -- Read WRAM addresses
       local x = 256*u8(WRAM.extspr_x_high + id) + u8(WRAM.extspr_x_low + id)
       local y = 256*u8(WRAM.extspr_y_high + id) + u8(WRAM.extspr_y_low + id)
-      local sub_x = bit.rshift(u8(WRAM.extspr_subx + id), 4)
-      local sub_y = bit.rshift(u8(WRAM.extspr_suby + id), 4)
+      local x_sub = bit.rshift(u8(WRAM.extspr_subx + id), 4)
+      local y_sub = bit.rshift(u8(WRAM.extspr_suby + id), 4)
       local x_speed = s8(WRAM.extspr_x_speed + id)
+      local x_speed_u = u8(WRAM.extspr_x_speed + id)
       local y_speed = s8(WRAM.extspr_y_speed + id)
+      local y_speed_u = u8(WRAM.extspr_y_speed + id)
       local extspr_table = u8(WRAM.extspr_table + id)
       local extspr_table2 = u8(WRAM.extspr_table2 + id)
 
@@ -3793,15 +3825,24 @@ local function extended_sprites()
       end
 
       -- x speed for Fireballs
-      if extspr_number == 5 then x_speed = 16*x_speed end
+      if extspr_number == 5 then 
+        x_speed = 16*x_speed
+        x_speed_u = x_speed_u < 128 and 16*x_speed_u or 256 - 16*(256 - x_speed_u)
+      end
 
       -- Draw the table
       if OPTIONS.display_extended_sprite_info then
-        draw.text(draw.Buffer_width + draw.Border_right, y_pos + counter*height, fmt("#%.2d %.2x %s(%04X.%x(%+.2d), %04X.%x(%+.2d))",
-                                  id, extspr_number, special_info, x, sub_x, x_speed, y, sub_y, y_speed),
+        local x_pos_str = fmt(OPTIONS.positions_in_hex and "%04X.%x" or "%d.%02d", x, x_sub)
+        local y_pos_str = fmt(OPTIONS.positions_in_hex and "%04X.%x" or "%d.%02d", y, y_sub)
+        local x_spd_str = fmt(OPTIONS.speeds_in_hex and "%s" or "%+.2d", OPTIONS.speeds_in_hex and luap.signed8hex(x_speed_u, true) or x_speed)
+        local y_spd_str = fmt(OPTIONS.speeds_in_hex and "%s" or "%+.2d", OPTIONS.speeds_in_hex and luap.signed8hex(y_speed_u, true) or y_speed)
+        
+        draw.text(draw.Buffer_width + draw.Border_right, y_pos + counter*height, fmt("#%.2d %.2x %s(%s(%s), %s(%s))",
+                                  id, extspr_number, special_info, x_pos_str, x_spd_str, y_pos_str, y_spd_str),
                                   COLOUR.extended_sprites, true, false)
       end
-
+      
+      -- Draw info onscreen
       if OPTIONS.display_debug_extended_sprite or not SMW.uninteresting_extended_sprites[extspr_number]
         or (extspr_number == 1 and extspr_table2 == 0xf)
       then
@@ -3820,7 +3861,12 @@ local function extended_sprites()
           color_bg = (Real_frame - id)%4 == 0 and COLOUR.special_extended_sprite_bg or 0
         end
         draw.rectangle(x_screen+xoff, y_screen+yoff, xrad, yrad, color_line, color_bg) -- regular hitbox
-
+        
+        -- Draw slot near the extended sprite
+        if OPTIONS.display_debug_extended_sprite then
+          draw.text(draw.AR_x*(x_screen + xoff) + xrad, draw.AR_y*(y_screen + yoff), fmt("%02d", id), COLOUR.extended_sprites, false, false, 0.5, 1.0)
+        end
+        
         -- Experimental: attempt to show Mario's fireball vs sprites
         -- this is likely wrong in some situation, but I can't solve this yet
         if extspr_number == 5 or extspr_number == 1 then
@@ -3896,7 +3942,8 @@ local function cluster_sprites()
       end
       
       -- Draw the table
-      draw.text(x_pos, y_pos + counter*height, ("#%02d %X (%04X, %04X)%s"):format(id, clusterspr_number, x, y, special_info), color, false, true)
+      local position_str = fmt(OPTIONS.positions_in_hex and "(%04X, %04X)" or "(%d, %d)", x, y)
+      draw.text(x_pos, y_pos + counter*height, ("#%02d %X %s%s"):format(id, clusterspr_number, position_str, special_info), color, false, true)
       special_info = ""
       
       -- Case analysis
@@ -3962,7 +4009,8 @@ local function minor_extended_sprites()
       -- Read WRAM addresses
       local x = luap.signed16(256*u8(WRAM.minorspr_x_high + id) + u8(WRAM.minorspr_x_low + id))
       local y = luap.signed16(256*u8(WRAM.minorspr_y_high + id) + u8(WRAM.minorspr_y_low + id))
-      local xspeed, yspeed = s8(WRAM.minorspr_xspeed + id), s8(WRAM.minorspr_yspeed + id)
+      local x_speed, y_speed = s8(WRAM.minorspr_xspeed + id), s8(WRAM.minorspr_yspeed + id)
+      local x_speed_u, y_speed_u = u8(WRAM.minorspr_xspeed + id), u8(WRAM.minorspr_yspeed + id)
       local x_sub, y_sub = u8(WRAM.minorspr_x_sub + id), u8(WRAM.minorspr_y_sub + id)
       local timer = u8(WRAM.minorspr_timer + id)
 
@@ -3980,15 +4028,17 @@ local function minor_extended_sprites()
       end
       
       -- Draw info next to the minor extended sprite
-      local text = "#" .. id .. (timer ~= 0 and fmt(" (%d)",timer) or "")
-      draw.text(draw.AR_x*(x_screen + 8), draw.AR_y*(y_screen + 4), fmt("#%02d%s", id, special_info), COLOUR.minor_extended_sprites, false, false, 0.5, 1.0)
+      draw.text(draw.AR_x*(x_screen + 8), draw.AR_y*(y_screen + 4), fmt("%02d%s", id, special_info), COLOUR.minor_extended_sprites, false, false, 0.5, 1.0)
       if minorspr_number == 10 then  -- Boo stream
         draw.rectangle(x_screen + 4, y_screen + 4, 8, 8, COLOUR.minor_extended_sprites, COLOUR.sprites_bg)
       end
 
       -- Draw the table
-      draw.text(x_pos, y_pos + counter*height, ("#%02d %X%s (%04X.%x(%d), %04X.%x(%d))")
-      :format(id, minorspr_number, special_info, x, floor(x_sub/16), xspeed, y, floor(y_sub/16), yspeed), COLOUR.minor_extended_sprites)
+      local x_pos_str = fmt(OPTIONS.positions_in_hex and "%04X.%x" or "%d.%02d", x, floor(x_sub/16))
+      local y_pos_str = fmt(OPTIONS.positions_in_hex and "%04X.%x" or "%d.%02d", y, floor(y_sub/16))
+      local x_spd_str = fmt(OPTIONS.speeds_in_hex and "%s" or "%+.2d", OPTIONS.speeds_in_hex and luap.signed8hex(x_speed_u, true) or x_speed)
+      local y_spd_str = fmt(OPTIONS.speeds_in_hex and "%s" or "%+.2d", OPTIONS.speeds_in_hex and luap.signed8hex(y_speed_u, true) or y_speed)
+      draw.text(x_pos, y_pos + counter*height, ("#%02d %X%s (%s(%s), %s(%s))"):format(id, minorspr_number, special_info, x_pos_str, x_spd_str, y_pos_str, y_spd_str), COLOUR.minor_extended_sprites)
       
       counter = counter + 1
     end
@@ -4030,7 +4080,7 @@ local function bounce_sprite_info()
       x_screen, y_screen = draw.AR_x*(x_screen + 8), draw.AR_y*y_screen
       
       local color = id == stop_id and COLOUR.warning or COLOUR.text
-      draw.text(x_screen , y_screen, fmt("#%d%s", id,  bounce_timer ~= 0 and special_info or ""), color, false, false, 0.5)  -- timer
+      draw.text(x_screen , y_screen, fmt("%d%s", id,  bounce_timer ~= 0 and special_info or ""), color, false, false, 0.5)  -- timer
 
       -- Turn blocks
       if bounce_sprite_number == 7 then
@@ -4042,7 +4092,8 @@ local function bounce_sprite_info()
       end
       
       -- Draw the table
-      draw.text(x_txt, y_txt + counter*height, fmt("#%d %X%s (%04X, %04X)", id, bounce_sprite_number, special_info, x, y))
+      local position_str = fmt(OPTIONS.positions_in_hex and "(%04X, %04X)" or "(%d, %d)", x, y)
+      draw.text(x_txt, y_txt + counter*height, fmt("#%d %X%s %s", id, bounce_sprite_number, special_info, position_str))
       
       counter = counter + 1
     end
@@ -4080,10 +4131,11 @@ local function quake_sprite_info()
       draw.rectangle(x - Camera_x + hitbox.xoff, y - Camera_y + hitbox.yoff, hitbox.width, hitbox.height, COLOUR.quake_sprite, interact)
       
       -- Draw info next to the quake sprite
-      draw.text(draw.AR_x*(x - Camera_x), draw.AR_x*(y - Camera_y), fmt("#%d", id), COLOUR.quake_sprite)
+      draw.text(draw.AR_x*(x - Camera_x), draw.AR_x*(y - Camera_y), fmt("%d", id), COLOUR.quake_sprite)
       
       -- Draw the table
-      draw.text(x_txt, y_txt + counter*height, fmt("#%d %X (%d) (%04X, %04X)", id, sprite_number, quake_timer, x, y), COLOUR.quake_sprite, COLOUR.background, true)
+      local position_str = fmt(OPTIONS.positions_in_hex and "(%04X, %04X)" or "(%d, %d)", x, y)
+      draw.text(x_txt, y_txt + counter*height, fmt("#%d %X (%d) %s", id, sprite_number, quake_timer, position_str), COLOUR.quake_sprite, COLOUR.background, true)
       
       counter = counter + 1
     end
@@ -4260,11 +4312,19 @@ local function draw_sprite_spawn_despawn()
     draw.line(256 + right_line, -OPTIONS.top_gap, 256 + right_line, 224 + OPTIONS.bottom_gap, COLOUR.weak)
     draw.line(256 + right_line - 15, -OPTIONS.top_gap, 256 + right_line - 15, 224 + OPTIONS.bottom_gap, COLOUR.very_weak)
     
+    local left_str, right_str
+    if OPTIONS.positions_in_hex then
+      left_str = fmt("%04X", bit.band(Camera_x - left_line, 0xFFFF))
+      right_str = fmt("%04X", Camera_x + 256 + right_line)
+    else
+      left_str = fmt("%d", Camera_x - left_line)
+      right_str = fmt("%d", Camera_x + 256 + right_line)
+    end
     draw.text(-left_line*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 2*BIZHAWK_FONT_HEIGHT, "Spawn", COLOUR.weak, true, false, 1)
-    draw.text(-left_line*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 1*BIZHAWK_FONT_HEIGHT, fmt("%04X", bit.band(Camera_x - left_line, 0xFFFF)), COLOUR.weak, true, false, 1) -- bit.band 0xFFFF to handle negative values
+    draw.text(-left_line*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 1*BIZHAWK_FONT_HEIGHT, left_str, COLOUR.weak, true, false, 1) -- bit.band 0xFFFF to handle negative values
 
     draw.text((256+right_line)*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 2*BIZHAWK_FONT_HEIGHT, "Spawn", COLOUR.weak)
-    draw.text((256+right_line)*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 1*BIZHAWK_FONT_HEIGHT, fmt("%04X", Camera_x + 256 + right_line), COLOUR.weak)
+    draw.text((256+right_line)*draw.AR_x, draw.Buffer_height + draw.Border_bottom - 1*BIZHAWK_FONT_HEIGHT, right_str, COLOUR.weak)
   end
 end
 
@@ -4531,7 +4591,7 @@ special_sprite_property[0x7b] = function(slot) -- Goal Tape
   if OPTIONS.display_sprite_hitbox then
     draw.box(x_s, y_high, x_s + 15, y_s, info_color, COLOUR.goal_tape_bg)
   end
-  draw.text(draw.AR_x*x_s, draw.AR_y*t.y_screen, fmt("Touch=%04X.0->%04X.f", x_effective, x_effective + 15), info_color, false, false)
+  draw.text(draw.AR_x*x_s, draw.AR_y*t.y_screen, fmt("Touch="..(OPTIONS.positions_in_hex and "[%04X.0-%04X.f]" or "[%d.00-%d.15]"), x_effective, x_effective + 15), info_color, false, false)
 end
 
 special_sprite_property[0x86] = function(slot) -- Wiggler (segments)
@@ -4656,6 +4716,35 @@ special_sprite_property[0xae] = function(slot) -- Fishin' Boo
 
     draw.rectangle(x_screen + xoff, y_screen + 0x47, 4, 4, COLOUR.warning2, COLOUR.awkward_hitbox_bg)
   end
+end
+
+special_sprite_property[0xBC] = function(slot) -- Bowser Statue
+    
+    local x_screen = Sprites_info[slot].x_screen
+    local y_screen = Sprites_info[slot].y_screen
+    local info_color = Sprites_info[slot].info_color
+    
+    local statue_type = u8(WRAM.sprite_phase + slot)
+    
+    if statue_type < 2 then -- Fire-spitting statue
+        --[[
+        CODE_038ACB:        8A            TXA                       
+        CODE_038ACC:        0A            ASL                       
+        CODE_038ACD:        0A            ASL                       
+        CODE_038ACE:        65 13         ADC RAM_FrameCounter      ;\ if not time to spawn sprite,
+        CODE_038AD0:        29 7F         AND.B #$7F                ;/ return
+        CODE_038AD2:        D0 50         BNE Return038B24
+        it takes the sprite slot number, mutiply it by 4, add the real frame counter ($7E0013), bitwise AND it with 0x7F, if the result is zero and there's free slot it will shoot
+        ]]
+        -- Firebbal shooting timer (according to $038ACB)
+        local shooting_timer = 128 - bit.band(slot*4 + Real_frame, 0x7F)
+        draw.text(draw.AR_x*x_screen, draw.AR_y*y_screen, fmt("%d", shooting_timer), info_color)
+    else  -- Jumping statue
+        local jumping_timer = Sprites_info[slot].stun
+        if jumping_timer > 0 then
+            draw.text(draw.AR_x*x_screen, draw.AR_y*y_screen, fmt("%d", jumping_timer), info_color)
+        end
+    end
 end
 
 
@@ -5094,7 +5183,7 @@ local function overworld_mode()
 
   local OW_x = s16(WRAM.OW_x + offset)
   local OW_y = s16(WRAM.OW_y + offset)
-  draw.text(-draw.Border_left, y_text, fmt("Pos(%04X, %04X)", OW_x, OW_y), true)
+  draw.text(-draw.Border_left, y_text, fmt(OPTIONS.positions_in_hex and "Pos (%04X, %04X)" or "Pos (%d, %d)", OW_x, OW_y), true)
   y_text = y_text + 2*height
 
   -- Exit counter (events tiggered)
@@ -6087,6 +6176,19 @@ function Options_form.create_window()
   xform, yform = xform - 26, yform - 20
   forms.label(Options_form.form, "Emu gaps", xform, yform, 70, 20)
   
+  -- Positions/Speeds format display
+  xform, yform = 4, y_section + 2.5*delta_y
+  --positions_in_hex = true,
+  --speeds_in_hex = true,
+  Options_form.positions_in_hex = forms.checkbox(Options_form.form, "Show positions in hexadecimal", xform, yform)
+  forms.setproperty(Options_form.positions_in_hex, "Checked", OPTIONS.positions_in_hex)
+  forms.setproperty(Options_form.positions_in_hex, "AutoSize", true)
+  yform = yform + delta_y
+  Options_form.speeds_in_hex = forms.checkbox(Options_form.form, "Show speeds in hexadecimal", xform, yform)
+  forms.setproperty(Options_form.speeds_in_hex, "Checked", OPTIONS.speeds_in_hex)
+  forms.setproperty(Options_form.speeds_in_hex, "AutoSize", true)
+  
+  
   -- Help
   xform, yform = (form_width-16)/2 - 73/2, form_height - 70
   Options_form.write_help_handle = forms.button(Options_form.form, "Help", Options_form.write_help, xform, yform) -- TODO: maybe make a window instead of writing in the console
@@ -6252,6 +6354,8 @@ function Options_form.evaluate_form() -- TODO: ORGANIZE after all the menu chang
   local button_text = forms.gettext(Options_form.player_hitbox)
   OPTIONS.display_player_hitbox = button_text == "1. Hitbox + Blocks" or button_text == "2. Hitbox"
   OPTIONS.display_player_block_interaction = button_text == "1. Hitbox + Blocks" or button_text == "3. Blocks"
+  OPTIONS.positions_in_hex = forms.ischecked(Options_form.positions_in_hex) or false
+  OPTIONS.speeds_in_hex = forms.ischecked(Options_form.speeds_in_hex) or false
 end
 
 
@@ -6331,7 +6435,10 @@ event.onexit(function()
 
   client.SetGameExtraPadding(0, 0, 0, 0)
   client.SetClientExtraPadding(0, 0, 0, 0)
-
+  
+  gui.clearImageCache()
+  gui.clearGraphics()
+  
   config.save_options()
 
   print("\nFinishing Super Mario World script.\n------------------------------------")
@@ -6451,7 +6558,6 @@ end
 - Add function to check sprite data pointer against the table for hacks (pointer low and high byte at $05EC00 (2 bytes per level), pointer bank at $0EF100 (1 byte per level))
 - Add onmemoryexecute check to know exactly the level/room, instead of using sprite data pointer comparison
 - Script is not running with Super Demo World
-
 - Add "warp to level" cheat: a dropdown list in the menu to select any level (by name, in the original game) and Mario warps directly into it. You just need to set the game_mode to 0x0B, set the respective submap, and set the OW player position accordingly
 - Add level editor (in real time): select a block, choose a Map16 index to replace the selected block, and maybe force a graphical reload by writing on VRAM
 - Add option for cape hitbox (using display_cape_hitbox), and with this changing the "Interaction" dropdown list to just a bunch of options
@@ -6462,8 +6568,6 @@ end
 - Add new figures to show when a sprite was licked or swallowed by Yoshi (Amaraticando https://github.com/rodamaral/smw-tas/commit/0f4e22c4088d237d7960002b25c5ce2f9d9c001e)
 - Add other sprites, like Score, Coin, etc (and change Menu options after that)
 - Add exceptions/warnings for older BizHawk versions
-
-
-
+- Add debug window or option to display emu screen dimensions
 
 ]]
