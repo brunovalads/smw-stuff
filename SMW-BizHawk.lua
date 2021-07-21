@@ -61,6 +61,7 @@ config.DEFAULT_OPTIONS = {
   display_sprite_data = true,
   display_sprite_load_status = true,
   display_screen_info = false,
+  display_exit_info = true,
   display_yoshi_info = true,
   display_counters = true,
   display_overworld_info = true,
@@ -1727,6 +1728,7 @@ local WRAM = {
   OW_tile_translevel = 0xD000, -- 0x800 bytes table
   OW_action_pointer = 0x13D9,
   OW_player_animation = 0x1F13, -- 2 bytes for Mario, 2 bytes for Luigi
+  goal_exit_type = 0x141C,
 
   -- Camera
   layer1_x_mirror = 0x001a,
@@ -2481,15 +2483,25 @@ end
 -- SMW FUNCTIONS:
 
 
--- Returns the id of Yoshi; if more than one, the lowest sprite slot
-local function get_yoshi_id()
-  for i = 0, SMW.sprite_max - 1 do -- sprite_max = 12
-    local id = u8(WRAM.sprite_number + i)
-    local status = u8(WRAM.sprite_status + i)
-    if id == 0x35 and status ~= 0 then return i end
+-- Returns the slot(s) containing the sprite id, optionally you can chose the "lowest" or "highest" slot
+local function get_sprite_slot(sprite_id, option)
+  local slots_table = {}
+  local empty = true
+  -- Scan to find the sprite
+  for slot = 0, SMW.sprite_max - 1 do -- sprite_max = 12
+    local id = u8(WRAM.sprite_number + slot)
+    local status = u8(WRAM.sprite_status + slot)
+    if id == sprite_id and status ~= 0 then
+      table.insert(slots_table, slot)
+      empty = false
+    end
   end
-
-  return nil
+  -- Return the proper value(s) accordingly
+  if empty then return nil
+  elseif option == "lowest" then return slots_table[1]
+  elseif option == "highest" then return slots_table[#slots_table]
+  else return slots_table
+  end
 end
 
 
@@ -2542,7 +2554,7 @@ local function scan_smw()
   Player_powerup = u8(WRAM.powerup)
   Player_animation_trigger = u8(WRAM.player_animation_trigger)
   Yoshi_riding_flag = u8(WRAM.yoshi_riding_flag) ~= 0
-  Yoshi_id = get_yoshi_id()
+  Yoshi_id = get_sprite_slot(0x35, "lowest")
   Display.is_player_near_borders = Player_x_screen <= 32 or Player_x_screen >= 0xd0 or Player_y_screen <= -100 or Player_y_screen >= 224
 end
 
@@ -3325,6 +3337,38 @@ local function level_info()
     end
   end
   
+  --- Exit info
+  if OPTIONS.display_exit_info then
+    -- Amount of different exit-related sprites
+    y_pos = y_pos + BIZHAWK_FONT_HEIGHT
+    local goal_tape_slots = get_sprite_slot(0x7B)
+    local key_slots = get_sprite_slot(0x80)
+    local keyhole_slots = get_sprite_slot(0x0E)
+    local orb_slots = get_sprite_slot(0x4A)
+    local exit_sprites_str = fmt("Goal tapes: %d, Keys: %d, Keyholes: %d, Orbs: %d", goal_tape_slots and #goal_tape_slots or 0, key_slots and #key_slots or 0, keyhole_slots and #keyhole_slots or 0, orb_slots and #orb_slots or 0)
+    draw.text(draw.Buffer_width + draw.Border_right, y_pos, exit_sprites_str, COLOUR.text, true)
+    
+    -- Current exit info
+    y_pos = y_pos + BIZHAWK_FONT_HEIGHT
+    local current_exit_type = u8(WRAM.goal_exit_type) -- 0x00 = normal exit, 0x01 = secret exit, 0x02 = Submap Warp, 0x03~0x3F = glitched exit, 0x40~0xFF = UNOBTAINABLE/UNKNOWN -- TODO: figure out 0x40~0xFF
+    local current_exit_type_str
+    if current_exit_type == 0x00 then current_exit_type_str = "normal" elseif current_exit_type == 0x01 then current_exit_type_str = "secret"
+    elseif current_exit_type == 0x02 then current_exit_type_str = "Submap Warp" else current_exit_type_str = "glitched" end
+    draw.text(draw.Buffer_width + draw.Border_right, y_pos, fmt("Goal exit current type: %02X (%s)", current_exit_type, current_exit_type_str), COLOUR.text, true)
+    
+    -- Goal tape(s) info
+    if goal_tape_slots then
+      for goal = 1, #goal_tape_slots do
+        local slot = goal_tape_slots[goal]
+        local goal_type = u8(WRAM.sprite_misc_187b + slot) -- 0x00~0x03 = normal exit, 0x04~0x07 = secret exit, 0x08~0x0C = Submap Warp, 0x0D~0xFF = glitched exit
+        local exit_type = floor(goal_type/4)
+        local exit_type_str
+        if exit_type == 0x00 then exit_type_str = "normal" elseif exit_type == 0x01 then exit_type_str = "secret"
+        elseif exit_type == 0x02 then exit_type_str = "Submap Warp" else exit_type_str = "glitched" end
+        draw.text(draw.Buffer_width + draw.Border_right, y_pos + goal*BIZHAWK_FONT_HEIGHT, fmt("#%02d - $187B: %02X -> $141C: %02X (%s)", slot, goal_type, exit_type, exit_type_str), COLOUR.text, true)
+      end
+    end
+  end
 end
 
 
@@ -4587,7 +4631,6 @@ special_sprite_property[0x7b] = function(slot) -- Goal Tape
   local y_low = 256*u8(WRAM.sprite_misc_1534 + slot) + u8(WRAM.sprite_misc_1528 + slot)
   local _, y_high = screen_coordinates(0, 0, Camera_x, Camera_y)
   local x_s, y_s = screen_coordinates(x_effective, y_low, Camera_x, Camera_y)
-
   if OPTIONS.display_sprite_hitbox then
     draw.box(x_s, y_high, x_s + 15, y_s, info_color, COLOUR.goal_tape_bg)
   end
@@ -4829,39 +4872,6 @@ local function sprite_info(id, counter, table_position)
 
     draw.text(draw.Buffer_width + draw.Border_right, table_position + counter*BIZHAWK_FONT_HEIGHT, sprite_str, info_color, true)
   end
-  
-  -- Miscellaneous sprite table -- TODO
-  if OPTIONS.display_misc_sprite_table then
-    --[[
-    -- Font
-    draw.Text_opacity = 0.6
-    local x_mis, y_mis = -draw.Border_left - 2*BIZHAWK_FONT_WIDTH, draw.AR_y*171 + counter*BIZHAWK_FONT_HEIGHT
-    
-    local miscs = {
-      WRAM.sprite_phase, WRAM.sprite_misc_1504, WRAM.sprite_misc_1510, WRAM.sprite_misc_151c, WRAM.sprite_misc_1528,
-      WRAM.sprite_misc_1534, WRAM.sprite_misc_1558, WRAM.sprite_blocked_status, WRAM.sprite_animation_timer,
-      WRAM.sprite_misc_1594, WRAM.sprite_misc_15ac, WRAM.sprite_misc_1602, WRAM.sprite_misc_160e,
-      WRAM.sprite_misc_1626, WRAM.sprite_misc_163e, WRAM.sprite_misc_187b,
-    }
-
-    local text = ""
-    for i = 1, #miscs do
-      text = string.format("%s   %02X", text, u8(miscs[i] + id))
-    end
-    
-    draw.text(x_mis, y_mis, text, info_color)]]
-  
-    --[[
-
-    local t = OPTIONS.miscellaneous_sprite_table_number
-    local misc, text = nil, fmt("#%.2d", id)
-    for num = 1, 19 do
-      misc = t[num] and u8(WRAM["sprite_miscellaneous" .. num] + id) or false
-      text = misc and fmt("%s %3d", text, misc) or text
-    end
-
-    draw.text(x_mis, y_mis, text, info_color)]]
-  end
 
   return 1
 end
@@ -4931,7 +4941,7 @@ local function yoshi()
   local x_text = -draw.Border_left
   local y_text = draw.AR_y*80
 
-  local yoshi_id = get_yoshi_id()
+  local yoshi_id = get_sprite_slot(0x35, "lowest")
   if yoshi_id ~= nil then
     local tongue_len = u8(WRAM.sprite_misc_151c + yoshi_id)
     local tongue_timer = u8(WRAM.sprite_misc_1558 + yoshi_id)
@@ -5645,7 +5655,8 @@ function Cheat.change_address(address, value_form, size, is_hex, criterion, erro
 
   local memoryf = (size == 1 and w8) or (size == 2 and w16) or (size == 3 and w24) or error"size is too big"
   memoryf(address, new)
-  print(fmt("Cheat: %s set to %d.", success_message, new) or fmt("Cheat: set WRAM 0x%X to %d.", address, new))
+  local new_str = is_hex and fmt("0x%X", new) or fmt("%d", new)
+  print(fmt("Cheat: %s set to %s.", success_message, new_str) or fmt("Cheat: set WRAM $%X to %s.", address, new_str))
   Cheat.is_cheating = true
 end
 
@@ -5767,6 +5778,11 @@ function Options_form.create_window()
   Options_form.screen_info = forms.checkbox(Options_form.form, "Screen info", xform, yform)
   forms.setproperty(Options_form.screen_info, "Checked", OPTIONS.display_screen_info)
   forms.setproperty(Options_form.screen_info, "Enabled", OPTIONS.display_level_info)
+
+  yform = yform + delta_y
+  Options_form.exit_info = forms.checkbox(Options_form.form, "Exit info", xform, yform)
+  forms.setproperty(Options_form.exit_info, "Checked", OPTIONS.display_exit_info)
+  forms.setproperty(Options_form.exit_info, "Enabled", OPTIONS.display_level_info)
   
   forms.addclick(Options_form.level_info, function() -- to enable/disable child options on click
     OPTIONS.display_level_info = forms.ischecked(Options_form.level_info) or false
@@ -5776,6 +5792,7 @@ function Options_form.create_window()
     forms.setproperty(Options_form.sprite_data, "Enabled", OPTIONS.display_level_info)
     forms.setproperty(Options_form.sprite_load_status, "Enabled", OPTIONS.display_level_info)
     forms.setproperty(Options_form.screen_info, "Enabled", OPTIONS.display_level_info)
+    forms.setproperty(Options_form.exit_info, "Enabled", OPTIONS.display_level_info)
   end)
   
   if yform > y_bigger then y_bigger = yform end
@@ -5953,7 +5970,7 @@ function Options_form.create_window()
   
   --- CHEATS ---
   
-  y_section = y_bigger + 2*delta_y
+  y_section = y_bigger + 1.5*delta_y
   xform, yform = 4, y_section
   Options_form.allow_cheats = forms.checkbox(Options_form.form, "Cheats", xform + 214, yform)
   forms.setproperty(Options_form.allow_cheats, "Checked", Cheat.allow_cheats)
@@ -6045,8 +6062,27 @@ function Options_form.create_window()
   forms.setproperty(Options_form.free_movement, "Checked", Cheat.under_free_move)
   forms.setproperty(Options_form.free_movement, "Enabled", Cheat.allow_cheats)
   
+  -- Goal Tape type cheat
+  xform, yform = 4, yform + 28
+  Options_form.cheat_goal_tape = forms.button(Options_form.form, "Goal Tape type", function()
+    local goal_tape_slots = get_sprite_slot(0x7B)
+    if goal_tape_slots then
+      for goal = 1, #goal_tape_slots do
+        local slot = goal_tape_slots[goal]
+        Cheat.change_address(WRAM.sprite_misc_187b + slot, "goal_tape_type", 1, true, nil, "Enter a valid integer (00-FF).", fmt("Goal Tape type on slot #%02d", slot))
+      end
+    else
+      print("This Goal Tape type cheat only works if there's a slot with a Goal Tape!")
+    end
+  end, xform, yform, 88, 24)
+  forms.setproperty(Options_form.cheat_goal_tape, "Enabled", Cheat.allow_cheats)
+
+  xform = xform + 90
+  Options_form.goal_tape_type = forms.textbox(Options_form.form, "", 28, 16, "HEX", xform, yform + 2, false, false)
+  forms.setproperty(Options_form.goal_tape_type, "Enabled", Cheat.allow_cheats)
+  
   -- Debug/documentation cheat -- TODO: maybe make official, with: textbox for the address, checkbox for sprite table, dropdown for the slot (if is sprite table)
-  xform, yform = 4, yform + 1.5*delta_y                  -- CURRENTLY WORKING ON TONGUE POINTER!!!
+  xform, yform = 4, yform + 28                 -- CURRENTLY WORKING ON TONGUE POINTER!!!
   Options_form.cheat_debug = forms.button(Options_form.form, "Tongue", function()
     if Yoshi_id then-- CURRENTLY WORKING ON TONGUE POINTER!!!
       Cheat.change_address(WRAM.sprite_misc_1594 + Yoshi_id, "debug_value", 1, true, nil, "Enter a valid integer (00-FF).", "$1594,x")-- CURRENTLY WORKING ON TONGUE POINTER!!!
@@ -6086,13 +6122,16 @@ function Options_form.create_window()
     
     forms.setproperty(Options_form.free_movement, "Enabled", Cheat.allow_cheats)
     
+    forms.setproperty(Options_form.cheat_goal_tape, "Enabled", Cheat.allow_cheats)
+    forms.setproperty(Options_form.goal_tape_type, "Enabled", Cheat.allow_cheats)
+    
     forms.setproperty(Options_form.cheat_debug, "Enabled", Cheat.allow_cheats)
     forms.setproperty(Options_form.debug_value, "Enabled", Cheat.allow_cheats)
   end)
   
   --- SCRIPT SETTINGS ---
   
-  xform, yform = 4, yform + 2*delta_y
+  xform, yform = 4, yform + 1.5*delta_y
   Options_form.script_settings_label = forms.label(Options_form.form, "Script settings", xform, yform)
   forms.setproperty(Options_form.script_settings_label, "AutoSize", true)
   forms.setlocation(Options_form.script_settings_label, (form_width-16)/2 - forms.getproperty(Options_form.script_settings_label, "Width")/2, yform)
@@ -6336,6 +6375,7 @@ function Options_form.evaluate_form() -- TODO: ORGANIZE after all the menu chang
   OPTIONS.use_block_duplication_predictor = forms.ischecked(Options_form.block_duplication_predictor) or false
   OPTIONS.display_level_boundary = forms.ischecked(Options_form.level_boundary) or false
   OPTIONS.display_screen_info = forms.ischecked(Options_form.screen_info) or false
+  OPTIONS.display_exit_info = forms.ischecked(Options_form.exit_info) or false
   OPTIONS.display_RNG_info = forms.ischecked(Options_form.RNG_info) or false
   OPTIONS.display_overworld_info = forms.ischecked(Options_form.overworld_info) or false
   -- Debug/Extra
@@ -6569,5 +6609,6 @@ end
 - Add other sprites, like Score, Coin, etc (and change Menu options after that)
 - Add exceptions/warnings for older BizHawk versions
 - Add debug window or option to display emu screen dimensions
+- Add options to poke values in the Sprite Tables, just like it was done in the Yoshi's Island script
 
 ]]
