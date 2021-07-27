@@ -1320,41 +1320,44 @@ function biz.check_emulator()
   end
 end
 
--- Check which SNES core is running -- TODO: keep checking if Snes9x core (or some other) added this
-function biz.check_snes_core()
-  local snes_core = ""
-  local snes_registers = emu.getregisters()
-
-  if snes_registers.A then
-    snes_core = "bsnes"
-  else
-    snes_core = "Snes9x or Faust"
+-- Check the name of the ROM domain (as it might have differences between cores)
+biz.memory_domain_list = memory.getmemorydomainlist()
+function biz.check_ROM_domain()
+  for key, domain in ipairs(biz.memory_domain_list) do
+    if domain:find("ROM") then return domain end
   end
+  --if didn't find ROM domain then 
+  error("This core doesn't have ROM domain exposed for the script, please change the core!")
+end
+
+biz.ROM_domain = biz.check_ROM_domain()
+
+-- Check which SNES core is running -- TODO: keep checking in newer versions if these cores changed their register names and exposed memory domains
+function biz.check_snes_core()
+  local snes_registers = emu.getregisters()
   
-  return snes_core
+  if snes_registers.A then
+    return "bsnes"
+  elseif table.concat(biz.memory_domain_list):find("CGRAM") then
+    return "Faust"
+  else
+    return "Snes9x"
+  end
 end
 
 biz.snes_core = biz.check_snes_core()
-
--- Check the name of the ROM domain (might have a difference between different cores)
-local memory_domain_list = memory.getmemorydomainlist()
-local ROM_domain
-for key, domain in ipairs(memory_domain_list) do
-  if domain:find("ROM") then ROM_domain = domain ; break end
-end
-if ROM_domain == nil then error("This core doesn't have ROM domain exposed for the script, please change the core!") end
 
 -- Check the game name in ROM
 function biz.game_name()
   local game_name = ""
   for i = 0, 20 do
-    game_name = game_name .. string.char(memory.read_u8(0x7FC0 + i, ROM_domain))
+    game_name = game_name .. string.char(memory.read_u8(0x7FC0 + i, biz.ROM_domain))
   end
   return game_name
 end
 
 -- Check the game map mode and the rom type (https://snesdev.mesen.ca/wiki/index.php?title=Internal_ROM_Header)
-biz.map_mode_rom_type = memory.read_u16_be(0x007FD5, ROM_domain)
+biz.map_mode_rom_type = memory.read_u16_be(0x007FD5, biz.ROM_domain)
 
 
 --&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -1682,7 +1685,7 @@ if biz.game_name() == "SUPER MARIOWORLD     " then IS_SMW = true end
 local IS_HACK = false
 local LM_signature = ""
 for i = 0x0, 0xA do
-  LM_signature = LM_signature .. string.char(memory.read_u8(0x07F0A0 + i, ROM_domain))
+  LM_signature = LM_signature .. string.char(memory.read_u8(0x07F0A0 + i, biz.ROM_domain))
 end
 if LM_signature == "Lunar Magic" then IS_HACK = true ; IS_SMW = true end -- if it's a Lunar Magic hack, definitely it's SMW
 
@@ -1966,7 +1969,7 @@ local SMW = {
 
 SMW.flight_actions = {[0] = "air ", "down", "sink", " up ", "end!" }
 
-SMW.debug_register_addresses = {
+SMW.debug_register_addresses = { -- TODO: find use for this, otherwise delete
   {"BUS", 0x004016, "JOYSER0"},
   {"BUS", 0x004017, "JOYSER1"},
   {"BUS", 0x004218, "Hardware Controller1 Low"},
@@ -3171,7 +3174,7 @@ local function sprite_level_info()
   -- Sprite data enviroment
   local pointer = Sprite_data_pointer
   
-  -- Convert pointer from SNES address to PC address (to use ROM_domain instead of "System Bus") -- TODO: maybe make a function for this, if this conversion become necessary in other instances
+  -- Convert pointer from SNES address to PC address (to use biz.ROM_domain instead of "System Bus") -- TODO: maybe make a function for this, if this conversion become necessary in other instances
   local pointer_pc, pointer_pc_bank, pointer_pc_addr
   pointer_pc_bank = floor(pointer/0x20000)
   pointer_pc_addr = bit.band(pointer, 0xFFFF) - 0x8000*(floor(pointer/0x10000)+1)%2
@@ -3184,10 +3187,10 @@ local function sprite_level_info()
   local sprite_counter = 0
   for id = 0, 0x80 - 1 do
     -- Sprite data
-    local byte_1 = memory.readbyte(pointer_pc + 1 + id*3, ROM_domain)
+    local byte_1 = memory.readbyte(pointer_pc + 1 + id*3, biz.ROM_domain)
     if byte_1==0xff then break end -- end of sprite data for this level
-    local byte_2 = memory.readbyte(pointer_pc + 2 + id*3, ROM_domain)
-    local byte_3 = memory.readbyte(pointer_pc + 3 + id*3, ROM_domain)
+    local byte_2 = memory.readbyte(pointer_pc + 2 + id*3, biz.ROM_domain)
+    local byte_3 = memory.readbyte(pointer_pc + 3 + id*3, biz.ROM_domain)
 
     local sxpos, sypos
     if is_vertical then -- vertical
@@ -6594,7 +6597,7 @@ end
 --[[#############################################################################
 -- TODO
 
-- Add RAM remaps for SA-1 hacks (USE THE "SMW-BizHawk SA-1.lua" SCRIPT TO SEE HOW I DID)
+- !!!! Add RAM remaps for SA-1 hacks, the SA-1 IRAM adresses should be called from System Bus starting at $3000 (need confirmation) (USE THE "SMW-BizHawk SA-1.lua" SCRIPT TO SEE HOW I DID)
 - Add function to check sprite data pointer against the table for hacks (pointer low and high byte at $05EC00 (2 bytes per level), pointer bank at $0EF100 (1 byte per level))
 - Add onmemoryexecute check to know exactly the level/room, instead of using sprite data pointer comparison
 - Script is not running with Super Demo World
