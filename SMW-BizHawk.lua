@@ -3748,7 +3748,11 @@ local function player()
 
     draw_blocked_status(table_x, table_y + i*delta_y, player_blocked_status, x_speed, y_speed)
     i = i + 1
-
+    
+    if powerup > 3 then -- PI
+        draw.text(table_x, table_y + i*delta_y, fmt("Powerup (%d)", powerup))
+    end
+    
     draw.Text_opacity = 0.6
     
     local item_box_sprite = item_box ~= 0 and fmt("%02X", (item_box + 0x73)%256) or "--"
@@ -6502,7 +6506,7 @@ end
 - Add option for cape hitbox (using display_cape_hitbox), and with this changing the "Interaction" dropdown list to just a bunch of options
 - Decide if will implement encoded sprite images ("Sprite HEX to PNG.lua")
 - Add Generators info (me + Amaraticando https://github.com/rodamaral/smw-tas/commit/28747de755219968f39ad06455dab5701aef770a)
-- Add Yoshi cheats (Amaraticando https://github.com/rodamaral/smw-tas/commit/4854ea769a498606a395bf7fc0885318968a6e19)
+- Add Yoshi swallow cheat (Amaraticando https://github.com/rodamaral/smw-tas/commit/4854ea769a498606a395bf7fc0885318968a6e19)
 - Add cheat to stun sprites (Amaraticando https://github.com/rodamaral/smw-tas/commit/e3f3013761d0774cfe4323b472202ed94c23b7b0)
 - Add new figures to show when a sprite was licked or swallowed by Yoshi (Amaraticando https://github.com/rodamaral/smw-tas/commit/0f4e22c4088d237d7960002b25c5ce2f9d9c001e)
 - Add other sprites, like Score, Coin, etc (and change Menu options after that)
@@ -6512,5 +6516,7 @@ end
 - Add rewind rerecord increment, if the emu doesn't include it
 - Add sprite spawning lines for vertical levels (also check those big levels in recent Lunar Magic versions)
 - Add despawning lines (horizontal and vertical)
+- Add some display to help Submap Warps, Wrong Warps, etc
 
+- Add "all exits" cheat, by filling the $7E1EA2 table (96 bytes) (probably with 0xBF, to enable all paths but avoiding setting the midway points) and the $7E1F02 table (15 bytes) (0xFF is good), and to make the layer 2 correct would need to fill $7F4000 with the exact bytes from a 96 exits save file, and to reload properly set 0x0B to the game mode ($7E0100)
 ]]
