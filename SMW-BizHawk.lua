@@ -19,63 +19,29 @@ config.ini_filename = "SMW-BizHawk-config.ini"
 config.ini_filepath = "./" .. config.ini_filename -- relative to the folder of the script
 
 config.DEFAULT_OPTIONS = {
-  -- Hotkeys  (look at the manual to see all the valid keynames)
+  --- Hotkeys  (look at the manual to see all the valid keynames)
   -- make sure that the hotkeys below don't conflict with previous bindings
   hotkey_increase_opacity = "equals",  -- to increase the opacity of the text: the '='/'+' key
-  hotkey_decrease_opacity = "minus",  -- to decrease the opacity of the text: the '_'/'-' key
+  hotkey_decrease_opacity = "minus",  -- to decrease the opacity of the text: the '-'/'_' key
 
-  -- Display -- TODO: ORGANIZE after all the Menu changes
-  display_movie_info = true,
-  display_lag_indicator = true,
-  display_game_info = true,
-  display_RNG_info = false,
+  --- Show/hide options
+  -- Player
   display_player_info = true,
   display_player_main_info = true,
+  display_yoshi_info = true,
   display_player_hitbox = true,
   display_player_block_interaction = true,
   display_cape_hitbox = true,
+  display_camera_region = false,
   display_debug_player_extra = false,
+  
+  -- Sprites
   display_sprite_info = true,
   display_sprite_main_table = true,
   display_sprite_hitbox = true,
   display_sprite_vs_sprite_hitbox = false,
-  display_debug_sprite_tweakers = false,
-  display_debug_sprite_extra = false,
-  display_other_sprites_info = true,
-  display_extended_sprite_info = true,
-  display_extended_sprite_hitbox = true,
-  display_debug_extended_sprite = false,
-  display_cluster_sprite_info = true,
-  display_cluster_sprite_hitbox = true,
-  display_debug_cluster_sprite = false,
-  display_minor_extended_sprite_info = true,
-  display_minor_extended_sprite_hitbox = true,
-  display_debug_minor_extended_sprite = false,
-  display_bounce_sprite_info = true,
-  display_debug_bounce_sprite = false,
-  display_quake_sprite_info = true,
-  display_level_info = true,
-  display_level_main_info = true,
-  display_level_boundary = false,
-  display_sprite_vanish_area = true,
   display_sprite_spawning_areas = true,
-  display_sprite_data = true,
-  display_sprite_load_status = true,
-  display_screen_info = false,
-  display_exit_info = true,
-  display_yoshi_info = true,
-  display_counters = true,
-  display_overworld_info = true,
-  display_event_table = true,
-  display_controller_input = true,
-  display_static_camera_region = false,
-  use_block_duplication_predictor = true,
-  display_lagmeter = true,
-
-  -- Some extra/debug info
-  display_controller_data = false,
-  debug_collision_routine = true,
-  register_ACE_debug_callback = true,  -- helps to see when some A.C.E. addresses are executed
+  display_sprite_vanish_area = true,
   display_misc_sprite_table = {
     [1] = false, 	[2] = false, 	[3] = false, 	[4] = true, 	[5] = false, 	[6] = false, 	[7] = false,
     [8] = false, 	[9] = false, 	[10] = false, 	[11] = false, 	[12] = true, 	[13] = true, 	[14] = true,
@@ -85,6 +51,39 @@ config.DEFAULT_OPTIONS = {
     [36] = false, 	[37] = false, 	[38] = true, 	[39] = false, 	[40] = false, 	[41] = false, 	[42] = false,
     [43] = false, 	[44] = false, 	[45] = false, 	[46] = true, 	[47] = false, 	[48] = false, 	[49] = false
   },
+  display_debug_sprite_tweakers = false,
+  display_debug_sprite_extra = false,
+  
+  -- General
+  display_game_info = true,
+  display_movie_info = true,
+  display_counters = true,
+  display_overworld_info = true,
+  use_block_duplication_predictor = true,
+  display_RNG_info = false,
+  display_controller_data = false,
+  display_lagmeter = true,
+  
+  -- Other sprites
+  display_other_sprites_info = true,
+  display_extended_sprite_info = true,
+  display_cluster_sprite_info = true,
+  display_minor_extended_sprite_info = false,
+  display_bounce_sprite_info = false,
+  display_quake_sprite_info = false,
+  display_debug_extended_sprite = false,
+  display_debug_cluster_sprite = false,
+  display_debug_minor_extended_sprite = false,
+  display_debug_bounce_sprite = false,
+  
+  -- Level
+  display_level_info = true,
+  display_level_main_info = true,
+  display_level_boundary = false,
+  display_sprite_data = true,
+  display_sprite_load_status = true,
+  display_screen_info = false,
+  display_exit_info = true,
 
   -- Script settings
   draw_tiles_with_click = true,
@@ -186,11 +185,8 @@ config.DEFAULT_COLOUR = {
   block_bg = "#22cc88a0",
   layer2_line = "#ff2060ff",
   layer2_bg = "#ff206040",
-  static_camera_region = "#40002040",
+  camera_region = "#40002040",
   screen_borders = "#0000FF80",
-
-  -- other stuff
-  filter_tonality = "#000000ff",
 }
 
 -- Input key names
@@ -223,9 +219,6 @@ local INPUT_KEYNAMES = {  -- BizHawk
 
 --#############################################################################
 -- INITIAL STATEMENTS
-
--- Clear console mesages
-console.clear()
 
 -- Load environment
 package.path = "bizhawk/scripts/lib/?.lua" .. ";" .. package.path
@@ -1274,38 +1267,14 @@ config.load_options(config.ini_filepath)
 
 local biz = {}
 
-biz.is_bizhawk = (tastudio ~= nil)
-
-biz.minimum_supported_version = "1.11.0" -- TODO: CHANGE THIS, DOESN'T WORK
-
-biz.is_old_version = (gui.drawAxis == nil) -- 1.11.0
-
--- Detect BizHawk features based on the changelog
--- http://tasvideos.org/BizHawk/ReleaseHistory.html
-biz.features = {
-  backcolour_default_arg = (emu.setislagged == nil), -- < 1.11.5 (should 1.11.4, but there's no way)
-  gui_text_backcolour = (gui.DrawFinish == nil), -- < 1.11.7
-  support_extra_padding = (client.SetGameExtraPadding ~= nil) and (gui.DrawFinish ~= nil), -- 1.11.7
-}
-
--- Check if the emulator version is supported
+-- Check if the script is running on BizHawk
 function biz.check_emulator()
-  if not biz.is_bizhawk then
-    if gui.text then
-      gui.text(0, 0, "This script works with BizHawk emulator.")
-      gui.text(0, 32, "Visit http://tasvideos.org/Bizhawk.html to download the latest version.")
-    end
-
-    error("This script works with BizHawk emulator.")
-
-  elseif biz.is_old_version then
-    gui.text(0, 0, "This script works with BizHawk " .. biz.minimum_supported_version .. " or superior.")
-    gui.text(0, 16, "Your version seems to be older.")
-    gui.text(0, 32, "Visit http://tasvideos.org/Bizhawk.html to download the latest version.")
-    error("This script works with BizHawk 1.11.0 or superior.")
-
+  local current_emu = luap.get_emulator_name()
+  if current_emu ~= "BizHawk" then
+    error("\n\nThis script only works with BizHawk emulator.\nVisit http://tasvideos.org/Bizhawk/ReleaseHistory.html to download the latest version.")
   end
 end
+biz.check_emulator()
 
 -- Check the name of the ROM domain (as it might have differences between cores)
 biz.memory_domain_list = memory.getmemorydomainlist()
@@ -1359,31 +1328,19 @@ local COLOUR = config.COLOUR
 -- Font settings
 local BIZHAWK_FONT_WIDTH = 10
 local BIZHAWK_FONT_HEIGHT = 14
-draw.CUSTOM_FONTS = {
-  [false] = { file = nil, height = BIZHAWK_FONT_HEIGHT, width = BIZHAWK_FONT_WIDTH }, -- this is the BizHawk default font
-
-  --snes9xlua =     { file = [[data/snes9xlua.font]],      height = 14, width = 10 },
-  --snes9xluaclever = { file = [[data/snes9xluaclever.font]],  height = 14, width = 08 }, -- quite pixelated
-  --snes9xluasmall =  { file = [[data/snes9xluasmall.font]],  height = 07, width = 05 },
-  --snes9xtext =    { file = [[data/snes9xtext.font]],     height = 09, width = 08 },
-  --verysmall =     { file = [[data/verysmall.font]],      height = 06, width = 04 }, -- broken, unless for numerals
-  --Uzebox6x8 =     { file = [[data/Uzebox6x8.font]],      height = 08, width = 06 },
-  --Uzebox8x12 =    { file = [[data/Uzebox8x12.font]],     height = 12, width = 08 },
-}
 
 -- Text/Background_max_opacity is only changed by the player using the hotkeys
 -- Text/Bg_opacity must be used locally inside the functions
-draw.Text_max_opacity = COLOUR.default_text_opacity
-draw.Background_max_opacity = COLOUR.default_bg_opacity
-draw.Outline_max_opacity = 1
-draw.Text_opacity = 1
-draw.Bg_opacity = 1
-
+draw.text_max_opacity = COLOUR.default_text_opacity
+draw.background_max_opacity = COLOUR.default_bg_opacity
+draw.text_opacity = 1
+draw.bg_opacity = 1
 
 -- Correct gui.text
 local function gui_text(x, y, text, forecolour, backcolour) -- TODO: get rid of this gui_text, replacing it with only the gui.text, since backcolour is an old thing
   gui.text(x, y, text, forecolour)
 end
+
 
 -- Get screen values of the game and emulator areas
 local function bizhawk_screen_info()
@@ -1409,18 +1366,17 @@ local function bizhawk_screen_info()
 end
 
 
+-- Change opacity
 local function increase_opacity()
-  if draw.Text_max_opacity <= 0.9 then draw.Text_max_opacity = draw.Text_max_opacity + 0.1
+  if draw.text_max_opacity <= 0.9 then draw.text_max_opacity = draw.text_max_opacity + 0.1
   else
-    if draw.Background_max_opacity <= 0.9 then draw.Background_max_opacity = draw.Background_max_opacity + 0.1 end
+    if draw.background_max_opacity <= 0.9 then draw.background_max_opacity = draw.background_max_opacity + 0.1 end
   end
 end
-
-
 local function decrease_opacity()
-  if  draw.Background_max_opacity >= 0.1 then draw.Background_max_opacity = draw.Background_max_opacity - 0.1
+  if  draw.background_max_opacity >= 0.1 then draw.background_max_opacity = draw.background_max_opacity - 0.1
   else
-    if draw.Text_max_opacity >= 0.1 then draw.Text_max_opacity = draw.Text_max_opacity - 0.1 end
+    if draw.text_max_opacity >= 0.1 then draw.text_max_opacity = draw.text_max_opacity - 0.1 end
   end
 end
 
@@ -1471,36 +1427,35 @@ local function put_on_screen(x, y, width, height)
 end
 
 
--- draw a pixel given (x,y) with SNES' pixel sizes
+-- Draw a pixel given (x,y) with SNES' pixel sizes
 local function pixel(x, y, colour, shadow)
   gui.drawRectangle(x + draw.Left_gap - 1, y + draw.Top_gap - 1, 2, 2, shadow or 0, colour)
 end
 
 
--- draws a line given (x,y) and (x',y') with given scale and SNES' pixel thickness
--- not necessary to draw from top-left to bottom-right in BizHawk
+-- Draws a line given (x,y) and (x',y')
 local function line(x1, y1, x2, y2, colour)
   gui.drawLine(x1 + draw.Left_gap, y1 + draw.Top_gap, x2 + draw.Left_gap, y2 + draw.Top_gap, colour)
 end
 
 
--- draws a box given (x,y) and (x',y') with SNES' pixel sizes
+-- Draws a box given (x,y) and (x',y')
 local function box(x1, y1, x2, y2, line_colour, bg_colour)
   gui.drawBox(x1 + draw.Left_gap, y1 + draw.Top_gap, x2 + draw.Left_gap, y2 + draw.Top_gap, line_colour, bg_colour)
 end
 
 
--- draws a rectangle given (x,y) and dimensions, with SNES' pixel sizes
+-- Draws a rectangle given (x,y) and dimensions
 local function rectangle(x, y, w, h, line_colour, bg_colour)
   gui.drawRectangle(x + draw.Left_gap, y + draw.Top_gap, w, h, line_colour, bg_colour)
 end
 
 
--- draws a cross sign given x, y, size[, and colour]
+-- Draws a cross sign given x, y, size[, and colour]
 draw.cross = gui.drawAxis
 
 
--- returns the (x, y) position to start the text and its length:
+-- Returns the (x, y) position to start the text and its length:
 -- number, number, number text_position(x, y, text, font_width, font_height[[[[, always_on_client], always_on_game], ref_x], ref_y])
 -- x, y: the coordinates that the refereed point of the text must have
 -- text: a string, don't make it bigger than the buffer area width and don't include escape characters
@@ -1579,8 +1534,8 @@ local function draw_text(x, y, text, ...)
                       always_on_client, always_on_game, ref_x, ref_y)
   ;
 
-  text_colour = change_transparency(text_colour, draw.Text_max_opacity * draw.Text_opacity)
-  bg_colour = change_transparency(bg_colour, draw.Text_max_opacity * draw.Text_opacity)
+  text_colour = change_transparency(text_colour, draw.text_max_opacity * draw.text_opacity)
+  bg_colour = change_transparency(bg_colour, draw.text_max_opacity * draw.text_opacity)
   gui_text(x_pos + draw.Border_left, y_pos + draw.Border_top, text, text_colour, bg_colour)
 
   return x_pos + length, y_pos + font_height, length
@@ -1595,8 +1550,8 @@ local function alert_text(x, y, text, text_colour, bg_colour, always_on_game, re
   local x_pos, y_pos, text_length = text_position(x, y, text, font_width, font_height, false, always_on_game, ref_x, ref_y)
 
   if not bg_colour then bg_colour = COLOUR.background end
-  text_colour = change_transparency(text_colour, draw.Text_max_opacity * draw.Text_opacity)
-  bg_colour = change_transparency(bg_colour, draw.Background_max_opacity * draw.Bg_opacity)
+  text_colour = change_transparency(text_colour, draw.text_max_opacity * draw.text_opacity)
+  bg_colour = change_transparency(bg_colour, draw.background_max_opacity * draw.bg_opacity)
 
   box(x_pos/draw.AR_x, y_pos/draw.AR_y, (x_pos + text_length)/draw.AR_x + 2, (y_pos + font_height)/draw.AR_y + 1, 0, bg_colour)
   gui_text(x_pos + draw.Border_left, y_pos + draw.Border_top, text, text_colour, 0)
@@ -1607,7 +1562,7 @@ local function over_text(x, y, value, base, colour_base, colour_value, colour_bg
   value = luap.decode_bits(value, base)
   local x_end, y_end, length = draw_text(x, y, base,  colour_base, colour_bg, always_on_client, always_on_game, ref_x, ref_y)
 
-  change_transparency(colour_value or COLOUR.text, draw.Text_max_opacity * draw.Text_opacity)
+  change_transparency(colour_value or COLOUR.text, draw.text_max_opacity * draw.text_opacity)
   gui_text(x_end + draw.Border_left - length, y_end + draw.Border_top - BIZHAWK_FONT_HEIGHT, value, colour_value, 0)
 
   return x_end, y_end, length
@@ -1626,13 +1581,13 @@ draw.pixel, draw.line, draw.rectangle, draw.box = pixel, line, rectangle, box
 --#############################################################################
 -- MORE INITIAL STATEMENTS
 
+-- Clear console mesages
+console.clear()
+
 local LEFT_ARROW = config.LEFT_ARROW
 local RIGHT_ARROW = config.RIGHT_ARROW
 
 config.raw_data = {["BIZHAWK OPTIONS"] = OPTIONS}
-
--- Check if it's running in BizHawk
-biz.check_emulator()
 
 bit.test = bit.check -- Bizhawk
 
@@ -1685,17 +1640,15 @@ local WRAM = {
   game_mode = 0x0100,
   real_frame = 0x0013,
   effective_frame = 0x0014,
-  lag_indicator = 0x01fe,
   timer_frame_counter = 0x0f30,
   RNG = 0x148d,
   RNG_input = 0x148b,
   timer = 0x0F31, -- 3 bytes, one for each digit
+  level_paused = 0x13d4,
   sprite_data_pointer = 0x00CE, -- 3 bytes
   layer1_data_pointer = 0x0065, -- 3 bytes
-  layer2_data_pointer = 0x0068, -- 3 bytes
   sprite_memory_header = 0x1692,
   lock_animation_flag = 0x009d, -- Most codes will still run if this is set, but almost nothing will move or animate.
-  level_mode_settings = 0x1925,
   star_road_speed = 0x1df7,
   star_road_timer = 0x1df8,
   current_character = 0x0db3, -- #00 = Mario, #01 = Luigi
@@ -1706,8 +1659,10 @@ local WRAM = {
   OW_action_pointer = 0x13D9,
   OW_player_animation = 0x1F13, -- 2 bytes for Mario, 2 bytes for Luigi
   goal_exit_type = 0x141C,
+  map16_table_low = 0xC800,
+  map16_table_high = 0x1C800,
 
-  -- Camera
+  -- Camera/Layers
   layer1_x_mirror = 0x001a,
   layer1_y_mirror = 0x001c,
   layer1_VRAM_left_up = 0x004d,
@@ -1723,6 +1678,8 @@ local WRAM = {
   vertical_scroll_flag_header = 0x1412,  -- #$00 = Disable; #$01 = Enable; #$02 = Enable if flying/climbing/etc.
   vertical_scroll_enabled = 0x13f1,
   camera_scroll_timer = 0x1401,
+  layer2_x_nextframe = 0x1466,
+  layer2_y_nextframe = 0x1468,
 
   -- Player
   x = 0x0094,
@@ -1747,22 +1704,14 @@ local WRAM = {
   diving_status = 0x1409,
   diving_status_timer = 0x14a4,
   player_animation_trigger = 0x0071,
-  climbing_status = 0x0074,
   spinjump_flag = 0x140d,
   player_blocked_status = 0x0077,
   item_box = 0x0dc2,
   cape_x = 0x13e9,
   cape_y = 0x13eb,
   on_ground = 0x13ef,
-  on_ground_delay = 0x008d,
-  on_air = 0x0072,
   on_water = 0x0075,
-  can_jump_from_water = 0x13fa,
-  carrying_item = 0x148f,
-  player_pose_turning = 0x1499,
   mario_score = 0x0f34,
-  player_coin = 0x0dbf,
-  player_looking_up = 0x13de,
   OW_x = 0x1f17,
   OW_y = 0x1f19,
 
@@ -1796,9 +1745,7 @@ local WRAM = {
   sprite_player_contact = 0x154c,
   sprite_misc_1558 = 0x1558,
   sprite_sprite_contact = 0x1564,
-  sprite_animation_timer = 0x1570,
   sprite_horizontal_direction = 0x157c,
-  sprite_blocked_status = 0x1588,
   sprite_misc_1594 = 0x1594,
   sprite_x_offscreen = 0x15a0,
   sprite_misc_15ac = 0x15ac,
@@ -1808,7 +1755,6 @@ local WRAM = {
   sprite_misc_160e = 0x160e,
   sprite_index_to_level = 0x161a,
   sprite_misc_1626 = 0x1626,
-  sprite_behind_scenery = 0x1632,
   sprite_misc_163e = 0x163e,
   sprite_misc_187b = 0x187b,
   sprite_underwater = 0x164a,
@@ -1820,13 +1766,9 @@ local WRAM = {
   sprite_5_tweaker = 0x1686,
   sprite_6_tweaker = 0x190f,
   sprite_tongue_wait = 0x14a3,
-  sprite_yoshi_squatting = 0x18af,
   sprite_buoyancy = 0x190e,
   sprite_load_status_table = 0x1938, -- 128 bytes
   bowser_attack_timers = 0x14b0, -- 9 bytes
-  yoshi_slot = 0x18df,
-  yoshi_loose_flag = 0x18e2,
-  yoshi_overworld_flag = 0x0dc1,
 
   -- Extended sprites
   extspr_number = 0x170b,
@@ -1885,7 +1827,6 @@ local WRAM = {
   quakespr_timer = 0x18f8,
 
   -- Timer
-  --keep_mode_active = 0x0db1,
   pipe_entrance_timer = 0x0088,
   score_incrementing = 0x13d6,
   fadeout_radius = 0x1433,
@@ -1912,15 +1853,10 @@ local WRAM = {
 
   -- Cheats
   frozen = 0x13fb,
-  level_paused = 0x13d4,
   translevel_index = 0x13bf,
   level_flag_table = 0x1ea2,
   level_exit_type = 0x0dd5,
   midway_point = 0x13ce,
-  
-  -- Layers
-  layer2_x_nextframe = 0x1466,
-  layer2_y_nextframe = 0x1468,
 }
 
 local SMW = {
@@ -1942,29 +1878,6 @@ local SMW = {
 }
 
 SMW.flight_actions = {[0] = "air ", "down", "sink", " up ", "end!" }
-
-SMW.debug_register_addresses = { -- TODO: find use for this, otherwise delete
-  {"BUS", 0x004016, "JOYSER0"},
-  {"BUS", 0x004017, "JOYSER1"},
-  {"BUS", 0x004218, "Hardware Controller1 Low"},
-  {"BUS", 0x004219, "Hardware Controller1 High"},
-  {"BUS", 0x00421a, "Hardware Controller2 Low"},
-  {"BUS", 0x00421b, "Hardware Controller2 High"},
-  {"BUS", 0x00421c, "Hardware Controller3 Low"},
-  {"BUS", 0x00421d, "Hardware Controller3 High"},
-  {"BUS", 0x00421e, "Hardware Controller4 Low"},
-  {"BUS", 0x00421f, "Hardware Controller4 High"},
-  {"BUS", 0x014a13, "Chuck $01:4a13"},
-  {"BUS", 0xee4734, "Platform $ee:4734"}, -- this is in no way an extensive list, just common values
-  {"BUS", 0xee4cb2, "Platform $ee:4cb2"},
-  {"BUS", 0xee4f34, "Platform $ee:4f34"},
-  {"WRAM", 0x0015, "RAM Controller Low"},
-  {"WRAM", 0x0016, "RAM Controller Low (1st frame)"},
-  {"WRAM", 0x0017, "RAM Controller High"},
-  {"WRAM", 0x0018, "RAM Controller High (1st frame)"},
-
-  active = {},
-}
 
 SMW.player_hitbox = {
   {xoff = 2, yoff = 0x14, width = 12, height = 12},
@@ -2133,15 +2046,12 @@ SMW.yoshi_tongue_y_offsets = {
   0x0b, 0x8c, 0x95, 0x16, 0x98, 0x45, 0x13, 0x29
 }
 
-                    -- 0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f  10 11 12
+--                             0   1  2  3  4  5  6  7  8  9  a  b  c  d  e  f  10  11 12
 SMW.sprite_memory_max = {[0] = 10, 6, 7, 6, 7, 5, 8, 5, 7, 9, 9, 4, 8, 6, 8, 9, 10, 6, 6}  -- the max of sprites in a room
 
--- from sprite number, returns oscillation flag
+-- From sprite number, returns oscillation flag
 -- A sprite must be here iff it processes interaction with player every frame AND this bit is not working in the sprite_4_tweaker WRAM(0x167a)
 SMW.oscillation_sprites = luap.make_set{0x0e, 0x21, 0x29, 0x35, 0x54, 0x74, 0x75, 0x76, 0x77, 0x78, 0x81, 0x83, 0x87}
-
--- BUS address of the end of this routine, might be different in ROMhacks
-SMW.check_for_contact_routine = 0x03b75b
 
 -- Sprites that have a custom hitbox drawing
 SMW.abnormal_hitbox_sprites = luap.make_set{0x62, 0x63, 0x6b, 0x6c}
@@ -2158,9 +2068,6 @@ SMW.good_sprites_clipping = luap.make_set{
 
 -- Extended sprites that don't interact with the player
 SMW.uninteresting_extended_sprites = luap.make_set{0x01, 0x07, 0x08, 0x0e, 0x10, 0x12}
-
--- Sprites that naturally have their stun state AND stun timer -- TODO: see if needed
-SMW.normal_stunnable = luap.make_set{0x04, 0x05, 0x06, 0x07, 0x0d, 0x0f, 0x11, 0x2c, 0x2d, 0x53, 0xa2}
 
 -- Sprite names
 SMW.sprite_names = {
@@ -2320,25 +2227,6 @@ SMW.sprite_data_pointers = {
   0x07CE14, 0x07CE0C, 0x07CDC0, 0x07CD94, 0x07C3EE, 0x07CD63, 0x07C6D0, 0x07C3EE, 0x07D4C5, 0x07C3F5, 0x07D56C, 0x07CBDC, 0x07C6BF, 0x07C5EF, 0x07DFE0, 0x07C659,
 }
 
-SMW.trigonometry = { -- TODO: see if needed
-  [0x00] = 0x00,  [0x01] = 0x03, [0x02] = 0x06, [0x03] = 0x09, [0x04] = 0x0c, [0x05] = 0x0f, [0x06] = 0x12, [0x07] = 0x15, [0x08] = 0x19, [0x09] = 0x1c, [0x0a] = 0x1f, [0x0b] = 0x22, [0x0c] = 0x25, [0x0d] = 0x28, [0x0e] = 0x2b, [0x0f] = 0x2e,
-  [0x10] = 0x31,  [0x11] = 0x35, [0x12] = 0x38, [0x13] = 0x3b, [0x14] = 0x3e, [0x15] = 0x41, [0x16] = 0x44, [0x17] = 0x47, [0x18] = 0x4a, [0x19] = 0x4d, [0x1a] = 0x50, [0x1b] = 0x53, [0x1c] = 0x56, [0x1d] = 0x59, [0x1e] = 0x5c, [0x1f] = 0x5f,
-  [0x20] = 0x61,  [0x21] = 0x64, [0x22] = 0x67, [0x23] = 0x6a, [0x24] = 0x6d, [0x25] = 0x70, [0x26] = 0x73, [0x27] = 0x75, [0x28] = 0x78, [0x29] = 0x7b, [0x2a] = 0x7e, [0x2b] = 0x80, [0x2c] = 0x83, [0x2d] = 0x86, [0x2e] = 0x88, [0x2f] = 0x8b,
-  [0x30] = 0x8e,  [0x31] = 0x90, [0x32] = 0x93, [0x33] = 0x95, [0x34] = 0x98, [0x35] = 0x9b, [0x36] = 0x9d, [0x37] = 0x9f, [0x38] = 0xa2, [0x39] = 0xa4, [0x3a] = 0xa7, [0x3b] = 0xa9, [0x3c] = 0xab, [0x3d] = 0xae, [0x3e] = 0xb0, [0x3f] = 0xb2,
-  [0x40] = 0xb5,  [0x41] = 0xb7, [0x42] = 0xb9, [0x43] = 0xbb, [0x44] = 0xbd, [0x45] = 0xbf, [0x46] = 0xc1, [0x47] = 0xc3, [0x48] = 0xc5, [0x49] = 0xc7, [0x4a] = 0xc9, [0x4b] = 0xcb, [0x4c] = 0xcd, [0x4d] = 0xcf, [0x4e] = 0xd1, [0x4f] = 0xd3,
-  [0x50] = 0xd4,  [0x51] = 0xd6, [0x52] = 0xd8, [0x53] = 0xd9, [0x54] = 0xdb, [0x55] = 0xdd, [0x56] = 0xde, [0x57] = 0xe0, [0x58] = 0xe1, [0x59] = 0xe3, [0x5a] = 0xe4, [0x5b] = 0xe6, [0x5c] = 0xe7, [0x5d] = 0xe8, [0x5e] = 0xea, [0x5f] = 0xeb,
-  [0x60] = 0xec,  [0x61] = 0xed, [0x62] = 0xee, [0x63] = 0xef, [0x64] = 0xf1, [0x65] = 0xf2, [0x66] = 0xf3, [0x67] = 0xf4, [0x68] = 0xf4, [0x69] = 0xf5, [0x6a] = 0xf6, [0x6b] = 0xf7, [0x6c] = 0xf8, [0x6d] = 0xf9, [0x6e] = 0xf9, [0x6f] = 0xfa,
-  [0x70] = 0xfb,  [0x71] = 0xfb, [0x72] = 0xfc, [0x73] = 0xfc, [0x74] = 0xfd, [0x75] = 0xfd, [0x76] = 0xfe, [0x77] = 0xfe, [0x78] = 0xfe, [0x79] = 0xff, [0x7a] = 0xff, [0x7b] = 0xff, [0x7c] = 0xff, [0x7d] = 0xff, [0x7e] = 0xff, [0x7f] = 0xff,
-  [0x80] = 0x100, [0x81] = 0xff, [0x82] = 0xff, [0x83] = 0xff, [0x84] = 0xff, [0x85] = 0xff, [0x86] = 0xff, [0x87] = 0xff, [0x88] = 0xfe, [0x89] = 0xfe, [0x8a] = 0xfe, [0x8b] = 0xfd, [0x8c] = 0xfd, [0x8d] = 0xfc, [0x8e] = 0xfc, [0x8f] = 0xfb,
-  [0x90] = 0xfb,  [0x91] = 0xfa, [0x92] = 0xf9, [0x93] = 0xf9, [0x94] = 0xf8, [0x95] = 0xf7, [0x96] = 0xf6, [0x97] = 0xf5, [0x98] = 0xf4, [0x99] = 0xf4, [0x9a] = 0xf3, [0x9b] = 0xf2, [0x9c] = 0xf1, [0x9d] = 0xef, [0x9e] = 0xee, [0x9f] = 0xed,
-  [0xa0] = 0xec,  [0xa1] = 0xeb, [0xa2] = 0xea, [0xa3] = 0xe8, [0xa4] = 0xe7, [0xa5] = 0xe6, [0xa6] = 0xe4, [0xa7] = 0xe3, [0xa8] = 0xe1, [0xa9] = 0xe0, [0xaa] = 0xde, [0xab] = 0xdd, [0xac] = 0xdb, [0xad] = 0xd9, [0xae] = 0xd8, [0xaf] = 0xd6,
-  [0xb0] = 0xd4,  [0xb1] = 0xd3, [0xb2] = 0xd1, [0xb3] = 0xcf, [0xb4] = 0xcd, [0xb5] = 0xcb, [0xb6] = 0xc9, [0xb7] = 0xc7, [0xb8] = 0xc5, [0xb9] = 0xc3, [0xba] = 0xc1, [0xbb] = 0xbf, [0xbc] = 0xbd, [0xbd] = 0xbb, [0xbe] = 0xb9, [0xbf] = 0xb7,
-  [0xc0] = 0xb5,  [0xc1] = 0xb2, [0xc2] = 0xb0, [0xc3] = 0xae, [0xc4] = 0xab, [0xc5] = 0xa9, [0xc6] = 0xa7, [0xc7] = 0xa4, [0xc8] = 0xa2, [0xc9] = 0x9f, [0xca] = 0x9d, [0xcb] = 0x9b, [0xcc] = 0x98, [0xcd] = 0x95, [0xce] = 0x93, [0xcf] = 0x90,
-  [0xd0] = 0x8e,  [0xd1] = 0x8b, [0xd2] = 0x88, [0xd3] = 0x86, [0xd4] = 0x83, [0xd5] = 0x80, [0xd6] = 0x7e, [0xd7] = 0x7b, [0xd8] = 0x78, [0xd9] = 0x75, [0xda] = 0x73, [0xdb] = 0x70, [0xdc] = 0x6d, [0xdd] = 0x6a, [0xde] = 0x67, [0xdf] = 0x64,
-  [0xe0] = 0x61,  [0xe1] = 0x5f, [0xe2] = 0x5c, [0xe3] = 0x59, [0xe4] = 0x56, [0xe5] = 0x53, [0xe6] = 0x50, [0xe7] = 0x4d, [0xe8] = 0x4a, [0xe9] = 0x47, [0xea] = 0x44, [0xeb] = 0x41, [0xec] = 0x3e, [0xed] = 0x3b, [0xee] = 0x38, [0xef] = 0x35,
-  [0xf0] = 0x31,  [0xf1] = 0x2e, [0xf2] = 0x2b, [0xf3] = 0x28, [0xf4] = 0x25, [0xf5] = 0x22, [0xf6] = 0x1f, [0xf7] = 0x1c, [0xf8] = 0x19, [0xf9] = 0x15, [0xfa] = 0x12, [0xfb] = 0x0f, [0xfc] = 0x0c, [0xfd] = 0x09, [0xfe] = 0x06, [0xff] = 0x03,
-}
-
 
 --#############################################################################
 -- SCRIPT UTILITIES:
@@ -2397,6 +2285,7 @@ function Keys.registerkeyrelease(key, fn)
 end
 
 
+-- Get main BizHawk status
 local Movie_active, Readonly, Framecount, Lagcount, Rerecords, Game_region, Lastframe_emulated
 local function bizhawk_status()
   Movie_active = movie.isloaded()
@@ -2412,6 +2301,7 @@ local function bizhawk_status()
 end
 
 
+-- Check is user mouse is inside a rectangle in the emu coordinate system
 local function mouse_onregion(x1, y1, x2, y2)
   -- Reads external mouse coordinates
   local mouse_x = User_input.xmouse*draw.AR_x
@@ -2484,6 +2374,7 @@ local function screen_coordinates(x, y, camera_x, camera_y)
 end
 
 
+-- Get the main SMW values
 local Real_frame, Effective_frame, Game_mode, Current_character
 local Translevel_index, LM_translevel_number, Sprite_data_pointer, Level_index, Layer1_data_pointer, Level_flag
 local Camera_x, Camera_y, Player_x, Player_y, Player_x_screen, Player_y_screen
@@ -2544,8 +2435,8 @@ end
 -- Returns the extreme values that Mario needs to have in order to NOT touch a rectangular object
 local function display_boundaries(x_game, y_game, width, height, camera_x, camera_y)
   -- Font
-  draw.Text_opacity = 0.6
-  draw.Bg_opacity = 0.4
+  draw.text_opacity = 0.6
+  draw.bg_opacity = 0.4
 
   -- Coordinates around the rectangle
   local left = width*floor(x_game/width)
@@ -2588,6 +2479,7 @@ local function display_boundaries(x_game, y_game, width, height, camera_x, camer
 end
 
 
+-- Get basic screen info
 local function read_screens()
   local screen_mode = u8(WRAM.screen_mode)
   local level_type = bit.test(screen_mode, 0) and "Vertical" or "Horizontal"
@@ -2604,6 +2496,7 @@ local function read_screens()
 end
 
 
+-- Get the info of a block in x,y
 local function get_map16_value(x_game, y_game)
   local num_x = floor(x_game/16)
   local num_y = floor(y_game/16)
@@ -2631,14 +2524,15 @@ local function get_map16_value(x_game, y_game)
     num_id = 16*16*n + 16*(num_y%16) + num_x%16
   end
   if (num_id >= 0 and num_id <= 0x37ff) then
-    address = fmt(" $%4.x", 0xc800 + num_id)
-    kind = 256*u8(0x1c800 + num_id) + u8(0xc800 + num_id)
+    address = fmt("$%4.X", WRAM.map16_table_low + num_id)
+    kind = 256*u8(WRAM.map16_table_high + num_id) + u8(WRAM.map16_table_low + num_id)
   end
 
   if kind then return  num_x, num_y, kind, address end
 end
 
 
+-- Draw the info of the clicked tiles in layer 1
 local function draw_layer1_tiles(camera_x, camera_y)
   local x_origin, y_origin = screen_coordinates(0, 0, camera_x, camera_y)
   local x_mouse, y_mouse = game_coordinates(User_input.xmouse, User_input.ymouse, camera_x, camera_y)
@@ -2659,7 +2553,7 @@ local function draw_layer1_tiles(camera_x, camera_y)
     right < draw.Screen_width  + draw.Border_right + 32 and bottom < draw.Screen_height + draw.Border_bottom + 32 then
 
       -- Drawings
-      draw.Text_opacity = 0.6
+      draw.text_opacity = 0.6
       local num_x, num_y, kind, address = get_map16_value(x_game, y_game)
       if kind then
         if kind >= 0x111 and kind <= 0x16d or kind == 0x2b then
@@ -2675,7 +2569,7 @@ local function draw_layer1_tiles(camera_x, camera_y)
         -- Draw Map16 id
         if kind and x_mouse == positions[1] and y_mouse == positions[2] then
           local position_str = fmt(OPTIONS.positions_in_hex and "(%02X, %02X)" or "(%d, %d)", num_x, num_y)
-          draw.text(draw.AR_x*(left + 4), draw.AR_y*top - BIZHAWK_FONT_HEIGHT, fmt("Map16 %s, %X%s", position_str, kind, address), true, false, 0.5, 1.0)
+          draw.text(draw.AR_x*(left + 4), draw.AR_y*top - BIZHAWK_FONT_HEIGHT, fmt("Map16 %s, %X %s", position_str, kind, address), true, false, 0.5, 1.0)
         end
       end
 
@@ -2686,6 +2580,7 @@ local function draw_layer1_tiles(camera_x, camera_y)
 end
 
 
+-- Draw the info of the clicked tiles in layer 2
 local function draw_layer2_tiles()
   local layer2x = s16(WRAM.layer2_x_nextframe)
   local layer2y = s16(WRAM.layer2_y_nextframe)
@@ -2696,9 +2591,9 @@ local function draw_layer2_tiles()
 end
 
 
--- if the user clicks in a tile, it will be be drawn
--- if click is onto drawn region, it'll be erased
--- there's a max of possible tiles
+-- If the user clicks in a tile, it will be be drawn
+-- If click is onto drawn region, it'll be erased
+-- There's a max of possible tiles
 -- layer_table[n] is an array {x, y, [draw info?]}
 local function select_tile(x, y, layer_table)
   if not OPTIONS.draw_tiles_with_click then return end
@@ -2733,11 +2628,11 @@ local function select_tile(x, y, layer_table)
 end
 
 
--- uses the mouse to select an object
+-- Uses the mouse to select an object
 local function select_object(mouse_x, mouse_y, camera_x, camera_y)
   -- Font
-  draw.Text_opacity = 1.0
-  draw.Bg_opacity = 0.5
+  draw.text_opacity = 1.0
+  draw.bg_opacity = 0.5
 
   local x_game, y_game = game_coordinates(mouse_x, mouse_y, camera_x, camera_y)
   local obj_id
@@ -2776,8 +2671,7 @@ local function select_object(mouse_x, mouse_y, camera_x, camera_y)
 end
 
 
--- This function sees if the mouse if over some object, to change its hitbox mode
--- The order is: 1) player, 2) sprite.
+-- Check if the mouse if over some object, to change its hitbox mode. The order is: 1) player, 2) sprite.
 local function right_click()
   local id = select_object(User_input.xmouse, User_input.ymouse, Camera_x, Camera_y)
 
@@ -2903,12 +2797,13 @@ function Lagmeter.get_master_cycles()
 end
 
 
+-- Display main movie info
 local function show_movie_info()
   if not OPTIONS.display_movie_info then return end
 
   -- Font
-  draw.Text_opacity = 1.0
-  draw.Bg_opacity = 1.0
+  draw.text_opacity = 1.0
+  draw.bg_opacity = 1.0
   local y_text = - draw.Border_top
   local x_text = 0
   local width = BIZHAWK_FONT_WIDTH
@@ -2947,12 +2842,13 @@ local function show_movie_info()
 end
 
 
+-- Display main game info
 local function show_game_info()
   if not OPTIONS.display_game_info then return end
 
   -- Font
-  draw.Text_opacity = 0.8
-  draw.Bg_opacity = 1.0
+  draw.text_opacity = 0.8
+  draw.bg_opacity = 1.0
 
   -- Display
   RNG.value = u16(WRAM.RNG)
@@ -2977,12 +2873,12 @@ local function show_game_info()
     end
   
     -- Time frame counter of the clock
-    draw.Text_opacity = 1.0
+    draw.text_opacity = 1.0
     local timer_frame_counter = u8(WRAM.timer_frame_counter)
     draw.text(draw.AR_x*161, draw.AR_y*15, fmt("%.2d", timer_frame_counter))
 
     -- Score: sum of digits, useful for avoiding lag
-    draw.Text_opacity = 0.5
+    draw.text_opacity = 0.5
     local score = u24(WRAM.mario_score)
     draw.text(draw.AR_x*240, draw.AR_y*24, fmt("=%d", luap.sum_digits(score)), COLOUR.weak)
   end
@@ -3005,7 +2901,7 @@ function RNG.display()
   if next(RNG.possible_values) == nil then RNG.create_lists() end
 
   -- Font
-  draw.Text_opacity = 0.8
+  draw.text_opacity = 0.8
   local x = -draw.Border_left
   local y = draw.Screen_height - draw.Border_top - 19*BIZHAWK_FONT_HEIGHT
   local height = BIZHAWK_FONT_HEIGHT
@@ -3037,9 +2933,9 @@ local function show_mouse_info()
   if not OPTIONS.display_mouse_coordinates then return end
 	
   -- Font
-  draw.Text_opacity = 1.0
+  draw.text_opacity = 1.0
   local line_colour = COLOUR.weak
-  local bg_colour = change_transparency(COLOUR.background, draw.Bg_opacity)
+  local bg_colour = change_transparency(COLOUR.background, draw.bg_opacity)
   
   local x, y = User_input.xmouse + OPTIONS.left_gap, User_input.ymouse + OPTIONS.top_gap
   local camera_x = Game_mode == SMW.game_mode_level and Camera_x or s16(WRAM.layer1_x_mirror)
@@ -3067,7 +2963,7 @@ local function show_controller_data()
   if not OPTIONS.display_controller_data then return end
 
   -- Font
-  draw.Text_opacity = 0.9
+  draw.text_opacity = 0.9
   local x_pos, y_pos, x, y, _ = -draw.Border_left, 0, 0, BIZHAWK_FONT_HEIGHT
 
   x = draw.over_text(x_pos, y_pos, 256*u8(WRAM.ctrl_1_1) + u8(WRAM.ctrl_1_2), "BYsS^v<>AXLR0123", COLOUR.weak)
@@ -3099,7 +2995,7 @@ function Lagmeter.show_lagmeter()
   end
   
   -- Font
-  draw.Text_opacity = 0.9
+  draw.text_opacity = 0.9
   local x_pos, y_pos = draw.Buffer_middle_x*draw.AR_x + 40, -draw.Border_top
   
   -- Adjust display colour based on value
@@ -3117,7 +3013,7 @@ end
 local function sprite_level_info()
   if not OPTIONS.display_sprite_data and not OPTIONS.display_sprite_load_status then return end
   
-  draw.Text_opacity = 0.5
+  draw.text_opacity = 0.5
 
   -- Sprite load status enviroment
   local indexes = {}
@@ -3198,7 +3094,7 @@ local function sprite_level_info()
     sprite_counter = sprite_counter + 1
   end
 
-  draw.Text_opacity = 0.6
+  draw.text_opacity = 0.6
   if OPTIONS.display_sprite_load_status then
     draw.text(-draw.Border_left + 1, (y_origin-OPTIONS.top_gap-10)*draw.AR_y, "Sprite load status", COLOUR.text)
     if sprite_counter == 0 then draw.text(-draw.Border_left - 1, (y-OPTIONS.top_gap)*draw.AR_y, fmt("(no sprites)", sprite_counter), COLOUR.text) end
@@ -3211,8 +3107,8 @@ local function draw_boundaries()
   if not OPTIONS.display_level_boundary then return end
   
   -- Font
-  draw.Text_opacity = 1.0
-  draw.Bg_opacity = 1.0
+  draw.text_opacity = 1.0
+  draw.bg_opacity = 1.0
 
   local is_vertical = read_screens() == "Vertical" -- TODO: figure out this for vertical levels
 
@@ -3246,8 +3142,8 @@ local function level_info()
   -- Font
   local x_pos = draw.Buffer_width + draw.Border_right
   local y_pos = - draw.Border_top + BIZHAWK_FONT_HEIGHT + 2
-  draw.Text_opacity = 0.8
-  draw.Bg_opacity = 1.0
+  draw.text_opacity = 0.8
+  draw.bg_opacity = 1.0
   
   -- Scan level size
   local level_type, screens_number, hscreen_current, hscreen_number, vscreen_current, vscreen_number = read_screens()
@@ -3281,7 +3177,7 @@ local function level_info()
   
   -- Screen info
   if OPTIONS.display_screen_info then
-    draw.Text_opacity = 0.8
+    draw.text_opacity = 0.8
     
     local screen_x, screen_y
     local x_origin, y_origin = screen_coordinates(0, 0, Camera_x, Camera_y)
@@ -3454,7 +3350,7 @@ local function player_hitbox(x, y, is_ducking, powerup, transparency_level)
 end
 
 
--- displays the hitbox of the cape while spinning
+-- Display the hitbox of the cape while spinning
 local function cape_hitbox(spin_direction)
   local cape_interaction = u8(WRAM.cape_interaction)
   if cape_interaction == 0 then return end
@@ -3484,9 +3380,9 @@ local function cape_hitbox(spin_direction)
 end
 
 
+-- Simulate sprite-block interaction, for the Dupe Predictor
 -- arguments: left and bottom pixels of a given block tile
--- return: string type of duplication that will happen
---         false otherwise
+-- return: string type of duplication that will happen, or false otherwise
 local function sprite_block_interaction_simulator(x_block_left, y_block_bottom)
   --local GOOD_SPEEDS = luap.make_set{-2.5, -2, -1.5, -1, 0, 0.5, 1.0, 1.5, 2.5, 3.0, 3.5, 4.0}
 
@@ -3560,8 +3456,8 @@ local function sprite_block_interaction_simulator(x_block_left, y_block_bottom)
 end
 
 
--- verify nearby layer 1 tiles that are drawn
--- check whether they would allow a block duplication under ideal conditions
+-- Block duplication predictor
+-- It verifies nearby layer 1 tiles that are drawn and check whether they would allow a block duplication under ideal conditions
 local function predict_block_duplications()
   if not OPTIONS.use_block_duplication_predictor then return end
   local delta_x, delta_y = 48, 128
@@ -3586,13 +3482,14 @@ local function predict_block_duplications()
 end
 
 
+-- Display player info
 local function player()
   if not OPTIONS.display_player_info then
     return
   end
 
   -- Font
-  draw.Text_opacity = 1.0
+  draw.text_opacity = 1.0
 
   -- Reads WRAM
   local x = s16(WRAM.x)
@@ -3753,38 +3650,38 @@ local function player()
         draw.text(table_x, table_y + i*delta_y, fmt("Powerup (%d)", powerup))
     end
     
-    draw.Text_opacity = 0.6
+    draw.text_opacity = 0.6
     
     local item_box_sprite = item_box ~= 0 and fmt("%02X", (item_box + 0x73)%256) or "--"
     draw.text(draw.Buffer_middle_x*draw.AR_x, 36*draw.AR_y, fmt("%02X(%s)", item_box, item_box_sprite), COLOUR.weak, false, false, 0.5) -- 226
     
   end
   
-  draw.Text_opacity = 1.0
+  draw.text_opacity = 1.0
   
-  if OPTIONS.display_static_camera_region then
+  if OPTIONS.display_camera_region then
     Display.show_player_point_position = true
     
     -- Horizontal scroll
     local left_cam, right_cam = u16(WRAM.camera_left_limit), u16(WRAM.camera_right_limit)
     local center_cam = floor((left_cam + right_cam)/2)
-    draw.box(left_cam, 0, right_cam, 224, COLOUR.static_camera_region, COLOUR.static_camera_region)
+    draw.box(left_cam, 0, right_cam, 224, COLOUR.camera_region, COLOUR.camera_region)
     draw.line(center_cam, 0, center_cam, 224, "black")
     draw.text(draw.AR_x*left_cam, draw.Buffer_height*draw.AR_y, fmt(OPTIONS.positions_in_hex and "%02X" or "%d", left_cam), COLOUR.text, 0x400020, false, false, 1, 0)
     draw.text(draw.AR_x*right_cam, draw.Buffer_height*draw.AR_y, fmt(OPTIONS.positions_in_hex and "%02X" or "%d", right_cam), COLOUR.text, 0x400020)
 
     -- Vertical scroll
     if vertical_scroll_flag_header ~= 0 then
-      draw.box(0, 100, 255, 124, COLOUR.static_camera_region, COLOUR.static_camera_region)
+      draw.box(0, 100, 255, 124, COLOUR.camera_region, COLOUR.camera_region)
     end
   end
 
-  -- Mario boost indicator (experimental)
+  -- Mario boost indicator (experimental) -- TODO: fix, it's not checking anything, these Previous should be before the memory read
   -- This looks for differences between the expected x position and the actual x position, after a frame advance
   -- Fails during a loadstate and has false positives if the game is paused or lagged
   Previous.player_x = 256*x + x_sub  -- the total amount of 256-based subpixels
   Previous.x_speed = 16*x_speed  -- the speed in 256-based subpixels
-
+  
   if Mario_boost_indicator and not Cheat.under_free_move then
     local x_screen, y_screen = screen_coordinates(x, y, Camera_x, Camera_y)
     draw.text(draw.AR_x*(x_screen + 4), draw.AR_y*(y_screen + 60), Mario_boost_indicator, COLOUR.warning, 0x20000000)  -- unlisted colour
@@ -3802,11 +3699,12 @@ local function player()
 end
 
 
+-- Display extended sprite info
 local function extended_sprites()
   if not OPTIONS.display_other_sprites_info or not OPTIONS.display_extended_sprite_info then return end
 
   -- Font
-  draw.Text_opacity = 0.8
+  draw.text_opacity = 0.8
   local height = BIZHAWK_FONT_HEIGHT
 
   local x_pos, y_pos = draw.Buffer_width + draw.Border_right, draw.AR_y*144
@@ -3902,11 +3800,12 @@ local function extended_sprites()
 end
 
 
+-- Display cluster sprite info
 local function cluster_sprites()
   if not OPTIONS.display_other_sprites_info or not OPTIONS.display_cluster_sprite_info or u8(WRAM.cluspr_flag) == 0 then return end
 
   -- Font
-  draw.Text_opacity = 0.8
+  draw.text_opacity = 0.8
   local height = BIZHAWK_FONT_HEIGHT
   local x_pos, y_pos = draw.Border_right, draw.AR_y*45
   local counter = 0
@@ -4001,11 +3900,12 @@ local function cluster_sprites()
 end
 
 
+-- Display minor extended sprite info
 local function minor_extended_sprites()
   if not OPTIONS.display_other_sprites_info or not OPTIONS.display_minor_extended_sprite_info then return end
 
   -- Font
-  draw.Text_opacity = 0.8
+  draw.text_opacity = 0.8
   local height = BIZHAWK_FONT_HEIGHT
   local x_pos, y_pos = 0, draw.Buffer_height*draw.AR_y - height*SMW.minor_extended_sprite_max
   
@@ -4058,11 +3958,12 @@ local function minor_extended_sprites()
 end
 
 
+-- Display bounce sprite info
 local function bounce_sprite_info()
   if not OPTIONS.display_other_sprites_info or not OPTIONS.display_bounce_sprite_info then return end
 
   -- Font
-  draw.Text_opacity = 0.8
+  draw.text_opacity = 0.8
   local height = BIZHAWK_FONT_HEIGHT
   local x_txt, y_txt = 0, draw.AR_y*45
   
@@ -4113,11 +4014,12 @@ local function bounce_sprite_info()
 end
 
 
+-- Display quake sprite info
 local function quake_sprite_info()
   if not OPTIONS.display_other_sprites_info or not OPTIONS.display_quake_sprite_info then return end
 
   -- Font
-  draw.Text_opacity = 0.8
+  draw.text_opacity = 0.8
   local height = BIZHAWK_FONT_HEIGHT
   local x_txt, y_txt = draw.Buffer_width + draw.Border_right, draw.AR_y*144 + 12*height
  
@@ -4154,6 +4056,7 @@ local function quake_sprite_info()
 end
 
 
+-- Scan main sprite info
 local function scan_sprite_info(lua_table, slot)
   local t = lua_table[slot]
   if not t then error"Wrong Sprite table" end
@@ -4219,7 +4122,7 @@ local function scan_sprite_info(lua_table, slot)
 end
 
 
--- draw normal sprite vs Mario hitbox
+-- Draw normal sprite vs Mario hitbox
 local function draw_sprite_hitbox(slot)
 
   local t = Sprites_info[slot]
@@ -4296,8 +4199,8 @@ local function draw_sprite_spawn_despawn()
   if not OPTIONS.display_sprite_info then return end
 
   -- Font
-  draw.Text_opacity = 1.0
-  draw.Bg_opacity = 1.0
+  draw.text_opacity = 1.0
+  draw.bg_opacity = 1.0
   
   -- Check level layout
   local is_vertical = read_screens() == "Vertical"
@@ -4594,8 +4497,8 @@ special_sprite_property[0x7b] = function(slot) -- Goal Tape
   local y_screen = t.y_screen
   local info_colour = t.info_colour
 
-  draw.Text_opacity = 0.8
-  draw.Bg_opacity = 0.6
+  draw.text_opacity = 0.8
+  draw.bg_opacity = 0.6
 
   -- This draws the effective area of a goal tape
   local x_effective = 256*u8(WRAM.sprite_misc_151c + slot) + u8(WRAM.sprite_phase + slot)
@@ -4760,8 +4663,9 @@ special_sprite_property[0xBC] = function(slot) -- Bowser Statue
 end
 
 
+-- Display sprite info
 local function sprite_info(id, counter, table_position)
-  draw.Text_opacity = 1.0
+  draw.text_opacity = 1.0
 
   local t = Sprites_info[id]
   local status = t.status
@@ -4792,11 +4696,11 @@ local function sprite_info(id, counter, table_position)
   
   ---**********************************************
   -- Print those informations next to the sprite
-  draw.Text_opacity = 1.0
-  draw.Bg_opacity = 1.0
+  draw.text_opacity = 1.0
+  draw.bg_opacity = 1.0
 
   if x_offscreen ~= 0 or y_offscreen ~= 0 then
-    draw.Text_opacity = 0.6
+    draw.text_opacity = 0.6
   end
 
   local contact_str = contact_mario == 0 and "" or " " .. contact_mario
@@ -4835,6 +4739,7 @@ local function sprite_info(id, counter, table_position)
 end
 
 
+-- Handle sprite info loop
 local function sprites()
   if not OPTIONS.display_sprite_info then return end
 
@@ -4846,7 +4751,7 @@ local function sprites()
   end
 
   -- Font
-  draw.Text_opacity = 0.6
+  draw.text_opacity = 0.6
 
   local swap_slot = u8(WRAM.sprite_swap_slot)
   local smh = u8(WRAM.sprite_memory_header)
@@ -4856,6 +4761,7 @@ local function sprites()
 end
 
 
+-- Yoshi tongue special functions
 special_sprite_property.yoshi_tongue_offset = function(xoff, tongue_length)
   if (xoff % 0x100) < 0x80 then
     xoff = xoff + tongue_length
@@ -4868,7 +4774,6 @@ special_sprite_property.yoshi_tongue_offset = function(xoff, tongue_length)
 
   return xoff
 end
-
 
 special_sprite_property.yoshi_tongue_time_predictor = function(len, timer, wait, out, eat_id)
   local info, colour
@@ -4889,13 +4794,14 @@ special_sprite_property.yoshi_tongue_time_predictor = function(len, timer, wait,
 end
 
 
+-- Display Yoshi info
 local function yoshi()
   if not OPTIONS.display_player_info then return end
   if not OPTIONS.display_yoshi_info then return end
 
   -- Font
-  draw.Text_opacity = 1.0
-  draw.Bg_opacity = 1.0
+  draw.text_opacity = 1.0
+  draw.bg_opacity = 1.0
   local x_text = -draw.Border_left
   local y_text = draw.AR_y*80
 
@@ -4985,6 +4891,7 @@ local function yoshi()
 end
 
 
+-- Display level ending timers info
 local function display_fadeout_timers()
   if not OPTIONS.display_counters then return end
 
@@ -5012,12 +4919,13 @@ local function display_fadeout_timers()
 end
 
 
+-- Display counters
 local function show_counters()
   if not OPTIONS.display_counters then return end
 
   -- Font
-  draw.Text_opacity = 1.0
-  draw.Bg_opacity = 1.0
+  draw.text_opacity = 1.0
+  draw.bg_opacity = 1.0
   local height = BIZHAWK_FONT_HEIGHT
   local text_counter = 0
 
@@ -5125,8 +5033,8 @@ local function overworld_mode()
   if not OPTIONS.display_overworld_info then return end
 
   -- Font
-  draw.Text_opacity = 1.0
-  draw.Bg_opacity = 1.0
+  draw.text_opacity = 1.0
+  draw.bg_opacity = 1.0
 
   local height = BIZHAWK_FONT_HEIGHT
   local y_text = BIZHAWK_FONT_HEIGHT
@@ -5178,7 +5086,7 @@ local function overworld_mode()
   end
 
   -- Level tiles info
-  draw.Text_opacity = 0.7
+  draw.text_opacity = 0.7
   local level_x, level_y
   local x_origin, y_origin = screen_coordinates(0, 0, OW_camera_x, OW_camera_y)
   local parity256
@@ -5244,7 +5152,7 @@ end
 -- Specific for info that changes if the emulator is paused and idle callback is called
 local function mouse_actions()
   -- Font
-  draw.Text_opacity = 1.0
+  draw.text_opacity = 1.0
 
   -- Drag and drop sprites with the mouse
   if Cheat.is_dragging_sprite then
@@ -5255,6 +5163,7 @@ local function mouse_actions()
 end
 
 
+-- Get the player input
 local function read_raw_input()
   -- User input data
   Previous.User_input = luap.copytable(User_input)
@@ -5305,8 +5214,8 @@ Cheat.allow_cheats = false
 Cheat.is_cheating = false
 function Cheat.is_cheat_active()
   if Cheat.is_cheating then
-    draw.Text_opacity = 1.0
-    draw.Bg_opacity = 1.0
+    draw.text_opacity = 1.0
+    draw.bg_opacity = 1.0
     
     local cheat_str = " CHEAT "
     if Cheat.under_free_move then cheat_str = cheat_str .. "- Free movement" end
@@ -5344,9 +5253,9 @@ function Cheat.activate_next_level(secret_exit)
 end
 
 
--- allows start + select + X to activate the normal exit
---      start + select + A to activate the secret exit
---      start + select + B to exit the level without activating any exits
+-- Allows start + select + X to activate the normal exit
+--        start + select + A to activate the secret exit
+--        start + select + B to exit the level without activating any exits
 function Cheat.beat_level()
   if Is_paused and Joypad["Select"] and (Joypad["X"] or Joypad["A"] or Joypad["B"]) then
     w8(WRAM.level_flag_table + Translevel_index, bit.bor(Level_flag, 0x80))
@@ -5470,6 +5379,7 @@ function Cheat.drag_sprite(id)
 end
 
 
+-- Change the score
 function Cheat.score()
   if not Cheat.allow_cheats then
     print("Cheats not allowed.")
@@ -5494,6 +5404,7 @@ function Cheat.score()
 end
 
 
+-- Change the timer
 function Cheat.timer()
   if not Cheat.allow_cheats then
     print("Cheats not allowed.")
@@ -5517,7 +5428,7 @@ function Cheat.timer()
 end
 
 
--- BizHawk: modifies address <address> value from <current> to <current + modification>
+-- Modifies address <address> value from <current> to <current + modification>
 -- [size] is the optional size in bytes of the address
 -- TODO: [is_signed] is untrue if the value is unsigned, true otherwise
 function Cheat.change_address(address, value_form, size, is_hex, criterion, error_message, success_message)
@@ -5576,10 +5487,8 @@ Keys.registerkeyrelease("mouse_inwindow", function() Cheat.is_dragging_sprite = 
 Keys.registerkeyrelease("leftclick", function() Cheat.is_dragging_sprite = false end)
 
 -- Lateral gaps:
-if biz.features.support_extra_padding then
-  client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
-  client.SetClientExtraPadding(0, 0, 0, 0)
-end
+client.SetGameExtraPadding(OPTIONS.left_gap, OPTIONS.top_gap, OPTIONS.right_gap, OPTIONS.bottom_gap)
+client.SetClientExtraPadding(0, 0, 0, 0)
 
 -- Script menu forms
 function Options_form.create_window()
@@ -5625,9 +5534,9 @@ function Options_form.create_window()
   forms.setproperty(Options_form.player_hitbox, "Enabled", OPTIONS.display_player_info)
 
   yform = yform + delta_y
-  Options_form.static_camera_region = forms.checkbox(Options_form.form, "Camera region", xform, yform)
-  forms.setproperty(Options_form.static_camera_region, "Checked", OPTIONS.display_static_camera_region)
-  forms.setproperty(Options_form.static_camera_region, "Enabled", OPTIONS.display_player_info)
+  Options_form.camera_region = forms.checkbox(Options_form.form, "Camera region", xform, yform)
+  forms.setproperty(Options_form.camera_region, "Checked", OPTIONS.display_camera_region)
+  forms.setproperty(Options_form.camera_region, "Enabled", OPTIONS.display_player_info)
   
   yform = yform  + delta_y
   Options_form.debug_player_extra = forms.checkbox(Options_form.form, "Extra info", xform, yform)
@@ -5641,7 +5550,7 @@ function Options_form.create_window()
     forms.setproperty(Options_form.yoshi_info, "Enabled", OPTIONS.display_player_info)
     forms.setproperty(Options_form.player_interaction_label, "Enabled", OPTIONS.display_player_info)
     forms.setproperty(Options_form.player_hitbox, "Enabled", OPTIONS.display_player_info)
-    forms.setproperty(Options_form.static_camera_region, "Enabled", OPTIONS.display_player_info)
+    forms.setproperty(Options_form.camera_region, "Enabled", OPTIONS.display_player_info)
     forms.setproperty(Options_form.debug_player_extra, "Enabled", OPTIONS.display_player_info)
   end)
   
@@ -6052,15 +5961,15 @@ function Options_form.create_window()
   -- Text opacity
   xform, yform = xform + 100, y_section
   Options_form.text_opacity = forms.label(Options_form.form, ("Text opacity:\n(%.0f%%, %.0f%%)"):
-    format(100*draw.Text_max_opacity, 100*draw.Background_max_opacity), xform, yform, 75, 30)
+    format(100*draw.text_max_opacity, 100*draw.background_max_opacity), xform, yform, 75, 30)
   ;
   xform = xform + 75
   Options_form.opacity_button_minus = forms.button(Options_form.form, "-", function() draw.decrease_opacity()
-    forms.settext(Options_form.text_opacity, ("Text opacity: (%.0f%%, %.0f%%)"):format(100*draw.Text_max_opacity, 100*draw.Background_max_opacity))
+    forms.settext(Options_form.text_opacity, ("Text opacity: (%.0f%%, %.0f%%)"):format(100*draw.text_max_opacity, 100*draw.background_max_opacity))
   end, xform, yform, 24, 24)
   xform = xform + 24
   forms.button(Options_form.form, "+", function() draw.increase_opacity()
-    forms.settext(Options_form.text_opacity, ("Text opacity: (%.0f%%, %.0f%%)"):format(100*draw.Text_max_opacity, 100*draw.Background_max_opacity))
+    forms.settext(Options_form.text_opacity, ("Text opacity: (%.0f%%, %.0f%%)"):format(100*draw.text_max_opacity, 100*draw.background_max_opacity))
   end, xform, yform, 24, 24)
   
   -- Mouse coordinates
@@ -6144,6 +6053,7 @@ function Options_form.create_window()
 end
 
 
+-- Handles the sprite tables form
 function Sprite_tables_form.create_window()
   if not Sprite_tables_form.is_form_closed then return end
 
@@ -6245,62 +6155,67 @@ function Sprite_tables_form.create_window()
 end
 
 
-function Options_form.evaluate_form() -- TODO: ORGANIZE after all the menu changes
-  -- Option form's buttons
-  Cheat.allow_cheats = forms.ischecked(Options_form.allow_cheats) or false
-  Cheat.under_free_move = forms.ischecked(Options_form.free_movement) or false
-  -- Show/hide
-  OPTIONS.display_movie_info = forms.ischecked(Options_form.movie_info) or false
-  OPTIONS.display_game_info = forms.ischecked(Options_form.game_info) or false
+-- Update the OPTIONS variables according to the changes made in the options forms menu
+function Options_form.evaluate_form()
+  --- Show/hide options
+  -- Player
   OPTIONS.display_player_info = forms.ischecked(Options_form.player_info) or false
   OPTIONS.display_player_main_info = forms.ischecked(Options_form.player_main_info) or false
   OPTIONS.display_yoshi_info = forms.ischecked(Options_form.yoshi_info) or false
+  local button_text = forms.gettext(Options_form.player_hitbox)
+  OPTIONS.display_player_hitbox = button_text == "1. Hitbox + Blocks" or button_text == "2. Hitbox"
+  OPTIONS.display_player_block_interaction = button_text == "1. Hitbox + Blocks" or button_text == "3. Blocks"
+  OPTIONS.display_camera_region = forms.ischecked(Options_form.camera_region) or false
+  OPTIONS.display_debug_player_extra = forms.ischecked(Options_form.debug_player_extra) or false
+  -- Sprites
   OPTIONS.display_sprite_info = forms.ischecked(Options_form.sprite_info) or false
   OPTIONS.display_sprite_main_table = forms.ischecked(Options_form.sprite_main_table) or false
   OPTIONS.display_sprite_hitbox = forms.ischecked(Options_form.sprite_hitbox) or false
   OPTIONS.display_sprite_vs_sprite_hitbox = forms.ischecked(Options_form.sprite_vs_sprite_hitbox) or false
-  --OPTIONS.display_misc_sprite_table =  forms.ischecked(Options_form.sprite_tables) or false
-  OPTIONS.display_sprite_data =  forms.ischecked(Options_form.sprite_data) or false
-  OPTIONS.display_sprite_load_status =  forms.ischecked(Options_form.sprite_load_status) or false
   OPTIONS.display_sprite_spawning_areas = forms.ischecked(Options_form.sprite_spawning_areas) or false
   OPTIONS.display_sprite_vanish_area = forms.ischecked(Options_form.sprite_vanish_area) or false
+  OPTIONS.display_debug_sprite_tweakers = forms.ischecked(Options_form.debug_sprite_tweakers) or false
+  OPTIONS.display_debug_sprite_extra = forms.ischecked(Options_form.debug_sprite_extra) or false
+  -- General
+  OPTIONS.display_game_info = forms.ischecked(Options_form.game_info) or false
+  OPTIONS.display_movie_info = forms.ischecked(Options_form.movie_info) or false
+  OPTIONS.display_counters = forms.ischecked(Options_form.counters_info) or false
+  OPTIONS.display_overworld_info = forms.ischecked(Options_form.overworld_info) or false
+  OPTIONS.use_block_duplication_predictor = forms.ischecked(Options_form.block_duplication_predictor) or false
+  OPTIONS.display_RNG_info = forms.ischecked(Options_form.RNG_info) or false
+  OPTIONS.display_controller_data = forms.ischecked(Options_form.controller_data) or false
+  OPTIONS.display_lagmeter = forms.ischecked(Options_form.lagmeter) or false
+  -- Other sprites
   OPTIONS.display_other_sprites_info = forms.ischecked(Options_form.other_sprites_info) or false
   OPTIONS.display_extended_sprite_info = forms.ischecked(Options_form.extended_sprite_info) or false
   OPTIONS.display_cluster_sprite_info = forms.ischecked(Options_form.cluster_sprite_info) or false
   OPTIONS.display_minor_extended_sprite_info = forms.ischecked(Options_form.minor_extended_sprite_info) or false
   OPTIONS.display_bounce_sprite_info = forms.ischecked(Options_form.bounce_sprite_info) or false
   OPTIONS.display_quake_sprite_info = forms.ischecked(Options_form.quake_sprite_info) or false
-  OPTIONS.display_level_info = forms.ischecked(Options_form.level_info) or false
-  OPTIONS.display_level_main_info = forms.ischecked(Options_form.level_main_info) or false
-  OPTIONS.display_counters = forms.ischecked(Options_form.counters_info) or false
-  OPTIONS.display_static_camera_region = forms.ischecked(Options_form.static_camera_region) or false
-  OPTIONS.use_block_duplication_predictor = forms.ischecked(Options_form.block_duplication_predictor) or false
-  OPTIONS.display_level_boundary = forms.ischecked(Options_form.level_boundary) or false
-  OPTIONS.display_screen_info = forms.ischecked(Options_form.screen_info) or false
-  OPTIONS.display_exit_info = forms.ischecked(Options_form.exit_info) or false
-  OPTIONS.display_RNG_info = forms.ischecked(Options_form.RNG_info) or false
-  OPTIONS.display_overworld_info = forms.ischecked(Options_form.overworld_info) or false
-  -- Debug/Extra
-  OPTIONS.display_debug_player_extra = forms.ischecked(Options_form.debug_player_extra) or false
-  OPTIONS.display_debug_sprite_extra = forms.ischecked(Options_form.debug_sprite_extra) or false
-  OPTIONS.display_debug_sprite_tweakers = forms.ischecked(Options_form.debug_sprite_tweakers) or false
   OPTIONS.display_debug_extended_sprite = forms.ischecked(Options_form.debug_extended_sprite) or false
   OPTIONS.display_debug_cluster_sprite = forms.ischecked(Options_form.debug_cluster_sprite) or false
   OPTIONS.display_debug_minor_extended_sprite = forms.ischecked(Options_form.debug_minor_extended_sprite) or false
   OPTIONS.display_debug_bounce_sprite = forms.ischecked(Options_form.debug_bounce_sprite) or false
-  OPTIONS.display_controller_data = forms.ischecked(Options_form.controller_data) or false
-  OPTIONS.display_lagmeter = forms.ischecked(Options_form.lagmeter) or false
-  -- Other buttons
+  -- Level
+  OPTIONS.display_level_info = forms.ischecked(Options_form.level_info) or false
+  OPTIONS.display_level_main_info = forms.ischecked(Options_form.level_main_info) or false
+  OPTIONS.display_level_boundary = forms.ischecked(Options_form.level_boundary) or false
+  OPTIONS.display_sprite_data =  forms.ischecked(Options_form.sprite_data) or false
+  OPTIONS.display_sprite_load_status =  forms.ischecked(Options_form.sprite_load_status) or false
+  OPTIONS.display_screen_info = forms.ischecked(Options_form.screen_info) or false
+  OPTIONS.display_exit_info = forms.ischecked(Options_form.exit_info) or false
+  -- Cheats
+  Cheat.allow_cheats = forms.ischecked(Options_form.allow_cheats) or false
+  Cheat.under_free_move = forms.ischecked(Options_form.free_movement) or false
+  -- Script settings
   OPTIONS.draw_tiles_with_click = forms.ischecked(Options_form.draw_tiles_with_click) or false
   OPTIONS.display_mouse_coordinates = forms.ischecked(Options_form.mouse_coordinates) or false
-  local button_text = forms.gettext(Options_form.player_hitbox)
-  OPTIONS.display_player_hitbox = button_text == "1. Hitbox + Blocks" or button_text == "2. Hitbox"
-  OPTIONS.display_player_block_interaction = button_text == "1. Hitbox + Blocks" or button_text == "3. Blocks"
   OPTIONS.positions_in_hex = forms.ischecked(Options_form.positions_in_hex) or false
   OPTIONS.speeds_in_hex = forms.ischecked(Options_form.speeds_in_hex) or false
 end
 
 
+-- Update the sprite tables shown according to the changes made in the sprite tables forms menu
 function Sprite_tables_form.evaluate_form()
   
   -- Sprite tables
@@ -6335,7 +6250,8 @@ function Sprite_tables_form.evaluate_form()
 end
 
 
-function Options_form.write_help()
+-- Display help
+function Options_form.write_help() -- TODO: maybe make a window instead of writing in the console, and show better/more complete info
   print(" - - - TIPS - - - ")
   print("MOUSE:")
   print("Use the left click to draw blocks and to see the Map16 properties.")
@@ -6356,6 +6272,7 @@ function Options_form.write_help()
 end
 
 
+-- Update the sprite tables form
 function Sprite_tables_form.update_options()
 
   Sprite_tables_form.evaluate_form()
@@ -6414,8 +6331,6 @@ print(scopes)
 local registers = emu.getregisters()
 print("\nRegisters:")
 print(registers)]]
-
-
 
 
 -- Script load success message (NOTHING AFTER HERE, ONLY HACK WARNING AND MAIN SCRIPT LOOP)
@@ -6497,6 +6412,7 @@ end
 -- TODO
 
 - Clean a bunch of unused stuff
+- Change config encoding/decoding to avoid using the json module (first make sure the json module is only being used by the config part)
 - !!!! Add RAM remaps for SA-1 hacks, the SA-1 IRAM adresses should be called from System Bus starting at $3000 (need confirmation) (USE THE "SMW-BizHawk SA-1.lua" SCRIPT TO SEE HOW I DID)
 - Add function to check sprite data pointer against the table for hacks (pointer low and high byte at $05EC00 (2 bytes per level), pointer bank at $0EF100 (1 byte per level))
 - Add onmemoryexecute check to know exactly the level/room, instead of using sprite data pointer comparison
@@ -6517,6 +6433,52 @@ end
 - Add sprite spawning lines for vertical levels (also check those big levels in recent Lunar Magic versions)
 - Add despawning lines (horizontal and vertical)
 - Add some display to help Submap Warps, Wrong Warps, etc
+- Add description of the sprite tweakers (use SMW.sprite_tweakers_info)
+- Fix Mario boost indicator
 
 - Add "all exits" cheat, by filling the $7E1EA2 table (96 bytes) (probably with 0xBF, to enable all paths but avoiding setting the midway points) and the $7E1F02 table (15 bytes) (0xFF is good), and to make the layer 2 correct would need to fill $7F4000 with the exact bytes from a 96 exits save file, and to reload properly set 0x0B to the game mode ($7E0100)
+FOR NEW BIZHAWK:
+--------------------------------------------------------------------------------------------
+local level_setting_flags_addr = 0x1EA2 -- 96 bytes
+local event_flags_addr = 0x1F02 -- 15 bytes
+
+local as_array = false -- TOGGLE, if false it will use as_dict
+
+local level_setting_write_table = {}
+local event_write_table = {}
+
+if as_array then
+    
+    -- Write 0xBF to all the level setting flags table
+    for i = 1, 96 do
+        level_setting_write_table[i] = 0xBF
+    end
+    mainmemory.write_bytes_as_array(level_setting_flags_addr, level_setting_write_table)
+    
+    -- Write 0xFF to all event flags table
+    for i = 1, 15 do
+        event_write_table[i] = 0xFF
+    end
+    mainmemory.write_bytes_as_array(event_flags_addr, event_write_table)
+    
+else -- as_dict
+    
+    -- Write 0xBF to all the level setting flags table
+    for i = level_setting_flags_addr, level_setting_flags_addr + 95 do
+        level_setting_write_table[i] = 0xBF
+    end
+    mainmemory.write_bytes_as_dict(level_setting_write_table)
+    
+    -- Write 0xFF to all event flags table
+    for i = event_flags_addr, event_flags_addr + 14 do
+        event_write_table[i] = 0xFF
+    end
+    mainmemory.write_bytes_as_dict(event_write_table)
+    
+end
+
+-- Reload the overworld
+mainmemory.writebyte(0x0100, 0x0B)
+--------------------------------------------------------------------------------------------
+
 ]]
