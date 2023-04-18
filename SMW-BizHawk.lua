@@ -1070,7 +1070,7 @@ function encode_value(self, value, parents, etc, options, indent)
      if options.pretty then
 
       local KEYS = { }
-      local max_key_length = 0
+      local max_key_length = 1
       for _, key in ipairs(object_keys) do
         local encoded = encode_value(self, tostring(key), parents, etc, options, indent)
         if options.align_keys then
@@ -1275,6 +1275,18 @@ function biz.check_emulator()
   end
 end
 biz.check_emulator()
+
+function biz.check_version()
+  local major, minor, patch = string.match(client.getversion(), "(%d+)%.(%d+)%.*(%d*)")
+  biz.version_major = tonumber(major)
+  biz.version_minor = tonumber(minor)
+  biz.version_patch = tonumber(patch)
+end
+biz.check_version()
+
+if biz.version_major > 2 or (biz.version_major == 2 and biz.version_minor >= 9) then
+  bit = (require "migration_helpers").EmuHawk_pre_2_9_bit();
+end
 
 -- Check the name of the ROM domain (as it might have differences between cores)
 biz.memory_domain_list = memory.getmemorydomainlist()
@@ -4832,7 +4844,7 @@ local function yoshi()
     draw.text(x_text, y_text, fmt("Yoshi %s %d", direction_symbol, turn_around), COLOUR.yoshi)
     local h = BIZHAWK_FONT_HEIGHT
 
-    draw.text(x_text, y_text + h, fmt("(%0s, %0s) %02X, %d, %d",
+    draw.text(x_text, y_text + h, fmt("(%s, %s) %02X, %d, %d",
               eat_id_str, eat_type_str, tongue_len, tongue_wait, tongue_timer), COLOUR.yoshi)
     ;
 
