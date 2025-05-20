@@ -80,8 +80,8 @@ config.DEFAULT_OPTIONS = {
   display_level_info = true,
   display_level_main_info = true,
   display_level_boundary = false,
-  display_sprite_data = true,
-  display_sprite_load_status = true,
+  display_sprite_data = false,
+  display_sprite_load_status = false,
   display_screen_info = false,
   display_exit_info = true,
 
@@ -1276,6 +1276,7 @@ function biz.check_emulator()
 end
 biz.check_emulator()
 
+-- Check the current BizHawk version -- TODO: client.getversion() was introduced in 2.3.1, maybe forbid running the script in versions prior
 function biz.check_version()
   local major, minor, patch = string.match(client.getversion(), "(%d+)%.(%d+)%.*(%d*)")
   biz.version_major = tonumber(major)
@@ -1284,6 +1285,7 @@ function biz.check_version()
 end
 biz.check_version()
 
+-- Handle version specifc definitions
 if biz.version_major > 2 or (biz.version_major == 2 and biz.version_minor >= 9) then
   bit = (require "migration_helpers").EmuHawk_pre_2_9_bit();
 end
@@ -1628,7 +1630,15 @@ local LM_signature = ""
 for i = 0x0, 0xA do
   LM_signature = LM_signature .. string.char(memory.read_u8(0x07F0A0 + i, biz.ROM_domain))
 end
-if LM_signature == "Lunar Magic" then IS_HACK = true ; IS_SMW = true end -- if it's a Lunar Magic hack, definitely it's SMW
+if LM_signature == "Lunar Magic" then -- If it's a Lunar Magic hack, definitely it's SMW
+  IS_HACK = true ; IS_SMW = true
+else
+  LM_signature = ""
+  for i = 0x0, 0xA do
+    LM_signature = LM_signature .. string.char(memory.read_u8(0x4FF0A0 + i, biz.ROM_domain)) -- Old address, SDW:TLC uses it for example
+  end
+  if LM_signature == "Lunar Magic" then IS_HACK = true ; IS_SMW = true end
+end
 
 -- Failsafe to prevent script running with other games
 if not IS_SMW then error("\n\nThis script is only for Super Mario World (any SNES version or hack)!\nIf you're sure this is a SMW hack, contact the script author here https://github.com/brunovalads/smw-stuff") end
@@ -2796,11 +2806,11 @@ end
 Lagmeter.master_cycles = 0
 function Lagmeter.get_master_cycles()
   local v, h = emu.getregister("V"), emu.getregister("H")
-  local master_cycles = v + 262 - 225
+  local master_cycles = v + 262 - 225 -- 262 is the V range, 225 is the start of V-blank
   
-  Lagmeter.master_cycles = 1364*master_cycles + h
+  Lagmeter.master_cycles = 1364*master_cycles + h -- the SNES runs 1 scanline every 1364 master cycles
   if v >= 226 or (v == 225 and h >= 12) then
-    Lagmeter.master_cycles = Lagmeter.master_cycles - 2620
+    Lagmeter.master_cycles = Lagmeter.master_cycles - 2620 -- cycles between last moment before NMI and RTI
     --print("Lagmeter (V, H):", v, h)
   end
   if v >= 248 then
@@ -2924,7 +2934,7 @@ function RNG.display()
   
   if RNG_counter then
     local min = math.max(RNG_counter - upper_rows, 1)
-    local max = math.min(min + 2*upper_rows, 27777) -- todo: hardcoded constants are never a good idea
+    local max = math.min(min + 2*upper_rows, 27777) -- TODO: hardcoded constants are never a good idea
     
     draw.text(x, y - BIZHAWK_FONT_HEIGHT, "RNG:", COLOUR.text)
     for i = min, max do
@@ -3011,7 +3021,7 @@ function Lagmeter.show_lagmeter()
   local x_pos, y_pos = draw.Buffer_middle_x*draw.AR_x + 40, -draw.Border_top
   
   -- Adjust display colour based on value
-  local meter, colour = Lagmeter.master_cycles/3573.68
+  local meter, colour = Lagmeter.master_cycles/(357368/100) -- 357368 = 262 (V range) * 1364 (cycles in 1 scanline)
   if meter < 70 then colour = 0xff00FF00
   elseif meter < 90 then colour = 0xffFFFF00
   elseif meter <= 100 then colour = 0xffFF0000
@@ -3053,7 +3063,8 @@ local function sprite_level_info()
   pointer_pc_addr = bit.band(pointer, 0xFFFF) - 0x8000*(floor(pointer/0x10000)+1)%2
   pointer_pc = pointer_pc_bank*0x10000 + pointer_pc_addr
   -- TODO: check if there's any hack that is HiROM, because conversion there is different thus this method will not work
-  
+  --print(fmt("Sprite_data_pointer: %06X | pointer_pc_bank: %06X | pointer_pc_addr: %06X | pointer_pc: %06X", Sprite_data_pointer, pointer_pc_bank, pointer_pc_addr, pointer_pc))
+  --pointer_pc = 0x3D6874 -- TESTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   -- Level scan
   local is_vertical = read_screens() == "Vertical"
 
@@ -3570,7 +3581,7 @@ local function player()
     draw.text(table_x, table_y + i*delta_y, position_str)
     i = i + 1
 
-    -- Handle dec/hex option for position
+    -- Handle dec/hex option for speed
     local x_speed_str, y_speed_str
     if OPTIONS.speeds_in_hex then
       x_speed_str = fmt("       %s %s.%02x", luap.signed8hex(x_speed_u, true), luap.signed8hex(x_speed_int, true), x_speed_frac)
@@ -4620,7 +4631,7 @@ special_sprite_property[0xa0] = function(slot) -- Bowser
   for index = 0, 9 do
     local value = u8(WRAM.bowser_attack_timers + index)
     draw.text(draw.Buffer_width + draw.Border_right, y_text + index*height,
-      fmt("%$2X = %3d", value, value), Sprites_info[slot].info_colour, true)
+      fmt("$%2X = %3d", value, value), Sprites_info[slot].info_colour, true)
   end
 end
 
@@ -6040,8 +6051,6 @@ function Options_form.create_window()
   
   -- Positions/Speeds format display
   xform, yform = 4, y_section + 2.5*delta_y
-  --positions_in_hex = true,
-  --speeds_in_hex = true,
   Options_form.positions_in_hex = forms.checkbox(Options_form.form, "Show positions in hexadecimal", xform, yform)
   forms.setproperty(Options_form.positions_in_hex, "Checked", OPTIONS.positions_in_hex)
   forms.setproperty(Options_form.positions_in_hex, "AutoSize", true)
@@ -6447,6 +6456,11 @@ end
 - Add some display to help Submap Warps, Wrong Warps, etc
 - Add description of the sprite tweakers (use SMW.sprite_tweakers_info)
 - Fix Mario boost indicator
+- Add buttons for the Normal/Secret Exit glitches
+- Add detection areas for the other Chucks
+- Display useful level settings from header, such as slippery and water flags (https://smwspeedruns.com/Level_Data_Format)
+- Maybe simplify config save/load, using MUGG's GuiSaveSettings from his MLSS script
+- Check if Sumo Brother lightning flames hitbox is being displaced vertically properly due DATA_02F9AA
 
 - Add "all exits" cheat, by filling the $7E1EA2 table (96 bytes) (probably with 0xBF, to enable all paths but avoiding setting the midway points) and the $7E1F02 table (15 bytes) (0xFF is good), and to make the layer 2 correct would need to fill $7F4000 with the exact bytes from a 96 exits save file, and to reload properly set 0x0B to the game mode ($7E0100)
 FOR NEW BIZHAWK:
