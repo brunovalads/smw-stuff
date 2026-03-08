@@ -2945,7 +2945,7 @@ function RNG.display()
       y = y + height
     end
   else
-    draw.text(x, y, "Glitched RNG! Report state/movie", "red")
+    draw.text(x, y, "Glitched RNG! Report state/movie", COLOUR.warning)
   end
 end
 
