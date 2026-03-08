@@ -43,13 +43,13 @@ config.DEFAULT_OPTIONS = {
   display_sprite_spawning_areas = true,
   display_sprite_vanish_area = true,
   display_misc_sprite_table = {
-    [1] = false, 	[2] = false, 	[3] = false, 	[4] = true, 	[5] = false, 	[6] = false, 	[7] = false,
-    [8] = false, 	[9] = false, 	[10] = false, 	[11] = false, 	[12] = true, 	[13] = true, 	[14] = true,
-    [15] = true, 	[16] = true, 	[17] = true, 	[18] = true, 	[19] = true, 	[20] = true, 	[21] = true,
-    [22] = true, 	[23] = true, 	[24] = true, 	[25] = false, 	[26] = true, 	[27] = false, 	[28] = false,
-    [29] = true, 	[30] = false, 	[31] = false, 	[32] = false, 	[33] = true, 	[34] = true, 	[35] = false,
-    [36] = false, 	[37] = false, 	[38] = true, 	[39] = false, 	[40] = false, 	[41] = false, 	[42] = false,
-    [43] = false, 	[44] = false, 	[45] = false, 	[46] = true, 	[47] = false, 	[48] = false, 	[49] = false
+    [1] = false,  [2] = false,  [3] = false,  [4] = true,   [5] = false,  [6] = false,  [7] = false,
+    [8] = false,  [9] = false,  [10] = false,   [11] = false,   [12] = true,  [13] = true,  [14] = true,
+    [15] = true,  [16] = true,  [17] = true,  [18] = true,  [19] = true,  [20] = true,  [21] = true,
+    [22] = true,  [23] = true,  [24] = true,  [25] = false,   [26] = true,  [27] = false,   [28] = false,
+    [29] = true,  [30] = false,   [31] = false,   [32] = false,   [33] = true,  [34] = true,  [35] = false,
+    [36] = false,   [37] = false,   [38] = true,  [39] = false,   [40] = false,   [41] = false,   [42] = false,
+    [43] = false,   [44] = false,   [45] = false,   [46] = true,  [47] = false,   [48] = false,   [49] = false
   },
   display_debug_sprite_tweakers = false,
   display_debug_sprite_extra = false,
@@ -99,6 +99,20 @@ config.DEFAULT_OPTIONS = {
 
 -- Colour settings
 config.DEFAULT_COLOUR = {
+  -- Primary
+  white = 0xffFFFFFF,
+  black = 0xff000000,
+  red = 0xffFF0000,
+  green = 0xff00FF00,
+  blue = 0xff0000FF,
+  yellow = 0xffFFFF00,
+  cyan = 0xff00FFFF,
+  magenta = 0xffFF00FF,
+  light_gray = 0xff404040,
+  gray = 0xff808080,
+  dark_gray = 0xffC0C0C0,
+  full_transparency = 0x00000000,
+  
   -- Text
   default_text_opacity = 1.0,
   default_bg_opacity = 0.4,
@@ -1443,7 +1457,7 @@ end
 
 -- Draw a pixel given (x,y) with SNES' pixel sizes
 local function pixel(x, y, colour, shadow)
-  gui.drawRectangle(x + draw.Left_gap - 1, y + draw.Top_gap - 1, 2, 2, shadow or 0, colour)
+  gui.drawRectangle(x + draw.Left_gap - 1, y + draw.Top_gap - 1, 2, 2, shadow or COLOUR.full_transparency, colour)
 end
 
 
@@ -2953,7 +2967,7 @@ end
 -- Display mouse coordinates right above it
 local function show_mouse_info()
   if not OPTIONS.display_mouse_coordinates then return end
-	
+  
   -- Font
   draw.text_opacity = 1.0
   local line_colour = COLOUR.weak
@@ -3022,10 +3036,10 @@ function Lagmeter.show_lagmeter()
   
   -- Adjust display colour based on value
   local meter, colour = Lagmeter.master_cycles/(357368/100) -- 357368 = 262 (V range) * 1364 (cycles in 1 scanline)
-  if meter < 70 then colour = 0xff00FF00
-  elseif meter < 90 then colour = 0xffFFFF00
-  elseif meter <= 100 then colour = 0xffFF0000
-  else colour = 0xffFF00FF end
+  if meter < 70 then colour = COLOUR.green
+  elseif meter < 90 then colour = COLOUR.yellow
+  elseif meter <= 100 then colour = COLOUR.red
+  else colour = COLOUR.magenta end
 
   draw.text(x_pos, y_pos, fmt("Lagmeter: %.2f%%", meter), colour)
 end
@@ -3086,7 +3100,7 @@ local function sprite_level_info()
     end
 
     local status = status_table[id]
-    local colour = (status == 0 and COLOUR.disabled) or (status == 1 and COLOUR.text) or 0xffFFFF00
+    local colour = (status == 0 and COLOUR.disabled) or (status == 1 and COLOUR.text) or COLOUR.yellow
     if status ~= 0 and not indexes[id] then colour = COLOUR.warning end
 
     if OPTIONS.display_sprite_data then
@@ -3105,7 +3119,7 @@ local function sprite_level_info()
 
     -- Sprite load status
     if OPTIONS.display_sprite_load_status then
-      gui.drawRectangle(x, y, w-1, h-1, colour, 0x80000000)
+      gui.drawRectangle(x, y, w-1, h-1, colour, draw.change_transparency(COLOUR.black, 0.5))
       gui.pixelText(x+2, y+2, fmt("%X ", status), colour, 0)
       x = x + w
       if id%16 == 15 then
@@ -3310,12 +3324,12 @@ local function player_hitbox(x, y, is_ducking, powerup, transparency_level)
 
   -- Colours BizHawk
   local is_transparent = transparency_level == 1
-  local interaction_bg = is_transparent and COLOUR.interaction_bg or 0
-  local mario_bg = is_transparent and COLOUR.mario_bg or 0
-  local mario_mounted_bg = is_transparent and COLOUR.mario_mounted_bg or 0
+  local interaction_bg = is_transparent and COLOUR.interaction_bg or COLOUR.full_transparency
+  local mario_bg = is_transparent and COLOUR.mario_bg or COLOUR.full_transparency
+  local mario_mounted_bg = is_transparent and COLOUR.mario_mounted_bg or COLOUR.full_transparency
   local mario = is_transparent and COLOUR.mario or draw.change_transparency(COLOUR.mario, transparency_level)
   local interaction_nohitbox = is_transparent and COLOUR.interaction_nohitbox or draw.change_transparency(COLOUR.interaction_nohitbox, transparency_level)
-  local interaction_nohitbox_bg = is_transparent and COLOUR.interaction_nohitbox_bg or 0
+  local interaction_nohitbox_bg = is_transparent and COLOUR.interaction_nohitbox_bg or COLOUR.full_transparency
   local interaction = is_transparent and COLOUR.interaction or draw.change_transparency(COLOUR.interaction, transparency_level)
 
   -- Interaction points, offsets and dimensions
@@ -3392,7 +3406,7 @@ local function cape_hitbox(spin_direction)
   local active_frame_blocks  = Real_frame%2 == (spin_direction < 0 and 0 or 1)  -- active iff the cape can hit a block
   local bg_colour
 
-  if active_frame_sprites then bg_colour = COLOUR.cape_bg else bg_colour = 0 end
+  if active_frame_sprites then bg_colour = COLOUR.cape_bg else bg_colour = COLOUR.full_transparency end
   draw.box(cape_x_screen + cape_left, cape_y_screen + cape_up, cape_x_screen + cape_right, cape_y_screen + cape_down, COLOUR.cape, bg_colour)
 
   if active_frame_blocks then
@@ -3591,7 +3605,7 @@ local function player()
       y_speed_str = fmt("%+d", y_speed)
     end
     if math.abs(x_speed) == 49 or math.abs(x_speed) == 51 then colour = COLOUR.positive -- max running and flying speed
-    elseif (math.abs(x_speed) >= 35 and math.abs(x_speed) <= 37) or math.abs(x_speed) >= 47 then colour = "yellow" -- oscillating speeds
+    elseif (math.abs(x_speed) >= 35 and math.abs(x_speed) <= 37) or math.abs(x_speed) >= 47 then colour = COLOUR.yellow -- oscillating speeds
     else colour = COLOUR.text end
     draw.text(table_x, table_y + i*delta_y, fmt("Speed (   (      ), %s)", y_speed_str))
     draw.text(table_x, table_y + i*delta_y, x_speed_str, colour)
@@ -3631,7 +3645,7 @@ local function player()
     end
     
     if p_meter == 112 then colour = COLOUR.positive -- max pmeter
-    elseif p_meter >= 106 then colour = "yellow" -- range of pmeter in a 6/5
+    elseif p_meter >= 106 then colour = COLOUR.yellow -- range of pmeter in a 6/5
     else colour = COLOUR.text end
     local p_meter_str
     if OPTIONS.speeds_in_hex then
@@ -3689,7 +3703,7 @@ local function player()
     local left_cam, right_cam = u16(WRAM.camera_left_limit), u16(WRAM.camera_right_limit)
     local center_cam = floor((left_cam + right_cam)/2)
     draw.box(left_cam, 0, right_cam, 224, COLOUR.camera_region, COLOUR.camera_region)
-    draw.line(center_cam, 0, center_cam, 224, "black")
+    draw.line(center_cam, 0, center_cam, 224, COLOUR.black)
     draw.text(draw.AR_x*left_cam, draw.Buffer_height*draw.AR_y, fmt(OPTIONS.positions_in_hex and "%02X" or "%d", left_cam), COLOUR.text, 0x400020, false, false, 1, 0)
     draw.text(draw.AR_x*right_cam, draw.Buffer_height*draw.AR_y, fmt(OPTIONS.positions_in_hex and "%02X" or "%d", right_cam), COLOUR.text, 0x400020)
 
@@ -3788,7 +3802,7 @@ local function extended_sprites()
         local colour_line = t.colour_line or COLOUR.extended_sprites
         local colour_bg = t.colour_bg or COLOUR.extended_sprites_bg
         if extspr_number == 0x5 or extspr_number == 0x11 then
-          colour_bg = (Real_frame - id)%4 == 0 and COLOUR.special_extended_sprite_bg or 0
+          colour_bg = (Real_frame - id)%4 == 0 and COLOUR.special_extended_sprite_bg or COLOUR.full_transparency
         end
         draw.rectangle(x_screen+xoff, y_screen+yoff, xrad, yrad, colour_line, colour_bg) -- regular hitbox
         
@@ -3896,7 +3910,7 @@ local function cluster_sprites()
           end
           special_info = fmt(" (%d)", table_1)
           
-        elseif clusterspr_number == 7 then -- 	Reappearing Boo
+        elseif clusterspr_number == 7 then --   Reappearing Boo
         
           reappearing_boo_counter = reappearing_boo_counter or u8(WRAM.reappearing_boo_counter)
           invencibility_hitbox = (reappearing_boo_counter > 0xde) or (reappearing_boo_counter < 0x3f)
@@ -3907,7 +3921,7 @@ local function cluster_sprites()
       
       -- Hitbox and info next to the cluster sprite
       colour = invencibility_hitbox and COLOUR.weak or colour
-      colour_bg = (invencibility_hitbox and 0) or (oscillation and colour_bg) or 0
+      colour_bg = (invencibility_hitbox and 0) or (oscillation and colour_bg) or COLOUR.full_transparency
       draw.rectangle(x_screen + xoff, y_screen + yoff, xrad, yrad, colour, colour_bg)
       draw.text(draw.AR_x*(x_screen + xoff) + xrad, draw.AR_y*(y_screen + yoff), special_info and id .. special_info or id,
       colour, false, false, 0.5, 1.0)
@@ -4059,7 +4073,7 @@ local function quake_sprite_info()
       local x = luap.signed16(256*u8(WRAM.quakespr_x_high + id) + u8(WRAM.quakespr_x_low + id))
       local y = luap.signed16(256*u8(WRAM.quakespr_y_high + id) + u8(WRAM.quakespr_y_low + id))
       local quake_timer = u8(WRAM.quakespr_timer + id)
-      local interact = quake_timer < 3 and COLOUR.quake_sprite_bg or 0
+      local interact = quake_timer < 3 and COLOUR.quake_sprite_bg or COLOUR.full_transparency
       
       -- Draw the hitbox
       draw.rectangle(x - Camera_x + hitbox.xoff, y - Camera_y + hitbox.yoff, hitbox.width, hitbox.height, COLOUR.quake_sprite, interact)
@@ -4138,7 +4152,7 @@ local function scan_sprite_info(lua_table, slot)
     t.info_colour = COLOUR.sprites[slot%(#COLOUR.sprites) + 1]
     t.background_colour = COLOUR.sprites_bg
   end
-  if (not t.oscillation_flag) and (Real_frame - slot)%2 == 1 then t.background_colour = 0 end
+  if (not t.oscillation_flag) and (Real_frame - slot)%2 == 1 then t.background_colour = COLOUR.full_transparency end
 
   t.sprite_middle = t.x_screen + t.hitbox_xoff + floor(t.hitbox_width/2)
   t.sprite_top = t.y_screen + math.min(t.hitbox_yoff, t.ypt_up)
@@ -4171,7 +4185,7 @@ local function draw_sprite_hitbox(slot)
   local display_clipping = Sprite_hitbox[slot][number].block
   local alive_status = (t.status == 0x03 or t.status >= 0x08)
   local info_colour = alive_status and t.info_colour or COLOUR.very_weak
-  local background_colour = alive_status and t.background_colour or 0
+  local background_colour = alive_status and t.background_colour or COLOUR.full_transparency
 
   -- That's the pixel that appears when the sprite vanishes in the pit
   if y_screen >= 224 or OPTIONS.display_debug_sprite_extra then
@@ -4206,11 +4220,11 @@ local function draw_sprite_hitbox(slot)
 
       local boxid2 = bit.band(u8(WRAM.sprite_2_tweaker + slot), 0x0f)
       local yoff2 = boxid2 == 0 and 2 or 0xa  -- ROM data
-      local bg_colour = t.status >= 8 and 0x80ffffff or 0x80ff0000
-      if Real_frame%2 == 0 then bg_colour = 0x80808080 end
+      local bg_colour = t.status >= 8 and draw.change_transparency(COLOUR.white, 0.5) or draw.change_transparency(COLOUR.red, 0.5)
+      if Real_frame%2 == 0 then bg_colour = draw.change_transparency(COLOUR.gray, 0.5) end
 
       -- if y1 - y2 + 0xc < 0x18
-      draw.rectangle(x_screen, y_screen + yoff2, 0x10, 0x0c, 0xffffff)
+      draw.rectangle(x_screen, y_screen + yoff2, 0x10, 0x0c, COLOUR.white)
       draw.rectangle(x_screen, y_screen + yoff2, 0x10-1, 0x0c - 1, info_colour, bg_colour)
     end
   end
@@ -4382,7 +4396,7 @@ special_sprite_property[0x5f] = function(slot) -- Swinging brown platform (TODO 
   --sx, sy = screen_coordinates(px, py, Camera_x, Camera_y)
   draw.rectangle(sx - 24, sy - 7, 64, 18, info_colour, COLOUR.sprites_bg)
   draw.rectangle(sx, sy, 2, 2, info_colour)  -- to test correctness
-  draw.text(0, 32, "Platf. Calc: " .. platform_x .. ", " .. platform_y, "red", 0x40000000)
+  draw.text(0, 32, "Platf. Calc: " .. platform_x .. ", " .. platform_y, COLOUR.red, 0x40000000)
 
   -- test2
   local next_pos = (16*table3 + table2//16 + table1)//16
@@ -4391,7 +4405,7 @@ special_sprite_property[0x5f] = function(slot) -- Swinging brown platform (TODO 
   if Circle[index] then if Circle[index][1] ~= px - x then print("x erf", -px + x, -Circle[index][1]) end if Circle[index][2] ~= py - y then print"y erf" end end
   Circle[index] = Circle[index] or ({px - x, py - y})
   local count=0 ; for a,b in pairs(Circle) do count = count + 1  end
-  gui.text(0, 400, count, "red", "brown")
+  gui.text(0, 400, count, COLOUR.red, "brown")
   --]]
 
   local t = Sprites_info[slot]
@@ -4497,7 +4511,7 @@ special_sprite_property[0x6f] = function(slot) -- Dino-Torch: display flame hitb
 
   if OPTIONS.display_sprite_hitbox then
     if u8(WRAM.sprite_misc_151c + slot) == 0 then  -- if flame is hurting
-      local active = (Real_frame - slot)%4 == 0 and COLOUR.sprites_bg or 0
+      local active = (Real_frame - slot)%4 == 0 and COLOUR.sprites_bg or COLOUR.full_transparency
       local vertical_flame = u8(WRAM.sprite_misc_1602 + slot) == 3
       local xoff, yoff, width, height
 
@@ -4548,7 +4562,7 @@ special_sprite_property[0x86] = function(slot) -- Wiggler (segments)
     draw.box(xoff, yoff, xend, yend, COLOUR.awkward_hitbox, COLOUR.awkward_hitbox_bg)
   end
 
-  draw.pixel(s16(0x7e), s16(0x80), COLOUR.mario, 0x80000000) -- TODO: lots of unlisted WRAM
+  draw.pixel(s16(0x7e), s16(0x80), COLOUR.mario, draw.change_transparency(COLOUR.black, 0.5)) -- TODO: lots of unlisted WRAM
 end
 
 special_sprite_property[0xa9] = function(slot) -- Reznor
@@ -4579,7 +4593,7 @@ special_sprite_property[0x91] = function(slot) -- Chargin' Chuck
   if routine_pointer == 0 then -- looking
     local active = bit.band(u8(WRAM.sprite_stun_timer + slot), 0x0f) == 0
     colour = COLOUR.sprite_vision_passive
-    bg = active and COLOUR.sprite_vision_active_bg or 0
+    bg = active and COLOUR.sprite_vision_active_bg or COLOUR.full_transparency
     yoff = -0x28
     height = 0x50 - 1
     x1 = 0
@@ -4899,7 +4913,7 @@ local function yoshi()
       -- glitched hitbox for Layer Switch Glitch
       if yoshi_in_pipe ~= 0 then
         xoff = special_sprite_property.yoshi_tongue_offset(0x40, tongue_len) -- from ROM
-        draw.rectangle(x_screen + xoff, y_screen + yoff, 8, 4, 0x80ffffff, 0x40000000)
+        draw.rectangle(x_screen + xoff, y_screen + yoff, 8, 4, draw.change_transparency(COLOUR.white, 0.5), draw.change_transparency(COLOUR.black, 0.25))
 
         draw.text(x_text, y_text + 3*h, fmt("$1a: %.4x $1c: %.4x", u16(WRAM.layer1_x_mirror), u16(WRAM.layer1_y_mirror)), COLOUR.yoshi)
         draw.text(x_text, y_text + 4*h, fmt("$4d: %.4x $4f: %.4x", u16(WRAM.layer1_VRAM_left_up), u16(WRAM.layer1_VRAM_right_down)), COLOUR.yoshi)
@@ -6069,7 +6083,7 @@ function Options_form.create_window()
   
   -- Background for dev tests
   --Options_form.picture_box = forms.pictureBox(Options_form.form, 0, 0, form_width, form_height)
-  --forms.clear(Options_form.picture_box, 0xffFF0000)
+  --forms.clear(Options_form.picture_box, COLOUR.red)
   
 end
 
@@ -6363,7 +6377,7 @@ if IS_HACK then print("Caution: this is a SMW hack, thus the script might not su
 -- Main script loop
 while true do
   if emu.getsystemid() ~= "SNES" then
-    gui.text(0, 0, "WRONG CORE: " .. emu.getsystemid(), "black", "red", "bottomright")
+    gui.text(0, 0, "WRONG CORE: " .. emu.getsystemid(), COLOUR.black, COLOUR.red, "bottomright")
 
   else
 
@@ -6397,7 +6411,7 @@ while true do
     -- Checks if options form exits and create a button in case it doesn't
     if Options_form.is_form_closed then
       if User_input.mouse_inwindow then
-        draw.rectangle(0, 0, 14*BIZHAWK_FONT_WIDTH/draw.AR_x, 2*BIZHAWK_FONT_HEIGHT/draw.AR_y - 1, "white", 0xffb0b0b0)
+        draw.rectangle(0, 0, 14*BIZHAWK_FONT_WIDTH/draw.AR_x, 2*BIZHAWK_FONT_HEIGHT/draw.AR_y - 1, COLOUR.white, 0xffb0b0b0)
         draw.line(0, 2*BIZHAWK_FONT_HEIGHT/draw.AR_y - 1, 14*BIZHAWK_FONT_WIDTH/draw.AR_x, 2*BIZHAWK_FONT_HEIGHT/draw.AR_y - 1, 0xff606060)
         draw.line(14*BIZHAWK_FONT_WIDTH/draw.AR_x, 0, 14*BIZHAWK_FONT_WIDTH/draw.AR_x, 2*BIZHAWK_FONT_HEIGHT/draw.AR_y - 1, 0xff606060)
         gui.text(draw.Border_left, draw.Border_top + BIZHAWK_FONT_HEIGHT/2 - 1, " Options Menu ")
