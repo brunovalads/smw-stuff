@@ -98,7 +98,7 @@ config.DEFAULT_OPTIONS = {
 }
 
 -- Colour settings
-config.DEFAULT_COLOUR = {
+config.COLOUR = {
   -- Primary
   white = 0xffFFFFFF,
   black = 0xff000000,
@@ -1215,16 +1215,9 @@ function config.load_options(filename)
   and config.retrieve(filename, {[config.OPTIONS_LABEL .. " OPTIONS"] = config.DEFAULT_OPTIONS})[config.OPTIONS_LABEL .. " OPTIONS"]
   or luap.copytable(config.DEFAULT_OPTIONS)
 
-  config.COLOUR = luap.file_exists(filename)
-  and config.retrieve(filename, {[config.OPTIONS_LABEL .. " COLOURS"] = config.DEFAULT_COLOUR})[config.OPTIONS_LABEL .. " COLOURS"]
-  or luap.copytable(config.DEFAULT_COLOUR)
-
   config.save(filename, {
-    [config.OPTIONS_LABEL .. " OPTIONS"] = config.OPTIONS,
-    [config.OPTIONS_LABEL .. " COLOURS"] = config.COLOUR
+    [config.OPTIONS_LABEL .. " OPTIONS"] = config.OPTIONS
   })
-
-  interpret_colour(config.COLOUR)
 end
 
 -- loads the encoded table stored on file <filename
