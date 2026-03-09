@@ -1188,9 +1188,12 @@ config.RIGHT_ARROW = "->"
 
 -- Functions
 local function colour_number(str)
-  local r, g, b, a = str:match("^#(%x+%x+)(%x+%x+)(%x+%x+)(%x+%x+)$")
+  local a, r, g, b = str:match("^#(%x+%x+)(%x+%x+)(%x+%x+)(%x+%x+)$")
 
-  r, g, b, a = tonumber(r, 16), tonumber(g, 16), tonumber(b, 16), tonumber(a, 16)
+  a = tonumber(a, 16)
+  r = tonumber(r, 16)
+  g = tonumber(g, 16)
+  b = tonumber(b, 16)
   
   return 0x1000000*a + 0x10000*r + 0x100*g + b
 end
